@@ -9,6 +9,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var PendulumModel = require( 'PENDULUM_LAB/common/model/PendulumModel' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
@@ -16,8 +17,19 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabModel() {
+    PropertySet.call( this, {
+      g: 9.81, // gravitational acceleration
+      timeSpeed: 1, // speed of time ticking
+      isSinglePendulum: true, // flag: controls visibility of second pendulum
+      isRuler: true, // flag: controls visibility of ruler
+      isStopwatch: false, // flag: controls visibility of stopwatch
+      isPeriodTrace: false // flag: controls visibility of period trace timer
+    } );
 
-    PropertySet.call( this, {} );
+    this.pendulumModels = [
+      new PendulumModel( 1, 2, 'rgb( 0, 0, 255 )' ), // blue pendulum
+      new PendulumModel( 0.5, 1, 'rgb( 255, 0, 0 )') // red pendulum
+    ];
   }
 
   return inherit( PropertySet, PendulumLabModel, {
