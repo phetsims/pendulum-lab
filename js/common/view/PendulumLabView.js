@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
@@ -25,7 +26,19 @@ define( function( require ) {
     //image.opacity = 0.25;
     this.addChild( image );
 
-    this.addChild( new ProtractorNode( {x: this.layoutBounds.width / 2, y: this.layoutBounds.height * 0.045} ) );
+    // add protractor node
+    this.addChild( new ProtractorNode( pendulumLabModel.pendulumModels , {
+      x: this.layoutBounds.width / 2,
+      y: this.layoutBounds.height * 0.045
+    } ) );
+
+    // add reset all button
+    this.addChild( new ResetAllButton( {
+      listener: function() {pendulumLabModel.reset();},
+      right: this.layoutBounds.maxX * 0.965,
+      bottom: this.layoutBounds.maxY * 0.915,
+      scale: 0.75
+    } ) );
   }
 
   return inherit( ScreenView, PendulumLabView, {

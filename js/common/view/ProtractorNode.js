@@ -21,9 +21,11 @@ define( function( require ) {
   var TICK_10_LENGTH = 9;
 
   /**
+   * {array} pendulumModels - Array of pendulum models
+   * {Object} options for protractor node
    * @constructor
    */
-  function ProtractorNode( options ) {
+  function ProtractorNode( pendulumModels, options ) {
     Node.call( this, options );
 
     for ( var currentAngleDeg = 0, currentAngleRad, lineLength, x1, y1, x2, y2; currentAngleDeg <= 180; currentAngleDeg += 1 ) {

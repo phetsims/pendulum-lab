@@ -20,7 +20,7 @@ define( function( require ) {
     PropertySet.call( this, {
       g: 9.81, // gravitational acceleration
       timeSpeed: 1, // speed of time ticking
-      isSinglePendulum: true, // flag: controls visibility of second pendulum
+      numberOfPendulums: 1, // number of visible pendulums
       isRuler: true, // flag: controls visibility of ruler
       isStopwatch: false, // flag: controls visibility of stopwatch
       isPeriodTrace: false // flag: controls visibility of period trace timer
