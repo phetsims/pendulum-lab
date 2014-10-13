@@ -3,13 +3,15 @@
 /**
  * Main entry point for the sim.
  *
- * @author 0
+ * @author Andrey Zelenkov (Mlearner)
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var PendulumLabScreen = require( 'PENDULUM_LAB/pendulum-lab/PendulumLabScreen' );
+  var EnergyScreen = require( 'PENDULUM_LAB/energy/EnergyScreen' );
+  var IntroScreen = require( 'PENDULUM_LAB/intro/IntroScreen' );
+  var LabScreen = require( 'PENDULUM_LAB/lab/LabScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -41,7 +43,7 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new PendulumLabScreen( screenshot1 ), new PendulumLabScreen( screenshot2 ), new PendulumLabScreen( screenshot3 ) ], simOptions );
+    var sim = new Sim( simTitle, [ new IntroScreen( screenshot1 ), new EnergyScreen( screenshot2 ), new LabScreen( screenshot3 ) ], simOptions );
     sim.start();
   } );
 } );

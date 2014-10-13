@@ -1,3 +1,6 @@
 {
-  "pendulum-lab.name": "Pendulum Lab"
+  "pendulum-lab.name": "Pendulum Lab",
+  "tab.energy": "Energy",
+  "tab.intro": "Intro",
+  "tab.lab": "Lab"
 }

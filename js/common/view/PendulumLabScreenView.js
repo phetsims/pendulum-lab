@@ -2,7 +2,7 @@
 
 /**
  *
- * @author 0
+ * @author Andrey Zelenkov (Mlearner)
  */
 define( function( require ) {
   'use strict';

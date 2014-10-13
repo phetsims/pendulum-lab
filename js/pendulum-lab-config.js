@@ -3,7 +3,7 @@
 /**
  * RequireJS configuration file for the sim.
  *
- * @author 0
+ * @author Andrey Zelenkov (Mlearner)
  */
 require.config(
   {
