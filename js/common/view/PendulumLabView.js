@@ -9,26 +9,26 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var ScreenView = require( 'JOIST/ScreenView' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
+  var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
    * @constructor
    */
-  function PendulumLabScreenView( pendulumLabModel, screenshotImage ) {
-
-    ScreenView.call( this, {
-      layoutBounds: new Bounds2( 0, 0, 1024, 618 )
-    } );
+  function PendulumLabView( pendulumLabModel, screenshotImage ) {
+    ScreenView.call( this );
 
     var image = new Image( screenshotImage );
     image.scale( this.layoutBounds.width / image.width );
+    //image.opacity = 0.25;
     this.addChild( image );
+
+    this.addChild( new ProtractorNode( {x: this.layoutBounds.width / 2, y: this.layoutBounds.height * 0.045} ) );
   }
 
-  return inherit( ScreenView, PendulumLabScreenView, {
+  return inherit( ScreenView, PendulumLabView, {
 
     // Called by the animation loop. Optional, so if your view has no animation, you can omit this.
     step: function( dt ) {
