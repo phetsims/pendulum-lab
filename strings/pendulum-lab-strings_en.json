@@ -1,5 +1,8 @@
 {
   "pendulum-lab.name": "Pendulum Lab",
+  "periodTrace": "Period Trace",
+  "ruler": "Ruler",
+  "stopwatch": "Stopwatch",
   "tab.energy": "Energy",
   "tab.intro": "Intro",
   "tab.lab": "Lab"

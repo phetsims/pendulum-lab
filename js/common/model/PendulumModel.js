@@ -1,9 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Ruler model, to take advantage of location reset.
+ * Single pendulum model.
  *
- * @author Chris Malley (PixelZoom, Inc.)
+ * @author Andrey Zelenkov (Mlearner)
  */
 define( function( require ) {
   'use strict';
@@ -29,11 +29,12 @@ define( function( require ) {
       isTickVisible: false  // flag: is pendulum tick visible on protractor
     } );
 
+    this.color = color;
+
+    // make tick on protractor visible after first drag
     this.property( 'isDragging' ).once( function() {
       self.isTickVisible = true;
     } );
-
-    this.color = color;
   }
 
   return inherit( PropertySet, PendulumModel );

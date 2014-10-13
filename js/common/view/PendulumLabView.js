@@ -13,6 +13,7 @@ define( function( require ) {
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
@@ -27,16 +28,27 @@ define( function( require ) {
     this.addChild( image );
 
     // add protractor node
-    this.addChild( new ProtractorNode( pendulumLabModel.pendulumModels , {
+    this.addChild( new ProtractorNode( pendulumLabModel.pendulumModels, {
       x: this.layoutBounds.width / 2,
       y: this.layoutBounds.height * 0.045
     } ) );
 
+    // add tools control panel
+    this.addChild( new ToolsControlPanelNode(
+      pendulumLabModel.property( 'isRuler' ),
+      pendulumLabModel.property( 'isStopwatch' ),
+      pendulumLabModel.property( 'isPeriodTrace' ),
+      {
+        x: this.layoutBounds.width * 0.03,
+        bottom: this.layoutBounds.height * 0.895
+      }
+    ) );
+
     // add reset all button
     this.addChild( new ResetAllButton( {
       listener: function() {pendulumLabModel.reset();},
-      right: this.layoutBounds.maxX * 0.965,
-      bottom: this.layoutBounds.maxY * 0.915,
+      right: this.layoutBounds.width * 0.965,
+      bottom: this.layoutBounds.height * 0.915,
       scale: 0.75
     } ) );
   }
