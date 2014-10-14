@@ -9,7 +9,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PendulumModel = require( 'PENDULUM_LAB/common/model/PendulumModel' );
+  var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
@@ -28,8 +28,8 @@ define( function( require ) {
     } );
 
     this.pendulumModels = [
-      new PendulumModel( 1, 2, 'rgb( 0, 0, 255 )' ), // blue pendulum
-      new PendulumModel( 0.5, 1, 'rgb( 255, 0, 0 )' ) // red pendulum
+      new Pendulum( 1, 2, 'rgb( 0, 0, 255 )' ), // blue pendulum
+      new Pendulum( 0.5, 1, 'rgb( 255, 0, 0 )' ) // red pendulum
     ];
   }
 

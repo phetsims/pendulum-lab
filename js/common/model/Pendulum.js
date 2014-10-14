@@ -18,7 +18,7 @@ define( function( require ) {
    * @param {string} color of pendulum
    * @constructor
    */
-  function PendulumModel( mass, length, color ) {
+  function Pendulum( mass, length, color ) {
     var self = this;
 
     PropertySet.call( this, {
@@ -37,5 +37,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, PendulumModel );
+  return inherit( PropertySet, Pendulum );
 } );
