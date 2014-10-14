@@ -22,9 +22,9 @@ define( function( require ) {
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: false, // flag: controls running of time
-      isRuler: true, // flag: controls visibility of ruler
-      isStopwatch: false, // flag: controls visibility of stopwatch
-      isPeriodTrace: false // flag: controls visibility of period trace timer
+      isRulerVisible: true, // flag: controls visibility of ruler
+      isStopwatchVisible: false, // flag: controls visibility of stopwatch
+      isPeriodTraceVisible: false // flag: controls visibility of period trace timer
     } );
 
     this.pendulumModels = [

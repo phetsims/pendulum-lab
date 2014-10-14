@@ -48,9 +48,9 @@ define( function( require ) {
 
     // add tools control panel
     this.addChild( new ToolsControlPanelNode(
-      pendulumLabModel.property( 'isRuler' ),
-      pendulumLabModel.property( 'isStopwatch' ),
-      pendulumLabModel.property( 'isPeriodTrace' ),
+      pendulumLabModel.property( 'isRulerVisible' ),
+      pendulumLabModel.property( 'isStopwatchVisible' ),
+      pendulumLabModel.property( 'isPeriodTraceVisible' ),
       {
         x: this.layoutBounds.width * 0.03,
         bottom: this.layoutBounds.height * 0.895
