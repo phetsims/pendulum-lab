@@ -10,6 +10,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -32,6 +33,18 @@ define( function( require ) {
       x: this.layoutBounds.width / 2,
       y: this.layoutBounds.height * 0.045
     } ) );
+
+    // add pendulum system control panel
+    this.addChild( new PendulumSystemControlPanelNode(
+      pendulumLabModel.property( 'numberOfPendulums' ),
+      pendulumLabModel.property( 'play' ),
+      pendulumLabModel.property( 'timeSpeed' ),
+      pendulumLabModel.stepManual.bind( pendulumLabModel ),
+      {
+        x: this.layoutBounds.width / 2 - 144,
+        y: this.layoutBounds.height * 0.895 - 36
+      }
+    ) );
 
     // add tools control panel
     this.addChild( new ToolsControlPanelNode(

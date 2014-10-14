@@ -1,7 +1,9 @@
 {
+  "normal": "Normal",
   "pendulum-lab.name": "Pendulum Lab",
   "periodTrace": "Period Trace",
   "ruler": "Ruler",
+  "slowMotion": "Slow Motion",
   "stopwatch": "Stopwatch",
   "tab.energy": "Energy",
   "tab.intro": "Intro",

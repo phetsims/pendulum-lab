@@ -20,7 +20,8 @@ define( function( require ) {
     PropertySet.call( this, {
       g: 9.81, // gravitational acceleration
       timeSpeed: 1, // speed of time ticking
-      numberOfPendulums: 1, // number of visible pendulums
+      numberOfPendulums: 1, // number of visible pendulums,
+      play: false, // flag: controls running of time
       isRuler: true, // flag: controls visibility of ruler
       isStopwatch: false, // flag: controls visibility of stopwatch
       isPeriodTrace: false // flag: controls visibility of period trace timer
@@ -28,7 +29,7 @@ define( function( require ) {
 
     this.pendulumModels = [
       new PendulumModel( 1, 2, 'rgb( 0, 0, 255 )' ), // blue pendulum
-      new PendulumModel( 0.5, 1, 'rgb( 255, 0, 0 )') // red pendulum
+      new PendulumModel( 0.5, 1, 'rgb( 255, 0, 0 )' ) // red pendulum
     ];
   }
 
@@ -37,6 +38,11 @@ define( function( require ) {
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
       // Handle model animation here.
+    },
+
+    // handler for step button
+    stepManual: function() {
+
     }
   } );
 } );
