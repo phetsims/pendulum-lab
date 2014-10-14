@@ -25,14 +25,14 @@ define( function( require ) {
       mass: mass, // mass of pendulum
       length: length, // length of pendulum
       angle: 0, // value of the angular displacement
-      isDragging: false, // flag: is pendulum currently dragging
+      isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false  // flag: is pendulum tick visible on protractor
     } );
 
     this.color = color;
 
     // make tick on protractor visible after first drag
-    this.property( 'isDragging' ).once( function() {
+    this.property( 'isUserControlled' ).once( function() {
       self.isTickVisible = true;
     } );
   }
