@@ -13,9 +13,9 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {Number} mass of pendulum, kg
-   * @param {Number} length of pendulum, m
-   * @param {String} color of pendulum
+   * @param {number} mass of pendulum, kg
+   * @param {number} length of pendulum, m
+   * @param {string} color of pendulum
    * @constructor
    */
   function PendulumModel( mass, length, color ) {
