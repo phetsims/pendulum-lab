@@ -39,36 +39,32 @@ define( function( require ) {
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
     Panel.call( this,
       new Node( {children: [
-          // necessary to expand panel
-          new HStrut( PANEL_WIDTH ),
+        // necessary to expand panel
+        new HStrut( PANEL_WIDTH ),
 
-          new VerticalCheckBoxGroup( [
-            {
-              content: new Text( RulerString, {font: FONT} ),
-              property: isRulerProperty
-            },
-            {
-              content: new Text( StopwatchString, {font: FONT} ),
-              property: isStopwatchProperty
-            },
-            {
-              content: new Text( PeriodTraceString, {font: FONT} ),
-              property: isPeriodTraceProperty
-            }
-          ], {spacing: 5, boxWidth: 15} )
-        ]
-        }
-      ),
+        new VerticalCheckBoxGroup( [
+          {
+            content: new Text( RulerString, {font: FONT} ),
+            property: isRulerProperty
+          },
+          {
+            content: new Text( StopwatchString, {font: FONT} ),
+            property: isStopwatchProperty
+          },
+          {
+            content: new Text( PeriodTraceString, {font: FONT} ),
+            property: isPeriodTraceProperty
+          }
+        ], {spacing: 5, boxWidth: 15} )
+      ]} ),
       _.extend( {
         cornerRadius: 5,
         fill: PendulumLabConstants.CONTROL_PANEL_BACKGROUND_COLOR,
         xMargin: 10,
         yMargin: 10
       }, options )
-    )
-    ;
+    );
   }
 
   return inherit( Panel, ToolsControlPanelNode );
-} )
-;
+} );
