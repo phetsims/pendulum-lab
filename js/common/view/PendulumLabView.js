@@ -10,6 +10,7 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var PendulumOptionsControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumOptionsControlPanelNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -34,7 +35,19 @@ define( function( require ) {
       y: this.layoutBounds.height * 0.045
     } ) );
 
+    // add pendulum options control panel
+    // TODO: fix x and y values
+    this.addChild( new PendulumOptionsControlPanelNode(
+      pendulumLabModel.pendulumModels,
+      pendulumLabModel.property( 'numberOfPendulums' ),
+      {
+        x: this.layoutBounds.width * 0.965 - 135 - 135,
+        y: this.layoutBounds.height * 0.045
+      }
+    ) );
+
     // add pendulum system control panel
+    // TODO: fix x and y values
     this.addChild( new PendulumSystemControlPanelNode(
       pendulumLabModel.property( 'numberOfPendulums' ),
       pendulumLabModel.property( 'play' ),

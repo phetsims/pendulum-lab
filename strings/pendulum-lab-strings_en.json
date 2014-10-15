@@ -1,5 +1,10 @@
 {
+  "length": "Length",
+  "mass": "Mass",
   "normal": "Normal",
+  "pattern.0lengthValue.lengthUnitsMetric": "{0} m",
+  "pattern.0massValue.massUnitsMetric": "{0} kg",
+  "pattern.0propertyName.1pendulumNumber": "{0} {1}",
   "pendulum-lab.name": "Pendulum Lab",
   "periodTrace": "Period Trace",
   "ruler": "Ruler",
