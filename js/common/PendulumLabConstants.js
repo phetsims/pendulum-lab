@@ -10,7 +10,6 @@ define( function() {
   'use strict';
 
   return {
-    SIMULATION_BACKGROUND_COLOR: 'rgb( 254, 254, 182 )',
-    CONTROL_PANEL_BACKGROUND_COLOR: 'rgb( 216, 251, 196 )'
+    BACKGROUND_COLOR: 'rgb( 254, 254, 182 )'
   };
 } );

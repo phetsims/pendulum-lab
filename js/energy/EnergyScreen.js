@@ -32,7 +32,7 @@ define( function( require ) {
     Screen.call( this, EnergyString, icon,
       function() { return new PendulumLabModel(); },
       function( model ) { return new PendulumLabView( model, screenshotImage ); },
-      { backgroundColor: PendulumLabConstants.SIMULATION_BACKGROUND_COLOR }
+      { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }
 

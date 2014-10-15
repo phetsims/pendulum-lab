@@ -11,11 +11,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SUN/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
@@ -37,7 +36,7 @@ define( function( require ) {
    * @constructor
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
-    Panel.call( this,
+    PanelPendulumAbstract.call( this,
       new Node( {children: [
         // necessary to expand panel
         new HStrut( PANEL_WIDTH ),
@@ -56,15 +55,8 @@ define( function( require ) {
             property: isPeriodTraceProperty
           }
         ], {spacing: 5, boxWidth: 15} )
-      ]} ),
-      _.extend( {
-        cornerRadius: 5,
-        fill: PendulumLabConstants.CONTROL_PANEL_BACKGROUND_COLOR,
-        xMargin: 10,
-        yMargin: 10
-      }, options )
-    );
+      ]} ), options );
   }
 
-  return inherit( Panel, ToolsControlPanelNode );
+  return inherit( PanelPendulumAbstract, ToolsControlPanelNode );
 } );
