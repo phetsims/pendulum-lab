@@ -18,7 +18,7 @@ define( function( require ) {
    */
   function PendulumLabModel() {
     PropertySet.call( this, {
-      g: 9.81, // gravitational acceleration
+      gravity: 9.81, // gravitational acceleration
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: false, // flag: controls running of time

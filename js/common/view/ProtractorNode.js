@@ -21,7 +21,7 @@ define( function( require ) {
   var TICK_10_LENGTH = 9;
 
   /**
-   * {array} pendulumModels - Array of pendulum models
+   * {Array} pendulumModels - Array of pendulum models
    * {Object} options for protractor node
    * @constructor
    */
