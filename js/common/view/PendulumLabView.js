@@ -10,7 +10,7 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PendulumOptionsControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumOptionsControlPanelNode' );
+  var PendulumOptionsControlPanelNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/PendulumOptionsControlPanelNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
