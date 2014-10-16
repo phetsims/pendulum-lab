@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
-  var PendulumSlidersNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/PendulumSlidersNode' );
+  var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/PendulumOptionSliderNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -39,7 +39,7 @@ define( function( require ) {
     pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
       pendulumSlidersNodeStorage.push( new VBox( {spacing: 5, children: [
         // length slider
-        new PendulumSlidersNode(
+        new PendulumOptionSliderNode(
           pendulumModel.property( 'length' ),
           pendulumModel.lengthOptions,
           StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Length', (pendulumModelIndex + 1).toString() ),
@@ -48,7 +48,7 @@ define( function( require ) {
         ),
 
         // mass slider
-        new PendulumSlidersNode(
+        new PendulumOptionSliderNode(
           pendulumModel.property( 'mass' ),
           pendulumModel.massOptions,
           StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Mass', (pendulumModelIndex + 1).toString() ),

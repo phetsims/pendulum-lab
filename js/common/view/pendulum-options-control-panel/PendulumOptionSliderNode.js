@@ -39,7 +39,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  function PendulumSlidersNode( trackProperty, trackPropertyOptions, titleText, valuePatternString, color, options ) {
+  function PendulumOptionSliderNode( trackProperty, trackPropertyOptions, titleText, valuePatternString, color, options ) {
     var arrowButtonMinus, arrowButtonPlus, valueLabel;
 
     VBox.call( this, _.extend( {
@@ -79,5 +79,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( VBox, PendulumSlidersNode );
+  return inherit( VBox, PendulumOptionSliderNode );
 } );
