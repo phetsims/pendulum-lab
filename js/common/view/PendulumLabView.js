@@ -11,11 +11,11 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PendulumOptionsControlPanelNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/PendulumOptionsControlPanelNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var SlidersControlPanelNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SlidersControlPanelNode' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   /**
@@ -36,9 +36,9 @@ define( function( require ) {
       y: this.layoutBounds.height * 0.045
     } ) );
 
-    // add pendulum options control panel
+    // add control panel with sliders
     // TODO: fix x and y values
-    this.addChild( new PendulumOptionsControlPanelNode(
+    this.addChild( new SlidersControlPanelNode(
       pendulumLabModel.pendulumModels,
       pendulumLabModel.property( 'numberOfPendulums' ),
       {

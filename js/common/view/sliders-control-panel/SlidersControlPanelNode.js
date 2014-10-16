@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
-  var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/PendulumOptionSliderNode' );
+  var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/PendulumOptionSliderNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -28,7 +28,7 @@ define( function( require ) {
    * {Object} options for control panel node
    * @constructor
    */
-  function PendulumOptionsControlPanelNode( pendulumModels, numberOfPendulumsProperty, options ) {
+  function SlidersControlPanelNode( pendulumModels, numberOfPendulumsProperty, options ) {
     var content = new VBox( {spacing: 3} ),
       pendulumSlidersNodeStorage = [],
       currentNumberOfSliders = 0;
@@ -79,5 +79,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PanelPendulumAbstract, PendulumOptionsControlPanelNode );
+  return inherit( PanelPendulumAbstract, SlidersControlPanelNode );
 } );

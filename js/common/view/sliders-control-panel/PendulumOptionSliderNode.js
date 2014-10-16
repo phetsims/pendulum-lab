@@ -18,7 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SliderTitleNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/SliderTitleNode' );
+  var SliderTitleNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SliderTitleNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
