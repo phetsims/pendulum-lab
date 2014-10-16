@@ -1,6 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
+ * Main ScreenView node that contains all other nodes.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

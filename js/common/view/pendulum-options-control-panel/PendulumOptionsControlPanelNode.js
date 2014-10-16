@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Tools control panel node in 'Pendulum Lab' simulation.
- * Contains check box buttons to control visibility of ruler, stopwatch and period trace tools.
+ * Control panel node for pendulums system options in 'Pendulum Lab' simulation.
+ * Contains length and mass sliders for pendulums, friction slider and gravity slider and dropdown menu.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

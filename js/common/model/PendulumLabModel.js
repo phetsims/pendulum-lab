@@ -1,6 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
+ * Main model constructor for 'Pendulum Lab' simulation.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
