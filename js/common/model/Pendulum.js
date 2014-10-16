@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {number} mass of pendulum, kg
@@ -49,6 +50,16 @@ define( function( require ) {
     // make tick on protractor visible after first drag
     this.property( 'isUserControlled' ).once( function() {
       self.isTickVisible = true;
+    } );
+
+    // common rounding length value, to prevent rounding in each setter
+    this.property( 'length' ).link( function( length ) {
+      self.length = Util.toFixedNumber( length, self.lengthOptions.precision );
+    } );
+
+    // common rounding mass value, to prevent rounding in each setter
+    this.property( 'mass' ).link( function( mass ) {
+      self.mass = Util.toFixedNumber( mass, self.massOptions.precision );
     } );
   }
 
