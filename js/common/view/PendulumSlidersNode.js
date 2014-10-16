@@ -50,12 +50,16 @@ define( function( require ) {
 
         // arrow buttons and value panel
         new HBox( {spacing: VALUE_LABEL_SPACING, children: [
-          arrowButtonMinus = new ArrowButton( 'left', function() {}, {scale: 0.5} ),
+          arrowButtonMinus = new ArrowButton( 'left', function() {
+            trackProperty.value = Math.max( trackPropertyOptions.range.min, trackProperty.value - trackPropertyOptions.step );
+          }, {scale: 0.5} ),
           new Node( {children: [
             new Rectangle( 0, 0, TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {centerY: -1, centerX: 0, fill: '#FFF', stroke: 'black', lineWidth: 1} ),
             valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, trackPropertyOptions.precision ) ), {centerX: 0, centerY: -1, font: FONT_LABEL} )
           ]} ),
-          arrowButtonPlus = new ArrowButton( 'right', function() {}, {scale: 0.5} )
+          arrowButtonPlus = new ArrowButton( 'right', function() {
+            trackProperty.value = Math.min( trackPropertyOptions.range.max, trackProperty.value + trackPropertyOptions.step );
+          }, {scale: 0.5} )
         ]} ),
 
         // slider for property
