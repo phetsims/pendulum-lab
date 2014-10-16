@@ -1,7 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- *
+ * Constructor for the pendulum options sliders.
+ * Contains title, left and right arrows, label and slider itself.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -17,6 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SliderTitleNode = require( 'PENDULUM_LAB/common/view/pendulum-options-control-panel/SliderTitleNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
@@ -24,7 +26,6 @@ define( function( require ) {
 
   // constants
   var FONT_LABEL = new PhetFont( 10 );
-  var FONT_TITLE = new PhetFont( {size: 11, weight: 'bold'} );
   var VALUE_LABEL_SPACING = 4;
   var TRACK_SIZE = new Dimension2( 113, 0 );
 
@@ -46,7 +47,7 @@ define( function( require ) {
       align: 'left',
       children: [
         // slider's title
-        new Text( titleText, { font: FONT_TITLE, fill: color} ),
+        new SliderTitleNode( titleText, {fill: color} ),
 
         // arrow buttons and value panel
         new HBox( {spacing: VALUE_LABEL_SPACING, children: [
