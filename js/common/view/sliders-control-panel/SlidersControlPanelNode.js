@@ -30,11 +30,13 @@ define( function( require ) {
    * @constructor
    */
   function SlidersControlPanelNode( pendulumLabModel, planetsListNode, options ) {
-    var content = new VBox( {spacing: 3} ),
+    var self = this,
       pendulumSlidersNodeStorage = [],
       currentNumberOfSliders = 0;
 
-    PanelPendulumAbstract.call( this, content, options );
+    this._content = new VBox( {spacing: 3} );
+
+    PanelPendulumAbstract.call( this, this._content, options );
 
     // create sliders for each pendulum and put then into storage for further adding
     pendulumLabModel.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
@@ -60,7 +62,7 @@ define( function( require ) {
     } );
 
     // add gravity slider and planet list menu
-    content.addChild( new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange, pendulumLabModel.planetModels, planetsListNode ) );
+    this._content.addChild( new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange, pendulumLabModel.planetModels, planetsListNode ) );
 
     // add necessary pendulum sliders
     pendulumLabModel.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {
@@ -69,19 +71,23 @@ define( function( require ) {
       // remove extra sliders
       if ( numberDifference > 0 ) {
         for ( ; numberDifference--; ) {
-          content.removeChildWithIndex( pendulumSlidersNodeStorage[currentNumberOfSliders - numberDifference - 1], currentNumberOfSliders - numberDifference - 1 );
+          self._content.removeChildWithIndex( pendulumSlidersNodeStorage[currentNumberOfSliders - numberDifference - 1], currentNumberOfSliders - numberDifference - 1 );
           currentNumberOfSliders--;
         }
       }
       // add necessary sliders
       else if ( numberDifference < 0 ) {
         for ( ; numberDifference++; ) {
-          content.insertChild( currentNumberOfSliders - numberDifference, pendulumSlidersNodeStorage[currentNumberOfSliders - numberDifference] );
+          self._content.insertChild( currentNumberOfSliders - numberDifference, pendulumSlidersNodeStorage[currentNumberOfSliders - numberDifference] );
           currentNumberOfSliders++;
         }
       }
     } );
   }
 
-  return inherit( PanelPendulumAbstract, SlidersControlPanelNode );
+  return inherit( PanelPendulumAbstract, SlidersControlPanelNode, {
+    addSlider: function( sliderNode ) {
+      this._content.addChild( sliderNode );
+    }
+  } );
 } );

@@ -1,16 +1,25 @@
 {
+  "earth": "Earth",
+  "friction": "Friction",
+  "gravity": "Gravity",
+  "jupiter": "Jupiter",
   "length": "Length",
+  "lots": "Lots",
   "mass": "Mass",
+  "moon": "Moon",
+  "none": "None",
   "normal": "Normal",
   "pattern.0lengthValue.lengthUnitsMetric": "{0} m",
   "pattern.0massValue.massUnitsMetric": "{0} kg",
   "pattern.0propertyName.1pendulumNumber": "{0} {1}",
   "pendulum-lab.name": "Pendulum Lab",
   "periodTrace": "Period Trace",
+  "planetX": "Planet X",
   "ruler": "Ruler",
   "slowMotion": "Slow Motion",
   "stopwatch": "Stopwatch",
   "tab.energy": "Energy",
   "tab.intro": "Intro",
-  "tab.lab": "Lab"
+  "tab.lab": "Lab",
+  "whatIsTheValueOfGravity": "What is the value of gravity?"
 }

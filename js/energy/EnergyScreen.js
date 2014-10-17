@@ -10,8 +10,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
-  var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
+  var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
+  var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
@@ -30,8 +30,8 @@ define( function( require ) {
     } );
 
     Screen.call( this, EnergyString, icon,
-      function() { return new PendulumLabModel(); },
-      function( model ) { return new PendulumLabView( model, screenshotImage ); },
+      function() { return new EnergyModel(); },
+      function( model ) { return new EnergyView( model, screenshotImage ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }
