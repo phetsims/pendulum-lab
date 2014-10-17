@@ -13,12 +13,13 @@ define( function( require ) {
   // modules
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var OnePendulumIconNode = require( 'PENDULUM_LAB/common/view/OnePendulumIconNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var TwoPendulumIconNode = require( 'PENDULUM_LAB/common/view/TwoPendulumIconNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
@@ -27,7 +28,6 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 11 );
-  var ICON_SIZE = 24;
   var RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
 
   /**
@@ -42,13 +42,15 @@ define( function( require ) {
     HBox.call( this, _.extend( { spacing: 26, children: [
       // radio buttons to control number of pendulums
       new RadioButtonGroup( numberOfPendulumsProperty, [
-        {node: new Rectangle( 0, 0, ICON_SIZE, ICON_SIZE ), value: 1},
-        {node: new Rectangle( 0, 0, ICON_SIZE, ICON_SIZE ), value: 2}
+        {node: new OnePendulumIconNode(), value: 1},
+        {node: new TwoPendulumIconNode(), value: 2}
       ], {
         spacing: 9,
         orientation: 'horizontal',
         baseColor: RECTANGULAR_BUTTON_BASE_COLOR,
-        disabledBaseColor: RECTANGULAR_BUTTON_BASE_COLOR
+        disabledBaseColor: RECTANGULAR_BUTTON_BASE_COLOR,
+        buttonContentXMargin: 3,
+        buttonContentYMargin: 3
       } ),
 
       // play/pause and step buttons
