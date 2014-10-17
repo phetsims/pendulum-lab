@@ -16,7 +16,7 @@ define( function( require ) {
   // constants
   var CORNER_RADIUS = 5;
   var MARGIN = 10;
-  var PANEL_BACKGROUND_COLOR = 'rgb( 216, 251, 196 )';
+  var BACKGROUND_COLOR = 'rgb( 216, 251, 196 )';
 
   /**
    * @param {Node} content node
@@ -26,7 +26,7 @@ define( function( require ) {
   function PanelPendulumAbstract( content, options ) {
     Panel.call( this, content, _.extend( {
       cornerRadius: CORNER_RADIUS,
-      fill: PANEL_BACKGROUND_COLOR,
+      fill: BACKGROUND_COLOR,
       xMargin: MARGIN,
       yMargin: MARGIN
     }, options ) );
