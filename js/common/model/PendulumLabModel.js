@@ -11,7 +11,16 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Range = require( 'DOT/Range' );
+
+  // strings
+  var EarthString = require( 'string!PENDULUM_LAB/earth' );
+  var JupiterString = require( 'string!PENDULUM_LAB/jupiter' );
+  var MoonString = require( 'string!PENDULUM_LAB/moon' );
+  var PlanetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -29,9 +38,18 @@ define( function( require ) {
     } );
 
     this.pendulumModels = [
-      new Pendulum( 1, 2, 'rgb( 0, 0, 255 )' ), // blue pendulum
-      new Pendulum( 0.5, 1, 'rgb( 255, 0, 0 )' ) // red pendulum
+      new Pendulum( 1, 2, PendulumLabConstants.FIRST_PENDULUM_COLOR ),
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
     ];
+
+    this.planetModels = [
+      new Planet( MoonString, 1.62 ), // moon
+      new Planet( EarthString, 9.81 ), // earth
+      new Planet( JupiterString, 24.79 ), // jupiter
+      new Planet( PlanetXString, 14.2 ) // planet X
+    ];
+
+    this.gravityRange = new Range( 0, 25, 9.81 );
   }
 
   return inherit( PropertySet, PendulumLabModel, {

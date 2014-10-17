@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -38,14 +39,17 @@ define( function( require ) {
 
     // add control panel with sliders
     // TODO: fix x and y values
-    this.addChild( new SlidersControlPanelNode(
-      pendulumLabModel.pendulumModels,
-      pendulumLabModel.property( 'numberOfPendulums' ),
+    var planetsListNode = new Node();
+    this.sliderControlPanelNode = new SlidersControlPanelNode(
+      pendulumLabModel,
+      planetsListNode,
       {
         x: this.layoutBounds.width * 0.965 - 135 - 135,
         y: this.layoutBounds.height * 0.045
       }
-    ) );
+    );
+    this.addChild( this.sliderControlPanelNode );
+    this.addChild( planetsListNode );
 
     // add pendulum system control panel
     // TODO: fix x and y values
@@ -55,7 +59,7 @@ define( function( require ) {
       pendulumLabModel.property( 'timeSpeed' ),
       pendulumLabModel.stepManual.bind( pendulumLabModel ),
       {
-        x: this.layoutBounds.width / 2 - 144,
+        x: this.layoutBounds.width / 2 - 145,
         y: this.layoutBounds.height * 0.895 - 36
       }
     ) );

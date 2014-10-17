@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GravitySliderWithListNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/GravitySliderWithListNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
   var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/PendulumOptionSliderNode' );
@@ -23,12 +24,12 @@ define( function( require ) {
   var pattern_0propertyName_1pendulumNumber = require( 'string!PENDULUM_LAB/pattern.0propertyName.1pendulumNumber' );
 
   /**
-   * {Array} pendulumModels - property to control visibility of ruler
-   * {Property} numberOfPendulumsProperty - property to control number of pendulums
-   * {Object} options for control panel node
+   * @param {PendulumLabModel} pendulumLabModel
+   * @param {Node} planetsListNode - Node for planets list. Should be displayed above all other layers
+   * @param {Object} options for control panel node
    * @constructor
    */
-  function SlidersControlPanelNode( pendulumModels, numberOfPendulumsProperty, options ) {
+  function SlidersControlPanelNode( pendulumLabModel, planetsListNode, options ) {
     var content = new VBox( {spacing: 3} ),
       pendulumSlidersNodeStorage = [],
       currentNumberOfSliders = 0;
@@ -36,7 +37,7 @@ define( function( require ) {
     PanelPendulumAbstract.call( this, content, options );
 
     // create sliders for each pendulum and put then into storage for further adding
-    pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
+    pendulumLabModel.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
       pendulumSlidersNodeStorage.push( new VBox( {spacing: 5, children: [
         // length slider
         new PendulumOptionSliderNode(
@@ -58,8 +59,11 @@ define( function( require ) {
       ]} ) );
     } );
 
-    // add necessary sliders
-    numberOfPendulumsProperty.link( function( numberOfPendulums ) {
+    // add gravity slider and planet list menu
+    content.addChild( new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange, pendulumLabModel.planetModels, planetsListNode ) );
+
+    // add necessary pendulum sliders
+    pendulumLabModel.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {
       var numberDifference = currentNumberOfSliders - numberOfPendulums;
 
       // remove extra sliders
