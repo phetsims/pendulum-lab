@@ -62,7 +62,12 @@ define( function( require ) {
     } );
 
     // add gravity slider and planet list menu
-    this._content.addChild( new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange, pendulumLabModel.planetModels, planetsListNode ) );
+    this._content.addChild( new GravitySliderWithListNode(
+      pendulumLabModel.property( 'gravity' ),
+      pendulumLabModel.gravityRange,
+      pendulumLabModel.property( 'planet' ),
+      pendulumLabModel.planetModels,
+      planetsListNode ) );
 
     // add necessary pendulum sliders
     pendulumLabModel.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {

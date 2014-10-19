@@ -13,10 +13,12 @@ define( function( require ) {
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
+  var Planets = require( 'PENDULUM_LAB/common/Planets' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
 
   // strings
+  var CustomString = require( 'string!PENDULUM_LAB/custom' );
   var EarthString = require( 'string!PENDULUM_LAB/earth' );
   var JupiterString = require( 'string!PENDULUM_LAB/jupiter' );
   var MoonString = require( 'string!PENDULUM_LAB/moon' );
@@ -27,8 +29,11 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabModel() {
+    var self = this;
+
     PropertySet.call( this, {
       gravity: 9.81, // gravitational acceleration
+      planet: Planets.EARTH, // current planet name
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: false, // flag: controls running of time
@@ -43,13 +48,41 @@ define( function( require ) {
     ];
 
     this.planetModels = [
-      new Planet( MoonString, 1.62 ), // moon
-      new Planet( EarthString, 9.81 ), // earth
-      new Planet( JupiterString, 24.79 ), // jupiter
-      new Planet( PlanetXString, 14.2 ) // planet X
+      new Planet( Planets.MOON, MoonString, 1.62 ), // moon
+      new Planet( Planets.EARTH, EarthString, 9.81 ), // earth
+      new Planet( Planets.JUPITER, JupiterString, 24.79 ), // jupiter
+      new Planet( Planets.PLANET_X, PlanetXString, 14.2 ), // planet x
+      new Planet( Planets.CUSTOM, CustomString ) // custom
     ];
 
-    this.gravityRange = new Range( 0, 25, 9.81 );
+    this.gravityRange = new Range( 0, 25, this.gravity );
+
+    // change gravity if planet was changed
+    this.property( 'planet' ).lazyLink( function( planet ) {
+      // determine planet
+      var planetModel = _.find( self.planetModels, {'name': planet} );
+
+      // set new gravity
+      if ( planetModel.gravity ) {
+        self.gravity = planetModel.gravity;
+      }
+    } );
+
+    // change planet if gravity was changed
+    this.property( 'gravity' ).lazyLink( function( gravity ) {
+      // determine planet
+      var planetModel = _.find( self.planetModels, function( planetModel ) {
+        return Math.abs( planetModel.gravity - gravity ) < 0.1;
+      } );
+
+      // set new planet
+      if ( planetModel && planetModel.name !== Planets.PLANET_X ) {
+        self.planet = planetModel.name;
+      }
+      else {
+        self.planet = Planets.CUSTOM;
+      }
+    } );
   }
 
   return inherit( PropertySet, PendulumLabModel, {

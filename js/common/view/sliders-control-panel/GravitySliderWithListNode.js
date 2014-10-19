@@ -31,12 +31,13 @@ define( function( require ) {
    * Constructor for the gravity slider control
    * @param {Property} gravityProperty - Property to update by slider
    * @param {Range} gravityPropertyRange - Possible range of gravityProperty value
+   * @param {Property} planetProperty - Property to update by combo box
    * @param {Array} planetModels - Models of all planets
    * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes
    * @param {Object} options
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetModels, planetsListNode, options ) {
+  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
     VBox.call( this, _.extend( {
       spacing: 4,
       align: 'left'
@@ -59,13 +60,13 @@ define( function( require ) {
     var planetListItems = [];
     planetModels.forEach( function( planetModel ) {
       planetListItems.push( {
-        node: new Text( planetModel.name ),
-        value: planetModel.gravity
+        node: new Text( planetModel.title ),
+        value: planetModel.name
       } );
     } );
 
     // add planet menu combo box
-    this.addChild( new ComboBox( planetListItems, gravityProperty, planetsListNode, {
+    this.addChild( new ComboBox( planetListItems, planetProperty, planetsListNode, {
       buttonCornerRadius: 3,
       buttonYMargin: 0,
       itemYMargin: 3
