@@ -13,7 +13,10 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Planets = require( 'PENDULUM_LAB/common/Planets' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SliderTitleNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SliderTitleNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -22,9 +25,11 @@ define( function( require ) {
   var GravityString = require( 'string!PENDULUM_LAB/gravity' );
   var LotsString = require( 'string!PENDULUM_LAB/lots' );
   var NoneString = require( 'string!PENDULUM_LAB/none' );
+  var WhatIsTheValueOfGravity = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   // constants
   var FONT = new PhetFont( 11 );
+  var QUESTION_FONT = new PhetFont( 10 );
   var TRACK_SIZE = new Dimension2( 113, 0 );
 
   /**
@@ -38,6 +43,8 @@ define( function( require ) {
    * @constructor
    */
   function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
+    var self = this;
+
     VBox.call( this, _.extend( {
       spacing: 4,
       align: 'left'
@@ -46,7 +53,7 @@ define( function( require ) {
     // add slider's title
     this.addChild( new SliderTitleNode( GravityString ) );
 
-    // add slider for gravity property
+    // create slider for gravity property
     var hSlider = new HSlider( gravityProperty, gravityPropertyRange, {
       majorTickLength: 10,
       trackSize: TRACK_SIZE,
@@ -54,7 +61,12 @@ define( function( require ) {
     } );
     hSlider.addMajorTick( gravityPropertyRange.min, new Text( NoneString, {font: FONT} ) );
     hSlider.addMajorTick( gravityPropertyRange.max, new Text( LotsString, {font: FONT} ) );
-    this.addChild( hSlider );
+
+    // create question text node instead of slider for planet X
+    var questionText = new Node( {children: [
+      new Rectangle( 0, 0, hSlider.width, hSlider.height ),
+      new Text( WhatIsTheValueOfGravity, {font: QUESTION_FONT, centerX: hSlider.width / 2, centerY: hSlider.height / 2} )
+    ]} );
 
     // create planet list menu
     var planetListItems = [];
@@ -71,6 +83,38 @@ define( function( require ) {
       buttonYMargin: 0,
       itemYMargin: 3
     } ) );
+
+    // if planet X was chosen then replace slider to question
+    planetProperty.link( function( planet ) {
+      var hSliderIndex, questionTextIndex;
+
+      if ( planet === Planets.PLANET_X ) {
+        // remove slider
+        hSliderIndex = self.indexOfChild( hSlider );
+        if ( hSliderIndex !== -1 ) {
+          self.removeChildWithIndex( hSlider, hSliderIndex );
+        }
+
+        // add question text
+        questionTextIndex = self.indexOfChild( questionText );
+        if ( questionTextIndex === -1 ) {
+          self.insertChild( 1, questionText );
+        }
+      }
+      else {
+        // remove question text
+        questionTextIndex = self.indexOfChild( questionText );
+        if ( questionTextIndex !== -1 ) {
+          self.removeChildWithIndex( questionText, questionTextIndex );
+        }
+
+        // add slider
+        hSliderIndex = self.indexOfChild( hSlider );
+        if ( hSliderIndex === -1 ) {
+          self.insertChild( 1, hSlider );
+        }
+      }
+    } );
   }
 
   return inherit( VBox, GravitySliderWithListNode );
