@@ -17,7 +17,6 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -28,11 +27,13 @@ define( function( require ) {
   // strings
   var BothString = require( 'string!PENDULUM_LAB/both' );
   var EnergyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
-  var OneString = require( 'string!PENDULUM_LAB/one' );
-  var TwoString = require( 'string!PENDULUM_LAB/two' );
 
   // constants
   var FONT = new PhetFont( 11 );
+  var RADIO_BUTTON_OPTIONS = {
+    radius: 9,
+    xSpacing: 3
+  };
 
   /**
    * {Property} energyGraphModeProperty - Property to select mode of energy graph representation
@@ -41,31 +42,23 @@ define( function( require ) {
    */
   function EnergyGraphNode( energyGraphModeProperty, options ) {
     AccordionBox.call( this, new VBox( {children: [
-        new HBox( { spacing: 5, children: [
+        // radio buttons for switching energy graph mode
+        new HBox( { spacing: 13, children: [
           new AquaRadioButton(
             energyGraphModeProperty,
             EnergyGraphMode.ONE,
-            new Text( OneString, {font: FONT} ),
-            {
-              radius: PendulumLabConstants.RADIO_BUTTON_RADIUS,
-              xSpacing: PendulumLabConstants.RADIO_BUTTON_X_SPACING
-            } ),
+            new Text( '1', {font: FONT} ),
+            RADIO_BUTTON_OPTIONS ),
           new AquaRadioButton(
             energyGraphModeProperty,
             EnergyGraphMode.TWO,
-            new Text( TwoString, {font: FONT} ),
-            {
-              radius: PendulumLabConstants.RADIO_BUTTON_RADIUS,
-              xSpacing: PendulumLabConstants.RADIO_BUTTON_X_SPACING
-            } ),
+            new Text( '2', {font: FONT} ),
+            RADIO_BUTTON_OPTIONS ),
           new AquaRadioButton(
             energyGraphModeProperty,
             EnergyGraphMode.BOTH,
             new Text( BothString, {font: FONT} ),
-            {
-              radius: PendulumLabConstants.RADIO_BUTTON_RADIUS,
-              xSpacing: PendulumLabConstants.RADIO_BUTTON_X_SPACING
-            } )
+            RADIO_BUTTON_OPTIONS )
         ]} )
       ]} ),
       _.extend( {
