@@ -1,4 +1,5 @@
 {
+  "acceleration": "Acceleration",
   "both": "Both",
   "custom": "Custom",
   "earth": "Earth",
@@ -26,5 +27,6 @@
   "tab.intro": "Intro",
   "tab.lab": "Lab",
   "two": "Two",
+  "velocity": "Velocity",
   "whatIsTheValueOfGravity": "What is the value of gravity?"
 }
