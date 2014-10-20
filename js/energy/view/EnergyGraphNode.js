@@ -16,11 +16,11 @@ define( function( require ) {
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SingleEnergyGraphNode = require( 'PENDULUM_LAB/energy/view/SingleEnergyGraphNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -41,7 +41,7 @@ define( function( require ) {
    * @constructor
    */
   function EnergyGraphNode( energyGraphModeProperty, options ) {
-    AccordionBox.call( this, new VBox( {children: [
+    AccordionBox.call( this, new VBox( {spacing: 5, children: [
         // radio buttons for switching energy graph mode
         new HBox( { spacing: 13, children: [
           new AquaRadioButton(
@@ -59,7 +59,11 @@ define( function( require ) {
             EnergyGraphMode.BOTH,
             new Text( BothString, {font: FONT} ),
             RADIO_BUTTON_OPTIONS )
-        ]} )
+        ]} ),
+        new Panel( new HBox( {children: [
+          new SingleEnergyGraphNode(),
+          new SingleEnergyGraphNode()
+        ]} ) )
       ]} ),
       _.extend( {
         cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
@@ -71,7 +75,8 @@ define( function( require ) {
         titleNode: new Text( EnergyGraphString, {font: FONT} ),
         titleXMargin: 0,
 
-        contentXMargin: 8
+        contentXMargin: 8,
+        contentYMargin: 5
       }, options ) );
   }
 
