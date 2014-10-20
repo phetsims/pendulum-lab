@@ -14,6 +14,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var OnePendulumIconNode = require( 'PENDULUM_LAB/common/view/OnePendulumIconNode' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -71,7 +72,7 @@ define( function( require ) {
           value: 1 / 8,
           node: new Text( SlowMotionString, {font: FONT} )
         }
-      ], {radius: 6, spacing: 9, radioButtonOptions: {xSpacing: 5}} )
+      ], {radius: PendulumLabConstants.RADIO_BUTTON_RADIUS, spacing: 9, radioButtonOptions: {xSpacing: PendulumLabConstants.RADIO_BUTTON_X_SPACING}} )
     ] }, options ) );
   }
 

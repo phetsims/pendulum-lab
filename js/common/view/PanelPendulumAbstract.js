@@ -12,11 +12,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
 
   // constants
-  var CORNER_RADIUS = 5;
   var MARGIN = 10;
-  var BACKGROUND_COLOR = 'rgb( 216, 251, 196 )';
 
   /**
    * @param {Node} content node
@@ -25,8 +24,8 @@ define( function( require ) {
    */
   function PanelPendulumAbstract( content, options ) {
     Panel.call( this, content, _.extend( {
-      cornerRadius: CORNER_RADIUS,
-      fill: BACKGROUND_COLOR,
+      cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
+      fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
       xMargin: MARGIN,
       yMargin: MARGIN
     }, options ) );

@@ -1,6 +1,8 @@
 {
+  "both": "Both",
   "custom": "Custom",
   "earth": "Earth",
+  "energyGraph": "Energy Graph",
   "friction": "Friction",
   "gravity": "Gravity",
   "jupiter": "Jupiter",
@@ -10,6 +12,7 @@
   "moon": "Moon",
   "none": "None",
   "normal": "Normal",
+  "one": "One",
   "pattern.0lengthValue.lengthUnitsMetric": "{0} m",
   "pattern.0massValue.massUnitsMetric": "{0} kg",
   "pattern.0propertyName.1pendulumNumber": "{0} {1}",
@@ -22,5 +25,6 @@
   "tab.energy": "Energy",
   "tab.intro": "Intro",
   "tab.lab": "Lab",
+  "two": "Two",
   "whatIsTheValueOfGravity": "What is the value of gravity?"
 }
