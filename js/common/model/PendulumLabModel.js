@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -57,6 +58,8 @@ define( function( require ) {
 
     this.gravityRange = new Range( 0, 25, this.gravity );
 
+    this.stopwatchModel = new GameTimer();
+
     // change gravity if planet was changed
     this.property( 'planet' ).lazyLink( function( planet ) {
       // determine planet
@@ -87,9 +90,23 @@ define( function( require ) {
 
   return inherit( PropertySet, PendulumLabModel, {
 
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+
+      // reset stopwatch model
+      PropertySet.prototype.reset.call( this.stopwatchModel );
+
+      // reset pendulum models
+      this.pendulumModels.forEach( function( pendulumModel ) {
+        pendulumModel.reset();
+      } );
+    },
+
     // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
-      // Handle model animation here.
+      if ( this.stopwatchModel.isRunning ) {
+        this.stopwatchModel.elapsedTime += dt;
+      }
     },
 
     // handler for step button

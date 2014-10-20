@@ -17,6 +17,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SlidersControlPanelNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SlidersControlPanelNode' );
+  var Timer = require( 'SCENERY_PHET/Timer' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   /**
@@ -82,6 +83,15 @@ define( function( require ) {
       bottom: this.layoutBounds.height * 0.915,
       scale: 0.75
     } ) );
+
+    // add timer node
+    var stopwatch = new Timer( pendulumLabModel.stopwatchModel.property( 'elapsedTime' ), pendulumLabModel.stopwatchModel.property( 'isRunning' ), {
+      x: 180,
+      y: 330
+    } );
+    this.addChild( stopwatch );
+
+    pendulumLabModel.linkAttribute( 'isStopwatchVisible', stopwatch, 'visible' );
   }
 
   return inherit( ScreenView, PendulumLabView, {
