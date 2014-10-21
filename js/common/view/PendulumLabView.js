@@ -12,6 +12,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
@@ -21,13 +22,16 @@ define( function( require ) {
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
+  // constants
+  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
+
   /**
    * @param {PendulumLabModel} pendulumLabModel
    * @param {ModelViewTransform2} mvt
    * @constructor
    */
   function PendulumLabView( pendulumLabModel, mvt, screenshotImage ) {
-    var width, height, padding = {top: 23, left: 23, right: 23, bottom: 55};
+    var width, height;
 
     ScreenView.call( this );
     width = this.layoutBounds.width;
@@ -40,48 +44,41 @@ define( function( require ) {
     // add protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels );
     protractorNode.centerX = width / 2;
-    protractorNode.centerY = protractorNode.height / 2 + padding.top;
+    protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP;
     this.addChild( protractorNode );
 
     // add control panel with sliders
     var planetsListNode = new Node();
     this.sliderControlPanelNode = new SlidersControlPanelNode( pendulumLabModel, planetsListNode );
-    this.sliderControlPanelNode.centerX = width - this.sliderControlPanelNode.width / 2 - padding.right;
-    this.sliderControlPanelNode.centerY = this.sliderControlPanelNode.height / 2 + padding.top;
+    this.sliderControlPanelNode.centerX = width - this.sliderControlPanelNode.width / 2 - SCREEN_PADDING.RIGHT;
+    this.sliderControlPanelNode.centerY = this.sliderControlPanelNode.height / 2 + SCREEN_PADDING.TOP;
     this.addChild( this.sliderControlPanelNode );
     this.addChild( planetsListNode );
 
     // add tools control panel
-    var toolsControlPanelNode = new ToolsControlPanelNode(
-      pendulumLabModel.property( 'isRulerVisible' ),
-      pendulumLabModel.property( 'isStopwatchVisible' ),
-      pendulumLabModel.property( 'isPeriodTraceVisible' )
-    );
-    toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + padding.left;
-    toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - padding.bottom;
+    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.property( 'isRulerVisible' ),
+      pendulumLabModel.property( 'isStopwatchVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
+    toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
+    toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
     this.addChild( toolsControlPanelNode );
 
     // add pendulum system control panel
-    var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode(
-      pendulumLabModel.property( 'numberOfPendulums' ),
-      pendulumLabModel.property( 'play' ),
-      pendulumLabModel.property( 'timeSpeed' ),
-      pendulumLabModel.stepManual.bind( pendulumLabModel )
-    );
+    var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.property( 'numberOfPendulums' ),
+      pendulumLabModel.property( 'play' ), pendulumLabModel.property( 'timeSpeed' ), pendulumLabModel.stepManual.bind( pendulumLabModel ) );
     pendulumSystemControlPanelNode.centerX = width / 2;
-    pendulumSystemControlPanelNode.centerY = height - pendulumSystemControlPanelNode.height / 2 - padding.bottom;
+    pendulumSystemControlPanelNode.centerY = height - pendulumSystemControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
     this.addChild( pendulumSystemControlPanelNode );
 
     // add reset all button
     var resetAllButton = new ResetAllButton( {listener: function() {pendulumLabModel.reset();}} );
-    resetAllButton.centerX = width - resetAllButton.width / 2 - padding.right;
-    resetAllButton.centerY = height - resetAllButton.height / 2 - padding.bottom;
+    resetAllButton.centerX = width - resetAllButton.width / 2 - SCREEN_PADDING.RIGHT;
+    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 5;
     resetAllButton.scale( 0.75 );
     this.addChild( resetAllButton );
 
     // add timer node
-    var stopwatch = new StopwatchNode( pendulumLabModel.stopwatchModel, pendulumLabModel.property( 'isStopwatchVisible' ), mvt, this.layoutBounds, toolsControlPanelNode.bounds );
-    this.addChild( stopwatch );
+    this.addChild( new StopwatchNode( pendulumLabModel.stopwatchModel, pendulumLabModel.property( 'isStopwatchVisible' ), mvt,
+      this.layoutBounds, toolsControlPanelNode.bounds ) );
   }
 
   return inherit( ScreenView, PendulumLabView );

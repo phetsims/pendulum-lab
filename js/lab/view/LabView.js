@@ -13,8 +13,11 @@ define( function( require ) {
   var EnergyGraphNode = require( 'PENDULUM_LAB/energy/view/EnergyGraphNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/FrictionSliderNode' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+
+  // constants
+  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
@@ -27,19 +30,19 @@ define( function( require ) {
     // add friction slider into slider control panel node
     this.sliderControlPanelNode.addSlider( new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange ) );
 
+    // add arrow panel node
+    var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.property( 'isVelocityVisible' ),
+      pendulumLabModel.property( 'isAccelerationVisible' ) );
+    arrowsPanelNode.centerX = arrowsPanelNode.width / 2 + SCREEN_PADDING.LEFT;
+    arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
+    this.addChild( arrowsPanelNode );
+
     // add energy graph node
-    this.addChild( new VBox( {
-      spacing: 10,
-      children: [
-        new ArrowsPanelNode(
-          pendulumLabModel.property( 'isVelocityVisible' ),
-          pendulumLabModel.property( 'isAccelerationVisible' )
-        ),
-        new EnergyGraphNode( pendulumLabModel.property( 'energyGraphMode' ) )
-      ],
-      x: 23,
-      y: 21
-    } ) );
+    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.property( 'energyGraphMode' ) );
+    energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
+    energyGraphNode.centerY = arrowsPanelNode.bounds.maxY + energyGraphNode.height / 2 + 8;
+    this.addChild( energyGraphNode );
+
   }
 
   return inherit( PendulumLabView, LabView );

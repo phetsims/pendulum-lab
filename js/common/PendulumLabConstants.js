@@ -15,6 +15,12 @@ define( function() {
     ICON_PENDULUM_MODE_SIZE: 29,
     PANEL_BACKGROUND_COLOR: 'rgb( 216, 251, 196 )',
     PANEL_CORNER_RADIUS: 5,
-    SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )'
+    SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )',
+    SCREEN_PADDING: {
+      TOP: 23,
+      RIGHT: 23,
+      BOTTOM: 55,
+      LEFT: 23
+    }
   };
 } );
