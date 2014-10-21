@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
@@ -29,9 +30,12 @@ define( function( require ) {
       fill: 'white'
     } );
 
+    // model coordinates are the same as view coordinates
+    var mvt = ModelViewTransform2.createIdentity();
+
     Screen.call( this, EnergyString, icon,
       function() { return new EnergyModel(); },
-      function( model ) { return new EnergyView( model, screenshotImage ); },
+      function( model ) { return new EnergyView( model, mvt, screenshotImage ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

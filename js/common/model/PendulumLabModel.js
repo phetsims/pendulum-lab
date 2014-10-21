@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GameTimer = require( 'VEGAS/GameTimer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -17,6 +16,7 @@ define( function( require ) {
   var Planets = require( 'PENDULUM_LAB/common/Planets' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
+  var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   // strings
   var CustomString = require( 'string!PENDULUM_LAB/custom' );
@@ -58,7 +58,7 @@ define( function( require ) {
 
     this.gravityRange = new Range( 0, 25, this.gravity );
 
-    this.stopwatchModel = new GameTimer();
+    this.stopwatchModel = new Stopwatch();
 
     // change gravity if planet was changed
     this.property( 'planet' ).lazyLink( function( planet ) {

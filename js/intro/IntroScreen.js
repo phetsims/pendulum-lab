@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -29,9 +30,12 @@ define( function( require ) {
       fill: 'white'
     } );
 
+    // model coordinates are the same as view coordinates
+    var mvt = ModelViewTransform2.createIdentity();
+
     Screen.call( this, IntroString, icon,
       function() { return new PendulumLabModel(); },
-      function( model ) { return new PendulumLabView( model, screenshotImage ); },
+      function( model ) { return new PendulumLabView( model, mvt, screenshotImage ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

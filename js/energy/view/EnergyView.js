@@ -16,10 +16,11 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
+   * @param {ModelViewTransform2} mvt
    * @constructor
    */
-  function EnergyView( pendulumLabModel, screenshotImage ) {
-    PendulumLabView.call( this, pendulumLabModel, screenshotImage );
+  function EnergyView( pendulumLabModel, mvt,  screenshotImage ) {
+    PendulumLabView.call( this, pendulumLabModel, mvt, screenshotImage );
 
     // add friction slider into slider control panel node
     this.sliderControlPanelNode.addSlider( new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange ) );
