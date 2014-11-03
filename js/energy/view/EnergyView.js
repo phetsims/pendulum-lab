@@ -33,7 +33,7 @@ define( function( require ) {
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.property( 'energyGraphMode' ) );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
-    this.insertChild( 0, energyGraphNode );
+    this.insertChild( 1, energyGraphNode );
   }
 
   return inherit( PendulumLabView, EnergyView );

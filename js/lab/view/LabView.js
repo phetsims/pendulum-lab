@@ -35,13 +35,13 @@ define( function( require ) {
       pendulumLabModel.property( 'isAccelerationVisible' ) );
     arrowsPanelNode.centerX = arrowsPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
-    this.insertChild( 0, arrowsPanelNode );
+    this.insertChild( 1, arrowsPanelNode );
 
     // add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.property( 'energyGraphMode' ) );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = arrowsPanelNode.bounds.maxY + energyGraphNode.height / 2 + 8;
-    this.insertChild( 0, energyGraphNode );
+    this.insertChild( 1, energyGraphNode );
   }
 
   return inherit( PendulumLabView, LabView );
