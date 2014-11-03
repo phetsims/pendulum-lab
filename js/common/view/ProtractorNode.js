@@ -16,18 +16,22 @@ define( function( require ) {
 
   // constants
   var LINE_LENGTH_DEFAULT = 3;
+  var PENDULUM_TICK_LENGTH = 12;
   var RADIUS = 87;
   var TICK_5_LENGTH = 6;
   var TICK_10_LENGTH = 9;
 
   /**
-   * {Array} pendulumModels - Array of pendulum models
-   * {Object} options for protractor node
+   * @param {Array} pendulumModels - Array of pendulum models
+   * @param {Object} options for protractor node
    * @constructor
    */
   function ProtractorNode( pendulumModels, options ) {
+    var self = this;
+
     Node.call( this, options );
 
+    // add background ticks
     for ( var currentAngleDeg = 0, currentAngleRad, lineLength, x1, y1, x2, y2; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
       currentAngleRad = currentAngleDeg * Math.PI / 180;
 
@@ -49,6 +53,20 @@ define( function( require ) {
 
       this.addChild( new Line( x1, y1, x2, y2, {stroke: 'black'} ) );
     }
+
+    // add ticks for pendulum
+    pendulumModels.forEach( function( pendulumModel ) {
+      var tickNode = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {stroke: pendulumModel.color, lineWidth: 2} );
+      self.insertChild( 1, tickNode );
+
+      // update tick position
+      pendulumModel.property( 'angle' ).link( function( angle ) {
+        tickNode.setRotation( angle );
+      } );
+
+      // set visibility observer
+      pendulumModel.property( 'isTickVisible' ).linkAttribute( tickNode, 'visible' );
+    } );
   }
 
   return inherit( Node, ProtractorNode );
