@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Stopwatch model in 'Pendulum Lab' simulation.
+ * Ruler model in 'Pendulum Lab' simulation.
  *
  * @author Andrey Zelenkov (MLearner)
  */
@@ -15,16 +15,12 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function Stopwatch() {
+  function Ruler() {
     Movable.call( this );
 
     // flag to controls visibility
-    this.addProperty( 'isVisible', false );
-
-    // add properties for time tracking
-    this.addProperty( 'isRunning', false ); // flag to determine stopwatch state
-    this.addProperty( 'elapsedTime', 0 ); // property to track passed time
+    this.addProperty( 'isVisible', true );
   }
 
-  return inherit( Movable, Stopwatch );
+  return inherit( Movable, Ruler );
 } );

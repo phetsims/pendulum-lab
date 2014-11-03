@@ -16,6 +16,7 @@ define( function( require ) {
   var Planets = require( 'PENDULUM_LAB/common/Planets' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
+  var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   // strings
@@ -38,8 +39,6 @@ define( function( require ) {
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: false, // flag: controls running of time
-      isRulerVisible: true, // flag: controls visibility of ruler
-      isStopwatchVisible: false, // flag: controls visibility of stopwatch
       isPeriodTraceVisible: false // flag: controls visibility of period trace timer
     } );
 
@@ -58,6 +57,10 @@ define( function( require ) {
 
     this.gravityRange = new Range( 0, 25, this.gravity );
 
+    // model for ruler
+    this.rulerModel = new Ruler();
+
+    // model for stopwatch
     this.stopwatchModel = new Stopwatch();
 
     // change gravity if planet was changed
@@ -92,6 +95,9 @@ define( function( require ) {
 
     reset: function() {
       PropertySet.prototype.reset.call( this );
+
+      // reset ruler model
+      PropertySet.prototype.reset.call( this.rulerModel );
 
       // reset stopwatch model
       PropertySet.prototype.reset.call( this.stopwatchModel );

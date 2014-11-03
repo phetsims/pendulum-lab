@@ -13,10 +13,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
-  //var RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SlidersControlPanelNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SlidersControlPanelNode' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
@@ -56,8 +56,8 @@ define( function( require ) {
     this.addChild( planetsListNode );
 
     // add tools control panel
-    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.property( 'isRulerVisible' ),
-      pendulumLabModel.property( 'isStopwatchVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
+    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.rulerModel.property( 'isVisible' ),
+      pendulumLabModel.stopwatchModel.property( 'isVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
     toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
     this.addChild( toolsControlPanelNode );
@@ -76,9 +76,11 @@ define( function( require ) {
     resetAllButton.scale( 0.75 );
     this.addChild( resetAllButton );
 
+    // add ruler node
+    this.addChild( new PendulumLabRulerNode( pendulumLabModel.rulerModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );
+
     // add timer node
-    this.addChild( new StopwatchNode( pendulumLabModel.stopwatchModel, pendulumLabModel.property( 'isStopwatchVisible' ), mvt,
-      this.layoutBounds, toolsControlPanelNode.bounds ) );
+    this.addChild( new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );
   }
 
   return inherit( ScreenView, PendulumLabView );

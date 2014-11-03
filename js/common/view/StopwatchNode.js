@@ -16,13 +16,12 @@ define( function( require ) {
 
   /**
    * @param {PropertySet} stopwatchModel - Model of stopwatch
-   * @param {Property} isStopwatchVisibleProperty - Property to control visibility of stopwatch
    * @param {ModelViewTransform2} mvt
    * @param {Bounds2} layoutBounds - Bounds of screen view
-   * @param {Bounds2} toolsControlPanelNodeBounds -
+   * @param {Bounds2} toolsControlPanelNodeBounds - Bounds of tool control panel. Necessary to set relative position of stopwatch.
    * @constructor
    */
-  function StopwatchNode( stopwatchModel, isStopwatchVisibleProperty, mvt, layoutBounds, toolsControlPanelNodeBounds ) {
+  function StopwatchNode( stopwatchModel, mvt, layoutBounds, toolsControlPanelNodeBounds ) {
     var self = this;
     Timer.call( this, stopwatchModel.property( 'elapsedTime' ), stopwatchModel.property( 'isRunning' ) );
 
@@ -30,8 +29,7 @@ define( function( require ) {
     this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
 
     // set initial value for stopwatch 'location' property
-    stopwatchModel.property( 'location' ).storeInitialValue( this.center.copy() );
-    stopwatchModel.property( 'location' ).storeValue( this.center.copy() );
+    stopwatchModel.setInitialLocationValue( this.center );
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
@@ -45,7 +43,7 @@ define( function( require ) {
     } );
 
     // set visibility observer
-    isStopwatchVisibleProperty.linkAttribute( this, 'visible' );
+    stopwatchModel.property( 'isVisible' ).linkAttribute( this, 'visible' );
   }
 
   return inherit( Timer, StopwatchNode );

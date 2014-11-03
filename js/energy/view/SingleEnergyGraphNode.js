@@ -40,7 +40,7 @@ define( function( require ) {
   function SingleEnergyGraphNode() {
     Node.call( this );
 
-    this.addChild( new Rectangle( 0, 0, 60, 150 ) );
+    this.addChild( new Rectangle( 0, 0, 58, 150 ) );
   }
 
   return inherit( Node, SingleEnergyGraphNode );

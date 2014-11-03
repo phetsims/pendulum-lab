@@ -29,11 +29,11 @@ define( function( require ) {
     // add friction slider into slider control panel node
     this.sliderControlPanelNode.addSlider( new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange ) );
 
-    // add energy graph node
+    // add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.property( 'energyGraphMode' ) );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
-    this.addChild( energyGraphNode );
+    this.insertChild( 0, energyGraphNode );
   }
 
   return inherit( PendulumLabView, EnergyView );
