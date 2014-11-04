@@ -30,7 +30,7 @@ define( function( require ) {
     this.sliderControlPanelNode.addSlider( new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange ) );
 
     // add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.property( 'energyGraphMode' ) );
+    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulumModels, pendulumLabModel.property( 'energyGraphMode' ) );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
     this.insertChild( 1, energyGraphNode );
