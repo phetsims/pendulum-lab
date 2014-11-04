@@ -10,9 +10,10 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
   var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {number} mass of pendulum, kg
@@ -23,14 +24,16 @@ define( function( require ) {
   function Pendulum( mass, length, color ) {
     var self = this;
 
-    PropertySet.call( this, {
+    Movable.call( this, {
       angle: 0, // value of the angular displacement
       length: length, // length of pendulum
       mass: mass, // mass of pendulum
+      velocity: new Vector2( 0, 0 ), // velocity vector value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false  // flag: is pendulum tick visible on protractor
     } );
 
+    // default color for this pendulum
     this.color = color;
 
     // additional properties for pendulum length
@@ -63,5 +66,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, Pendulum );
+  return inherit( Movable, Pendulum );
 } );

@@ -16,14 +16,11 @@ define( function( require ) {
    * @constructor
    */
   function Stopwatch() {
-    Movable.call( this );
-
-    // flag to controls visibility
-    this.addProperty( 'isVisible', false );
-
-    // add properties for time tracking
-    this.addProperty( 'isRunning', false ); // flag to determine stopwatch state
-    this.addProperty( 'elapsedTime', 0 ); // property to track passed time
+    Movable.call( this, {
+      isVisible: false, // flag to control stopwatch visibility
+      isRunning: false, // flag to determine stopwatch state
+      elapsedTime: 0 // passed time
+    } );
   }
 
   return inherit( Movable, Stopwatch );

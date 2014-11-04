@@ -17,10 +17,10 @@ define( function( require ) {
    * Constructor
    * @constructor
    */
-  function Movable() {
-    PropertySet.call( this, {
+  function Movable( properties ) {
+    PropertySet.call( this, _.extend( {
       location: null // initial value will be set in view, after calculating all bounds of nodes (type: Vector2)
-    } );
+    }, properties ) );
   }
 
   return inherit( PropertySet, Movable, {

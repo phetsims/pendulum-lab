@@ -16,10 +16,9 @@ define( function( require ) {
    * @constructor
    */
   function Ruler() {
-    Movable.call( this );
-
-    // flag to controls visibility
-    this.addProperty( 'isVisible', true );
+    Movable.call( this, {
+      isVisible: false // flag to control ruler visibility
+    } );
   }
 
   return inherit( Movable, Ruler );
