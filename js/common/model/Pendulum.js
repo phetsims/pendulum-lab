@@ -28,9 +28,16 @@ define( function( require ) {
       angle: 0, // value of the angular displacement
       length: length, // length of pendulum
       mass: mass, // mass of pendulum
-      velocity: new Vector2( 0, 0 ), // velocity vector value of pendulum
+      acceleration: new Vector2( 0, 0 ), // acceleration value of pendulum
+      velocity: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
-      isTickVisible: false  // flag: is pendulum tick visible on protractor
+      isTickVisible: false,  // flag: is pendulum tick visible on protractor
+
+      // energies are in Joules
+      kineticEnergy: 0,
+      potentialEnergy: 0,
+      thermalEnergy: 0,
+      totalEnergy: 0
     } );
 
     // default color for this pendulum
