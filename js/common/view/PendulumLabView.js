@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
+  var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -75,6 +76,12 @@ define( function( require ) {
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 5;
     resetAllButton.scale( 0.75 );
     this.addChild( resetAllButton );
+
+    // add pendulums
+    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels );
+    pendulumsNode.centerX = width / 2;
+    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
+    this.addChild( pendulumsNode );
 
     // add ruler node
     this.addChild( new PendulumLabRulerNode( pendulumLabModel.rulerModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );
