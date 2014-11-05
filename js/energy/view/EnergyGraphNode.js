@@ -39,10 +39,11 @@ define( function( require ) {
   /**
    * @param {Array} pendulumModels - Pendulum models.
    * @param {Property} energyGraphModeProperty - Property to select mode of energy graph representation
+   * @param {Property} numberOfPendulumsProperty - Property to control number of pendulums.
    * @param {Object} options
    * @constructor
    */
-  function EnergyGraphNode( pendulumModels, energyGraphModeProperty, options ) {
+  function EnergyGraphNode( pendulumModels, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
     var self = this;
 
     // create energy graphs for each pendulum
@@ -51,29 +52,31 @@ define( function( require ) {
       self._content.addChild( new SingleEnergyGraphNode( pendulumModel, pendulumNumber + 1, SINGLE_GRAPH_SIZE ) );
     } );
 
+    // create radio buttons for switching energy graph mode
+    var radioButtonOne = new AquaRadioButton(
+      energyGraphModeProperty,
+      EnergyGraphMode.ONE,
+      new Text( '1', {font: FONT} ),
+      RADIO_BUTTON_OPTIONS );
+
+    var radioButtonTwo = new AquaRadioButton(
+      energyGraphModeProperty,
+      EnergyGraphMode.TWO,
+      new Text( '2', {font: FONT} ),
+      RADIO_BUTTON_OPTIONS );
+    radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
+
+    var radioButtonBoth = new AquaRadioButton(
+      energyGraphModeProperty,
+      EnergyGraphMode.BOTH,
+      new Text( BothString, {font: FONT} ),
+      RADIO_BUTTON_OPTIONS );
+    radioButtonBoth.setEnabled = setEnabledRadioButton.bind( radioButtonBoth );
+
     // add accordion box
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
-          // radio buttons for switching energy graph mode
-          new HBox( {
-            spacing: 10, children: [
-              new AquaRadioButton(
-                energyGraphModeProperty,
-                EnergyGraphMode.ONE,
-                new Text( '1', {font: FONT} ),
-                RADIO_BUTTON_OPTIONS ),
-              new AquaRadioButton(
-                energyGraphModeProperty,
-                EnergyGraphMode.TWO,
-                new Text( '2', {font: FONT} ),
-                RADIO_BUTTON_OPTIONS ),
-              new AquaRadioButton(
-                energyGraphModeProperty,
-                EnergyGraphMode.BOTH,
-                new Text( BothString, {font: FONT} ),
-                RADIO_BUTTON_OPTIONS )
-            ]
-          } ),
+          new HBox( {spacing: 10, children: [radioButtonOne, radioButtonTwo, radioButtonBoth]} ),
           new Panel( this._content )
         ]
       } ),
@@ -90,6 +93,18 @@ define( function( require ) {
         contentXMargin: 5,
         contentYMargin: 5
       }, options ) );
+
+    numberOfPendulumsProperty.link( function( numberOfPendulums ) {
+      if ( numberOfPendulums === 1 ) {
+        energyGraphModeProperty.value = EnergyGraphMode.ONE;
+        radioButtonTwo.setEnabled( false );
+        radioButtonBoth.setEnabled( false );
+      }
+      else if ( numberOfPendulums === 2 ) {
+        radioButtonTwo.setEnabled( true );
+        radioButtonBoth.setEnabled( true );
+      }
+    } );
 
     energyGraphModeProperty.link( function( energyGraphMode ) {
       var graphOne = self._content.getChildAt( 0 ),
@@ -116,6 +131,17 @@ define( function( require ) {
       }
     } );
   }
+
+  var setEnabledRadioButton = function( enabled ) {
+    if ( enabled ) {
+      this.opacity = 1;
+      this.pickable = true;
+    }
+    else {
+      this.opacity = 0.5; // gray out when disabled
+      this.pickable = false;
+    }
+  };
 
   return inherit( AccordionBox, EnergyGraphNode );
 } );
