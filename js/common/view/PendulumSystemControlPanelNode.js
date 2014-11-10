@@ -39,40 +39,42 @@ define( function( require ) {
    * @constructor
    */
   function PendulumSystemControlPanelNode( numberOfPendulumsProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
-    HBox.call( this, _.extend( { spacing: 26, children: [
-      // radio buttons to control number of pendulums
-      new RadioButtonGroup( numberOfPendulumsProperty, [
-        {node: new OnePendulumIconNode(), value: 1},
-        {node: new TwoPendulumIconNode(), value: 2}
-      ], {
-        spacing: 9,
-        orientation: 'horizontal',
-        baseColor: RECTANGULAR_BUTTON_BASE_COLOR,
-        disabledBaseColor: RECTANGULAR_BUTTON_BASE_COLOR,
-        buttonContentXMargin: 3,
-        buttonContentYMargin: 3
-      } ),
+    HBox.call( this, _.extend( {
+      spacing: 26, children: [
+        // radio buttons to control number of pendulums
+        new RadioButtonGroup( numberOfPendulumsProperty, [
+          {node: new OnePendulumIconNode(), value: 1},
+          {node: new TwoPendulumIconNode(), value: 2}
+        ], {
+          spacing: 9,
+          orientation: 'horizontal',
+          baseColor: RECTANGULAR_BUTTON_BASE_COLOR,
+          disabledBaseColor: RECTANGULAR_BUTTON_BASE_COLOR,
+          buttonContentXMargin: 3,
+          buttonContentYMargin: 3
+        } ),
 
-      // play/pause and step buttons
-      new HBox( {spacing: 10, children: [
-        new PlayPauseButton( playProperty, {radius: 16} ),
-        new StepButton( stepFunction, playProperty, {radius: 12} )
-      ]} ),
+        // play/pause and step buttons
+        new HBox( {
+          spacing: 10, children: [
+            new PlayPauseButton( playProperty, {radius: 16} ),
+            new StepButton( stepFunction, playProperty, {radius: 12} )
+          ]
+        } ),
 
-      // time speed checkbox
-      new VerticalAquaRadioButtonGroup( [
-        {
+        // time speed checkbox
+        new VerticalAquaRadioButtonGroup( [{
           property: timeSpeedProperty,
           value: 1,
           node: new Text( NormalString, {font: FONT} )
-        },
-        {
+        }, {
           property: timeSpeedProperty,
           value: 1 / 8,
           node: new Text( SlowMotionString, {font: FONT} )
         }
-      ], {radius: 6, spacing: 9, radioButtonOptions: {xSpacing: 5}} )
-    ] }, options ) );
+        ], {radius: 6, spacing: 9, radioButtonOptions: {xSpacing: 5}} )
+      ]
+    }, options ) );
   }
 
   return inherit( HBox, PendulumSystemControlPanelNode );

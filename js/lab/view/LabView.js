@@ -12,7 +12,6 @@ define( function( require ) {
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
   var EnergyGraphNode = require( 'PENDULUM_LAB/energy/view/EnergyGraphNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/FrictionSliderNode' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
 
@@ -26,9 +25,6 @@ define( function( require ) {
    */
   function LabView( pendulumLabModel, mvt, screenshotImage ) {
     PendulumLabView.call( this, pendulumLabModel, mvt, screenshotImage );
-
-    // add friction slider into slider control panel node
-    this.sliderControlPanelNode.addSlider( new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange ) );
 
     // add arrow panel node to the bottom layer
     var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.property( 'isVelocityVisible' ),
