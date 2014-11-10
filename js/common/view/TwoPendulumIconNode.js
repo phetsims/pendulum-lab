@@ -36,7 +36,7 @@ define( function( require ) {
   function TwoPendulumIconNode( options ) {
     OnePendulumIconNode.call( this, options );
 
-    var line = new Line( 0, 0, 0, LINE_LENGTH, {stroke: 'black', strokeWidth: 1 } );
+    var line = new Line( 0, 0, 0, LINE_LENGTH, {stroke: 'black', strokeWidth: 1} );
     line.rotate( ANGLE );
     this.content.addChild( line );
 

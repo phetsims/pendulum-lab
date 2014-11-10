@@ -41,7 +41,7 @@ define( function( require ) {
     this.content = new Node();
     this.addChild( this.content );
 
-    var line = new Line( 0, 0, 0, LINE_LENGTH, {stroke: 'black', strokeWidth: 1 } );
+    var line = new Line( 0, 0, 0, LINE_LENGTH, {stroke: 'black', strokeWidth: 1} );
     line.rotate( -ANGLE );
     this.content.addChild( line );
 
