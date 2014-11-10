@@ -90,6 +90,13 @@ define( function( require ) {
         self.planet = Planets.CUSTOM;
       }
     } );
+
+    // change pendulum visibility if number of pendulums was changed
+    this.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {
+      self.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
+        pendulumModel.isVisible = (numberOfPendulums > pendulumModelIndex);
+      } );
+    } );
   }
 
   return inherit( PropertySet, PendulumLabModel, {

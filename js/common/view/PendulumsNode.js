@@ -18,6 +18,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -33,8 +34,8 @@ define( function( require ) {
    * @constructor
    */
   function PendulumsNode( pendulumsModel, metersToPixels, options ) {
-    var self = this;
-    var samplePendulum = pendulumsModel[0];
+    var self = this,
+      samplePendulum = pendulumsModel[0];
 
     Node.call( this, options );
 
@@ -50,47 +51,66 @@ define( function( require ) {
       this.addChild( new Circle( 8, {stroke: samplePendulum.color} ) );
     }
 
-    // add solid lines
-    pendulumsModel.forEach( function( pendulumModel ) {
-      // create solid line
-      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), {stroke: 'black'} );
-      self.addChild( solidLine );
-
-      // redraw lines and move pendulum if length property changed
-      pendulumModel.property( 'length' ).link( function( length ) {
-        solidLine.setY2( metersToPixels( length ) );
-      } );
-    } );
-
     // add pendulums
     pendulumsModel.forEach( function( pendulumModel, pendulumIndex ) {
       var massToScale = new LinearFunction( pendulumModel.massOptions.range.min, pendulumModel.massOptions.range.max, 0.25, 1 );
 
-      var rectGradient = new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
-        addColorStop( 0, pendulumModel.color ).
-        addColorStop( 0.3, pendulumModel.color ).
-        addColorStop( 0.8, 'white' ).
-        addColorStop( 1, pendulumModel.color );
+      // create solid line
+      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), {stroke: 'black'} );
 
       // create pendulum
       var pendulumRect = new Node( {
+        cursor: 'pointer',
         children: [
-          new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {fill: rectGradient} ),
+          new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
+            fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
+              addColorStop( 0, pendulumModel.color ).
+              addColorStop( 0.3, pendulumModel.color ).
+              addColorStop( 0.8, 'white' ).
+              addColorStop( 1, pendulumModel.color )
+          } ),
           new Text( (pendulumIndex + 1).toString(), {font: FONT, fill: 'white', centerY: RECT_SIZE.height / 4, centerX: 0} ),
           new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, {stroke: 'black'} )
         ]
       } );
-      self.addChild( pendulumRect );
 
-      // update pendulum position if length property was changed
-      pendulumModel.property( 'length' ).link( function( length ) {
-        pendulumRect.setY( metersToPixels( length ) );
+      // join line and rect into one node
+      var pendulumNode = new Node( {children: [solidLine, pendulumRect]} );
+      self.addChild( pendulumNode );
+
+      // add drag events
+      var clickYOffset, clickXOffset;
+      pendulumRect.addInputListener( new SimpleDragHandler( {
+        start: function( e ) {
+          clickXOffset = self.globalToParentPoint( e.pointer.point ).x + metersToPixels( pendulumModel.length ) * Math.sin( pendulumNode.rotation );
+          clickYOffset = self.globalToParentPoint( e.pointer.point ).y - metersToPixels( pendulumModel.length ) * Math.cos( pendulumNode.rotation );
+        },
+        drag: function( e ) {
+          var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset,
+            x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
+
+          pendulumModel.angle = -Math.atan2( x, y );
+        }
+      } ) );
+
+      // update pendulum rotation
+      pendulumModel.property( 'angle' ).link( function( angle ) {
+        pendulumNode.rotation = angle;
       } );
 
-      // update rectangle size if mass property was changed
+      // update pendulum position
+      pendulumModel.property( 'length' ).link( function( length ) {
+        pendulumRect.setY( metersToPixels( length ) );
+        solidLine.setY2( metersToPixels( length ) );
+      } );
+
+      // update rectangle size
       pendulumModel.property( 'mass' ).link( function( mass ) {
         pendulumRect.setScaleMagnitude( massToScale( mass ) );
       } );
+
+      // update visibility
+      pendulumModel.property( 'isVisible' ).linkAttribute( pendulumNode, 'visible' );
     } );
   }
 

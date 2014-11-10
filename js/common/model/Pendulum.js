@@ -32,6 +32,7 @@ define( function( require ) {
       velocity: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
+      isVisible: false,// flag: is pendulum visible
 
       // energies are in Joules
       kineticEnergy: 0,
