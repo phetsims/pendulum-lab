@@ -19,10 +19,14 @@ define( function( require ) {
    * @param {number} mass of pendulum, kg
    * @param {number} length of pendulum, m
    * @param {string} color of pendulum
+   * @param {Property} gravityProperty - Property with current gravity value
    * @constructor
    */
-  function Pendulum( mass, length, color ) {
+  function Pendulum( mass, length, color, gravityProperty ) {
     var self = this;
+
+    // save link to gravity property
+    this._gravityProperty = gravityProperty;
 
     Movable.call( this, {
       angle: 0, // value of the angular displacement
@@ -66,13 +70,22 @@ define( function( require ) {
     // common rounding length value, to prevent rounding in each setter
     this.property( 'length' ).link( function( length ) {
       self.length = Util.toFixedNumber( length, self.lengthOptions.precision );
+      self.updatePotentialEnergy();
     } );
+
+    this.property( 'angle' ).lazyLink( this.updatePotentialEnergy.bind( this ) );
+    gravityProperty.lazyLink( this.updatePotentialEnergy.bind( this ) );
 
     // common rounding mass value, to prevent rounding in each setter
     this.property( 'mass' ).link( function( mass ) {
       self.mass = Util.toFixedNumber( mass, self.massOptions.precision );
+      self.updatePotentialEnergy();
     } );
   }
 
-  return inherit( Movable, Pendulum );
+  return inherit( Movable, Pendulum, {
+    updatePotentialEnergy: function() {
+      this.potentialEnergy = this.mass * this._gravityProperty.value * this.length * Math.cos( this.angle );
+    }
+  } );
 } );
