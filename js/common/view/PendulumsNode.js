@@ -84,12 +84,17 @@ define( function( require ) {
         start: function( e ) {
           clickXOffset = self.globalToParentPoint( e.pointer.point ).x + metersToPixels( pendulumModel.length ) * Math.sin( pendulumNode.rotation );
           clickYOffset = self.globalToParentPoint( e.pointer.point ).y - metersToPixels( pendulumModel.length ) * Math.cos( pendulumNode.rotation );
+
+          pendulumModel.isUserControlled = true;
         },
         drag: function( e ) {
           var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset,
             x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
 
           pendulumModel.angle = -Math.atan2( x, y );
+        },
+        end: function() {
+          pendulumModel.isUserControlled = false;
         }
       } ) );
 

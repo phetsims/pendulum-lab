@@ -80,7 +80,7 @@ define( function( require ) {
     // add pendulums
     var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
     pendulumsNode.centerX = width / 2;
-    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
+    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP - 8;
     this.addChild( pendulumsNode );
 
     // add ruler node

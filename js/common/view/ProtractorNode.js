@@ -61,7 +61,7 @@ define( function( require ) {
 
       // update tick position
       pendulumModel.property( 'angle' ).link( function( angle ) {
-        tickNode.setRotation( angle );
+        tickNode.setRotation( angle + Math.PI / 2 );
       } );
 
       // set visibility observer
