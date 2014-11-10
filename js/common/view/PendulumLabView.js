@@ -78,13 +78,13 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add pendulums
-    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels );
+    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
     this.addChild( pendulumsNode );
 
     // add ruler node
-    this.addChild( new PendulumLabRulerNode( pendulumLabModel.rulerModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );
+    this.addChild( new PendulumLabRulerNode( pendulumLabModel.rulerModel, pendulumLabModel.metersToPixels, mvt, this.layoutBounds ) );
 
     // add timer node
     this.addChild( new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );

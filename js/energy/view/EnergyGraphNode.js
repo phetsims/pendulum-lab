@@ -30,7 +30,7 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 11 );
-  var SINGLE_GRAPH_SIZE = new Dimension2( 66, 210 );
+  var SINGLE_GRAPH_SIZE = new Dimension2( 66, 240 );
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
     xSpacing: 3

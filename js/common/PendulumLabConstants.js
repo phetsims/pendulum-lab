@@ -19,7 +19,7 @@ define( function() {
     SCREEN_PADDING: {
       TOP: 23,
       RIGHT: 23,
-      BOTTOM: 55,
+      BOTTOM: 23,
       LEFT: 23
     }
   };

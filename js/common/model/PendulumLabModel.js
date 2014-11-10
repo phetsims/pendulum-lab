@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
@@ -93,6 +94,9 @@ define( function( require ) {
 
   return inherit( PropertySet, PendulumLabModel, {
 
+    // 1 meter is equal to 140 pixels
+    metersToPixels: new LinearFunction( 0, 1, 0, 140 ),
+
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
@@ -108,7 +112,7 @@ define( function( require ) {
       } );
     },
 
-    // Called by the animation loop. Optional, so if your model has no animation, you can omit this.
+    // called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
       if ( this.stopwatchModel.isRunning ) {
         this.stopwatchModel.elapsedTime += dt;

@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
@@ -21,35 +21,44 @@ define( function( require ) {
   var rulerUnitsString = require( 'string!PENDULUM_LAB/rulerUnits' );
 
   // constants
-  var FONT = new PhetFont( 12 );
-  var RULER_TICK_WIDTH = 34;
-  var RULER_TICKS = ['', '20', '40', '60', '80', '100', '120', '140', '180'];
-  var RULER_SIZE = new Dimension2( RULER_TICK_WIDTH * RULER_TICKS.length, 38 );
+  var FONT = new PhetFont( 10 );
+  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
+  var TICK_INTERVAL = 20; // tick interval in cm
 
   /**
    * @param {PropertySet} rulerModel - Model for ruler.
+   * @param {Function} metersToPixels - Function to convert meters to pixels.
    * @param {ModelViewTransform2} mvt
    * @param {Bounds2} layoutBounds - Bounds of screen view
-   * @param {Bounds2} toolsControlPanelNodeBounds - Bounds of tool control panel. Necessary to set relative position of ruler.
    * @constructor
    */
-  function PendulumLabRulerNode( rulerModel, mvt, layoutBounds, toolsControlPanelNodeBounds ) {
+  function PendulumLabRulerNode( rulerModel, metersToPixels, mvt, layoutBounds ) {
     var self = this;
 
-    RulerNode.call( this, RULER_SIZE.width, RULER_SIZE.height, RULER_TICK_WIDTH, RULER_TICKS, rulerUnitsString, {
+    // create tick labels
+    var rulerTicks = ['']; // zero tick is not labeled
+    for ( var currentTick = TICK_INTERVAL; currentTick < rulerModel.length * 100; currentTick += TICK_INTERVAL ) {
+      rulerTicks.push( currentTick.toString() );
+    }
+
+    // define ruler params in pixels
+    var rulerWidth = metersToPixels( rulerModel.length );
+    var tickWidth = rulerWidth / rulerTicks.length;
+
+    RulerNode.call( this, rulerWidth, 38, tickWidth, rulerTicks, rulerUnitsString, {
+      backgroundFill: 'rgb( 231, 232, 233 )',
+      cursor: 'pointer',
+      insetsWidth: 0,
       majorTickFont: FONT,
       unitsFont: FONT,
-      insetsWidth: 0,
-      unitsMajorTickIndex: RULER_TICKS.length - 1,
-      minorTicksPerMajorTick: 1,
-      backgroundFill: 'rgb( 231, 232, 233 )'
+      unitsMajorTickIndex: rulerTicks.length - 1,
+      minorTicksPerMajorTick: 1
     } );
 
-    this.cursor = 'pointer';
     this.rotate( Math.PI / 2 );
 
-    this.centerX = toolsControlPanelNodeBounds.minX + this.width / 2;
-    this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 10;
+    this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
+    this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
 
     // set initial value for ruler 'location' property
     rulerModel.setInitialLocationValue( this.center );

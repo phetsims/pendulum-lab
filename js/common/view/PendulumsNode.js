@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -27,44 +28,42 @@ define( function( require ) {
 
   /**
    * @param {Array} pendulumsModel - Array of pendulum models.
+   * @param {Function} metersToPixels - Function to convert meters to pixels.
    * @param {Object} options
    * @constructor
    */
-  function PendulumsNode( pendulumsModel, options ) {
+  function PendulumsNode( pendulumsModel, metersToPixels, options ) {
     var self = this;
+    var samplePendulum = pendulumsModel[0];
+
     Node.call( this, options );
 
-    self.lengthToPixels = [];
-    pendulumsModel.forEach( function( pendulumModel, pendulumIndex ) {
-      // create function to convert length of thread into pixels
-      self.lengthToPixels[pendulumIndex] = new LinearFunction( pendulumModel.lengthOptions.range.min, pendulumModel.lengthOptions.range.max, 50, 340 );
-    } );
+    if ( samplePendulum ) {
+      // create central dash line
+      this.addChild( new Line( 0, 0, 0, metersToPixels( samplePendulum.lengthOptions.range.max ), {
+        stroke: samplePendulum.color,
+        lineDash: [4, 7]
+      } ) );
 
-    // add lines
-    pendulumsModel.forEach( function( pendulumModel, pendulumIndex ) {
-      var lengthToPixels = self.lengthToPixels[pendulumIndex];
+      // create central circles
+      this.addChild( new Circle( 2, {fill: 'black'} ) );
+      this.addChild( new Circle( 8, {stroke: samplePendulum.color} ) );
+    }
 
+    // add solid lines
+    pendulumsModel.forEach( function( pendulumModel ) {
       // create solid line
-      var solidLine = new Line( 0, 0, 0, lengthToPixels( pendulumModel.length ), {stroke: 'black'} );
+      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), {stroke: 'black'} );
       self.addChild( solidLine );
-
-      // create dash line
-      var dashLine = new Line( 0, lengthToPixels( pendulumModel.lengthOptions.range.max ), 0, lengthToPixels( pendulumModel.length ), {
-        stroke: pendulumModel.color,
-        lineDash: [5, 5]
-      } );
-      self.addChild( dashLine );
 
       // redraw lines and move pendulum if length property changed
       pendulumModel.property( 'length' ).link( function( length ) {
-        solidLine.setY2( lengthToPixels( length ) );
-        dashLine.setY2( lengthToPixels( length ) );
+        solidLine.setY2( metersToPixels( length ) );
       } );
     } );
 
     // add pendulums
     pendulumsModel.forEach( function( pendulumModel, pendulumIndex ) {
-      var lengthToPixels = self.lengthToPixels[pendulumIndex];
       var massToScale = new LinearFunction( pendulumModel.massOptions.range.min, pendulumModel.massOptions.range.max, 0.25, 1 );
 
       var rectGradient = new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
@@ -85,7 +84,7 @@ define( function( require ) {
 
       // update pendulum position if length property was changed
       pendulumModel.property( 'length' ).link( function( length ) {
-        pendulumRect.setY( lengthToPixels( length ) );
+        pendulumRect.setY( metersToPixels( length ) );
       } );
 
       // update rectangle size if mass property was changed

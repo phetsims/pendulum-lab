@@ -19,6 +19,9 @@ define( function( require ) {
     Movable.call( this, {
       isVisible: false // flag to control ruler visibility
     } );
+
+    // length of ruler in meters
+    this.length = 2;
   }
 
   return inherit( Movable, Ruler );
