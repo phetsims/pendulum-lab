@@ -56,16 +56,20 @@ define( function( require ) {
 
     // add ticks for pendulum
     pendulumModels.forEach( function( pendulumModel ) {
-      var tickNode = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {stroke: pendulumModel.color, lineWidth: 2} );
-      self.insertChild( 1, tickNode );
+      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {stroke: pendulumModel.color, lineWidth: 2} );
+      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {stroke: pendulumModel.color, lineWidth: 2} );
+      self.insertChild( 1, tickNodeLeft );
+      self.insertChild( 1, tickNodeRight );
 
       // update tick position
       pendulumModel.property( 'angle' ).link( function( angle ) {
-        tickNode.setRotation( angle + Math.PI / 2 );
+        tickNodeLeft.setRotation( Math.PI / 2 - angle  );
+        tickNodeRight.setRotation( Math.PI / 2 + angle  );
       } );
 
       // set visibility observer
-      pendulumModel.property( 'isTickVisible' ).linkAttribute( tickNode, 'visible' );
+      pendulumModel.property( 'isTickVisible' ).linkAttribute( tickNodeLeft, 'visible' );
+      pendulumModel.property( 'isTickVisible' ).linkAttribute( tickNodeRight, 'visible' );
     } );
   }
 
