@@ -32,7 +32,7 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabView( pendulumLabModel, mvt, screenshotImage ) {
-    var width, height;
+    var pendulumLabView = this, width, height;
 
     ScreenView.call( this );
     width = this.layoutBounds.width;
@@ -71,7 +71,12 @@ define( function( require ) {
     this.addChild( pendulumSystemControlPanelNode );
 
     // add reset all button
-    var resetAllButton = new ResetAllButton( {listener: function() {pendulumLabModel.reset();}} );
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        pendulumLabModel.reset();
+        pendulumLabView.reset();
+      }
+    } );
     resetAllButton.centerX = width - resetAllButton.width / 2 - SCREEN_PADDING.RIGHT;
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 5;
     resetAllButton.scale( 0.75 );
@@ -90,5 +95,9 @@ define( function( require ) {
     this.addChild( new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );
   }
 
-  return inherit( ScreenView, PendulumLabView );
+  return inherit( ScreenView, PendulumLabView, {
+    reset: function() {
+      this.sliderControlPanelNode.reset();
+    }
+  } );
 } );

@@ -37,9 +37,11 @@ define( function( require ) {
     var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) ),
       sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
 
+    this._property = sliderValueProperty;
+
     VBox.call( this, _.extend( {spacing: 4}, options ) );
 
-    // add slider for gravity property
+    // add slider for friction property
     var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
       majorTickLength: 10,
       minorTickLength: 5,
@@ -58,22 +60,27 @@ define( function( require ) {
     this.addChild( hSlider );
 
     sliderValueProperty.link( function( sliderValue ) {
-      frictionProperty.value = sliderValueToFriction( sliderValue );
-    } );
-
-    frictionProperty.link( function( friction ) {
-      sliderValueProperty.value = frictionToSliderValue( friction );
+      // snap to integer values
+      if ( sliderValue % 1 === 0 ) {
+        frictionProperty.value = sliderValueToFriction( sliderValue );
+      }
+      else {
+        sliderValueProperty.value = Math.round( sliderValue );
+      }
     } );
   }
 
-  // TODO: correct function
   var sliderValueToFriction = function( sliderValue ) {
     return 0.0005 * (Math.pow( 2, sliderValue ) - 1);
   };
 
   var frictionToSliderValue = function( friction ) {
-    return Math.log( friction / 0.0005 + 1 ) / Math.LN2;
+    return Math.round( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
   };
 
-  return inherit( VBox, FrictionSliderNode );
+  return inherit( VBox, FrictionSliderNode, {
+    reset: function() {
+      this._property.reset();
+    }
+  } );
 } );

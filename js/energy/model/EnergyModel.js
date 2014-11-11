@@ -22,7 +22,7 @@ define( function( require ) {
     PendulumLabModel.call( this );
 
     // friction coefficient description
-    this.frictionRange = new Range( 0, Math.pow( 2, -4 ), Math.pow( 2, -6 ) );
+    this.frictionRange = new Range( 0, 0.5115, 0 );
     this.addProperty( 'friction', this.frictionRange.defaultValue );
 
     // add energy mode property

@@ -92,7 +92,8 @@ define( function( require ) {
     // add friction slider with title when necessary
     if ( pendulumLabModel.property( 'friction' ) ) {
       this._content.addChild( new Text( FrictionString, {font: FONT_TITLE} ) );
-      this._content.addChild( new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange ) );
+      this.frictionSlider = new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange );
+      this._content.addChild( this.frictionSlider );
     }
 
     // add necessary pendulum sliders
@@ -116,5 +117,9 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PanelPendulumAbstract, SlidersControlPanelNode );
+  return inherit( PanelPendulumAbstract, SlidersControlPanelNode, {
+    reset: function() {
+      this.frictionSlider.reset();
+    }
+  } );
 } );
