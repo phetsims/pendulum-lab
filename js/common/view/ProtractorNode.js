@@ -61,15 +61,24 @@ define( function( require ) {
       self.insertChild( 1, tickNodeLeft );
       self.insertChild( 1, tickNodeRight );
 
+      var updateTicksPosition = function() {
+        if ( pendulumModel.isUserControlled && tickNodeLeft.visible && tickNodeRight.visible ) {
+          tickNodeLeft.setRotation( Math.PI / 2 - pendulumModel.angle );
+          tickNodeRight.setRotation( Math.PI / 2 + pendulumModel.angle );
+        }
+      };
+
       // update tick position
-      pendulumModel.property( 'angle' ).link( function( angle ) {
-        tickNodeLeft.setRotation( Math.PI / 2 - angle  );
-        tickNodeRight.setRotation( Math.PI / 2 + angle  );
+      pendulumModel.property( 'angle' ).link( function() {
+        updateTicksPosition();
       } );
 
       // set visibility observer
-      pendulumModel.property( 'isTickVisible' ).linkAttribute( tickNodeLeft, 'visible' );
-      pendulumModel.property( 'isTickVisible' ).linkAttribute( tickNodeRight, 'visible' );
+      pendulumModel.property( 'isTickVisible' ).link( function( isTickVisible ) {
+        tickNodeLeft.visible = isTickVisible;
+        tickNodeRight.visible = isTickVisible;
+        updateTicksPosition();
+      } );
     } );
   }
 

@@ -33,7 +33,8 @@ define( function( require ) {
       angle: 0, // value of the angular displacement
       length: length, // length of pendulum
       mass: mass, // mass of pendulum
-      acceleration: new Vector2( 0, 0 ), // acceleration value of pendulum
+      omega: 0, // angular velocity
+      acceleration: 0, // acceleration value of pendulum
       velocity: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
@@ -64,18 +65,35 @@ define( function( require ) {
     };
 
     // make tick on protractor visible after first drag
-    this.property( 'isUserControlled' ).once( function() {
-      self.isTickVisible = true;
+    this.property( 'isUserControlled' ).link( function( isUserControlled ) {
+      if ( isUserControlled ) {
+        self.isTickVisible = true;
+        self.omega = 0;
+        self.acceleration = 0;
+      }
     } );
 
     // common rounding length value, to prevent rounding in each setter
     this.property( 'length' ).link( function( length ) {
       self.length = Util.toFixedNumber( length, self.lengthOptions.precision );
       self.updatePotentialEnergy();
+      //self.updateAcceleration.bind( self );
     } );
 
-    this.property( 'angle' ).lazyLink( this.updatePotentialEnergy.bind( this ) );
-    gravityProperty.lazyLink( this.updatePotentialEnergy.bind( this ) );
+    this.property( 'velocity' ).link( function() {
+      //self.updateAcceleration.bind( self );
+    } );
+
+    this.property( 'angle' ).lazyLink( function() {
+      self.updatePotentialEnergy.bind( self );
+      //self.updateAcceleration.bind( self );
+    } );
+
+    // update potential energy
+    gravityProperty.lazyLink( function() {
+      self.updatePotentialEnergy.bind( self );
+      //self.updateAcceleration.bind( self );
+    } );
 
     // common rounding mass value, to prevent rounding in each setter
     this.property( 'mass' ).link( function( mass ) {
@@ -87,6 +105,14 @@ define( function( require ) {
   return inherit( Movable, Pendulum, {
     updatePotentialEnergy: function() {
       this.potentialEnergy = this.mass * this._gravityProperty.value * this.length * Math.cos( this.angle );
-    }
+    }/*,
+     updateAcceleration: function() {
+     var tangentialAcceleration = this._gravityProperty.value * Math.sin( this.angle ),
+     centripetalAcceleration = this.velocity * this.velocity / this.length;
+     this.acceleration.setXY(
+     -tangentialAcceleration * Math.sin( this.angle ) + centripetalAcceleration * Math.cos( this.angle ),
+     tangentialAcceleration * Math.cos( this.angle ) + centripetalAcceleration * Math.sin( this.angle ) );
+     this.acceleration.notifyObserversStatic();
+     }*/
   } );
 } );

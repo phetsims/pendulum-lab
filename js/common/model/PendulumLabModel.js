@@ -124,6 +124,26 @@ define( function( require ) {
       if ( this.stopwatchModel.isRunning ) {
         this.stopwatchModel.elapsedTime += dt;
       }
+
+      if ( this.play ) {
+        var friction = this.friction || 0,
+          currentPendulum,
+          oldAcceleration;
+
+        dt = Math.min( 0.05, dt * this.timeSpeed );
+
+        for ( var i = 0; i < this.numberOfPendulums; i++ ) {
+          currentPendulum = this.pendulumModels[i];
+
+          // update position when pendulum is not selected
+          if ( !currentPendulum.isUserControlled ) {
+            oldAcceleration = currentPendulum.acceleration;
+            currentPendulum.angle += currentPendulum.omega * dt + 0.5 * oldAcceleration * dt * dt;
+            currentPendulum.acceleration = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
+            currentPendulum.omega += 0.5 * (currentPendulum.acceleration + oldAcceleration) * dt;
+          }
+        }
+      }
     },
 
     // handler for step button
