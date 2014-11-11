@@ -125,7 +125,7 @@ define( function( require ) {
         this.stopwatchModel.elapsedTime += dt;
       }
 
-      if ( this.play ) {
+      if ( this.play || this.stepManualMode ) {
         var friction = this.friction || 0,
           currentPendulum,
           oldAcceleration;
@@ -148,7 +148,9 @@ define( function( require ) {
 
     // handler for step button
     stepManual: function() {
-
+      this.stepManualMode = true;
+      this.step( 1 );
+      this.stepManualMode = false;
     }
   } );
 } );
