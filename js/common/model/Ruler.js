@@ -17,7 +17,7 @@ define( function( require ) {
    */
   function Ruler() {
     Movable.call( this, {
-      isVisible: false // flag to control ruler visibility
+      isVisible: true // flag to control ruler visibility
     } );
 
     // length of ruler in meters

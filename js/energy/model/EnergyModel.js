@@ -21,6 +21,10 @@ define( function( require ) {
   function EnergyModel() {
     PendulumLabModel.call( this );
 
+    // hide ruler bu default
+    this.rulerModel.property( 'isVisible' ).storeInitialValue( false );
+    this.rulerModel.isVisible = false;
+
     // friction coefficient description
     this.frictionRange = new Range( 0, 0.5115, 0 );
     this.addProperty( 'friction', this.frictionRange.defaultValue );
