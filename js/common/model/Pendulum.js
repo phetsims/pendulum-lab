@@ -34,7 +34,8 @@ define( function( require ) {
       mass: mass, // mass of pendulum
       omega: 0, // angular velocity
       acceleration: 0, // acceleration value of pendulum
-      velocity: new Vector2( 0, 0 ), // velocity value of pendulum
+      accelerationVector: new Vector2( 0, 0 ),
+      velocityVector: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
       isVisible: isVisible,// flag: is pendulum visible
@@ -69,12 +70,39 @@ define( function( require ) {
         self.isTickVisible = true;
         self.omega = 0;
         self.acceleration = 0;
+        self.accelerationVector.setXY( 0, 0 );
+        self.velocityVector.setXY( 0, 0 );
+        self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
       }
     } );
 
+    this.property( 'length' ).link( function( newLength, oldLength ) {
+      self.omega = self.omega * oldLength / newLength;
     } );
   }
 
   return inherit( Movable, Pendulum, {
+    getHeight: function() {
+      return this.length * (1 - Math.cos( this.angle ));
+    },
+    updateAccelerationVector: function() {
+      var omegaSq = this.omega * this.omega,
+        accelerationMagnitude = this.length * Math.sqrt( this.acceleration * this.acceleration + omegaSq * omegaSq ),
+        accelerationAngle = Math.atan2( omegaSq, this.acceleration );
+
+      this.accelerationVector.setXY( accelerationMagnitude * Math.cos( accelerationAngle ), accelerationMagnitude * Math.sin( accelerationAngle ) );
+    },
+    updateVelocityVector: function() {
+      var velocityMagnitude = this.length * this.omega;
+      this.velocityVector.setXY( velocityMagnitude * Math.cos( this.angle ), velocityMagnitude * Math.sin( this.angle ) );
+    },
+    updateEnergies: function() {
+      var h = this.getHeight(),
+        tanVel = this.length * this.omega;
+
+      this.potentialEnergy = this.mass * this._gravityProperty.value * h;
+      this.kineticEnergy = 0.5 * this.mass * tanVel * tanVel;
+      this.thermalEnergy = this.totalEnergy - (this.kineticEnergy + this.potentialEnergy);
+    }
   } );
 } );
