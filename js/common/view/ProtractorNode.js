@@ -69,9 +69,7 @@ define( function( require ) {
       };
 
       // update tick position
-      pendulumModel.property( 'angle' ).link( function() {
-        updateTicksPosition();
-      } );
+      pendulumModel.property( 'angle' ).link( updateTicksPosition );
 
       // set visibility observer
       pendulumModel.property( 'isTickVisible' ).link( function( isTickVisible ) {
