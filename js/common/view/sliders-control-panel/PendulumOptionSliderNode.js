@@ -18,6 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -38,7 +39,9 @@ define( function( require ) {
    * @constructor
    */
   function PendulumOptionSliderNode( trackProperty, trackPropertyOptions, valuePatternString, color, options ) {
-    var arrowButtonMinus, arrowButtonPlus, valueLabel;
+    var arrowButtonMinus, arrowButtonPlus, valueLabel, sliderProperty = new Property( trackProperty.value );
+
+    this._property = sliderProperty;
 
     VBox.call( this, _.extend( {
       spacing: 4,
@@ -48,7 +51,7 @@ define( function( require ) {
         new HBox( {
           spacing: VALUE_LABEL_SPACING, children: [
             arrowButtonMinus = new ArrowButton( 'left', function() {
-              trackProperty.value = Math.max( trackPropertyOptions.range.min, trackProperty.value - trackPropertyOptions.step );
+              trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyOptions.range.min, trackProperty.value - trackPropertyOptions.step ), trackPropertyOptions.precision );
             }, {scale: 0.5} ),
             new Node( {
               children: [
@@ -67,7 +70,7 @@ define( function( require ) {
               ]
             } ),
             arrowButtonPlus = new ArrowButton( 'right', function() {
-              trackProperty.value = Math.min( trackPropertyOptions.range.max, trackProperty.value + trackPropertyOptions.step );
+              trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyOptions.range.max, trackProperty.value + trackPropertyOptions.step ), trackPropertyOptions.precision );
             }, {scale: 0.5} )
           ]
         } ),
@@ -79,7 +82,7 @@ define( function( require ) {
             new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
 
             // slider for property
-            new HSlider( trackProperty, trackPropertyOptions.range, {
+            new HSlider( sliderProperty, trackPropertyOptions.range, {
               trackSize: PendulumLabConstants.TRACK_SIZE,
               thumbSize: PendulumLabConstants.THUMB_SIZE,
               thumbFillEnabled: color
@@ -92,6 +95,10 @@ define( function( require ) {
       ]
     }, options ) );
 
+    sliderProperty.link( function( sliderValue ) {
+      trackProperty.value = Util.toFixedNumber( sliderValue, trackPropertyOptions.precision );
+    } );
+
     trackProperty.link( function( value ) {
       valueLabel.text = StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, trackPropertyOptions.precision ) );
       arrowButtonMinus.enabled = ( value > trackPropertyOptions.range.min );
@@ -99,5 +106,9 @@ define( function( require ) {
     } );
   }
 
-  return inherit( VBox, PendulumOptionSliderNode );
+  return inherit( VBox, PendulumOptionSliderNode, {
+    reset: function() {
+      this._property.reset();
+    }
+  } );
 } );

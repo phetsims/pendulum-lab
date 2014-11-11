@@ -42,40 +42,49 @@ define( function( require ) {
       pendulumSlidersNodeStorage = [],
       currentNumberOfSliders = 0;
 
+    this.optionSliders = [];
     this._content = new VBox( {spacing: 3, align: 'left'} );
     PanelPendulumAbstract.call( this, this._content, options );
 
     // create sliders for each pendulum and put then into storage for further adding
     pendulumLabModel.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
+      // create length slider
+      var lengthSlider = new PendulumOptionSliderNode(
+        pendulumModel.property( 'length' ),
+        pendulumModel.lengthOptions,
+        pattern_0lengthValue_lengthUnitsMetric,
+        pendulumModel.color
+      );
+      self.optionSliders.push( lengthSlider );
+
+      // create mass slider
+      var massSlider = new PendulumOptionSliderNode(
+        pendulumModel.property( 'mass' ),
+        pendulumModel.massOptions,
+        pattern_0massValue_massUnitsMetric,
+        pendulumModel.color
+      );
+      self.optionSliders.push( massSlider );
+
       pendulumSlidersNodeStorage.push( new VBox( {
         spacing: 5, align: 'left', children: [
-          // length slider label
+          // add length slider label
           new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Length', (pendulumModelIndex + 1).toString() ), {
             font: FONT_TITLE,
             fill: pendulumModel.color
           } ),
 
-          // length slider
-          new PendulumOptionSliderNode(
-            pendulumModel.property( 'length' ),
-            pendulumModel.lengthOptions,
-            pattern_0lengthValue_lengthUnitsMetric,
-            pendulumModel.color
-          ),
+          // add length slider
+          lengthSlider,
 
-          // mass slider label
+          // add mass slider label
           new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Mass', (pendulumModelIndex + 1).toString() ), {
             font: FONT_TITLE,
             fill: pendulumModel.color
           } ),
 
-          // mass slider
-          new PendulumOptionSliderNode(
-            pendulumModel.property( 'mass' ),
-            pendulumModel.massOptions,
-            pattern_0massValue_massUnitsMetric,
-            pendulumModel.color
-          )
+          // add mass slider
+          massSlider
         ]
       } ) );
     } );
@@ -120,6 +129,9 @@ define( function( require ) {
   return inherit( PanelPendulumAbstract, SlidersControlPanelNode, {
     reset: function() {
       this.frictionSlider.reset();
+      this.optionSliders.forEach( function( optionSlider ) {
+        optionSlider.reset();
+      } );
     }
   } );
 } );

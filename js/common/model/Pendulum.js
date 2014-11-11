@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
   var Range = require( 'DOT/Range' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -73,46 +72,9 @@ define( function( require ) {
       }
     } );
 
-    // common rounding length value, to prevent rounding in each setter
-    this.property( 'length' ).link( function( length ) {
-      self.length = Util.toFixedNumber( length, self.lengthOptions.precision );
-      self.updatePotentialEnergy();
-      //self.updateAcceleration.bind( self );
-    } );
-
-    this.property( 'velocity' ).link( function() {
-      //self.updateAcceleration.bind( self );
-    } );
-
-    this.property( 'angle' ).lazyLink( function() {
-      self.updatePotentialEnergy.bind( self );
-      //self.updateAcceleration.bind( self );
-    } );
-
-    // update potential energy
-    gravityProperty.lazyLink( function() {
-      self.updatePotentialEnergy.bind( self );
-      //self.updateAcceleration.bind( self );
-    } );
-
-    // common rounding mass value, to prevent rounding in each setter
-    this.property( 'mass' ).link( function( mass ) {
-      self.mass = Util.toFixedNumber( mass, self.massOptions.precision );
-      self.updatePotentialEnergy();
     } );
   }
 
   return inherit( Movable, Pendulum, {
-    updatePotentialEnergy: function() {
-      this.potentialEnergy = this.mass * this._gravityProperty.value * this.length * Math.cos( this.angle );
-    }/*,
-     updateAcceleration: function() {
-     var tangentialAcceleration = this._gravityProperty.value * Math.sin( this.angle ),
-     centripetalAcceleration = this.velocity * this.velocity / this.length;
-     this.acceleration.setXY(
-     -tangentialAcceleration * Math.sin( this.angle ) + centripetalAcceleration * Math.cos( this.angle ),
-     tangentialAcceleration * Math.cos( this.angle ) + centripetalAcceleration * Math.sin( this.angle ) );
-     this.acceleration.notifyObserversStatic();
-     }*/
   } );
 } );
