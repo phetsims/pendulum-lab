@@ -44,8 +44,8 @@ define( function( require ) {
     } );
 
     this.pendulumModels = [
-      new Pendulum( 1, 2, PendulumLabConstants.FIRST_PENDULUM_COLOR, this.property( 'gravity' ) ),
-      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, this.property( 'gravity' ) )
+      new Pendulum( 1, 2, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ) ),
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.property( 'gravity' ) )
     ];
 
     this.planetModels = [

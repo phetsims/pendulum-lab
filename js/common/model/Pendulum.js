@@ -19,10 +19,11 @@ define( function( require ) {
    * @param {number} mass of pendulum, kg
    * @param {number} length of pendulum, m
    * @param {string} color of pendulum
+   * @param {boolean} isVisible - Initial visibility of pendulum
    * @param {Property} gravityProperty - Property with current gravity value
    * @constructor
    */
-  function Pendulum( mass, length, color, gravityProperty ) {
+  function Pendulum( mass, length, color, isVisible, gravityProperty ) {
     var self = this;
 
     // save link to gravity property
@@ -36,7 +37,7 @@ define( function( require ) {
       velocity: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
-      isVisible: false,// flag: is pendulum visible
+      isVisible: isVisible,// flag: is pendulum visible
 
       // energies are in Joules
       kineticEnergy: 0,
