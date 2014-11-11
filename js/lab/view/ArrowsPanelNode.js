@@ -16,6 +16,7 @@ define( function( require ) {
   var HStrut = require( 'SUN/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
@@ -25,14 +26,12 @@ define( function( require ) {
   var AccelerationString = require( 'string!PENDULUM_LAB/acceleration' );
 
   // constants
-  var ACCELERATION_ARROW_COLOR = 'rgb( 255, 253, 56 )';
   var ARROW_LENGTH = 22;
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
   var FONT = new PhetFont( 11 );
   var TEXT_MARGIN_RIGHT = 5;
   var PANEL_WIDTH = 122;
-  var VELOCITY_ARROW_COLOR = 'rgb( 41, 253, 46 )';
 
   /**
    * {Property} isVelocityVisibleProperty - property to control visibility of velocity arrows
@@ -60,7 +59,7 @@ define( function( require ) {
             content: new Node( {children: [
               textStrings[0],
               new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
-                fill: VELOCITY_ARROW_COLOR,
+                fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
                 centerY: 0,
                 tailWidth: ARROW_TAIL_WIDTH,
                 headWidth: ARROW_HEAD_WIDTH
@@ -72,7 +71,7 @@ define( function( require ) {
             content: new Node( {children: [
               textStrings[1],
               new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
-                fill: ACCELERATION_ARROW_COLOR,
+                fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
                 centerY: 0,
                 tailWidth: ARROW_TAIL_WIDTH,
                 headWidth: ARROW_HEAD_WIDTH

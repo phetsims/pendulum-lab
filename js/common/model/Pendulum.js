@@ -70,8 +70,8 @@ define( function( require ) {
         self.isTickVisible = true;
         self.omega = 0;
         self.acceleration = 0;
-        self.accelerationVector.setXY( 0, 0 );
-        self.velocityVector.setXY( 0, 0 );
+        self.updateAccelerationVector();
+        self.updateVelocityVector();
         self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
       }
     } );
@@ -90,11 +90,13 @@ define( function( require ) {
         accelerationMagnitude = this.length * Math.sqrt( this.acceleration * this.acceleration + omegaSq * omegaSq ),
         accelerationAngle = Math.atan2( omegaSq, this.acceleration );
 
-      this.accelerationVector.setXY( accelerationMagnitude * Math.cos( accelerationAngle ), accelerationMagnitude * Math.sin( accelerationAngle ) );
+      this.accelerationVector.setXY( -accelerationMagnitude * Math.cos( accelerationAngle ), -accelerationMagnitude * Math.sin( accelerationAngle ) );
+      this.property( 'accelerationVector' ).notifyObserversStatic();
     },
     updateVelocityVector: function() {
       var velocityMagnitude = this.length * this.omega;
-      this.velocityVector.setXY( velocityMagnitude * Math.cos( this.angle ), velocityMagnitude * Math.sin( this.angle ) );
+      this.velocityVector.setXY( -velocityMagnitude * Math.cos( this.angle ), velocityMagnitude * Math.sin( this.angle ) );
+      this.property( 'velocityVector' ).notifyObserversStatic();
     },
     updateEnergies: function() {
       var h = this.getHeight(),

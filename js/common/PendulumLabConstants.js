@@ -18,6 +18,10 @@ define( function( require ) {
     ICON_PENDULUM_MODE_SIZE: 29,
     SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )',
 
+    // arrows
+    ACCELERATION_ARROW_COLOR: 'rgb( 255, 253, 56 )',
+    VELOCITY_ARROW_COLOR: 'rgb( 41, 253, 46 )',
+
     // panels
     PANEL_BACKGROUND_COLOR: 'rgb( 216, 251, 196 )',
     PANEL_CORNER_RADIUS: 5,

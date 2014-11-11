@@ -11,12 +11,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -24,6 +26,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
+  var ARROW_HEAD_WIDTH = 12;
+  var ARROW_TAIL_WIDTH = 6;
+  var ARROW_SIZE_DEFAULT = 50;
   var FONT = new PhetFont( 25 );
   var RECT_SIZE = new Dimension2( 60, 80 );
 
@@ -74,8 +79,53 @@ define( function( require ) {
         ]
       } );
 
-      // join line and rect into one node
       var pendulumNode = new Node( {children: [solidLine, pendulumRect]} );
+
+      // add velocity arrows if necessary
+      if ( options.isVelocityVisibleProperty ) {
+        var velocityArrow = new ArrowNode( 0, 0, 0, 0, {
+          fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
+          tailWidth: ARROW_TAIL_WIDTH,
+          headWidth: ARROW_HEAD_WIDTH
+        } );
+        pendulumNode.addChild( velocityArrow );
+
+        // add visibility observer
+        options.isVelocityVisibleProperty.link( function( isVelocityVisible ) {
+          velocityArrow.visible = isVelocityVisible;
+          pendulumModel.updateVelocityVector();
+        } );
+
+        // add arrow size observer
+        pendulumModel.property( 'velocityVector' ).link( function( velocityVector ) {
+          velocityArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * velocityVector.x, ARROW_SIZE_DEFAULT * velocityVector.y );
+        } );
+      }
+
+      // add acceleration arrows if necessary
+      if ( options.isAccelerationVisibleProperty ) {
+        // create acceleration arrow
+        var accelerationArrow = new ArrowNode( 0, 0, 0, 0, {
+          fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
+          tailWidth: ARROW_TAIL_WIDTH,
+          headWidth: ARROW_HEAD_WIDTH
+        } );
+        pendulumNode.addChild( accelerationArrow );
+        options.isAccelerationVisibleProperty.linkAttribute( accelerationArrow, 'visible' );
+
+        // add visibility observer
+        options.isAccelerationVisibleProperty.link( function( isAccelerationVisible ) {
+          accelerationArrow.visible = isAccelerationVisible;
+          pendulumModel.updateAccelerationVector();
+        } );
+
+        // add arrow size observer
+        pendulumModel.property( 'accelerationVector' ).link( function( accelerationVector ) {
+          accelerationArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * accelerationVector.x, ARROW_SIZE_DEFAULT * accelerationVector.y );
+        } );
+      }
+
+      // join components into one node
       self.addChild( pendulumNode );
 
       // add drag events
@@ -103,10 +153,20 @@ define( function( require ) {
         pendulumNode.rotation = angle;
       } );
 
-      // update pendulum position
+      // update pendulum components position
       pendulumModel.property( 'length' ).link( function( length ) {
-        pendulumRect.setY( metersToPixels( length ) );
-        solidLine.setY2( metersToPixels( length ) );
+        var lengthMeters = metersToPixels( length );
+
+        pendulumRect.setY( lengthMeters );
+        solidLine.setY2( lengthMeters );
+
+        if ( velocityArrow ) {
+          velocityArrow.setY( lengthMeters );
+        }
+
+        if ( accelerationArrow ) {
+          accelerationArrow.setY( lengthMeters );
+        }
       } );
 
       // update rectangle size

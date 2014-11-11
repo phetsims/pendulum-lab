@@ -83,7 +83,10 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add pendulums
-    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
+    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
+      isAccelerationVisibleProperty: pendulumLabModel.property( 'isAccelerationVisible' ),
+      isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
+    } );
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP - 8;
     this.addChild( pendulumsNode );
