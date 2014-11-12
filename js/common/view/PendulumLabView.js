@@ -16,6 +16,7 @@ define( function( require ) {
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
+  var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -81,6 +82,12 @@ define( function( require ) {
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 5;
     resetAllButton.scale( 0.75 );
     this.addChild( resetAllButton );
+
+    // add period trace node
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, pendulumLabModel.property( 'isPeriodTraceVisible' ) );
+    periodTraceNode.centerX = width / 2;
+    periodTraceNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP;
+    this.addChild( periodTraceNode );
 
     // add pendulums
     var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
