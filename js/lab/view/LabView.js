@@ -37,7 +37,7 @@ define( function( require ) {
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulumModels, pendulumLabModel.property( 'energyGraphMode' ), pendulumLabModel.property( 'numberOfPendulums' ) );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = arrowsPanelNode.bounds.maxY + energyGraphNode.height / 2 + 8;
-    this.insertChild( 1, energyGraphNode );
+    this.insertChild( 2, energyGraphNode );
   }
 
   return inherit( PendulumLabView, LabView );
