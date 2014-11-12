@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -33,31 +32,18 @@ define( function( require ) {
   var RECT_SIZE = new Dimension2( 60, 80 );
 
   /**
-   * @param {Array} pendulumsModel - Array of pendulum models.
+   * @param {Array} pendulumModels - Array of pendulum models.
    * @param {Function} metersToPixels - Function to convert meters to pixels.
    * @param {Object} options
    * @constructor
    */
-  function PendulumsNode( pendulumsModel, metersToPixels, options ) {
-    var self = this,
-      samplePendulum = pendulumsModel[0];
+  function PendulumsNode( pendulumModels, metersToPixels, options ) {
+    var self = this;
 
     Node.call( this, options );
 
-    if ( samplePendulum ) {
-      // create central dash line
-      this.addChild( new Line( 0, 0, 0, metersToPixels( samplePendulum.lengthOptions.range.max ), {
-        stroke: samplePendulum.color,
-        lineDash: [4, 7]
-      } ) );
-
-      // create central circles
-      this.addChild( new Circle( 2, {fill: 'black'} ) );
-      this.addChild( new Circle( 8, {stroke: samplePendulum.color} ) );
-    }
-
     // add pendulums
-    pendulumsModel.forEach( function( pendulumModel, pendulumIndex ) {
+    pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
       var massToScale = new LinearFunction( pendulumModel.massOptions.range.min, pendulumModel.massOptions.range.max, 0.25, 1 );
 
       // create solid line

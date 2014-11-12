@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -23,13 +24,27 @@ define( function( require ) {
 
   /**
    * @param {Array} pendulumModels - Array of pendulum models
+   * @param {Function} metersToPixels - Function to convert meters to pixels.
    * @param {Object} options for protractor node
    * @constructor
    */
-  function ProtractorNode( pendulumModels, options ) {
-    var self = this;
+  function ProtractorNode( pendulumModels, metersToPixels, options ) {
+    var self = this,
+      samplePendulum = pendulumModels[0];
 
     Node.call( this, options );
+
+    if ( samplePendulum ) {
+      // create central dash line
+      this.addChild( new Line( 0, 0, 0, metersToPixels( samplePendulum.lengthOptions.range.max ), {
+        stroke: samplePendulum.color,
+        lineDash: [4, 7]
+      } ) );
+
+      // create central circles
+      this.addChild( new Circle( 2, {fill: 'black'} ) );
+      this.addChild( new Circle( 8, {stroke: samplePendulum.color} ) );
+    }
 
     // add background ticks
     for ( var currentAngleDeg = 0, currentAngleRad, lineLength, x1, y1, x2, y2; currentAngleDeg <= 180; currentAngleDeg += 1 ) {

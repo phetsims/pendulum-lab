@@ -43,7 +43,7 @@ define( function( require ) {
     this.addChild( image );
 
     // add protractor node
-    var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels );
+    var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
     protractorNode.centerX = width / 2;
     protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP;
     this.addChild( protractorNode );
@@ -88,7 +88,7 @@ define( function( require ) {
       isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
     } );
     pendulumsNode.centerX = width / 2;
-    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP - 8;
+    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP + 8;
     this.addChild( pendulumsNode );
 
     // add ruler node
