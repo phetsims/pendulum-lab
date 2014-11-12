@@ -94,8 +94,7 @@ define( function( require ) {
       this.property( 'accelerationVector' ).notifyObserversStatic();
     },
     updateVelocityVector: function() {
-      var velocityMagnitude = this.length * this.omega;
-      this.velocityVector.setXY( -velocityMagnitude * Math.cos( this.angle ), velocityMagnitude * Math.sin( this.angle ) );
+      this.velocityVector.setXY( -this.length * this.omega, 0 );
       this.property( 'velocityVector' ).notifyObserversStatic();
     },
     updateEnergies: function() {
