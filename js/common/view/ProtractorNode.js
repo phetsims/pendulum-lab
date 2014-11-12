@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -37,31 +38,30 @@ define( function( require ) {
    * @constructor
    */
   function ProtractorNode( pendulumModels, metersToPixels, options ) {
-    var self = this,
-      samplePendulum = pendulumModels[0];
+    var self = this;
 
     Node.call( this, options );
 
-    if ( samplePendulum ) {
-      // create central dash line
-      this.addChild( new Line( 0, 0, 0, metersToPixels( samplePendulum.lengthOptions.range.max ), {
-        stroke: samplePendulum.color,
+    // create central dash line
+    if ( pendulumModels[0] ) {
+      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulumModels[0].lengthOptions.range.max ), {
+        stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
         lineDash: [4, 7]
       } ) );
-
-      // create central circles
-      this.addChild( new Circle( 2, {fill: 'black'} ) );
-      this.addChild( new Circle( 5, {stroke: samplePendulum.color} ) );
-
-      // add number of degrees text
-      var degreesText = new Text( '0', {
-        centerX: -20,
-        centerY: 15,
-        font: FONT,
-        fill: samplePendulum.color
-      } );
-      this.addChild( degreesText );
     }
+
+    // create central circles
+    this.addChild( new Circle( 2, {fill: 'black'} ) );
+    this.addChild( new Circle( 5, {stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR} ) );
+
+    // add number of degrees text
+    var degreesText = new Text( '0', {
+      centerX: -20,
+      centerY: 15,
+      font: FONT,
+      fill: PendulumLabConstants.FIRST_PENDULUM_COLOR
+    } );
+    this.addChild( degreesText );
 
     // add background ticks
     for ( var currentAngleDeg = 0, currentAngleRad, lineLength, x1, y1, x2, y2; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
