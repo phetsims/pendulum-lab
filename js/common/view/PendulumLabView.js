@@ -45,14 +45,14 @@ define( function( require ) {
     // add protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
     protractorNode.centerX = width / 2;
-    protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP;
+    protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP - 5;
     this.addChild( protractorNode );
 
     // add control panel with sliders
     var planetsListNode = new Node();
     this.sliderControlPanelNode = new SlidersControlPanelNode( pendulumLabModel, planetsListNode );
-    this.sliderControlPanelNode.centerX = width - this.sliderControlPanelNode.width / 2 - SCREEN_PADDING.RIGHT;
-    this.sliderControlPanelNode.centerY = this.sliderControlPanelNode.height / 2 + SCREEN_PADDING.TOP;
+    this.sliderControlPanelNode.centerX = width - this.sliderControlPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
+    this.sliderControlPanelNode.centerY = this.sliderControlPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
     this.addChild( this.sliderControlPanelNode );
     this.addChild( planetsListNode );
 
@@ -88,7 +88,7 @@ define( function( require ) {
       isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
     } );
     pendulumsNode.centerX = width / 2;
-    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP + 8;
+    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
     this.addChild( pendulumsNode );
 
     // add ruler node

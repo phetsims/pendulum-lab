@@ -51,7 +51,7 @@ define( function( require ) {
 
       // create central circles
       this.addChild( new Circle( 2, {fill: 'black'} ) );
-      this.addChild( new Circle( 8, {stroke: samplePendulum.color} ) );
+      this.addChild( new Circle( 5, {stroke: samplePendulum.color} ) );
 
       // add number of degrees text
       var degreesText = new Text( '0', {

@@ -26,7 +26,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var FONT_LABEL = new PhetFont( 10 );
+  var FONT_LABEL = new PhetFont( 9 );
   var VALUE_LABEL_SPACING = 4;
 
   /**

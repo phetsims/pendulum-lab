@@ -26,8 +26,8 @@ define( function( require ) {
   var WhatIsTheValueOfGravity = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   // constants
-  var FONT = new PhetFont( 11 );
-  var FONT_QUESTION = new PhetFont( 10 );
+  var FONT = new PhetFont( 9 );
+  var FONT_QUESTION = new PhetFont( 8.5 );
 
   /**
    * Constructor for the gravity slider control
@@ -40,10 +40,11 @@ define( function( require ) {
    * @constructor
    */
   function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
-    var self = this;
+    var container = new Node();
 
     VBox.call( this, _.extend( {
-      spacing: 4
+      spacing: 4,
+      children: [container]
     }, options ) );
 
     // create slider for gravity property
@@ -54,14 +55,20 @@ define( function( require ) {
     } );
     hSlider.addMajorTick( gravityPropertyRange.min, new Text( NoneString, {font: FONT} ) );
     hSlider.addMajorTick( gravityPropertyRange.max, new Text( LotsString, {font: FONT} ) );
+    container.addChild( hSlider );
 
     // create question text node instead of slider for planet X
     var questionText = new Node( {
       children: [
-        new Rectangle( 0, 0, hSlider.width, hSlider.height ),
-        new Text( WhatIsTheValueOfGravity, {font: FONT_QUESTION, centerX: hSlider.width / 2, centerY: hSlider.height / 2} )
+        new Rectangle( hSlider.bounds.minX, hSlider.bounds.minY, hSlider.width, hSlider.height ),
+        new Text( WhatIsTheValueOfGravity, {
+          font: FONT_QUESTION,
+          centerX: hSlider.bounds.minX + hSlider.width / 2,
+          centerY: hSlider.bounds.minY + hSlider.height / 2
+        } )
       ]
     } );
+    container.addChild( questionText );
 
     // create planet list menu
     var planetListItems = [];
@@ -81,33 +88,13 @@ define( function( require ) {
 
     // if planet X was chosen then replace slider to question
     planetProperty.link( function( planet ) {
-      var hSliderIndex, questionTextIndex;
-
       if ( planet === Planets.PLANET_X ) {
-        // remove slider
-        hSliderIndex = self.indexOfChild( hSlider );
-        if ( hSliderIndex !== -1 ) {
-          self.removeChildWithIndex( hSlider, hSliderIndex );
-        }
-
-        // add question text
-        questionTextIndex = self.indexOfChild( questionText );
-        if ( questionTextIndex === -1 ) {
-          self.insertChild( 0, questionText );
-        }
+        hSlider.visible = false;
+        questionText.visible = true;
       }
       else {
-        // remove question text
-        questionTextIndex = self.indexOfChild( questionText );
-        if ( questionTextIndex !== -1 ) {
-          self.removeChildWithIndex( questionText, questionTextIndex );
-        }
-
-        // add slider
-        hSliderIndex = self.indexOfChild( hSlider );
-        if ( hSliderIndex === -1 ) {
-          self.insertChild( 0, hSlider );
-        }
+        hSlider.visible = true;
+        questionText.visible = false;
       }
     } );
   }

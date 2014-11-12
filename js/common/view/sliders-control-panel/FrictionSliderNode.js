@@ -23,7 +23,7 @@ define( function( require ) {
   var NoneString = require( 'string!PENDULUM_LAB/none' );
 
   // constants
-  var FONT = new PhetFont( 11 );
+  var FONT = new PhetFont( 9 );
   var TICK_NUMBER = 10;
 
   /**
