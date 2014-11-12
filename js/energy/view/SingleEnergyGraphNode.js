@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -31,14 +30,17 @@ define( function( require ) {
   var TotalString = require( 'string!PENDULUM_LAB/total' );
 
   // constants
+  var ARROW_HEAD_WIDTH = 6;
+  var ARROW_HEAD_HEAGHT = 7;
+  var BAR_WIDTH = 6;
   var COLOR = {
     KINETIC: 'rgb( 31, 202, 46 )',
     POTENTIAL: 'rgb( 55, 132, 213 )',
     THERMAL: 'rgb( 253, 87, 31 )',
     TOTAL: 'rgb( 200, 201, 133 )'
   };
+  var ENERGY_MULTIPLIER = 10;
   var FONT = new PhetFont( {size: 10, weight: 'bold'} );
-  var PADDING_LEFT = 6;
   var SPACING = 4;
 
   /**
@@ -55,12 +57,13 @@ define( function( require ) {
     } );
 
     // create labels for bars
+    var kineticText = new Text( KineticString, {font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2} );
     var barLabels = new HBox( {
-      spacing: 3,
+      resize: false,
+      spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - kineticText.width,
       align: 'top',
       children: [
-        new HStrut( PADDING_LEFT / 2 ),
-        new Text( KineticString, {font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2} ),
+        kineticText,
         new Text( PotentialString, {font: FONT, fill: COLOR.POTENTIAL, rotation: -Math.PI / 2} ),
         new Text( ThermalString, {font: FONT, fill: COLOR.THERMAL, rotation: -Math.PI / 2} ),
         new Text( TotalString, {font: FONT, fill: COLOR.TOTAL, rotation: -Math.PI / 2} )
@@ -68,34 +71,54 @@ define( function( require ) {
     } );
 
     // rest of space will be used for graph and bars
-    var barHeight = dimension.height - header.height - barLabels.height - SPACING * 3;
+    var graphHeight = dimension.height - header.height - barLabels.height - SPACING * 3;
 
     // create 'x' and 'y' axis
-    var axisX = new Line( PADDING_LEFT, barHeight, dimension.width - PADDING_LEFT, barHeight, {stroke: 'black'} );
-    var axisY = new ArrowNode( 0, barHeight, 0, 0, {
+    var axisX = new Line( 0, graphHeight, dimension.width - ARROW_HEAD_WIDTH / 2, graphHeight, {stroke: 'black'} );
+    var axisY = new ArrowNode( 0, graphHeight, 0, 0, {
       tailWidth: 2,
-      headHeight: 7,
-      headWidth: 6,
-      x: PADDING_LEFT
+      headHeight: ARROW_HEAD_HEAGHT,
+      headWidth: ARROW_HEAD_WIDTH
     } );
 
     // create bars
+    var kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.KINETIC, rotation: Math.PI} );
+    var potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.POTENTIAL, rotation: Math.PI} );
+    var thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.THERMAL, rotation: Math.PI} );
+    var totalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.TOTAL, rotation: Math.PI} );
+
     var bars = new HBox( {
-      spacing: 8,
+      resize: false,
+      x: axisY.bounds.maxX,
+      y: graphHeight,
+      spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - BAR_WIDTH,
       align: 'bottom',
-      children: [
-        new HStrut( axisY.width - PADDING_LEFT + 1 ),
-        new Rectangle( 0, 0, 6, barHeight, {fill: COLOR.KINETIC} ),
-        new Rectangle( 0, 0, 6, barHeight / 2, {fill: COLOR.POTENTIAL} ),
-        new Rectangle( 0, 0, 6, barHeight, {fill: COLOR.THERMAL} ),
-        new Rectangle( 0, 0, 6, barHeight, {fill: COLOR.TOTAL} )
-      ]
+      children: [kineticEnergyBar, potentialEnergyBar, thermalEnergyBar, totalEnergyBar]
     } );
 
     VBox.call( this, {
+      resize: false,
       spacing: SPACING,
       children: [header, new Node( {children: [axisX, axisY, bars]} ), barLabels]
     } );
+
+    // add energy observers
+    pendulumModel.property( 'kineticEnergy' ).link( function( kineticEnergy ) {
+      kineticEnergyBar.setRectHeight( kineticEnergy * ENERGY_MULTIPLIER );
+    } );
+
+    pendulumModel.property( 'potentialEnergy' ).link( function( potentialEnergy ) {
+      potentialEnergyBar.setRectHeight( potentialEnergy * ENERGY_MULTIPLIER );
+    } );
+
+    pendulumModel.property( 'thermalEnergy' ).link( function( thermalEnergy ) {
+      thermalEnergyBar.setRectHeight( thermalEnergy * ENERGY_MULTIPLIER );
+    } );
+
+    pendulumModel.property( 'totalEnergy' ).link( function( totalEnergy ) {
+      totalEnergyBar.setRectHeight( totalEnergy * ENERGY_MULTIPLIER );
+    } );
+
   }
 
   return inherit( VBox, SingleEnergyGraphNode, {
@@ -104,8 +127,6 @@ define( function( require ) {
     },
     show: function() {
       this.visible = true;
-    },
-    setWidth: function( width ) {
     }
   } );
 } );

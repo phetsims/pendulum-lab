@@ -70,14 +70,18 @@ define( function( require ) {
         self.isTickVisible = true;
         self.omega = 0;
         self.acceleration = 0;
+        self.updateTotalEnergy();
         self.updateAccelerationVector();
         self.updateVelocityVector();
-        self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+        self.updateEnergies();
       }
     } );
 
-    this.property( 'length' ).link( function( newLength, oldLength ) {
-      self.omega = self.omega * oldLength / newLength;
+    this.property( 'angle' ).link( function() {
+      if ( self.isUserControlled ) {
+        self.updateTotalEnergy();
+        self.updateEnergies();
+      }
     } );
   }
 
@@ -104,6 +108,9 @@ define( function( require ) {
       this.potentialEnergy = this.mass * this._gravityProperty.value * h;
       this.kineticEnergy = 0.5 * this.mass * tanVel * tanVel;
       this.thermalEnergy = this.totalEnergy - (this.kineticEnergy + this.potentialEnergy);
+    },
+    updateTotalEnergy: function() {
+      this.totalEnergy = this.mass * this._gravityProperty.value * this.getHeight();
     }
   } );
 } );

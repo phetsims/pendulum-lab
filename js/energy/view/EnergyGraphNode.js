@@ -30,7 +30,7 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 11 );
-  var SINGLE_GRAPH_SIZE = new Dimension2( 66, 240 );
+  var SINGLE_GRAPH_SIZE = new Dimension2( 58, 240 );
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
     xSpacing: 3
@@ -47,10 +47,11 @@ define( function( require ) {
     var self = this;
 
     // create energy graphs for each pendulum
-    this._content = new HBox();
-    pendulumModels.forEach( function( pendulumModel, pendulumNumber ) {
-      self._content.addChild( new SingleEnergyGraphNode( pendulumModel, pendulumNumber + 1, SINGLE_GRAPH_SIZE ) );
+    this._content = new HBox( {spacing: 4, resize: false} );
+    pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
+      self._content.addChild( new SingleEnergyGraphNode( pendulumModel, pendulumIndex + 1, SINGLE_GRAPH_SIZE ) );
     } );
+    this._content.updateLayout();
 
     // create radio buttons for switching energy graph mode
     var radioButtonOne = new AquaRadioButton(
@@ -77,7 +78,7 @@ define( function( require ) {
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
           new HBox( {spacing: 10, children: [radioButtonOne, radioButtonTwo, radioButtonBoth]} ),
-          new Panel( this._content )
+          new Panel( this._content, {resize: false} )
         ]
       } ),
       _.extend( {
@@ -113,21 +114,14 @@ define( function( require ) {
       if ( energyGraphMode === EnergyGraphMode.ONE ) {
         graphOne.show();
         graphTwo.hide();
-
-        //graphOne.setWidth( SINGLE_GRAPH_SIZE.width * 2 );
       }
       else if ( energyGraphMode === EnergyGraphMode.TWO ) {
         graphOne.hide();
         graphTwo.show();
-
-        //graphTwo.setWidth( SINGLE_GRAPH_SIZE.width * 2 );
       }
       else if ( energyGraphMode === EnergyGraphMode.BOTH ) {
         graphOne.show();
         graphTwo.show();
-
-        //graphOne.setWidth( SINGLE_GRAPH_SIZE.width );
-        //graphTwo.setWidth( SINGLE_GRAPH_SIZE.width );
       }
     } );
   }
