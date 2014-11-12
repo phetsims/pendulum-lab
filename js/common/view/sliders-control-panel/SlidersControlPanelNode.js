@@ -151,9 +151,6 @@ define( function( require ) {
   return inherit( PanelPendulumAbstract, SlidersControlPanelNode, {
     reset: function() {
       this.frictionSlider.reset();
-      this.optionSliders.forEach( function( optionSlider ) {
-        optionSlider.reset();
-      } );
     }
   } );
 } );

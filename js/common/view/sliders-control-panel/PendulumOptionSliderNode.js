@@ -103,12 +103,9 @@ define( function( require ) {
       valueLabel.text = StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, trackPropertyOptions.precision ) );
       arrowButtonMinus.enabled = ( value > trackPropertyOptions.range.min );
       arrowButtonPlus.enabled = ( value < trackPropertyOptions.range.max );
+      sliderProperty.value = value;
     } );
   }
 
-  return inherit( VBox, PendulumOptionSliderNode, {
-    reset: function() {
-      this._property.reset();
-    }
-  } );
+  return inherit( VBox, PendulumOptionSliderNode );
 } );
