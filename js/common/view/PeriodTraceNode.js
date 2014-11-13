@@ -18,6 +18,7 @@ define( function( require ) {
 
   // constants
   var EMPTY_SHAPE = new Shape();
+  var TRACE_STEP = 10; // in pixels
 
   /**
    * @param {Array} pendulumModels - Array of pendulum models.
@@ -30,9 +31,13 @@ define( function( require ) {
     var self = this;
     Node.call( this, options );
 
+    this.rotation = Math.PI / 2;
+
     pendulumModels.forEach( function( pendulumModel ) {
-      // create array for store passed points and direction flag
-      var pathPointsStorage = [], traceDirection, traceLength;
+      var pathPointsStorage = [], // array for store passed points
+        anticlockwise, // trace direction flag
+        traceLength, // trace initial length
+        isCompleted = false; // flag to control completing of trace
 
       // create trace path path
       var pathNode = new Path( EMPTY_SHAPE, {stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR, lineWidth: 2} );
@@ -41,27 +46,73 @@ define( function( require ) {
       var clearPath = function() {
         pathNode.setShape( EMPTY_SHAPE );
         pathPointsStorage = [];
+        isCompleted = false;
       };
 
+      var updateShape = function() {
+        var shape = new Shape();
+
+        if ( pathPointsStorage.length > 0 && !isCompleted ) {
+          // draw first arc
+          if ( pathPointsStorage.length > 1 ) {
+            shape.arc( 0, 0, traceLength, 0, pathPointsStorage[1].angle, pathPointsStorage[0].anticlockwise );
+            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( pathPointsStorage[1].angle ), (traceLength - TRACE_STEP) * Math.sin( pathPointsStorage[1].angle ) );
+
+            // draw second arc
+            if ( pathPointsStorage.length > 2 ) {
+              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[1].angle, pathPointsStorage[2].angle, pathPointsStorage[1].anticlockwise );
+              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( pathPointsStorage[2].angle ), (traceLength - 2 * TRACE_STEP) * Math.sin( pathPointsStorage[2].angle ) );
+
+              // draw third arc
+              if ( pathPointsStorage.length > 3 ) {
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[2].angle, 0, pathPointsStorage[2].anticlockwise );
+                isCompleted = true;
+              }
+              else {
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[2].angle, pendulumModel.angle, pathPointsStorage[2].anticlockwise );
+              }
+            }
+            else {
+              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[1].angle, pendulumModel.angle, pathPointsStorage[1].anticlockwise );
+            }
+          }
+          else {
+            shape.arc( 0, 0, traceLength, 0, pendulumModel.angle, pathPointsStorage[0].anticlockwise );
+          }
+          pathNode.setShape( shape );
+        }
+      };
+
+      // update visibility of path node
       isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
         pathNode.visible = isPeriodTraceVisible;
+        clearPath();
       } );
 
+      // update path shape
       pendulumModel.property( 'angle' ).link( function( newAngle, oldAngle ) {
         if ( pathNode.visible && !pendulumModel.isUserControlled ) {
-          if ( (pathPointsStorage.length === 0 || pathPointsStorage.length === 3) && (newAngle * oldAngle < 0) ) {
-            if ( pathPointsStorage.length === 0 ) {
-              traceDirection = newAngle;
-              traceLength = metersToPixels( pendulumModel.length * 3 / 4 );
-            }
-            pathPointsStorage.push( {x: 0, y: traceLength} );
+          // first point
+          if ( pathPointsStorage.length === 0 && newAngle * oldAngle < 0 ) {
+            anticlockwise = newAngle < 0;
+            traceLength = metersToPixels( pendulumModel.length * 3 / 4 );
+            pathPointsStorage.push( {anticlockwise: anticlockwise} );
           }
-
-          if ( pathPointsStorage.length === 1 || pathPointsStorage.length === 2 ) {
-            if ( (traceDirection > 0 && newAngle < oldAngle) || (traceDirection < 0 && newAngle > oldAngle) ) {
-              pathPointsStorage.push( {x: traceLength * Math.cos( newAngle ), y: traceLength * Math.sin( newAngle )} );
-            }
+          // second point
+          else if ( pathPointsStorage.length === 1 && ((anticlockwise && newAngle > oldAngle) || (!anticlockwise && newAngle < oldAngle)) ) {
+            anticlockwise = !anticlockwise;
+            pathPointsStorage.push( {angle: oldAngle, anticlockwise: anticlockwise} );
           }
+          // third point
+          else if ( pathPointsStorage.length === 2 && ((anticlockwise && newAngle > oldAngle) || (!anticlockwise && newAngle < oldAngle)) ) {
+            anticlockwise = !anticlockwise;
+            pathPointsStorage.push( {angle: oldAngle, anticlockwise: anticlockwise} );
+          }
+          // fourth point
+          else if ( pathPointsStorage.length === 3 && newAngle * oldAngle < 0 ) {
+            pathPointsStorage.push( {anticlockwise: anticlockwise} );
+          }
+          updateShape();
         }
       } );
 

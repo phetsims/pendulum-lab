@@ -84,9 +84,10 @@ define( function( require ) {
     this.addChild( resetAllButton );
 
     // add period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, pendulumLabModel.property( 'isPeriodTraceVisible' ) );
-    periodTraceNode.centerX = width / 2;
-    periodTraceNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP;
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, pendulumLabModel.property( 'isPeriodTraceVisible' ), {
+      x: width / 2,
+      y: SCREEN_PADDING.TOP - 5
+    } );
     this.addChild( periodTraceNode );
 
     // add pendulums
