@@ -41,7 +41,7 @@ define( function( require ) {
 
     var image = new Image( screenshotImage );
     image.scale( this.layoutBounds.width / image.width );
-    this.addChild( image );
+    // this.addChild( image );
 
     // add protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
