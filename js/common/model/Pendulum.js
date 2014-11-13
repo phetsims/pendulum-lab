@@ -83,11 +83,36 @@ define( function( require ) {
         self.updateEnergies();
       }
     } );
+
+    this.property( 'mass' ).link( function( mass ) {
+      self.potentialEnergy = mass * self._gravityProperty.value * self.getHeight();
+      self.kineticEnergy = 0.5 * mass * self.getTangentialVelocitySquare();
+      self.totalEnergy = self.kineticEnergy + self.potentialEnergy + self.thermalEnergy;
+    } );
+
+    this.property( 'length' ).link( function( newLength, oldLength ) {
+      self.omega = self.omega * oldLength / newLength;
+      self.potentialEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+      self.kineticEnergy = 0.5 * self.mass * self.getTangentialVelocitySquare();
+      self.totalEnergy = self.kineticEnergy + self.potentialEnergy + self.thermalEnergy;
+
+      self.updateAccelerationVector();
+      self.updateVelocityVector();
+    } );
+
+    gravityProperty.link( function() {
+      self.potentialEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+      self.kineticEnergy = 0.5 * self.mass * self.getTangentialVelocitySquare();
+      self.totalEnergy = self.kineticEnergy + self.potentialEnergy + self.thermalEnergy;
+    } );
   }
 
   return inherit( Movable, Pendulum, {
     getHeight: function() {
       return this.length * (1 - Math.cos( this.angle ));
+    },
+    getTangentialVelocitySquare: function() {
+      return this.length * this.length * this.omega * this.omega;
     },
     updateAccelerationVector: function() {
       var omegaSq = this.omega * this.omega,
@@ -102,11 +127,8 @@ define( function( require ) {
       this.property( 'velocityVector' ).notifyObserversStatic();
     },
     updateEnergies: function() {
-      var h = this.getHeight(),
-        tanVel = this.length * this.omega;
-
-      this.potentialEnergy = this.mass * this._gravityProperty.value * h;
-      this.kineticEnergy = 0.5 * this.mass * tanVel * tanVel;
+      this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
+      this.kineticEnergy = 0.5 * this.mass * this.getTangentialVelocitySquare();
       this.thermalEnergy = this.totalEnergy - (this.kineticEnergy + this.potentialEnergy);
     },
     updateTotalEnergy: function() {
