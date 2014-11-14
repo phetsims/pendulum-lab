@@ -31,10 +31,12 @@ define( function( require ) {
     Movable.call( this, {
       angle: 0, // value of the angular displacement
       length: length, // length of pendulum
+      height: 0, // height above lowest point
       mass: mass, // mass of pendulum
       omega: 0, // angular velocity
       acceleration: 0, // acceleration value of pendulum
       accelerationVector: new Vector2( 0, 0 ),
+      velocity: 0, // tangential velocity
       velocityVector: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
@@ -68,51 +70,47 @@ define( function( require ) {
     this.property( 'isUserControlled' ).link( function( isUserControlled ) {
       if ( isUserControlled ) {
         self.isTickVisible = true;
-        self.omega = 0;
-        self.acceleration = 0;
-        self.updateTotalEnergy();
-        self.updateAccelerationVector();
-        self.updateVelocityVector();
-        self.updateEnergies();
+        self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+        self.resetVectorParameters();
+
+        self.updateVectors();
+        self.updateEnergiesWithTotalEnergyConstant();
       }
     } );
 
     this.property( 'angle' ).link( function() {
       if ( self.isUserControlled ) {
-        self.updateTotalEnergy();
-        self.updateEnergies();
+        self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+        self.resetVectorParameters();
+        self.updateVectors();
+        self.updateEnergiesWithTotalEnergyConstant();
       }
     } );
 
-    this.property( 'mass' ).link( function( mass ) {
-      self.potentialEnergy = mass * self._gravityProperty.value * self.getHeight();
-      self.kineticEnergy = 0.5 * mass * self.getTangentialVelocitySquare();
-      self.totalEnergy = self.kineticEnergy + self.potentialEnergy + self.thermalEnergy;
-    } );
-
-    this.property( 'length' ).link( function( newLength, oldLength ) {
+    this.property( 'length' ).lazyLink( function( newLength, oldLength ) {
       self.omega = self.omega * oldLength / newLength;
-      self.potentialEnergy = self.mass * self._gravityProperty.value * self.getHeight();
-      self.kineticEnergy = 0.5 * self.mass * self.getTangentialVelocitySquare();
-      self.totalEnergy = self.kineticEnergy + self.potentialEnergy + self.thermalEnergy;
-
-      self.updateAccelerationVector();
-      self.updateVelocityVector();
+      self.updateVectors();
+      self.updateEnergiesWithThermalEnergyConstant();
     } );
 
-    gravityProperty.link( function() {
-      self.potentialEnergy = self.mass * self._gravityProperty.value * self.getHeight();
-      self.kineticEnergy = 0.5 * self.mass * self.getTangentialVelocitySquare();
-      self.totalEnergy = self.kineticEnergy + self.potentialEnergy + self.thermalEnergy;
-    } );
+    this.property( 'mass' ).link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
+    gravityProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
   }
 
   return inherit( Movable, Pendulum, {
     getHeight: function() {
       return this.length * (1 - Math.cos( this.angle ));
     },
-    getTangentialVelocitySquare: function() {
-      return this.length * this.length * this.omega * this.omega;
+    getVelocity: function() {
+      return this.length * this.omega;
+    },
+    updateVectors: function() {
+      this.updateVelocityVector();
+      this.updateAccelerationVector();
+    },
+    updateVelocityVector: function() {
+      this.velocityVector.setXY( -this.getVelocity(), 0 );
+      this.property( 'velocityVector' ).notifyObserversStatic();
     },
     updateAccelerationVector: function() {
       var omegaSq = this.omega * this.omega,
@@ -122,17 +120,19 @@ define( function( require ) {
       this.accelerationVector.setXY( -accelerationMagnitude * Math.cos( accelerationAngle ), -accelerationMagnitude * Math.sin( accelerationAngle ) );
       this.property( 'accelerationVector' ).notifyObserversStatic();
     },
-    updateVelocityVector: function() {
-      this.velocityVector.setXY( -this.length * this.omega, 0 );
-      this.property( 'velocityVector' ).notifyObserversStatic();
-    },
-    updateEnergies: function() {
+    updateEnergiesWithTotalEnergyConstant: function() {
       this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
-      this.kineticEnergy = 0.5 * this.mass * this.getTangentialVelocitySquare();
+      this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
       this.thermalEnergy = this.totalEnergy - (this.kineticEnergy + this.potentialEnergy);
     },
-    updateTotalEnergy: function() {
-      this.totalEnergy = this.mass * this._gravityProperty.value * this.getHeight();
+    updateEnergiesWithThermalEnergyConstant: function() {
+      this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
+      this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
+      this.totalEnergy = this.kineticEnergy + this.potentialEnergy + this.thermalEnergy;
+    },
+    resetVectorParameters: function() {
+      this.omega = 0;
+      this.acceleration = -this._gravityProperty.value / this.length * Math.sin( this.angle );
     }
   } );
 } );

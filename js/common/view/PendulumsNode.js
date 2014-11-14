@@ -79,7 +79,6 @@ define( function( require ) {
         // add visibility observer
         options.isVelocityVisibleProperty.link( function( isVelocityVisible ) {
           velocityArrow.visible = isVelocityVisible;
-          pendulumModel.updateVelocityVector();
         } );
 
         // add arrow size observer

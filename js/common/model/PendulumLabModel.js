@@ -143,9 +143,8 @@ define( function( require ) {
             currentPendulum.acceleration = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
             currentPendulum.omega += 0.5 * (currentPendulum.acceleration + oldAcceleration) * dt;
 
-            currentPendulum.updateAccelerationVector();
-            currentPendulum.updateVelocityVector();
-            currentPendulum.updateEnergies();
+            currentPendulum.updateVectors();
+            currentPendulum.updateEnergiesWithTotalEnergyConstant();
           }
         }
       }
