@@ -123,6 +123,7 @@ define( function( require ) {
       pendulumModel.property( 'isUserControlled' ).link( function( isUserControlled ) {
         degreesText.visible = isUserControlled;
         updateDegreesText();
+        updateTicksPosition();
       } );
     } );
   }
