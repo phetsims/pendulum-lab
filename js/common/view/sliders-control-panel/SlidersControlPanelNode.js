@@ -150,7 +150,9 @@ define( function( require ) {
 
   return inherit( PanelPendulumAbstract, SlidersControlPanelNode, {
     reset: function() {
-      this.frictionSlider.reset();
+      if ( this.frictionSlider ) {
+        this.frictionSlider.reset();
+      }
     }
   } );
 } );
