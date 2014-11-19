@@ -99,7 +99,7 @@ define( function( require ) {
     VBox.call( this, {
       resize: false,
       spacing: SPACING,
-      children: [header, new Node( {children: [axisX, axisY, bars]} ), barLabels]
+      children: [header, new Node( {children: [bars, axisX, axisY]} ), barLabels]
     } );
 
     // add energy observers
