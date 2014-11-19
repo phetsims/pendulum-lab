@@ -44,7 +44,7 @@ define( function( require ) {
       var pathNode = new Path( EMPTY_SHAPE, {stroke: pendulumModel.color, lineWidth: 2} );
       self.addChild( pathNode );
 
-      var reloadPath = function() {
+      var resetPath = function() {
         pathNode.setShape( EMPTY_SHAPE );
         pathPointsStorage = [];
         isCompleted = false;
@@ -91,7 +91,7 @@ define( function( require ) {
         intervalId = Timer.setInterval( function() {
           pathNode.opacity -= 0.01;
           if ( pathNode.opacity <= 0 ) {
-            reloadPath();
+            resetPath();
           }
         }, tickTime );
       };
@@ -99,7 +99,7 @@ define( function( require ) {
       // update visibility of path node
       isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
         pathNode.visible = isPeriodTraceVisible;
-        reloadPath();
+        resetPath();
       } );
 
       // update path shape
@@ -131,8 +131,8 @@ define( function( require ) {
       } );
 
       // clear trace if length was changed or moved by user
-      pendulumModel.property( 'length' ).lazyLink( reloadPath );
-      pendulumModel.property( 'isUserControlled' ).lazyLink( reloadPath );
+      pendulumModel.property( 'length' ).lazyLink( resetPath );
+      pendulumModel.property( 'isUserControlled' ).lazyLink( resetPath );
     } );
   }
 
