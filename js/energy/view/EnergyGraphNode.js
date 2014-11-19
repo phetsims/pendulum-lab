@@ -38,12 +38,13 @@ define( function( require ) {
 
   /**
    * @param {Array} pendulumModels - Pendulum models.
+   * @param {Property} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
    * @param {Property} energyGraphModeProperty - Property to select mode of energy graph representation
    * @param {Property} numberOfPendulumsProperty - Property to control number of pendulums.
    * @param {Object} options
    * @constructor
    */
-  function EnergyGraphNode( pendulumModels, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
+  function EnergyGraphNode( pendulumModels, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
     var self = this;
 
     // create energy graphs for each pendulum
@@ -82,6 +83,8 @@ define( function( require ) {
         ]
       } ),
       _.extend( {
+        expandedProperty: isEnergyGraphExpandedProperty,
+
         cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
 
