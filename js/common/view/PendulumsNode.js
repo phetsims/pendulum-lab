@@ -61,7 +61,7 @@ define( function( require ) {
               addColorStop( 1, pendulumModel.color )
           } ),
           new Text( (pendulumIndex + 1).toString(), {font: FONT, fill: 'white', centerY: RECT_SIZE.height / 4, centerX: 0} ),
-          new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, {stroke: 'black'} )
+          new Line( -RECT_SIZE.width / 2 + 1, 0, RECT_SIZE.width / 2 - 1, 0, {stroke: 'black', lineCap: 'butt'} )
         ]
       } );
 
