@@ -47,29 +47,39 @@ define( function( require ) {
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
     protractorNode.centerX = width / 2;
     protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP - 5;
-    this.addChild( protractorNode );
+
+    // add pendulums
+    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
+      isAccelerationVisibleProperty: pendulumLabModel.property( 'isAccelerationVisible' ),
+      isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
+    } );
+    pendulumsNode.centerX = width / 2;
+    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
+
+    // add period trace node
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, pendulumLabModel.property( 'isPeriodTraceVisible' ), {
+      x: width / 2,
+      y: SCREEN_PADDING.TOP - 5
+    } );
 
     // add control panel with sliders
     var planetsListNode = new Node();
-    this.sliderControlPanelNode = new SlidersControlPanelNode( pendulumLabModel, planetsListNode );
-    this.sliderControlPanelNode.centerX = width - this.sliderControlPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
-    this.sliderControlPanelNode.centerY = this.sliderControlPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
-    this.addChild( this.sliderControlPanelNode );
-    this.addChild( planetsListNode );
+    var sliderControlPanelNode = new SlidersControlPanelNode( pendulumLabModel, planetsListNode );
+    sliderControlPanelNode.centerX = width - sliderControlPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
+    sliderControlPanelNode.centerY = sliderControlPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
+    this.sliderControlPanelNode = sliderControlPanelNode;
 
     // add tools control panel
     var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.rulerModel.property( 'isVisible' ),
       pendulumLabModel.stopwatchModel.property( 'isVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
     toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
-    this.addChild( toolsControlPanelNode );
 
     // add pendulum system control panel
     var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.property( 'numberOfPendulums' ),
       pendulumLabModel.property( 'play' ), pendulumLabModel.property( 'timeSpeed' ), pendulumLabModel.stepManual.bind( pendulumLabModel ) );
     pendulumSystemControlPanelNode.centerX = width / 2;
     pendulumSystemControlPanelNode.centerY = height - pendulumSystemControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
-    this.addChild( pendulumSystemControlPanelNode );
 
     // add reset all button
     var resetAllButton = new ResetAllButton( {
@@ -81,29 +91,24 @@ define( function( require ) {
     resetAllButton.centerX = width - resetAllButton.width / 2 - SCREEN_PADDING.RIGHT;
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 5;
     resetAllButton.scale( 0.75 );
-    this.addChild( resetAllButton );
-
-    // add period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, pendulumLabModel.property( 'isPeriodTraceVisible' ), {
-      x: width / 2,
-      y: SCREEN_PADDING.TOP - 5
-    } );
-    this.addChild( periodTraceNode );
-
-    // add pendulums
-    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
-      isAccelerationVisibleProperty: pendulumLabModel.property( 'isAccelerationVisible' ),
-      isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
-    } );
-    pendulumsNode.centerX = width / 2;
-    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
-    this.addChild( pendulumsNode );
 
     // add ruler node
-    this.addChild( new PendulumLabRulerNode( pendulumLabModel.rulerModel, pendulumLabModel.metersToPixels, mvt, this.layoutBounds ) );
+    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.rulerModel, pendulumLabModel.metersToPixels, mvt, this.layoutBounds );
 
     // add timer node
-    this.addChild( new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds ) );
+    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds );
+
+    // render order
+    this.addChild( rulerNode );
+    this.addChild( protractorNode );
+    this.addChild( pendulumsNode );
+    this.addChild( periodTraceNode );
+    this.addChild( sliderControlPanelNode );
+    this.addChild( planetsListNode );
+    this.addChild( toolsControlPanelNode );
+    this.addChild( pendulumSystemControlPanelNode );
+    this.addChild( resetAllButton );
+    this.addChild( stopwatchNode );
   }
 
   return inherit( ScreenView, PendulumLabView, {
