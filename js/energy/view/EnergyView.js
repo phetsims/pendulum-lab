@@ -29,7 +29,15 @@ define( function( require ) {
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulumModels, pendulumLabModel.property( 'isEnergyGraphExpanded' ), pendulumLabModel.property( 'energyGraphMode' ), pendulumLabModel.property( 'numberOfPendulums' ) );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
+    this.energyGraphNode = energyGraphNode;
     this.insertChild( 1, energyGraphNode );
+
+    // move ruler and stopwatch on the right side
+    this.rulerNode.centerX += (energyGraphNode.width + 10);
+    pendulumLabModel.rulerModel.setInitialLocationValue( this.rulerNode.center );
+
+    this.stopwatchNode.centerX = this.rulerNode.centerX - this.rulerNode.width / 2 + this.stopwatchNode.width / 2;
+    pendulumLabModel.stopwatchModel.setInitialLocationValue( this.stopwatchNode.center );
   }
 
   return inherit( PendulumLabView, EnergyView );

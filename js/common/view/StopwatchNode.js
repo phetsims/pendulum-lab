@@ -28,9 +28,6 @@ define( function( require ) {
     this.centerX = toolsControlPanelNodeBounds.maxX - this.width / 2;
     this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
 
-    // set initial value for stopwatch 'location' property
-    stopwatchModel.setInitialLocationValue( this.center );
-
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
       locationProperty: stopwatchModel.property( 'location' ),

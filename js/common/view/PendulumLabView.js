@@ -94,9 +94,11 @@ define( function( require ) {
 
     // add ruler node
     var rulerNode = new PendulumLabRulerNode( pendulumLabModel.rulerModel, pendulumLabModel.metersToPixels, mvt, this.layoutBounds );
+    this.rulerNode = rulerNode;
 
     // add timer node
     var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds );
+    this.stopwatchNode = stopwatchNode;
 
     // render order
     this.addChild( rulerNode );
@@ -109,6 +111,10 @@ define( function( require ) {
     this.addChild( pendulumSystemControlPanelNode );
     this.addChild( resetAllButton );
     this.addChild( stopwatchNode );
+
+    // set initial value for ruler and stopwatch 'location' property
+    pendulumLabModel.rulerModel.setInitialLocationValue( rulerNode.center );
+    pendulumLabModel.stopwatchModel.setInitialLocationValue( stopwatchNode.center );
   }
 
   return inherit( ScreenView, PendulumLabView, {

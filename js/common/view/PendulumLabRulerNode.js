@@ -60,9 +60,6 @@ define( function( require ) {
     this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
     this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
 
-    // set initial value for ruler 'location' property
-    rulerModel.setInitialLocationValue( this.center );
-
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
       locationProperty: rulerModel.property( 'location' ),

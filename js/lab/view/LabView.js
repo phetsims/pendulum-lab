@@ -10,10 +10,9 @@ define( function( require ) {
 
   // modules
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
-  var EnergyGraphNode = require( 'PENDULUM_LAB/energy/view/EnergyGraphNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
+  var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -24,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function LabView( pendulumLabModel, mvt, screenshotImage ) {
-    PendulumLabView.call( this, pendulumLabModel, mvt, screenshotImage );
+    EnergyView.call( this, pendulumLabModel, mvt, screenshotImage );
 
     // add arrow panel node to the bottom layer
     var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.property( 'isVelocityVisible' ),
@@ -33,12 +32,9 @@ define( function( require ) {
     arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
     this.insertChild( 1, arrowsPanelNode );
 
-    // add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulumModels, pendulumLabModel.property( 'isEnergyGraphExpanded' ), pendulumLabModel.property( 'energyGraphMode' ), pendulumLabModel.property( 'numberOfPendulums' ) );
-    energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
-    energyGraphNode.centerY = arrowsPanelNode.bounds.maxY + energyGraphNode.height / 2 + 8;
-    this.insertChild( 2, energyGraphNode );
+    // move energyGraphNode on the bottom
+    this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
   }
 
-  return inherit( PendulumLabView, LabView );
+  return inherit( EnergyView, LabView );
 } );
