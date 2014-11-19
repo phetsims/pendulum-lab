@@ -13,7 +13,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Shape = require( 'KITE/Shape' );
   var Timer = require( 'JOIST/Timer' );
 
@@ -42,7 +41,7 @@ define( function( require ) {
         isCompleted = false; // flag to control completing of trace
 
       // create trace path path
-      var pathNode = new Path( EMPTY_SHAPE, {stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR, lineWidth: 2} );
+      var pathNode = new Path( EMPTY_SHAPE, {stroke: pendulumModel.color, lineWidth: 2} );
       self.addChild( pathNode );
 
       var clearPath = function() {
