@@ -102,7 +102,17 @@ define( function( require ) {
 
       var updateDegreesText = function() {
         if ( pendulumModel.isUserControlled ) {
-          degreesText.setText( StringUtils.format( pattern_0numberOfDegrees_degreeSymbol, Util.toFixed( Math.abs( pendulumModel.angle * 180 / Math.PI ), 0 ) ) );
+          var angle = -pendulumModel.angle * 180 / Math.PI;
+
+          // angle belongs to an interval from -90 to 270 degrees
+          if ( angle < -90 ) {
+            angle += 360;
+          }
+          else if ( angle > 270 ) {
+            angle -= 360;
+          }
+
+          degreesText.setText( StringUtils.format( pattern_0numberOfDegrees_degreeSymbol, Util.toFixed( angle, 0 ) ) );
         }
       };
 
