@@ -121,6 +121,8 @@ define( function( require ) {
 
     // called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
+      dt = Math.min( 0.05, dt * this.timeSpeed );
+
       if ( this.stopwatchModel.isRunning ) {
         this.stopwatchModel.elapsedTime += dt;
       }
@@ -129,8 +131,6 @@ define( function( require ) {
         var friction = this.friction || 0,
           currentPendulum,
           oldAcceleration;
-
-        dt = Math.min( 0.05, dt * this.timeSpeed );
 
         for ( var i = 0; i < this.numberOfPendulums; i++ ) {
           currentPendulum = this.pendulumModels[i];
