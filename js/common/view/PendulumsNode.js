@@ -28,7 +28,7 @@ define( function( require ) {
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
   var ARROW_SIZE_DEFAULT = 25;
-  var FONT = new PhetFont( 25 );
+  var FONT = new PhetFont( {size: 32, weight: 'bold'} );
   var RECT_SIZE = new Dimension2( 60, 80 );
 
   /**
