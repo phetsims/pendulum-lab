@@ -23,7 +23,7 @@ define( function( require ) {
   // constants
   var FONT = new PhetFont( 10 );
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
-  var TICK_INTERVAL = 20; // tick interval in cm
+  var TICK_INTERVAL = 10; // tick interval in cm
 
   /**
    * @param {PropertySet} rulerModel - Model for ruler.
@@ -37,22 +37,26 @@ define( function( require ) {
 
     // create tick labels
     var rulerTicks = ['']; // zero tick is not labeled
-    for ( var currentTick = TICK_INTERVAL; currentTick < rulerModel.length * 100; currentTick += TICK_INTERVAL ) {
-      rulerTicks.push( currentTick.toString() );
+    for ( var currentTick = TICK_INTERVAL, tickLabel; currentTick < rulerModel.length * 100; currentTick += TICK_INTERVAL ) {
+      tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
+      rulerTicks.push( tickLabel );
     }
 
     // define ruler params in pixels
     var rulerWidth = metersToPixels( rulerModel.length );
     var tickWidth = rulerWidth / rulerTicks.length;
 
-    RulerNode.call( this, rulerWidth, 38, tickWidth, rulerTicks, rulerUnitsString, {
-      backgroundFill: 'rgb( 231, 232, 233 )',
+    RulerNode.call( this, rulerWidth, 34, tickWidth, rulerTicks, rulerUnitsString, {
+      backgroundFill: 'rgb( 237, 225, 121 )',
       cursor: 'pointer',
       insetsWidth: 0,
       majorTickFont: FONT,
+      majorTickHeight: 12,
+      minorTickHeight: 6,
       unitsFont: FONT,
-      unitsMajorTickIndex: rulerTicks.length - 1,
-      minorTicksPerMajorTick: 1
+      unitsMajorTickIndex: rulerTicks.length - 2,
+      minorTicksPerMajorTick: 4,
+      tickMarksOnBottom: false
     } );
 
     this.rotate( Math.PI / 2 );
