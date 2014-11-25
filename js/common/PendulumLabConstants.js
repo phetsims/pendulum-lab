@@ -31,7 +31,7 @@ define( function( require ) {
     THUMB_SIZE: new Dimension2( 10, 19 ),
 
     // common
-    BACKGROUND_COLOR: 'rgb( 254, 254, 182 )',
+    BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: {
       TOP: 23,
       RIGHT: 23,
