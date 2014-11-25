@@ -44,7 +44,7 @@ define( function( require ) {
     } );
 
     this.pendulumModels = [
-      new Pendulum( 1, 2, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ) ),
+      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ) ),
       new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.property( 'gravity' ) )
     ];
 
@@ -102,7 +102,7 @@ define( function( require ) {
   return inherit( PropertySet, PendulumLabModel, {
 
     // 1 meter is equal to 140 pixels
-    metersToPixels: new LinearFunction( 0, 1, 0, 140 ),
+    metersToPixels: new LinearFunction( 0, 1, 0, 175 ),
 
     reset: function() {
       PropertySet.prototype.reset.call( this );

@@ -54,7 +54,7 @@ define( function( require ) {
 
     // additional properties for pendulum length
     this.lengthOptions = {
-      range: new Range( 0.5, 2.5, length ), // possible length range
+      range: new Range( 0.1, 2.0, length ), // possible length range
       step: 0.1, // absolute value changing after one step
       precision: 2 // numbers after decimal points
     };
