@@ -19,6 +19,7 @@ define( function( require ) {
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SlidersControlPanelNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SlidersControlPanelNode' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
@@ -100,6 +101,14 @@ define( function( require ) {
     var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds );
     this.stopwatchNode = stopwatchNode;
 
+    var returnButtonNode = new ReturnButtonNode( {
+      listener: function() {
+         // TODO
+      }
+    } );
+    returnButtonNode.centerX = resetAllButton.bounds.minX - 75;
+    returnButtonNode.centerY = height - SCREEN_PADDING.BOTTOM - 5;
+
     // render order
     this.addChild( rulerNode );
     this.addChild( protractorNode );
@@ -110,6 +119,7 @@ define( function( require ) {
     this.addChild( toolsControlPanelNode );
     this.addChild( pendulumSystemControlPanelNode );
     this.addChild( resetAllButton );
+    this.addChild( returnButtonNode );
     this.addChild( stopwatchNode );
 
     // set initial value for ruler and stopwatch 'location' property
