@@ -26,7 +26,7 @@ define( function( require ) {
     this.rulerModel.isVisible = false;
 
     // friction coefficient description
-    this.frictionRange = new Range( 0, 0.5115, 0.5115 / 32 );
+    this.frictionRange = new Range( 0, 0.5115, 0 );
     this.addProperty( 'friction', this.frictionRange.defaultValue );
 
     // add energy mode property
