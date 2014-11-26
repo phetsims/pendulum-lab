@@ -25,7 +25,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var BothString = require( 'string!PENDULUM_LAB/both' );
   var EnergyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
 
   // constants
@@ -68,17 +67,10 @@ define( function( require ) {
       RADIO_BUTTON_OPTIONS );
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
 
-    var radioButtonBoth = new AquaRadioButton(
-      energyGraphModeProperty,
-      EnergyGraphMode.BOTH,
-      new Text( BothString, {font: FONT} ),
-      RADIO_BUTTON_OPTIONS );
-    radioButtonBoth.setEnabled = setEnabledRadioButton.bind( radioButtonBoth );
-
     // add accordion box
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
-          new HBox( {spacing: 10, children: [radioButtonOne, radioButtonTwo, radioButtonBoth]} ),
+          new HBox( {spacing: 20, children: [radioButtonOne, radioButtonTwo]} ),
           new Panel( this._content, {resize: false} )
         ]
       } ),
@@ -102,11 +94,9 @@ define( function( require ) {
       if ( numberOfPendulums === 1 ) {
         energyGraphModeProperty.value = EnergyGraphMode.ONE;
         radioButtonTwo.setEnabled( false );
-        radioButtonBoth.setEnabled( false );
       }
       else if ( numberOfPendulums === 2 ) {
         radioButtonTwo.setEnabled( true );
-        radioButtonBoth.setEnabled( true );
       }
     } );
 
@@ -120,10 +110,6 @@ define( function( require ) {
       }
       else if ( energyGraphMode === EnergyGraphMode.TWO ) {
         graphOne.hide();
-        graphTwo.show();
-      }
-      else if ( energyGraphMode === EnergyGraphMode.BOTH ) {
-        graphOne.show();
         graphTwo.show();
       }
     } );

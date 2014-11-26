@@ -9,7 +9,6 @@ define( function() {
   'use strict';
 
   return Object.freeze( {
-    BOTH: 'Both',
     ONE: 'One',
     TWO: 'Two'
   } );
