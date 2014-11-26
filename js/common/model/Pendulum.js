@@ -33,10 +33,10 @@ define( function( require ) {
       length: length, // length of pendulum
       height: 0, // height above lowest point
       mass: mass, // mass of pendulum
-      omega: 0, // angular velocity
       acceleration: 0, // acceleration value of pendulum
-      accelerationVector: new Vector2( 0, 0 ),
+      omega: 0, // angular velocity
       velocity: 0, // tangential velocity
+      accelerationVector: new Vector2( 0, 0 ),
       velocityVector: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
@@ -103,6 +103,20 @@ define( function( require ) {
     },
     getVelocity: function() {
       return this.length * this.omega;
+    },
+    resetMotion: function() {
+      this.property( 'angle' ).reset();
+      this.property( 'acceleration' ).reset();
+      this.property( 'omega' ).reset();
+      this.property( 'velocity' ).reset();
+      this.property( 'kineticEnergy' ).reset();
+      this.property( 'potentialEnergy' ).reset();
+      this.property( 'thermalEnergy' ).reset();
+      this.property( 'totalEnergy' ).reset();
+      this.property( 'isTickVisible' ).reset();
+
+      this.updateVectors();
+      this.updateEnergiesWithTotalEnergyConstant();
     },
     updateVectors: function() {
       this.updateVelocityVector();

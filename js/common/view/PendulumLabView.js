@@ -102,8 +102,10 @@ define( function( require ) {
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
-      listener: function() {
-         // TODO
+      listener: function(){
+        pendulumLabModel.pendulumModels.forEach( function( pendulumModel ) {
+          pendulumModel.resetMotion();
+        } );
       }
     } );
     returnButtonNode.centerX = resetAllButton.bounds.minX - 75;
