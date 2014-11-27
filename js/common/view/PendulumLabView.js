@@ -9,20 +9,22 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
+  var PendulumSlidersNode = require( 'PENDULUM_LAB/common/view/PendulumSlidersNode' );
   var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var SlidersControlPanelNode = require( 'PENDULUM_LAB/common/view/sliders-control-panel/SlidersControlPanelNode' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
+  var SystemSlidersNode = require( 'PENDULUM_LAB/common/view/SystemSlidersNode' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   // constants
@@ -63,12 +65,17 @@ define( function( require ) {
       y: SCREEN_PADDING.TOP - 5
     } );
 
-    // add control panel with sliders
+    // add panel with sliders for pendulums
     var planetsListNode = new Node();
-    var sliderControlPanelNode = new SlidersControlPanelNode( pendulumLabModel, planetsListNode );
-    sliderControlPanelNode.centerX = width - sliderControlPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
-    sliderControlPanelNode.centerY = sliderControlPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
-    this.sliderControlPanelNode = sliderControlPanelNode;
+    this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, planetsListNode );
+    var slidersPanelNode = new VBox( {
+      spacing: 10, children: [
+        new PendulumSlidersNode( pendulumLabModel ),
+        this.systemSlidersNode
+      ]
+    } );
+    slidersPanelNode.centerX = width - slidersPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
+    slidersPanelNode.centerY = slidersPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
 
     // add tools control panel
     var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.rulerModel.property( 'isVisible' ),
@@ -102,7 +109,7 @@ define( function( require ) {
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
-      listener: function(){
+      listener: function() {
         pendulumLabModel.pendulumModels.forEach( function( pendulumModel ) {
           pendulumModel.resetMotion();
         } );
@@ -116,7 +123,7 @@ define( function( require ) {
     this.addChild( protractorNode );
     this.addChild( pendulumsNode );
     this.addChild( periodTraceNode );
-    this.addChild( sliderControlPanelNode );
+    this.addChild( slidersPanelNode );
     this.addChild( planetsListNode );
     this.addChild( toolsControlPanelNode );
     this.addChild( pendulumSystemControlPanelNode );
@@ -131,7 +138,7 @@ define( function( require ) {
 
   return inherit( ScreenView, PendulumLabView, {
     reset: function() {
-      this.sliderControlPanelNode.reset();
+      this.systemSlidersNode.reset();
     }
   } );
 } );
