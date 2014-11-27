@@ -137,7 +137,7 @@ define( function( require ) {
     updateEnergiesWithTotalEnergyConstant: function() {
       this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
       this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
-      this.thermalEnergy = this.totalEnergy - (this.kineticEnergy + this.potentialEnergy);
+      this.thermalEnergy = Math.max( 0, this.totalEnergy - (this.kineticEnergy + this.potentialEnergy) );
     },
     updateEnergiesWithThermalEnergyConstant: function() {
       this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
