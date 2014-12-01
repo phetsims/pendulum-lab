@@ -31,15 +31,14 @@ define( function( require ) {
 
   // constants
   var ARROW_HEAD_WIDTH = 6;
-  var ARROW_HEAD_HEAGHT = 7;
+  var ARROW_HEAD_HEIGHT = 7;
   var BAR_WIDTH = 6;
   var COLOR = {
     KINETIC: 'rgb( 31, 202, 46 )',
     POTENTIAL: 'rgb( 55, 132, 213 )',
     THERMAL: 'rgb( 253, 87, 31 )',
-    TOTAL: 'rgb( 200, 201, 133 )'
+    TOTAL: 'rgb( 0, 0, 0 )'
   };
-  var ENERGY_MULTIPLIER = 10;
   var FONT = new PhetFont( {size: 10, weight: 'bold'} );
   var SPACING = 4;
 
@@ -77,15 +76,18 @@ define( function( require ) {
     var axisX = new Line( 0, graphHeight, dimension.width - ARROW_HEAD_WIDTH / 2, graphHeight, {stroke: 'black'} );
     var axisY = new ArrowNode( 0, graphHeight, 0, 0, {
       tailWidth: 2,
-      headHeight: ARROW_HEAD_HEAGHT,
+      headHeight: ARROW_HEAD_HEIGHT,
       headWidth: ARROW_HEAD_WIDTH
     } );
 
     // create bars
-    var kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.KINETIC, rotation: Math.PI} );
-    var potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.POTENTIAL, rotation: Math.PI} );
-    var thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.THERMAL, rotation: Math.PI} );
-    var totalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.TOTAL, rotation: Math.PI} );
+    this.ENERGY_MULTIPLIER = 10;
+    this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.KINETIC, rotation: Math.PI} );
+    this.kineticEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.KINETIC} );
+    this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.POTENTIAL, rotation: Math.PI} );
+    this.potentialEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.POTENTIAL} );
+    this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.THERMAL, rotation: Math.PI} );
+    this.thermalEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.THERMAL} );
 
     var bars = new HBox( {
       resize: false,
@@ -93,7 +95,10 @@ define( function( require ) {
       y: graphHeight,
       spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - BAR_WIDTH,
       align: 'bottom',
-      children: [kineticEnergyBar, potentialEnergyBar, thermalEnergyBar, totalEnergyBar]
+      children: [this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
+        rotation: Math.PI,
+        children: [this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone]
+      } )]
     } );
 
     VBox.call( this, {
@@ -103,22 +108,12 @@ define( function( require ) {
     } );
 
     // add energy observers
-    pendulumModel.property( 'kineticEnergy' ).link( function( kineticEnergy ) {
-      kineticEnergyBar.setRectHeight( kineticEnergy * ENERGY_MULTIPLIER );
-    } );
-
-    pendulumModel.property( 'potentialEnergy' ).link( function( potentialEnergy ) {
-      potentialEnergyBar.setRectHeight( potentialEnergy * ENERGY_MULTIPLIER );
-    } );
-
-    pendulumModel.property( 'thermalEnergy' ).link( function( thermalEnergy ) {
-      thermalEnergyBar.setRectHeight( thermalEnergy * ENERGY_MULTIPLIER );
-    } );
-
-    pendulumModel.property( 'totalEnergy' ).link( function( totalEnergy ) {
-      totalEnergyBar.setRectHeight( totalEnergy * ENERGY_MULTIPLIER );
-    } );
-
+    this.kineticEnergyProperty = pendulumModel.property( 'kineticEnergy' );
+    this.kineticEnergyProperty.link( this.updateKineticEnergy.bind( this ) );
+    this.potentialEnergyProperty = pendulumModel.property( 'potentialEnergy' );
+    this.potentialEnergyProperty.link( this.updatePotentialEnergy.bind( this ) );
+    this.thermalEnergyProperty = pendulumModel.property( 'thermalEnergy' );
+    this.thermalEnergyProperty.link( this.updateThermalEnergy.bind( this ) );
   }
 
   return inherit( VBox, SingleEnergyGraphNode, {
@@ -127,6 +122,32 @@ define( function( require ) {
     },
     show: function() {
       this.visible = true;
+    },
+    updateEnergy: function( node, nodeClone, energy ) {
+      node.setRectHeight( energy * this.ENERGY_MULTIPLIER );
+      nodeClone.setRectHeight( energy * this.ENERGY_MULTIPLIER );
+    },
+    updateKineticEnergy: function() {
+      this.updateEnergy( this.kineticEnergyBar, this.kineticEnergyBarClone, this.kineticEnergyProperty.value );
+    },
+    updatePotentialEnergy: function() {
+      this.updateEnergy( this.potentialEnergyBar, this.potentialEnergyBarClone, this.potentialEnergyProperty.value );
+    },
+    updateThermalEnergy: function() {
+      this.updateEnergy( this.thermalEnergyBar, this.thermalEnergyBarClone, this.thermalEnergyProperty.value );
+    },
+    updateAllEnergies: function() {
+      this.updateKineticEnergy();
+      this.updatePotentialEnergy();
+      this.updateThermalEnergy();
+    },
+    zoomIn: function() {
+      this.ENERGY_MULTIPLIER *= 1.05;
+      this.updateAllEnergies();
+    },
+    zoomOut: function() {
+      this.ENERGY_MULTIPLIER *= 0.95;
+      this.updateAllEnergies();
     }
   } );
 } );
