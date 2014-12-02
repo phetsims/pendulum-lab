@@ -41,12 +41,13 @@ define( function( require ) {
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
+    rulerTicks.push( '' );
 
     // define ruler params in pixels
     var rulerWidth = metersToPixels( rulerModel.length );
-    var tickWidth = rulerWidth / rulerTicks.length;
+    var tickWidth = rulerWidth / (rulerTicks.length - 1);
 
-    RulerNode.call( this, rulerWidth, 34, tickWidth, rulerTicks, rulerUnitsString, {
+    RulerNode.call( this, rulerWidth, 34, tickWidth, rulerTicks, rulerUnitsString, { // -1px to
       backgroundFill: 'rgb( 237, 225, 121 )',
       cursor: 'pointer',
       insetsWidth: 0,
@@ -54,7 +55,7 @@ define( function( require ) {
       majorTickHeight: 12,
       minorTickHeight: 6,
       unitsFont: FONT,
-      unitsMajorTickIndex: rulerTicks.length - 2,
+      unitsMajorTickIndex: rulerTicks.length - 3,
       minorTicksPerMajorTick: 4,
       tickMarksOnBottom: false
     } );
