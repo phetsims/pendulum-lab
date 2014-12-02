@@ -11,6 +11,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
+  var PeriodTrace = require( 'PENDULUM_LAB/lab/model/PeriodTrace' );
+  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -22,7 +24,17 @@ define( function( require ) {
     // add properties to control visibility of arrows
     this.addProperty( 'isVelocityVisible', false );
     this.addProperty( 'isAccelerationVisible', false );
+
+    // model for period trace
+    this.periodTraceModel = new PeriodTrace( this.property( 'isPeriodTraceVisible' ) );
   }
 
-  return inherit( EnergyModel, LabModel );
+  return inherit( EnergyModel, LabModel, {
+    reset: function() {
+      EnergyModel.prototype.reset.call( this );
+
+      // reset period trace model
+      PropertySet.prototype.reset.call( this.periodTraceModel );
+    }
+  } );
 } );

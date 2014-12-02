@@ -15,12 +15,12 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function Stopwatch() {
-    Movable.call( this, {
+  function Stopwatch( options ) {
+    Movable.call( this, _.extend( {
       isVisible: false, // flag to control stopwatch visibility
       isRunning: false, // flag to determine stopwatch state
       elapsedTime: 0 // passed time
-    } );
+    }, options ) );
   }
 
   return inherit( Movable, Stopwatch );

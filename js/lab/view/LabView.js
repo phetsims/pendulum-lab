@@ -12,6 +12,7 @@ define( function( require ) {
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
 
   // constants
@@ -34,6 +35,13 @@ define( function( require ) {
 
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
+
+    var periodTraceNode = new PeriodTimerNode( pendulumLabModel.periodTraceModel, mvt, this.layoutBounds );
+    periodTraceNode.centerX = this.energyGraphNode.bounds.maxX + periodTraceNode.width / 2 + 10;
+    periodTraceNode.centerY = this.stopwatchNode.centerY;
+    this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTraceNode );
+
+    pendulumLabModel.periodTraceModel.setInitialLocationValue( periodTraceNode.center );
   }
 
   return inherit( EnergyView, LabView );

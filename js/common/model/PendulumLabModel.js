@@ -127,6 +127,10 @@ define( function( require ) {
         this.stopwatchModel.elapsedTime += dt;
       }
 
+      if ( this.periodTraceModel && this.periodTraceModel.isRunning ) {
+        this.periodTraceModel.elapsedTime += dt;
+      }
+
       if ( this.play || this.stepManualMode ) {
         var friction = this.friction || 0,
           currentPendulum,
