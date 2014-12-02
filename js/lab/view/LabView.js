@@ -44,7 +44,7 @@ define( function( require ) {
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
 
-    pendulumLabModel.periodTraceModel.setInitialLocationValue( periodTimerNode.center );
+    pendulumLabModel.periodTimerModel.setInitialLocationValue( periodTimerNode.center );
 
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, PeriodTimerString );
