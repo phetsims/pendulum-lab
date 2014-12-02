@@ -82,6 +82,7 @@ define( function( require ) {
       pendulumLabModel.stopwatchModel.property( 'isVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
     toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
+    this.toolsControlPanelNode = toolsControlPanelNode;
 
     // add pendulum system control panel
     var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.property( 'numberOfPendulums' ),

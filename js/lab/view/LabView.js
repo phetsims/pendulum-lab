@@ -15,6 +15,9 @@ define( function( require ) {
   var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
 
+  // strings
+  var PeriodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
+
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
 
@@ -36,12 +39,15 @@ define( function( require ) {
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
 
-    var periodTraceNode = new PeriodTimerNode( pendulumLabModel.periodTraceModel, mvt, this.layoutBounds );
-    periodTraceNode.centerX = this.energyGraphNode.bounds.maxX + periodTraceNode.width / 2 + 10;
-    periodTraceNode.centerY = this.stopwatchNode.centerY;
-    this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTraceNode );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTraceModel, mvt, this.layoutBounds );
+    periodTimerNode.centerX = this.energyGraphNode.bounds.maxX + periodTimerNode.width / 2 + 10;
+    periodTimerNode.centerY = this.stopwatchNode.centerY;
+    this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
 
-    pendulumLabModel.periodTraceModel.setInitialLocationValue( periodTraceNode.center );
+    pendulumLabModel.periodTraceModel.setInitialLocationValue( periodTimerNode.center );
+
+    // change label for period timer
+    this.toolsControlPanelNode.setLabelText( 2, PeriodTimerString );
   }
 
   return inherit( EnergyView, LabView );

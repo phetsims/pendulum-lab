@@ -36,6 +36,12 @@ define( function( require ) {
    * @constructor
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
+    this._labels = [
+      new Text( RulerString, {font: FONT} ),
+      new Text( StopwatchString, {font: FONT} ),
+      new Text( PeriodTraceString, {font: FONT} )
+    ];
+
     PanelPendulumAbstract.call( this,
       new Node( {
         children: [
@@ -43,13 +49,13 @@ define( function( require ) {
           new HStrut( PANEL_WIDTH ),
 
           new VerticalCheckBoxGroup( [{
-            content: new Text( RulerString, {font: FONT} ),
+            content: this._labels[0],
             property: isRulerProperty
           }, {
-            content: new Text( StopwatchString, {font: FONT} ),
+            content: this._labels[1],
             property: isStopwatchProperty
           }, {
-            content: new Text( PeriodTraceString, {font: FONT} ),
+            content: this._labels[2],
             property: isPeriodTraceProperty
           }
           ], {spacing: 5, boxWidth: 15} )
@@ -57,5 +63,9 @@ define( function( require ) {
       } ), options );
   }
 
-  return inherit( PanelPendulumAbstract, ToolsControlPanelNode );
+  return inherit( PanelPendulumAbstract, ToolsControlPanelNode, {
+    setLabelText: function( index, text ) {
+      this._labels[index].setText( text );
+    }
+  } );
 } );

@@ -23,6 +23,7 @@
   "pattern.energyOf.0pendulumNumber": "Energy of {0}",
   "pendulum-lab.name": "Pendulum Lab",
   "period": "Period",
+  "periodTimer": "Period Timer",
   "periodTrace": "Period Trace",
   "planetX": "Planet X",
   "potential": "Potential",
