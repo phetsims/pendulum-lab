@@ -39,7 +39,7 @@ define( function( require ) {
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
 
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTraceModel, mvt, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimerModel, mvt, this.layoutBounds );
     periodTimerNode.centerX = this.energyGraphNode.bounds.maxX + periodTimerNode.width / 2 + 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
