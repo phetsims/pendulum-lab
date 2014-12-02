@@ -101,7 +101,7 @@ define( function( require ) {
 
   return inherit( PropertySet, PendulumLabModel, {
 
-    // 1 meter is equal to 140 pixels
+    // 1 meter is equal to 175 pixels
     metersToPixels: new LinearFunction( 0, 1, 0, 175 ),
 
     reset: function() {
