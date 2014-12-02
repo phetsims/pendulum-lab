@@ -48,7 +48,9 @@ define( function( require ) {
         pathNode.setShape( EMPTY_SHAPE );
         pathPointsStorage = [];
         isCompleted = false;
-        Timer.clearInterval( intervalId );
+        if ( intervalId ) {
+          Timer.clearInterval( intervalId );
+        }
         pathNode.opacity = 1;
       };
 

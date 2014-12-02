@@ -37,7 +37,6 @@ define( function( require ) {
    */
   function SystemSlidersNode( pendulumLabModel, planetsListNode, options ) {
     var content = new VBox( {spacing: SPACING_CONTENT, align: 'center'} );
-    PanelPendulumAbstract.call( this, content, options );
 
     // add gravity slider with title and planet list menu
     content.addChild( new Node( {
@@ -64,6 +63,8 @@ define( function( require ) {
         ]
       } ) );
     }
+
+    PanelPendulumAbstract.call( this, content, options );
   }
 
   return inherit( PanelPendulumAbstract, SystemSlidersNode, {

@@ -42,10 +42,7 @@ define( function( require ) {
   function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
     var container = new Node();
 
-    VBox.call( this, _.extend( {
-      spacing: 4,
-      children: [container]
-    }, options ) );
+    VBox.call( this, _.extend( {spacing: 4}, options ) );
 
     // create slider for gravity property
     var hSlider = new HSlider( gravityProperty, gravityPropertyRange, {
@@ -97,6 +94,8 @@ define( function( require ) {
         questionText.visible = false;
       }
     } );
+
+    this.addChild( container );
   }
 
   return inherit( VBox, GravitySliderWithListNode );

@@ -41,7 +41,6 @@ define( function( require ) {
 
     this.optionSliders = [];
     var content = new VBox( {spacing: SPACING_CONTENT, align: 'center'} );
-    PanelPendulumAbstract.call( this, content, _.extend( {xMargin: 14}, options ) );
 
     // create sliders for each pendulum and put then into storage for further adding
     pendulumLabModel.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
@@ -114,6 +113,8 @@ define( function( require ) {
         }
       }
     } );
+
+    PanelPendulumAbstract.call( this, content, _.extend( {xMargin: 14}, options ) );
   }
 
   return inherit( PanelPendulumAbstract, PendulumSlidersNode );
