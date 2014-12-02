@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Period trace model in 'Pendulum Lab' simulation.
+ * Period timer model in 'Pendulum Lab' simulation.
  *
  * @author Andrey Zelenkov (MLearner)
  */
@@ -17,7 +17,7 @@ define( function( require ) {
    *
    * @constructor
    */
-  function PeriodTrace( isPeriodTraceVisibleProperty ) {
+  function PeriodTimer( isPeriodTraceVisibleProperty ) {
     var self = this;
 
     Stopwatch.call( this, {
@@ -34,5 +34,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( Stopwatch, PeriodTrace );
+  return inherit( Stopwatch, PeriodTimer );
 } );

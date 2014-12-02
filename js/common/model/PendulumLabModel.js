@@ -127,8 +127,8 @@ define( function( require ) {
         this.stopwatchModel.elapsedTime += dt;
       }
 
-      if ( this.periodTraceModel && this.periodTraceModel.isRunning ) {
-        this.periodTraceModel.elapsedTime += dt;
+      if ( this.periodTimerModel && this.periodTimerModel.isRunning ) {
+        this.periodTimerModel.elapsedTime += dt;
       }
 
       if ( this.play || this.stepManualMode ) {

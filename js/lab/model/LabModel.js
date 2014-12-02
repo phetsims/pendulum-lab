@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
-  var PeriodTrace = require( 'PENDULUM_LAB/lab/model/PeriodTrace' );
+  var PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
@@ -26,7 +26,7 @@ define( function( require ) {
     this.addProperty( 'isAccelerationVisible', false );
 
     // model for period trace
-    this.periodTraceModel = new PeriodTrace( this.property( 'isPeriodTraceVisible' ) );
+    this.periodTimerModel = new PeriodTimer( this.property( 'isPeriodTraceVisible' ) );
   }
 
   return inherit( EnergyModel, LabModel, {
@@ -34,7 +34,7 @@ define( function( require ) {
       EnergyModel.prototype.reset.call( this );
 
       // reset period trace model
-      PropertySet.prototype.reset.call( this.periodTraceModel );
+      PropertySet.prototype.reset.call( this.periodTimerModel );
     }
   } );
 } );
