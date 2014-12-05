@@ -13,7 +13,6 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -83,7 +82,7 @@ define( function( require ) {
       } );
 
     var graphUnitsSwitch = new ABSwitch( periodTraceModel.property( 'isFirst' ),
-      EnergyGraphMode.ONE, new Node( {
+      true, new Node( {
         children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
           stroke: 'black',
           fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
@@ -94,7 +93,7 @@ define( function( require ) {
         } ),
           new Text( '1', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
       } ),
-      EnergyGraphMode.TWO, new Node( {
+      false, new Node( {
         children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
           stroke: 'black',
           fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).

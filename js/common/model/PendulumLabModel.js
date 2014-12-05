@@ -44,8 +44,8 @@ define( function( require ) {
     } );
 
     this.pendulumModels = [
-      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ) ),
-      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.property( 'gravity' ) )
+      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ), this.property( 'isPeriodTraceVisible' ) ),
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.property( 'gravity' ), this.property( 'isPeriodTraceVisible' ) )
     ];
 
     this.planetModels = [
@@ -127,7 +127,7 @@ define( function( require ) {
         this.stopwatchModel.elapsedTime += dt;
       }
 
-      if ( this.periodTimerModel && this.periodTimerModel.isRunning ) {
+      if ( this.periodTimerModel && this.periodTimerModel.isCalculate ) {
         this.periodTimerModel.elapsedTime += dt;
       }
 

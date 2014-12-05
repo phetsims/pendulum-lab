@@ -34,11 +34,8 @@ define( function( require ) {
     this.rotation = Math.PI / 2;
 
     pendulumModels.forEach( function( pendulumModel ) {
-      var pathPointsStorage = [], // array for store passed points
-        anticlockwise, // trace direction flag
-        intervalId, // interval id for fading timer
-        traceLength, // trace initial length
-        isCompleted = false; // flag to control completing of trace
+      var intervalId = null, // interval id for fading timer
+        isCompleted = false; // flag to control completing of trace view
 
       // create trace path path
       var pathNode = new Path( EMPTY_SHAPE, {stroke: pendulumModel.color, lineWidth: 2} );
@@ -46,18 +43,22 @@ define( function( require ) {
 
       var resetPath = function() {
         pathNode.setShape( EMPTY_SHAPE );
-        pathPointsStorage = [];
         isCompleted = false;
         if ( intervalId ) {
           Timer.clearInterval( intervalId );
+          intervalId = null;
         }
         pathNode.opacity = 1;
       };
 
       var updateShape = function() {
-        var shape = new Shape();
+        var pathPointsStorage = pendulumModel.pathPoints.getArray(),
+          shape, traceLength;
 
         if ( pathPointsStorage.length > 0 ) {
+          shape = new Shape();
+          traceLength = metersToPixels( pendulumModel.length * 3 / 4 );
+
           // draw first arc
           if ( pathPointsStorage.length > 1 ) {
             shape.arc( 0, 0, traceLength, 0, pathPointsStorage[1].angle, pathPointsStorage[0].anticlockwise );
@@ -72,7 +73,7 @@ define( function( require ) {
               if ( pathPointsStorage.length > 3 ) {
                 shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[2].angle, 0, pathPointsStorage[2].anticlockwise );
                 isCompleted = true;
-                fadeOutPath( 3 / 2 * Math.PI / Math.abs( pendulumModel.omega ) * 10 );
+                fadeOutPath( 3 * pendulumModel.getPeriod() / 2 * 10 );
               }
               else {
                 shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[2].angle, pendulumModel.angle, pathPointsStorage[2].anticlockwise );
@@ -93,6 +94,7 @@ define( function( require ) {
         intervalId = Timer.setInterval( function() {
           pathNode.opacity -= 0.01;
           if ( pathNode.opacity <= 0 ) {
+            pendulumModel.pathPoints.reset();
             resetPath();
           }
         }, tickTime );
@@ -105,29 +107,8 @@ define( function( require ) {
       } );
 
       // update path shape
-      pendulumModel.property( 'angle' ).link( function( newAngle, oldAngle ) {
-        if ( pathNode.visible && !pendulumModel.isUserControlled && !isCompleted ) {
-          // first point
-          if ( pathPointsStorage.length === 0 && newAngle * oldAngle < 0 ) {
-            anticlockwise = newAngle < 0;
-            traceLength = metersToPixels( pendulumModel.length * 3 / 4 );
-            pathPointsStorage.push( {anticlockwise: anticlockwise} );
-          }
-          // second point
-          else if ( pathPointsStorage.length === 1 && ((anticlockwise && newAngle > oldAngle) || (!anticlockwise && newAngle < oldAngle)) ) {
-            anticlockwise = !anticlockwise;
-            pathPointsStorage.push( {angle: oldAngle, anticlockwise: anticlockwise} );
-          }
-          // third point
-          else if ( pathPointsStorage.length === 2 && ((anticlockwise && newAngle > oldAngle) || (!anticlockwise && newAngle < oldAngle)) ) {
-            anticlockwise = !anticlockwise;
-            pathPointsStorage.push( {angle: oldAngle, anticlockwise: anticlockwise} );
-          }
-          // fourth point
-          else if ( pathPointsStorage.length === 3 && newAngle * oldAngle < 0 ) {
-            pathPointsStorage.push( {anticlockwise: anticlockwise} );
-          }
-
+      pendulumModel.property( 'angle' ).link( function() {
+        if ( pathNode.visible && !isCompleted ) {
           updateShape();
         }
       } );
