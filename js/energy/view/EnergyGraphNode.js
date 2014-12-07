@@ -78,7 +78,12 @@ define( function( require ) {
       baseColor: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
       in: false,
       listener: function() {
-        graphStorage[numberOfPendulumsProperty.value - 1].zoomOut();
+        if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
+          graphStorage[0].zoomOut();
+        }
+        else if ( energyGraphModeProperty.value === EnergyGraphMode.TWO ) {
+          graphStorage[1].zoomOut();
+        }
       },
       radius: MAGNIFYING_GLASS_RADIUS
     } );
@@ -87,7 +92,12 @@ define( function( require ) {
       baseColor: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
       in: true,
       listener: function() {
-        graphStorage[numberOfPendulumsProperty.value - 1].zoomIn();
+        if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
+          graphStorage[0].zoomIn();
+        }
+        else if ( energyGraphModeProperty.value === EnergyGraphMode.TWO ) {
+          graphStorage[1].zoomIn();
+        }
       },
       radius: MAGNIFYING_GLASS_RADIUS
     } );
