@@ -39,15 +39,16 @@ define( function( require ) {
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
 
+    // add period timer node
     var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimerModel, mvt, this.layoutBounds );
-    periodTimerNode.centerX = this.energyGraphNode.bounds.maxX + periodTimerNode.width / 2 + 10;
+    periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
 
-    pendulumLabModel.periodTimerModel.setInitialLocationValue( periodTimerNode.center );
-
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, PeriodTimerString );
+
+    pendulumLabModel.periodTimerModel.setInitialLocationValue( periodTimerNode.center );
   }
 
   return inherit( EnergyView, LabView );

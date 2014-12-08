@@ -76,6 +76,7 @@ define( function( require ) {
     } );
     slidersPanelNode.centerX = width - slidersPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
     slidersPanelNode.centerY = slidersPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
+    this.slidersPanelNode = slidersPanelNode;
 
     // add tools control panel
     var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.rulerModel.property( 'isVisible' ),
