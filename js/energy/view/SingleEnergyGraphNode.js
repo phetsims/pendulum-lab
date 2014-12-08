@@ -97,7 +97,7 @@ define( function( require ) {
       align: 'bottom',
       children: [this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
         rotation: Math.PI,
-        children: [this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone]
+        children: [this.potentialEnergyBarClone, this.kineticEnergyBarClone, this.thermalEnergyBarClone]
       } )]
     } );
 
