@@ -123,11 +123,11 @@ define( function( require ) {
     step: function( dt ) {
       dt = Math.min( 0.05, dt * this.timeSpeed );
 
-      if ( this.stopwatchModel.isRunning ) {
+      if ( (this.stopwatchModel.isRunning && this.play) || this.stepManualMode ) {
         this.stopwatchModel.elapsedTime += dt;
       }
 
-      if ( this.periodTimerModel && this.periodTimerModel.isCalculate ) {
+      if ( this.periodTimerModel && ((this.periodTimerModel.isCalculate && this.play) || this.stepManualMode) ) {
         this.periodTimerModel.elapsedTime += dt;
       }
 
