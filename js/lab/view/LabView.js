@@ -34,7 +34,7 @@ define( function( require ) {
       pendulumLabModel.property( 'isAccelerationVisible' ) );
     arrowsPanelNode.centerX = arrowsPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
-    this.insertChild( 1, arrowsPanelNode );
+    this.insertChild( 3, arrowsPanelNode );
 
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
