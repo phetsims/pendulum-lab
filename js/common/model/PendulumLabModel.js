@@ -148,7 +148,7 @@ define( function( require ) {
           if ( !currentPendulum.isUserControlled ) {
             oldAcceleration = currentPendulum.acceleration;
 
-            currentPendulum.angle += currentPendulum.omega * dt + 0.5 * oldAcceleration * dt * dt;
+            currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAcceleration * dt * dt) % (Math.PI * 2);
             currentPendulum.acceleration = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
             currentPendulum.omega += 0.5 * (currentPendulum.acceleration + oldAcceleration) * dt;
 

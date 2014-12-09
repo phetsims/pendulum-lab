@@ -126,7 +126,7 @@ define( function( require ) {
           var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset,
             x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
 
-          pendulumModel.angle = -Math.atan2( x, y );
+          pendulumModel.angle = -Math.atan2( x, y ) % (Math.PI * 2);
         },
         end: function() {
           pendulumModel.isUserControlled = false;
