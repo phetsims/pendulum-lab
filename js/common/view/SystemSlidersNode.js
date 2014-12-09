@@ -44,7 +44,7 @@ define( function( require ) {
         new Text( GravityString, {font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2} ),
         new GravitySliderWithListNode(
           pendulumLabModel.property( 'gravity' ),
-          pendulumLabModel.gravityRange,
+          pendulumLabModel.gravityOptions,
           pendulumLabModel.property( 'planet' ),
           pendulumLabModel.planetModels,
           planetsListNode,

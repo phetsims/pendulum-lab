@@ -69,7 +69,7 @@ define( function( require ) {
     var planetsListNode = new Node();
     this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, planetsListNode );
     var slidersPanelNode = new VBox( {
-      spacing: 10, children: [
+      spacing: 2, children: [
         new PendulumSlidersNode( pendulumLabModel ),
         this.systemSlidersNode
       ]

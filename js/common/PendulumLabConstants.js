@@ -33,10 +33,10 @@ define( function( require ) {
     // common
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: {
-      TOP: 23,
-      RIGHT: 23,
-      BOTTOM: 23,
-      LEFT: 23
+      TOP: 20,
+      RIGHT: 20,
+      BOTTOM: 20,
+      LEFT: 20
     }
   };
 } );
