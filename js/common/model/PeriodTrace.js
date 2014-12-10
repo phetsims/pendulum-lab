@@ -32,7 +32,7 @@ define( function( require ) {
 
     // track path of pendulum
     pendulumModel.property( 'angle' ).link( function( newAngle, oldAngle ) {
-      if ( self.isVisible ) {
+      if ( self.isVisible && !pendulumModel.isUserControlled ) {
         var pathArray = self.pathPoints.getArray();
 
         if ( self.pathPoints.length < 4 ) {

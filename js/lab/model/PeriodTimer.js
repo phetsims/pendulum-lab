@@ -69,6 +69,11 @@ define( function( require ) {
       pendulumModel.periodTrace.isRepeat = false;
       pendulumModel.periodTrace.isVisible = false;
 
+      pendulumModel.property( 'isUserControlled' ).onValue( true, function() {
+        self.elapsedTime = 0;
+        self.isCalculate = false;
+      } );
+
       pathListeners[pendulumIndex] = function() {
         if ( pendulumModel.periodTrace.pathPoints.length === 1 && self.isRunning ) {
           self.isCalculate = true;
@@ -93,7 +98,6 @@ define( function( require ) {
         activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[1] );
       }
     } );
-
   }
 
   return inherit( Stopwatch, PeriodTimer );
