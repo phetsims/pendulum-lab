@@ -41,7 +41,16 @@ define( function( require ) {
   var FONT_TIME = new PhetFont( 20 );
   var PANEL_PAD = 8;
   var RECT_SIZE = new Dimension2( 15, 20 );
+  var TOUCH_AREA_EXPAND_X = 10;
+  var TOUCH_AREA_EXPAND_Y = 3;
 
+  /**
+   * @param {PendulumLabModel} periodTraceModel - Period trace model.
+   * @param {ModelViewTransform2} mvt
+   * @param {Bounds2} layoutBounds - Bounds of screen view.
+   * @param {Object} [options]
+   * @constructor
+   */
   function PeriodTimerNode( periodTraceModel, mvt, layoutBounds, options ) {
     var self = this;
 
@@ -81,30 +90,35 @@ define( function( require ) {
         minWidth: BUTTON_WIDTH
       } );
 
-    var graphUnitsSwitch = new ABSwitch( periodTraceModel.property( 'isFirst' ),
-      true, new Node( {
-        children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
-          stroke: 'black',
-          fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
-            addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
-            addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
-            addColorStop( 0.8, 'white' ).
-            addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
-        } ),
-          new Text( '1', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
+    var firstPendulumIcon = new Node( {
+      children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
+        stroke: 'black',
+        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
+          addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
+          addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
+          addColorStop( 0.8, 'white' ).
+          addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
       } ),
-      false, new Node( {
-        children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
-          stroke: 'black',
-          fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
-            addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-            addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-            addColorStop( 0.8, 'white' ).
-            addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
-        } ),
-          new Text( '2', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
+        new Text( '1', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
+    } );
+    var secondPendulumIcon = new Node( {
+      children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
+        stroke: 'black',
+        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
+          addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
+          addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
+          addColorStop( 0.8, 'white' ).
+          addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
       } ),
-      {xSpacing: 3, switchSize: new Dimension2( 25, 12.5 ), setEnabled: function() {}} );
+        new Text( '2', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
+    } );
+    var graphUnitsSwitch = new ABSwitch( periodTraceModel.property( 'isFirst' ), true, firstPendulumIcon, false, secondPendulumIcon, {
+      xSpacing: 3,
+      switchSize: new Dimension2( 25, 12.5 ),
+      setEnabled: function() {}
+    } );
+    expandTouchArea( firstPendulumIcon );
+    expandTouchArea( secondPendulumIcon );
 
     var vBox = new VBox( {
       spacing: 5,
@@ -141,6 +155,11 @@ define( function( require ) {
     // set visibility observer
     periodTraceModel.property( 'isVisible' ).linkAttribute( this, 'visible' );
   }
+
+  // uniformly expands touch area for controls
+  var expandTouchArea = function( node ) {
+    node.touchArea = node.localBounds.dilatedXY( TOUCH_AREA_EXPAND_X, TOUCH_AREA_EXPAND_Y );
+  };
 
   var getTextTime = function( value ) {
     return StringUtils.format( pattern_0timeValue_timeUnitsMetric, Util.toFixed( value, 4 ) );
