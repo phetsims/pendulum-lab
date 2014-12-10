@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
+  var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -68,8 +68,7 @@ define( function( require ) {
       precision: 2 // numbers after decimal points
     };
 
-    // array to store checkpoints when track path
-    this.pathPoints = new ObservableArray();
+    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty );
 
     // make tick on protractor visible after first drag
     this.property( 'isUserControlled' ).link( function( isUserControlled ) {
@@ -80,40 +79,15 @@ define( function( require ) {
 
         self.updateVectors();
         self.updateEnergiesWithTotalEnergyConstant();
-
-        self.pathPoints.clear();
       }
     } );
 
-    this.property( 'angle' ).link( function( newAngle, oldAngle ) {
+    this.property( 'angle' ).link( function() {
       if ( self.isUserControlled ) {
         self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
         self.resetVectorParameters();
         self.updateVectors();
         self.updateEnergiesWithTotalEnergyConstant();
-      }
-      // track path of pendulum
-      else if ( self.isVisible && isPeriodTraceVisibleProperty.value ) {
-        var pathArray = self.pathPoints.getArray();
-
-        if ( self.pathPoints.length < 4 ) {
-          // first point
-          if ( self.pathPoints.length === 0 && newAngle * oldAngle < 0 ) {
-            self.pathPoints.push( {anticlockwise: newAngle < 0} );
-          }
-          // second point
-          else if ( self.pathPoints.length === 1 && ((pathArray[0].anticlockwise && newAngle > oldAngle) || (!pathArray[0].anticlockwise && newAngle < oldAngle)) ) {
-            self.pathPoints.push( {angle: oldAngle, anticlockwise: !pathArray[0].anticlockwise} );
-          }
-          // third point
-          else if ( self.pathPoints.length === 2 && ((pathArray[1].anticlockwise && newAngle > oldAngle) || (!pathArray[1].anticlockwise && newAngle < oldAngle)) ) {
-            self.pathPoints.push( {angle: oldAngle, anticlockwise: !pathArray[1].anticlockwise} );
-          }
-          // fourth point
-          else if ( self.pathPoints.length === 3 && newAngle * oldAngle < 0 ) {
-            self.pathPoints.push( {anticlockwise: pathArray[2].anticlockwise} );
-          }
-        }
       }
     } );
 
@@ -121,16 +95,10 @@ define( function( require ) {
       self.omega = self.omega * oldLength / newLength;
       self.updateVectors();
       self.updateEnergiesWithThermalEnergyConstant();
-      self.pathPoints.clear();
     } );
 
     this.property( 'mass' ).link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
     gravityProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
-
-    // clear pendulum path
-    isPeriodTraceVisibleProperty.onValue( false, function() {
-      self.pathPoints.clear();
-    } );
   }
 
   return inherit( Movable, Pendulum, {
@@ -142,11 +110,6 @@ define( function( require ) {
     },
     getPeriod: function() {
       return 2 * Math.PI * Math.sqrt( this.length / this._gravityProperty.value );
-    },
-    reset: function() {
-      Movable.prototype.reset.call( this );
-
-      this.pathPoints.reset();
     },
     resetMotion: function() {
       this.property( 'angle' ).reset();

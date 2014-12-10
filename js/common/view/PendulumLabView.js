@@ -60,7 +60,7 @@ define( function( require ) {
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
 
     // add period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, pendulumLabModel.property( 'isPeriodTraceVisible' ), {
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
       x: width / 2,
       y: SCREEN_PADDING.TOP - 5
     } );

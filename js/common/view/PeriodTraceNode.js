@@ -23,11 +23,10 @@ define( function( require ) {
   /**
    * @param {Array} pendulumModels - Array of pendulum models.
    * @param {Function} metersToPixels - Function to convert meters to pixels.
-   * @param {Property} isPeriodTraceVisibleProperty - Property to control visibility of period trace path.
    * @param {Object} options for protractor node
    * @constructor
    */
-  function PeriodTraceNode( pendulumModels, metersToPixels, isPeriodTraceVisibleProperty, options ) {
+  function PeriodTraceNode( pendulumModels, metersToPixels, options ) {
     var self = this;
     Node.call( this, options );
 
@@ -52,7 +51,7 @@ define( function( require ) {
       };
 
       var updateShape = function() {
-        var pathPointsStorage = pendulumModel.pathPoints.getArray(),
+        var pathPointsStorage = pendulumModel.periodTrace.pathPoints.getArray(),
           shape, traceLength;
 
         if ( pathPointsStorage.length > 0 ) {
@@ -94,17 +93,15 @@ define( function( require ) {
         intervalId = Timer.setInterval( function() {
           pathNode.opacity -= 0.01;
           if ( pathNode.opacity <= 0 ) {
-            pendulumModel.pathPoints.reset();
-            resetPath();
+            pendulumModel.periodTrace.isVisible = false;
+
+            // show track continuously
+            if ( pendulumModel.periodTrace.isRepeat ) {
+              pendulumModel.periodTrace.isVisible = true;
+            }
           }
         }, tickTime );
       };
-
-      // update visibility of path node
-      isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
-        pathNode.visible = isPeriodTraceVisible;
-        resetPath();
-      } );
 
       // update path shape
       pendulumModel.property( 'angle' ).link( function() {
@@ -113,9 +110,13 @@ define( function( require ) {
         }
       } );
 
+      // update visibility of path node
+      pendulumModel.periodTrace.property( 'isVisible' ).linkAttribute( pathNode, 'visible' );
+
       // clear trace if length was changed or moved by user
       pendulumModel.property( 'length' ).lazyLink( resetPath );
       pendulumModel.property( 'isUserControlled' ).lazyLink( resetPath );
+      pendulumModel.periodTrace.property( 'isVisible' ).onValue( true, resetPath );
     } );
   }
 
