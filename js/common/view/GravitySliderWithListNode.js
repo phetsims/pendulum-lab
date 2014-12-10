@@ -110,7 +110,7 @@ define( function( require ) {
     // create question text node instead of slider for planet X
     var questionText = new Node( {
       children: [
-        new Rectangle( gravityAdjustmentNode.bounds.minX, gravityAdjustmentNode.bounds.minY, gravityAdjustmentNode.width, gravityAdjustmentNode.height, {fill: 'red'} ),
+        new Rectangle( gravityAdjustmentNode.bounds.minX, gravityAdjustmentNode.bounds.minY, gravityAdjustmentNode.width, gravityAdjustmentNode.height ),
         new Text( WhatIsTheValueOfGravity, {
           font: FONT_QUESTION,
           centerX: gravityAdjustmentNode.bounds.minX + gravityAdjustmentNode.width / 2,
