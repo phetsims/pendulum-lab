@@ -113,10 +113,8 @@ define( function( require ) {
       // update visibility of path node
       pendulumModel.periodTrace.property( 'isVisible' ).linkAttribute( pathNode, 'visible' );
 
-      // clear trace if length was changed or moved by user
-      pendulumModel.property( 'length' ).lazyLink( resetPath );
-      pendulumModel.property( 'isUserControlled' ).lazyLink( resetPath );
-      pendulumModel.periodTrace.property( 'isVisible' ).onValue( true, resetPath );
+      // clear trace if path points was removed
+      pendulumModel.periodTrace.pathPoints.addItemRemovedListener( resetPath );
     } );
   }
 

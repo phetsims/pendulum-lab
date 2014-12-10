@@ -59,6 +59,7 @@ define( function( require ) {
     // clear pendulum path
     var clearPathPoints = this.pathPoints.clear.bind( this.pathPoints );
     pendulumModel.property( 'length' ).lazyLink( clearPathPoints );
+    pendulumModel._gravityProperty.lazyLink( clearPathPoints );
     pendulumModel.property( 'isUserControlled' ).lazyLink( clearPathPoints );
     this.property( 'isVisible' ).onValue( false, clearPathPoints );
 
