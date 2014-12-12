@@ -54,7 +54,7 @@ define( function( require ) {
     // create energy graphs for each pendulum
     this._content = new VBox( {align: 'center', resize: false} );
     pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
-      var graphNode = new SingleEnergyGraphNode( pendulumModel, pendulumIndex + 1, SINGLE_GRAPH_SIZE );
+      var graphNode = new SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumIndex + 1, SINGLE_GRAPH_SIZE );
       self._content.addChild( new HBox( {children: [new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ), graphNode, new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 )]} ) );
       graphStorage[pendulumIndex] = graphNode;
     } );

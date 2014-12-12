@@ -43,12 +43,15 @@ define( function( require ) {
   var SPACING = 4;
 
   /**
-   * @param {PropertySet} pendulumModel - Property to select mode of energy graph representation.
+   * @param {PropertySet} pendulumModel - Property with selected mode of energy graph representation.
+   * @param {Property} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
    * @param {dimension} dimension of graph
    * @constructor
    */
-  function SingleEnergyGraphNode( pendulumModel, pendulumNumber, dimension ) {
+  function SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+    this._isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
+
     // create header of graph
     var header = new Text( StringUtils.format( pattern_energyOf_0pendulumNumber, pendulumNumber ), {
       font: FONT,
@@ -128,13 +131,19 @@ define( function( require ) {
       nodeClone.setRectHeight( energy * this.ENERGY_MULTIPLIER );
     },
     updateKineticEnergy: function() {
-      this.updateEnergy( this.kineticEnergyBar, this.kineticEnergyBarClone, this.kineticEnergyProperty.value );
+      if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
+        this.updateEnergy( this.kineticEnergyBar, this.kineticEnergyBarClone, this.kineticEnergyProperty.value );
+      }
     },
     updatePotentialEnergy: function() {
-      this.updateEnergy( this.potentialEnergyBar, this.potentialEnergyBarClone, this.potentialEnergyProperty.value );
+      if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
+        this.updateEnergy( this.potentialEnergyBar, this.potentialEnergyBarClone, this.potentialEnergyProperty.value );
+      }
     },
     updateThermalEnergy: function() {
-      this.updateEnergy( this.thermalEnergyBar, this.thermalEnergyBarClone, this.thermalEnergyProperty.value );
+      if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
+        this.updateEnergy( this.thermalEnergyBar, this.thermalEnergyBarClone, this.thermalEnergyProperty.value );
+      }
     },
     updateAllEnergies: function() {
       this.updateKineticEnergy();
