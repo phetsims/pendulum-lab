@@ -83,7 +83,9 @@ define( function( require ) {
 
         // add arrow size observer
         pendulumModel.property( 'velocityVector' ).link( function( velocityVector ) {
-          velocityArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * velocityVector.x, ARROW_SIZE_DEFAULT * velocityVector.y );
+          if ( velocityArrow.visible ) {
+            velocityArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * velocityVector.x, ARROW_SIZE_DEFAULT * velocityVector.y );
+          }
         } );
       }
 
@@ -106,7 +108,9 @@ define( function( require ) {
 
         // add arrow size observer
         pendulumModel.property( 'accelerationVector' ).link( function( accelerationVector ) {
-          accelerationArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * accelerationVector.x, ARROW_SIZE_DEFAULT * accelerationVector.y );
+          if ( accelerationArrow.visible ) {
+            accelerationArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * accelerationVector.x, ARROW_SIZE_DEFAULT * accelerationVector.y );
+          }
         } );
       }
 
