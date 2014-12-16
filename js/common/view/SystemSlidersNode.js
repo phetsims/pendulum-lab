@@ -39,16 +39,12 @@ define( function( require ) {
     var content = new VBox( {spacing: SPACING_CONTENT, align: 'center'} );
 
     // add gravity slider with title and planet list menu
+    this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ),
+      pendulumLabModel.gravityOptions, pendulumLabModel.property( 'planet' ), pendulumLabModel.planetModels, planetsListNode, {y: SPACING_CONTENT} );
     content.addChild( new Node( {
       children: [
         new Text( GravityString, {font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2} ),
-        new GravitySliderWithListNode(
-          pendulumLabModel.property( 'gravity' ),
-          pendulumLabModel.gravityOptions,
-          pendulumLabModel.property( 'planet' ),
-          pendulumLabModel.planetModels,
-          planetsListNode,
-          {y: SPACING_CONTENT} )
+        this.gravitySlider
       ]
     } ) );
 

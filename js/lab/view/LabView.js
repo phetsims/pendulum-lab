@@ -39,6 +39,9 @@ define( function( require ) {
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
 
+    // add tweakers for gravity slider slider
+    this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityOptions );
+
     // add period timer node
     var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimerModel, mvt, this.layoutBounds );
     periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;

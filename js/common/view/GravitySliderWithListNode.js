@@ -2,6 +2,7 @@
 
 /**
  * Gravity slider and planet list node in 'Pendulum lab' simulation.
+ * Tweakers can be added using special function.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -47,9 +48,10 @@ define( function( require ) {
    * @constructor
    */
   function GravitySliderWithListNode( gravityProperty, gravityPropertyOptions, planetProperty, planetModels, planetsListNode, options ) {
-    var container = new Node(), gravityAdjustmentNode = new VBox( {spacing: VALUE_LABEL_SPACING} );
+    var self = this, container = new Node();
 
     VBox.call( this, _.extend( {spacing: 4}, options ) );
+    this.gravityAdjustmentNode = new VBox( {spacing: VALUE_LABEL_SPACING} );
 
     // create planet list menu
     var planetListItems = [];
@@ -67,35 +69,6 @@ define( function( require ) {
       itemYMargin: 3
     } ) );
 
-    // arrow buttons and value panel
-    var arrowButtonMinus, valueLabel, arrowButtonPlus;
-    gravityAdjustmentNode.addChild( new HBox( {
-      spacing: VALUE_LABEL_SPACING, children: [
-        arrowButtonMinus = new ArrowButton( 'left', function() {
-          gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyOptions.range.min, gravityProperty.value - gravityPropertyOptions.step ), gravityPropertyOptions.precision );
-        }, {scale: 0.5} ),
-        new Node( {
-          children: [
-            new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
-              centerY: -1,
-              centerX: 0,
-              fill: '#FFF',
-              stroke: 'black',
-              lineWidth: 1
-            } ),
-            valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, gravityPropertyOptions.precision ) ), {
-              centerX: 0,
-              centerY: -1,
-              font: FONT
-            } )
-          ]
-        } ),
-        arrowButtonPlus = new ArrowButton( 'right', function() {
-          gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyOptions.range.max, gravityProperty.value + gravityPropertyOptions.step ), gravityPropertyOptions.precision );
-        }, {scale: 0.5} )
-      ]
-    } ) );
-
     // create slider for gravity property
     var hSlider = new HSlider( gravityProperty, gravityPropertyOptions.range, {
       majorTickLength: 10,
@@ -104,42 +77,79 @@ define( function( require ) {
     } );
     hSlider.addMajorTick( gravityPropertyOptions.range.min, new Text( NoneString, {font: FONT} ) );
     hSlider.addMajorTick( gravityPropertyOptions.range.max, new Text( LotsString, {font: FONT} ) );
-    container.addChild( gravityAdjustmentNode );
-    gravityAdjustmentNode.addChild( hSlider );
+    container.addChild( this.gravityAdjustmentNode );
+    this.gravityAdjustmentNode.addChild( hSlider );
 
     // create question text node instead of slider for planet X
-    var questionText = new Node( {
-      children: [
-        new Rectangle( gravityAdjustmentNode.bounds.minX, gravityAdjustmentNode.bounds.minY, gravityAdjustmentNode.width, gravityAdjustmentNode.height ),
-        new Text( WhatIsTheValueOfGravity, {
-          font: FONT_QUESTION,
-          centerX: gravityAdjustmentNode.bounds.minX + gravityAdjustmentNode.width / 2,
-          centerY: gravityAdjustmentNode.bounds.minY + gravityAdjustmentNode.height / 2
-        } )
-      ]
-    } );
-    container.addChild( questionText );
+    this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
+    this.questionNodeText = new Text( WhatIsTheValueOfGravity, {font: FONT_QUESTION} );
+    this.questionNode = new Node( {children: [this.questionNodeBackground, this.questionNodeText]} );
+    updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
+    container.addChild( this.questionNode );
 
     // if planet X was chosen then replace slider to question
     planetProperty.link( function( planet ) {
       if ( planet === Planets.PLANET_X ) {
-        gravityAdjustmentNode.visible = false;
-        questionText.visible = true;
+        self.gravityAdjustmentNode.visible = false;
+        self.questionNode.visible = true;
       }
       else {
-        gravityAdjustmentNode.visible = true;
-        questionText.visible = false;
+        self.gravityAdjustmentNode.visible = true;
+        self.questionNode.visible = false;
       }
-    } );
-
-    gravityProperty.link( function( gravityValue ) {
-      valueLabel.text = StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityValue, gravityPropertyOptions.precision ) );
-      arrowButtonMinus.enabled = ( gravityValue > gravityPropertyOptions.range.min );
-      arrowButtonPlus.enabled = ( gravityValue < gravityPropertyOptions.range.max );
     } );
 
     this.addChild( container );
   }
 
-  return inherit( VBox, GravitySliderWithListNode );
+  var updateQuestionTextPosition = function( questionNodeText, gravityAdjustmentNode ) {
+    questionNodeText.centerX = gravityAdjustmentNode.bounds.minX + gravityAdjustmentNode.width / 2;
+    questionNodeText.centerY = gravityAdjustmentNode.bounds.minY + gravityAdjustmentNode.height / 2;
+  };
+
+  return inherit( VBox, GravitySliderWithListNode, {
+    // add arrow buttons and value panel
+    addTweakers: function( gravityProperty, gravityPropertyOptions ) {
+      var arrowButtonMinus,
+        valueLabel,
+        arrowButtonPlus;
+
+      this.gravityAdjustmentNode.insertChild( 0, new HBox( {
+        spacing: VALUE_LABEL_SPACING, children: [
+          arrowButtonMinus = new ArrowButton( 'left', function() {
+            gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyOptions.range.min, gravityProperty.value - gravityPropertyOptions.step ), gravityPropertyOptions.precision );
+          }, {scale: 0.5} ),
+          new Node( {
+            children: [
+              new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
+                centerY: -1,
+                centerX: 0,
+                fill: '#FFF',
+                stroke: 'black',
+                lineWidth: 1
+              } ),
+              valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, gravityPropertyOptions.precision ) ), {
+                centerX: 0,
+                centerY: -1,
+                font: FONT
+              } )
+            ]
+          } ),
+          arrowButtonPlus = new ArrowButton( 'right', function() {
+            gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyOptions.range.max, gravityProperty.value + gravityPropertyOptions.step ), gravityPropertyOptions.precision );
+          }, {scale: 0.5} )
+        ]
+      } ) );
+
+      gravityProperty.link( function( gravityValue ) {
+        valueLabel.text = StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityValue, gravityPropertyOptions.precision ) );
+        arrowButtonMinus.enabled = ( gravityValue > gravityPropertyOptions.range.min );
+        arrowButtonPlus.enabled = ( gravityValue < gravityPropertyOptions.range.max );
+      } );
+
+      // expand question node
+      this.questionNodeBackground.setRectBounds( this.gravityAdjustmentNode.bounds );
+      updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
+    }
+  } );
 } );
