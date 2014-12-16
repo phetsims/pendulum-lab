@@ -18,6 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -98,6 +99,7 @@ define( function( require ) {
       y: graphHeight,
       spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - BAR_WIDTH,
       align: 'bottom',
+      clipArea: Shape.rect( -axisY.width / 2, -graphHeight, dimension.width + axisY.width / 2, graphHeight ),
       children: [this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
         rotation: Math.PI,
         children: [this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone]
