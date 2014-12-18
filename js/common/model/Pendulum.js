@@ -122,6 +122,8 @@ define( function( require ) {
       this.property( 'totalEnergy' ).reset();
       this.property( 'isTickVisible' ).reset();
 
+      this.periodTrace.pathPoints.reset();
+
       this.updateVectors();
       this.updateEnergiesWithTotalEnergyConstant();
     },
