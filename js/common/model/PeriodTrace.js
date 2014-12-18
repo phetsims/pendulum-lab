@@ -35,7 +35,7 @@ define( function( require ) {
       if ( self.isVisible && !pendulumModel.isUserControlled ) {
         var pathArray = self.pathPoints.getArray();
 
-        if ( self.pathPoints.length < 4 ) {
+        if ( self.pathPoints.length < 4 && Math.abs( newAngle - oldAngle ) < Math.PI / 4 ) {
           // first point
           if ( self.pathPoints.length === 0 && newAngle * oldAngle < 0 ) {
             self.pathPoints.push( {anticlockwise: newAngle < 0} );
