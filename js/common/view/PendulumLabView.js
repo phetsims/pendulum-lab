@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -38,7 +39,7 @@ define( function( require ) {
   function PendulumLabView( pendulumLabModel, mvt, screenshotImage ) {
     var pendulumLabView = this, width, height;
 
-    ScreenView.call( this, {renderer: 'svg'} );
+    ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
     width = this.layoutBounds.width;
     height = this.layoutBounds.height;
 
