@@ -33,7 +33,7 @@ define( function( require ) {
   var FONT = new PhetFont( 11 );
   var GRAPH_WIDTH = 120;
   var MAGNIFYING_GLASS_RADIUS = 7;
-  var SINGLE_GRAPH_SIZE = new Dimension2( 80, 210 );
+  var SINGLE_GRAPH_SIZE = new Dimension2( 80, 225 );
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
     xSpacing: 3
