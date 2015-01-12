@@ -51,6 +51,8 @@ define( function( require ) {
    * @constructor
    */
   function SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+    var self = this;
+
     this._isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
 
     // create header of graph
@@ -119,6 +121,12 @@ define( function( require ) {
     this.potentialEnergyProperty.link( this.updatePotentialEnergy.bind( this ) );
     this.thermalEnergyProperty = pendulumModel.property( 'thermalEnergy' );
     this.thermalEnergyProperty.link( this.updateThermalEnergy.bind( this ) );
+
+    isEnergyGraphExpandedProperty.link( function( isEnergyGraphExpanded ) {
+      if ( isEnergyGraphExpanded ) {
+        self.updateAllEnergies();
+      }
+    } );
   }
 
   return inherit( VBox, SingleEnergyGraphNode, {
