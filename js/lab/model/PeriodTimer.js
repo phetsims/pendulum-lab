@@ -48,13 +48,13 @@ define( function( require ) {
 
     this.property( 'isRunning' ).link( function( isRunning ) {
       if ( isRunning ) {
+        // clear time when timer revert to init state
+        self.elapsedTime = 0;
+
         // show trace path
         activePendulum.periodTrace.isVisible = true;
       }
       else {
-        // clear time when timer revert to init state
-        self.elapsedTime = 0;
-
         // stop calculating when timer stop
         self.isCalculate = false;
 
@@ -79,7 +79,7 @@ define( function( require ) {
           self.isCalculate = true;
         }
         else if ( (pendulumModel.periodTrace.pathPoints.length === 4 || pendulumModel.periodTrace.pathPoints.length === 0) && self.isRunning ) {
-          self.isCalculate = false;
+          self.isRunning = false;
         }
       };
     } );
