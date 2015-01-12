@@ -63,7 +63,7 @@ define( function( require ) {
     // add period trace node
     var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
       x: width / 2,
-      y: SCREEN_PADDING.TOP - 5
+      y: SCREEN_PADDING.TOP
     } );
 
     // add panel with sliders for pendulums
