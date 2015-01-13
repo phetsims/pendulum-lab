@@ -44,7 +44,7 @@ define( function( require ) {
 
     // create central dash line
     if ( pendulumModels[0] ) {
-      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulumModels[0].lengthOptions.range.max ), {
+      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulumModels[0].lengthRange.max ), {
         stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
         lineDash: [4, 7]
       } ) );

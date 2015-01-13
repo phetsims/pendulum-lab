@@ -56,12 +56,8 @@ define( function( require ) {
       new Planet( Planets.CUSTOM, CustomString ) // custom
     ];
 
-    // additional properties for gravity property
-    this.gravityOptions = {
-      range: new Range( 0, 25, this.gravity ), // possible gravity range
-      step: 0.1, // absolute value changing after one step
-      precision: 2 // numbers after decimal points
-    };
+    // possible gravity range
+    this.gravityRange = new Range( 0, 25, this.gravity );
 
     // model for ruler
     this.rulerModel = new Ruler();

@@ -35,19 +35,20 @@ define( function( require ) {
   // constants
   var FONT = new PhetFont( 9 );
   var FONT_QUESTION = new PhetFont( 8.5 );
+  var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
   var VALUE_LABEL_SPACING = 4;
 
   /**
    * Constructor for the gravity slider control
    * @param {Property} gravityProperty - Property to update by slider
-   * @param {Range} gravityPropertyOptions - Options for gravity property
+   * @param {Range} gravityPropertyRange - Range of gravity property
    * @param {Property} planetProperty - Property to update by combo box
    * @param {Array} planetModels - Models of all planets
    * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes
    * @param {Object} options
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityPropertyOptions, planetProperty, planetModels, planetsListNode, options ) {
+  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
     var self = this, container = new Node();
 
     VBox.call( this, _.extend( {spacing: 4}, options ) );
@@ -70,13 +71,13 @@ define( function( require ) {
     } ) );
 
     // create slider for gravity property
-    var hSlider = new HSlider( gravityProperty, gravityPropertyOptions.range, {
+    var hSlider = new HSlider( gravityProperty, gravityPropertyRange, {
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE
     } );
-    hSlider.addMajorTick( gravityPropertyOptions.range.min, new Text( NoneString, {font: FONT} ) );
-    hSlider.addMajorTick( gravityPropertyOptions.range.max, new Text( LotsString, {font: FONT} ) );
+    hSlider.addMajorTick( gravityPropertyRange.min, new Text( NoneString, {font: FONT} ) );
+    hSlider.addMajorTick( gravityPropertyRange.max, new Text( LotsString, {font: FONT} ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( hSlider );
 
@@ -109,7 +110,7 @@ define( function( require ) {
 
   return inherit( VBox, GravitySliderWithListNode, {
     // add arrow buttons and value panel
-    addTweakers: function( gravityProperty, gravityPropertyOptions ) {
+    addTweakers: function( gravityProperty, gravityPropertyRange ) {
       var arrowButtonMinus,
         valueLabel,
         arrowButtonPlus;
@@ -117,7 +118,7 @@ define( function( require ) {
       this.gravityAdjustmentNode.insertChild( 0, new HBox( {
         spacing: VALUE_LABEL_SPACING, children: [
           arrowButtonMinus = new ArrowButton( 'left', function() {
-            gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyOptions.range.min, gravityProperty.value - gravityPropertyOptions.step ), gravityPropertyOptions.precision );
+            gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
           }, {scale: 0.5} ),
           new Node( {
             children: [
@@ -128,7 +129,7 @@ define( function( require ) {
                 stroke: 'black',
                 lineWidth: 1
               } ),
-              valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, gravityPropertyOptions.precision ) ), {
+              valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
                 centerX: 0,
                 centerY: -1,
                 font: FONT
@@ -136,15 +137,32 @@ define( function( require ) {
             ]
           } ),
           arrowButtonPlus = new ArrowButton( 'right', function() {
-            gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyOptions.range.max, gravityProperty.value + gravityPropertyOptions.step ), gravityPropertyOptions.precision );
+            gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
           }, {scale: 0.5} )
         ]
       } ) );
 
-      gravityProperty.link( function( gravityValue ) {
-        valueLabel.text = StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityValue, gravityPropertyOptions.precision ) );
-        arrowButtonMinus.enabled = ( gravityValue > gravityPropertyOptions.range.min );
-        arrowButtonPlus.enabled = ( gravityValue < gravityPropertyOptions.range.max );
+      gravityProperty.link( function( value ) {
+        var valueString = value + "",
+          dotPosition = valueString.indexOf( '.' ) + 1,
+          valuePrecision;
+
+        // find value precision
+        if ( dotPosition ) {
+          valuePrecision = valueString.length - dotPosition;
+        }
+        else {
+          valuePrecision = 0;
+        }
+
+        valueLabel.text = StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
+        arrowButtonMinus.enabled = ( value > gravityPropertyRange.min );
+        arrowButtonPlus.enabled = ( value < gravityPropertyRange.max );
+
+        // set slider value
+        if ( valuePrecision > 2 ) {
+          gravityProperty.value = Util.toFixedNumber( value, PendulumLabConstants.SLIDER_PRECISION );
+        }
       } );
 
       // expand question node

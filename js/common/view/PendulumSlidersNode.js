@@ -47,7 +47,7 @@ define( function( require ) {
       // create length slider
       var lengthSlider = new PendulumOptionSliderNode(
         pendulumModel.property( 'length' ),
-        pendulumModel.lengthOptions,
+        pendulumModel.lengthRange,
         pattern_0lengthValue_lengthUnitsMetric,
         pendulumModel.color,
         {y: SPACING_CONTENT}
@@ -57,7 +57,7 @@ define( function( require ) {
       // create mass slider
       var massSlider = new PendulumOptionSliderNode(
         pendulumModel.property( 'mass' ),
-        pendulumModel.massOptions,
+        pendulumModel.massRange,
         pattern_0massValue_massUnitsMetric,
         pendulumModel.color,
         {y: SPACING_CONTENT}

@@ -28,17 +28,18 @@ define( function( require ) {
   // constants
   var FONT_LABEL = new PhetFont( 9 );
   var VALUE_LABEL_SPACING = 4;
+  var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
 
   /**
    * Constructor for the sliders control
    * @param {Property} trackProperty - Property to update by slider
-   * @param {Object} trackPropertyOptions - Options for track property. Include: range, precision and step value
+   * @param {Object} trackPropertyRange - Range of track property
    * @param {string} valuePatternString - String pattern for representation current property value in label
    * @param {string} color - Base color for thumb and label text in rgb format
    * @param {Object} options
    * @constructor
    */
-  function PendulumOptionSliderNode( trackProperty, trackPropertyOptions, valuePatternString, color, options ) {
+  function PendulumOptionSliderNode( trackProperty, trackPropertyRange, valuePatternString, color, options ) {
     var arrowButtonMinus, arrowButtonPlus, valueLabel, sliderProperty = new Property( trackProperty.value );
 
     this._property = sliderProperty;
@@ -51,7 +52,7 @@ define( function( require ) {
         new HBox( {
           spacing: VALUE_LABEL_SPACING, children: [
             arrowButtonMinus = new ArrowButton( 'left', function() {
-              trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyOptions.range.min, trackProperty.value - trackPropertyOptions.step ), trackPropertyOptions.precision );
+              trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
             }, {scale: 0.5} ),
             new Node( {
               children: [
@@ -62,7 +63,7 @@ define( function( require ) {
                   stroke: 'black',
                   lineWidth: 1
                 } ),
-                valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, trackPropertyOptions.precision ) ), {
+                valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
                   centerX: 0,
                   centerY: -1,
                   font: FONT_LABEL
@@ -70,7 +71,7 @@ define( function( require ) {
               ]
             } ),
             arrowButtonPlus = new ArrowButton( 'right', function() {
-              trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyOptions.range.max, trackProperty.value + trackPropertyOptions.step ), trackPropertyOptions.precision );
+              trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
             }, {scale: 0.5} )
           ]
         } ),
@@ -82,7 +83,7 @@ define( function( require ) {
             new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
 
             // slider for property
-            new HSlider( sliderProperty, trackPropertyOptions.range, {
+            new HSlider( sliderProperty, trackPropertyRange, {
               trackSize: PendulumLabConstants.TRACK_SIZE,
               thumbSize: PendulumLabConstants.THUMB_SIZE,
               thumbFillEnabled: color
@@ -96,14 +97,34 @@ define( function( require ) {
     }, options ) );
 
     sliderProperty.link( function( sliderValue ) {
-      trackProperty.value = Util.toFixedNumber( sliderValue, trackPropertyOptions.precision );
+      trackProperty.value = sliderValue;
     } );
 
     trackProperty.link( function( value ) {
-      valueLabel.text = StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, trackPropertyOptions.precision ) );
-      arrowButtonMinus.enabled = ( value > trackPropertyOptions.range.min );
-      arrowButtonPlus.enabled = ( value < trackPropertyOptions.range.max );
-      sliderProperty.value = value;
+      var valueString = value + "",
+        dotPosition = valueString.indexOf( '.' ) + 1,
+        valuePrecision;
+
+      // find value precision
+      if ( dotPosition ) {
+        valuePrecision = valueString.length - dotPosition;
+      }
+      else {
+        valuePrecision = 0;
+      }
+
+      // set slider value
+      if ( valuePrecision > 2 ) {
+        sliderProperty.value = Util.toFixedNumber( value, PendulumLabConstants.SLIDER_PRECISION );
+      }
+      else {
+        sliderProperty.value = value;
+      }
+
+      // update label and tweakers
+      valueLabel.text = StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) );
+      arrowButtonMinus.enabled = ( sliderProperty.value > trackPropertyRange.min );
+      arrowButtonPlus.enabled = ( sliderProperty.value < trackPropertyRange.max );
     } );
   }
 

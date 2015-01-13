@@ -29,6 +29,8 @@ define( function( require ) {
     // sliders
     TRACK_SIZE: new Dimension2( 95, 0.5 ),
     THUMB_SIZE: new Dimension2( 10, 19 ),
+    SLIDER_PRECISION: 1,
+    TWEAKERS_PRECISION: 2,
 
     // common
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',

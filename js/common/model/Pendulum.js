@@ -54,19 +54,11 @@ define( function( require ) {
     // default color for this pendulum
     this.color = color;
 
-    // additional properties for pendulum length
-    this.lengthOptions = {
-      range: new Range( 0.1, 2.0, length ), // possible length range
-      step: 0.1, // absolute value changing after one step
-      precision: 2 // numbers after decimal points
-    };
+    // possible length range
+    this.lengthRange = new Range( 0.1, 2.0, length );
 
-    // additional properties for pendulum mass
-    this.massOptions = {
-      range: new Range( 0.1, 2.1, mass ), // possible mass range
-      step: 0.1, // absolute value changing after one step
-      precision: 2 // numbers after decimal points
-    };
+    // possible mass range
+    this.massRange = new Range( 0.1, 2.1, mass );
 
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty );
 

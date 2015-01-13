@@ -44,7 +44,7 @@ define( function( require ) {
 
     // add pendulums
     pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
-      var massToScale = new LinearFunction( pendulumModel.massOptions.range.min, pendulumModel.massOptions.range.max, 0.25, 1 );
+      var massToScale = new LinearFunction( pendulumModel.massRange.min, pendulumModel.massRange.max, 0.25, 1 );
 
       // create solid line
       var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), {stroke: 'black'} );
