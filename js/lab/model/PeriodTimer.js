@@ -57,9 +57,6 @@ define( function( require ) {
       else {
         // stop calculating when timer stop
         self.isCalculate = false;
-
-        // hide trace path
-        activePendulum.periodTrace.isVisible = false;
       }
     } );
 
@@ -69,10 +66,16 @@ define( function( require ) {
       pendulumModel.periodTrace.isRepeat = false;
       pendulumModel.periodTrace.isVisible = false;
 
-      pendulumModel.property( 'isUserControlled' ).onValue( true, function() {
-        self.elapsedTime = 0;
-        self.isCalculate = false;
-      } );
+      var updateTimer = function() {
+        if ( self.isCalculate ) {
+          self.elapsedTime = 0;
+          self.isCalculate = false;
+        }
+      };
+      pendulumModel.property( 'length' ).lazyLink( updateTimer );
+      pendulumModel._gravityProperty.lazyLink( updateTimer );
+      pendulumModel.property( 'isUserControlled' ).lazyLink( updateTimer );
+      self.property( 'isVisible' ).onValue( false, updateTimer );
 
       pathListeners[pendulumIndex] = function() {
         if ( pendulumModel.periodTrace.pathPoints.length === 1 && self.isRunning ) {
