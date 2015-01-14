@@ -43,7 +43,7 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new IntroScreen( screenshot1 ), new EnergyScreen( screenshot2 ), new LabScreen( screenshot3 ) ], simOptions );
+    var sim = new Sim( simTitle, [new IntroScreen( screenshot1 ), new EnergyScreen( screenshot2 ), new LabScreen( screenshot3 )], simOptions );
     sim.start();
   } );
 } );

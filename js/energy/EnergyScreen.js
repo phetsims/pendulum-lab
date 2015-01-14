@@ -36,7 +36,7 @@ define( function( require ) {
     Screen.call( this, EnergyString, icon,
       function() { return new EnergyModel(); },
       function( model ) { return new EnergyView( model, mvt, screenshotImage ); },
-      { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
+      {backgroundColor: PendulumLabConstants.BACKGROUND_COLOR}
     );
   }
 

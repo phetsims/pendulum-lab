@@ -50,37 +50,43 @@ define( function( require ) {
     } );
 
     PanelPendulumAbstract.call( this,
-      new Node( {children: [
-        // necessary to expand panel
-        new HStrut( PANEL_WIDTH ),
+      new Node( {
+        children: [
+          // necessary to expand panel
+          new HStrut( PANEL_WIDTH ),
 
-        new VerticalCheckBoxGroup( [
-          {
-            content: new Node( {children: [
-              textStrings[0],
-              new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
-                fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
-                centerY: 0,
-                tailWidth: ARROW_TAIL_WIDTH,
-                headWidth: ARROW_HEAD_WIDTH
-              } )
-            ]} ),
-            property: isVelocityVisibleProperty
-          },
-          {
-            content: new Node( {children: [
-              textStrings[1],
-              new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
-                fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
-                centerY: 0,
-                tailWidth: ARROW_TAIL_WIDTH,
-                headWidth: ARROW_HEAD_WIDTH
-              } )
-            ]} ),
-            property: isAccelerationVisibleProperty
-          }
-        ], {spacing: 5, boxWidth: 15} )
-      ]} ),
+          new VerticalCheckBoxGroup( [
+            {
+              content: new Node( {
+                children: [
+                  textStrings[0],
+                  new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
+                    fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
+                    centerY: 0,
+                    tailWidth: ARROW_TAIL_WIDTH,
+                    headWidth: ARROW_HEAD_WIDTH
+                  } )
+                ]
+              } ),
+              property: isVelocityVisibleProperty
+            },
+            {
+              content: new Node( {
+                children: [
+                  textStrings[1],
+                  new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
+                    fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
+                    centerY: 0,
+                    tailWidth: ARROW_TAIL_WIDTH,
+                    headWidth: ARROW_HEAD_WIDTH
+                  } )
+                ]
+              } ),
+              property: isAccelerationVisibleProperty
+            }
+          ], {spacing: 5, boxWidth: 15} )
+        ]
+      } ),
       _.extend( {yMargin: 7}, options )
     );
   }
