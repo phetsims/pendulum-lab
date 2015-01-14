@@ -57,14 +57,18 @@ define( function( require ) {
     // create planet list menu
     var planetListItems = [];
     planetModels.forEach( function( planetModel ) {
+      var planetLabel = new Text( planetModel.title );
+      planetLabel.localBounds = planetLabel.localBounds.withMaxX( Math.max( 50, planetLabel.localBounds.maxY ) );
+
       planetListItems.push( {
-        node: new Text( planetModel.title ),
+        node: planetLabel,
         value: planetModel.name
       } );
     } );
 
     // add planet menu combo box
     this.addChild( new ComboBox( planetListItems, planetProperty, planetsListNode, {
+      listPosition: 'above',
       buttonCornerRadius: 3,
       buttonYMargin: 0,
       itemYMargin: 3
