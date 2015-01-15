@@ -21,6 +21,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -134,6 +135,25 @@ define( function( require ) {
 
     var backgroundDimension = vBox.bounds.dilated( PANEL_PAD );
     this.addChild( new Rectangle( -PANEL_PAD, -PANEL_PAD, backgroundDimension.width + 2 * PANEL_PAD, backgroundDimension.height + 2 * PANEL_PAD, 20, 20, {fill: BACKGROUND_OUT_COLOR} ) );
+
+    // highlight
+    this.addChild( new Node( {
+      children: [
+        new Rectangle( 20, -PANEL_PAD, backgroundDimension.width - 30, PANEL_PAD, {
+          fill: new LinearGradient( 0, -PANEL_PAD, 0, 0 )
+            .addColorStop( 0, 'rgba(0,0,0,0)' )
+            .addColorStop( 0.5, 'rgba(255,255,255,0.5)' )
+            .addColorStop( 1, 'rgba(0,0,0,0)' )
+        } ),
+        new Path( Shape.ellipse( 9.1, 2, 7, 14, Math.PI / 4 ), {
+          fill: new RadialGradient( 20, 28, 28, 20, 28, 36 )
+            .addColorStop( 0, 'rgba(0,0,0,0)' )
+            .addColorStop( 0.5, 'rgba(255,255,255,0.5)' )
+            .addColorStop( 1, 'rgba(0,0,0,0)' )
+        } )
+      ]
+    } ) );
+
     this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, {fill: BACKGROUND_IN_COLOR} ) );
     this.addChild( vBox );
 
