@@ -34,7 +34,7 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 9 );
-  var FONT_QUESTION = new PhetFont( 8.5 );
+  var FONT_LIST = new PhetFont( 12 );
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
   var VALUE_LABEL_SPACING = 4;
 
@@ -57,7 +57,7 @@ define( function( require ) {
     // create planet list menu
     var planetListItems = [];
     planetModels.forEach( function( planetModel ) {
-      var planetLabel = new Text( planetModel.title );
+      var planetLabel = new Text( planetModel.title, {font: FONT_LIST} );
       planetLabel.localBounds = planetLabel.localBounds.withMaxX( Math.max( 50, planetLabel.localBounds.maxY ) );
 
       planetListItems.push( {
@@ -67,11 +67,13 @@ define( function( require ) {
     } );
 
     // add planet menu combo box
+    planetsListNode.scale( 1.2 );
     this.addChild( new ComboBox( planetListItems, planetProperty, planetsListNode, {
       listPosition: 'above',
       buttonCornerRadius: 3,
       buttonYMargin: 0,
-      itemYMargin: 3
+      itemYMargin: 3,
+      listYMargin: 8
     } ) );
 
     // create slider for gravity property
@@ -87,7 +89,7 @@ define( function( require ) {
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
-    this.questionNodeText = new Text( WhatIsTheValueOfGravity, {font: FONT_QUESTION} );
+    this.questionNodeText = new Text( WhatIsTheValueOfGravity, {font: FONT} );
     this.questionNode = new Node( {children: [this.questionNodeBackground, this.questionNodeText]} );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );
