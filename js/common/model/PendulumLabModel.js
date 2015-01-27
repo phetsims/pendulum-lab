@@ -148,6 +148,13 @@ define( function( require ) {
             currentPendulum.acceleration = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
             currentPendulum.omega += 0.5 * (currentPendulum.acceleration + oldAcceleration) * dt;
 
+            // prevent infinite motion after friction
+            if ( Math.abs( currentPendulum.angle ) < 1e-3 && Math.abs( currentPendulum.acceleration ) < 1e-3 && Math.abs( currentPendulum.omega ) < 1e-3 ) {
+              currentPendulum.angle = 0;
+              currentPendulum.acceleration = 0;
+              currentPendulum.omega = 0;
+            }
+
             currentPendulum.updateVectors();
             currentPendulum.updateEnergiesWithTotalEnergyConstant();
           }
