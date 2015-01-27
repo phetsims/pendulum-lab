@@ -122,9 +122,7 @@ define( function( require ) {
     returnButtonNode.centerY = height - SCREEN_PADDING.BOTTOM - 5;
 
     // render order
-    this.addChild( rulerNode );
     this.addChild( protractorNode );
-    this.addChild( pendulumsNode );
     this.addChild( periodTraceNode );
     this.addChild( slidersPanelNode );
     this.addChild( planetsListNode );
@@ -132,6 +130,8 @@ define( function( require ) {
     this.addChild( pendulumSystemControlPanelNode );
     this.addChild( resetAllButton );
     this.addChild( returnButtonNode );
+    this.addChild( pendulumsNode );
+    this.addChild( rulerNode );
     this.addChild( stopwatchNode );
 
     // set initial value for ruler and stopwatch 'location' property
