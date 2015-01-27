@@ -51,7 +51,8 @@ define( function( require ) {
         // clear time when timer revert to init state
         self.elapsedTime = 0;
 
-        // show trace path
+        // reset and show trace path
+        activePendulum.periodTrace.pathPoints.reset();
         activePendulum.periodTrace.isVisible = true;
       }
       else {
