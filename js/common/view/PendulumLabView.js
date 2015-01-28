@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -36,16 +35,12 @@ define( function( require ) {
    * @param {ModelViewTransform2} mvt
    * @constructor
    */
-  function PendulumLabView( pendulumLabModel, mvt, screenshotImage ) {
+  function PendulumLabView( pendulumLabModel, mvt ) {
     var pendulumLabView = this, width, height;
 
     ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
     width = this.layoutBounds.width;
     height = this.layoutBounds.height;
-
-    var image = new Image( screenshotImage );
-    image.scale( this.layoutBounds.width / image.width );
-    // this.addChild( image );
 
     // add protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );

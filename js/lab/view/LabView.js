@@ -26,8 +26,8 @@ define( function( require ) {
    * @param {ModelViewTransform2} mvt
    * @constructor
    */
-  function LabView( pendulumLabModel, mvt, screenshotImage ) {
-    EnergyView.call( this, pendulumLabModel, mvt, screenshotImage );
+  function LabView( pendulumLabModel, mvt ) {
+    EnergyView.call( this, pendulumLabModel, mvt );
 
     // add arrow panel node to the bottom layer
     var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.property( 'isVelocityVisible' ),

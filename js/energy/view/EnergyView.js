@@ -22,8 +22,8 @@ define( function( require ) {
    * @param {ModelViewTransform2} mvt
    * @constructor
    */
-  function EnergyView( pendulumLabModel, mvt, screenshotImage ) {
-    PendulumLabView.call( this, pendulumLabModel, mvt, screenshotImage );
+  function EnergyView( pendulumLabModel, mvt ) {
+    PendulumLabView.call( this, pendulumLabModel, mvt );
 
     // add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulumModels, pendulumLabModel.property( 'isEnergyGraphExpanded' ), pendulumLabModel.property( 'energyGraphMode' ), pendulumLabModel.property( 'numberOfPendulums' ) );

@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function IntroScreen( screenshotImage ) {
+  function IntroScreen() {
 
     // icon for screen
     var icon = Rectangle.rect( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, {
@@ -35,7 +35,7 @@ define( function( require ) {
 
     Screen.call( this, IntroString, icon,
       function() { return new PendulumLabModel(); },
-      function( model ) { return new PendulumLabView( model, mvt, screenshotImage ); },
+      function( model ) { return new PendulumLabView( model, mvt ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

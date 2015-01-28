@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function EnergyScreen( screenshotImage ) {
+  function EnergyScreen() {
 
     // icon for screen
     var icon = Rectangle.rect( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, {
@@ -35,7 +35,7 @@ define( function( require ) {
 
     Screen.call( this, EnergyString, icon,
       function() { return new EnergyModel(); },
-      function( model ) { return new EnergyView( model, mvt, screenshotImage ); },
+      function( model ) { return new EnergyView( model, mvt ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

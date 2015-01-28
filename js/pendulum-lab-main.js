@@ -15,11 +15,6 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
-  // images
-  var screenshot1 = require( 'image!PENDULUM_LAB/pendulum-lab-screen-1.png' );
-  var screenshot2 = require( 'image!PENDULUM_LAB/pendulum-lab-screen-2.png' );
-  var screenshot3 = require( 'image!PENDULUM_LAB/pendulum-lab-screen-3.png' );
-
   // strings
   var simTitle = require( 'string!PENDULUM_LAB/pendulum-lab.name' );
 
@@ -43,7 +38,7 @@ define( function( require ) {
   }
 
   SimLauncher.launch( function() {
-    var sim = new Sim( simTitle, [ new IntroScreen( screenshot1 ), new EnergyScreen( screenshot2 ), new LabScreen( screenshot3 ) ], simOptions );
+    var sim = new Sim( simTitle, [ new IntroScreen(), new EnergyScreen(), new LabScreen() ], simOptions );
     sim.start();
   } );
 } );
