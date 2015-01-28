@@ -129,7 +129,7 @@ define( function( require ) {
       var accelerationMagnitude = this.length * Math.sqrt( this.acceleration * this.acceleration + omegaSq * omegaSq );
       var accelerationAngle = Math.atan2( omegaSq, this.acceleration );
 
-      this.accelerationVector.setXY( -accelerationMagnitude * Math.cos( accelerationAngle ), -accelerationMagnitude * Math.sin( accelerationAngle ) );
+      this.accelerationVector.setPolar( -accelerationMagnitude, accelerationAngle );
       this.property( 'accelerationVector' ).notifyObserversStatic();
     },
     updateEnergiesWithTotalEnergyConstant: function() {
