@@ -33,11 +33,9 @@ define( function( require ) {
     Movable.call( this, {
       angle: 0, // value of the angular displacement
       length: length, // length of pendulum
-      height: 0, // height above lowest point
       mass: mass, // mass of pendulum
       acceleration: 0, // acceleration value of pendulum
       omega: 0, // angular velocity
-      velocity: 0, // tangential velocity
       accelerationVector: new Vector2( 0, 0 ),
       velocityVector: new Vector2( 0, 0 ), // velocity value of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
@@ -107,7 +105,6 @@ define( function( require ) {
       this.property( 'angle' ).reset();
       this.property( 'acceleration' ).reset();
       this.property( 'omega' ).reset();
-      this.property( 'velocity' ).reset();
       this.property( 'kineticEnergy' ).reset();
       this.property( 'potentialEnergy' ).reset();
       this.property( 'thermalEnergy' ).reset();
