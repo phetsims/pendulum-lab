@@ -36,11 +36,11 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabView( pendulumLabModel, mvt ) {
-    var pendulumLabView = this, width, height;
+    var pendulumLabView = this;
 
     ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
-    width = this.layoutBounds.width;
-    height = this.layoutBounds.height;
+    var width = this.layoutBounds.width;
+    var height = this.layoutBounds.height;
 
     // add protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );

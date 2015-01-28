@@ -101,9 +101,9 @@ define( function( require ) {
     } );
 
     trackProperty.link( function( value ) {
-      var valueString = value + "",
-        dotPosition = valueString.indexOf( '.' ) + 1,
-        valuePrecision;
+      var valueString = value + "";
+      var dotPosition = valueString.indexOf( '.' ) + 1;
+      var valuePrecision;
 
       // find value precision
       if ( dotPosition ) {

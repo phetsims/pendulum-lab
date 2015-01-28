@@ -35,9 +35,9 @@ define( function( require ) {
    * @constructor
    */
   function PendulumSlidersNode( pendulumLabModel, options ) {
-    var self = this,
-      pendulumSlidersNodeStorage = [],
-      currentNumberOfSliders = 0;
+    var self = this;
+    var pendulumSlidersNodeStorage = [];
+    var currentNumberOfSliders = 0;
 
     this.optionSliders = [];
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );

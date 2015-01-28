@@ -118,7 +118,8 @@ define( function( require ) {
       self.addChild( pendulumNode );
 
       // add drag events
-      var clickYOffset, clickXOffset;
+      var clickYOffset;
+      var clickXOffset;
       pendulumRect.addInputListener( new SimpleDragHandler( {
         start: function( e ) {
           clickXOffset = self.globalToParentPoint( e.pointer.point ).x + metersToPixels( pendulumModel.length ) * Math.sin( pendulumNode.rotation );
@@ -127,8 +128,8 @@ define( function( require ) {
           pendulumModel.isUserControlled = true;
         },
         drag: function( e ) {
-          var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset,
-            x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
+          var x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
+          var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
 
           pendulumModel.angle = -Math.atan2( x, y ) % (Math.PI * 2);
         },

@@ -34,8 +34,9 @@ define( function( require ) {
    * @constructor
    */
   function FrictionSliderNode( frictionProperty, frictionPropertyRange, options ) {
-    var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) ),
-      sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
+    var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
+    var sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
+    var tickStep;
 
     this._property = sliderValueProperty;
 
@@ -53,7 +54,8 @@ define( function( require ) {
     hSlider.addMajorTick( sliderValueRange.min, new Text( NoneString, { font: FONT } ) );
     hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
     hSlider.addMajorTick( sliderValueRange.max, new Text( LotsString, { font: FONT } ) );
-    for ( var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER, i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
+    tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
+    for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );
     }
 

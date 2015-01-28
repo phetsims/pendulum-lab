@@ -49,7 +49,8 @@ define( function( require ) {
    * @constructor
    */
   function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
-    var self = this, container = new Node();
+    var self = this;
+    var container = new Node();
 
     VBox.call( this, _.extend( { spacing: 4 }, options ) );
     this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
@@ -117,9 +118,9 @@ define( function( require ) {
   return inherit( VBox, GravitySliderWithListNode, {
     // add arrow buttons and value panel
     addTweakers: function( gravityProperty, gravityPropertyRange ) {
-      var arrowButtonMinus,
-        valueLabel,
-        arrowButtonPlus;
+      var arrowButtonMinus;
+      var valueLabel;
+      var arrowButtonPlus;
 
       this.gravityAdjustmentNode.insertChild( 0, new HBox( {
         spacing: VALUE_LABEL_SPACING, children: [
@@ -149,9 +150,9 @@ define( function( require ) {
       } ) );
 
       gravityProperty.link( function( value ) {
-        var valueString = value + "",
-          dotPosition = valueString.indexOf( '.' ) + 1,
-          valuePrecision;
+        var valueString = value + "";
+        var dotPosition = valueString.indexOf( '.' ) + 1;
+        var valuePrecision;
 
         // find value precision
         if ( dotPosition ) {

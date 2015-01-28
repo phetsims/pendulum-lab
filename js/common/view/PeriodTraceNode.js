@@ -33,8 +33,8 @@ define( function( require ) {
     this.rotation = Math.PI / 2;
 
     pendulumModels.forEach( function( pendulumModel ) {
-      var intervalId = null, // interval id for fading timer
-        isCompleted = false; // flag to control completing of trace view
+      var intervalId = null; // interval id for fading timer
+      var isCompleted = false; // flag to control completing of trace view
 
       // create trace path path
       var pathNode = new Path( EMPTY_SHAPE, { stroke: pendulumModel.color, lineWidth: 2 } );

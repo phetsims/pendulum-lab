@@ -128,9 +128,9 @@ define( function( require ) {
       this.property( 'velocityVector' ).notifyObserversStatic();
     },
     updateAccelerationVector: function() {
-      var omegaSq = this.omega * this.omega,
-        accelerationMagnitude = this.length * Math.sqrt( this.acceleration * this.acceleration + omegaSq * omegaSq ),
-        accelerationAngle = Math.atan2( omegaSq, this.acceleration );
+      var omegaSq = this.omega * this.omega;
+      var accelerationMagnitude = this.length * Math.sqrt( this.acceleration * this.acceleration + omegaSq * omegaSq );
+      var accelerationAngle = Math.atan2( omegaSq, this.acceleration );
 
       this.accelerationVector.setXY( -accelerationMagnitude * Math.cos( accelerationAngle ), -accelerationMagnitude * Math.sin( accelerationAngle ) );
       this.property( 'accelerationVector' ).notifyObserversStatic();

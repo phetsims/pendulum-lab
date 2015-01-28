@@ -48,8 +48,8 @@ define( function( require ) {
    * @constructor
    */
   function EnergyGraphNode( pendulumModels, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
-    var self = this,
-      graphStorage = [];
+    var self = this;
+    var graphStorage = [];
 
     // create energy graphs for each pendulum
     this._content = new VBox( { align: 'center', resize: false } );

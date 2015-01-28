@@ -64,7 +64,13 @@ define( function( require ) {
     this.addChild( degreesText );
 
     // add background ticks
-    for ( var currentAngleDeg = 0, currentAngleRad, lineLength, x1, y1, x2, y2; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
+    var currentAngleRad;
+    var lineLength;
+    var x1;
+    var y1;
+    var x2;
+    var y2;
+    for ( var currentAngleDeg = 0; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
       currentAngleRad = currentAngleDeg * Math.PI / 180;
 
       if ( currentAngleDeg % 10 === 0 ) {

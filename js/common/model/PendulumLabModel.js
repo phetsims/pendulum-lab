@@ -133,9 +133,9 @@ define( function( require ) {
       }
 
       if ( this.play || this.stepManualMode ) {
-        var friction = this.friction || 0,
-          currentPendulum,
-          oldAcceleration;
+        var friction = this.friction || 0;
+        var currentPendulum;
+        var oldAcceleration;
 
         for ( var i = 0; i < this.numberOfPendulums; i++ ) {
           currentPendulum = this.pendulumModels[ i ];

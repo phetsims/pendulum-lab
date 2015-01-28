@@ -36,8 +36,9 @@ define( function( require ) {
     var self = this;
 
     // create tick labels
+    var tickLabel;
     var rulerTicks = [ '' ]; // zero tick is not labeled
-    for ( var currentTick = TICK_INTERVAL, tickLabel; currentTick < rulerModel.length * 100; currentTick += TICK_INTERVAL ) {
+    for ( var currentTick = TICK_INTERVAL; currentTick < rulerModel.length * 100; currentTick += TICK_INTERVAL ) {
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }

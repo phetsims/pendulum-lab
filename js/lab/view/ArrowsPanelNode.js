@@ -43,8 +43,9 @@ define( function( require ) {
     var textStrings = [
       new Text( VelocityString, { font: FONT, centerY: 0 } ),
       new Text( AccelerationString, { font: FONT, centerY: 0 } )
-    ], maxStringWidth = 0;
+    ];
 
+    var maxStringWidth = 0;
     textStrings.forEach( function( textString ) {
       maxStringWidth = Math.max( maxStringWidth, textString.width );
     } );
