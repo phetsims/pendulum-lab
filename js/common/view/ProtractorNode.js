@@ -14,8 +14,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
@@ -63,7 +65,8 @@ define( function( require ) {
     } );
     this.addChild( degreesText );
 
-    // add background ticks
+    // create background ticks
+    var protractorShape = new Shape();
     var currentAngleRad;
     var lineLength;
     var x1;
@@ -89,8 +92,12 @@ define( function( require ) {
       x2 = (RADIUS + lineLength) * Math.cos( currentAngleRad );
       y2 = (RADIUS + lineLength) * Math.sin( currentAngleRad );
 
-      this.addChild( new Line( x1, y1, x2, y2, { stroke: 'black' } ) );
+      protractorShape.moveTo( x1, y1 );
+      protractorShape.lineTo( x2, y2 );
     }
+
+    // add protractor path
+    this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
 
     // add ticks for pendulum
     pendulumModels.forEach( function( pendulumModel ) {
