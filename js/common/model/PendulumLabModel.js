@@ -66,13 +66,24 @@ define( function( require ) {
     this.stopwatchModel = new Stopwatch();
 
     // change gravity if planet was changed
-    this.property( 'planet' ).lazyLink( function( planet ) {
-      // determine planet
-      var planetModel = _.find( self.planetModels, { 'name': planet } );
+    var gravityValueBeforePlanetX = this.gravity;
+    this.property( 'planet' ).lazyLink( function( planetNew, planetPrev ) {
+      if ( planetNew === Planets.PLANET_X ) {
+        // save value for further restoring
+        gravityValueBeforePlanetX = self.gravity;
+      }
+      else if ( planetPrev === Planets.PLANET_X ) {
+        // restore previous value
+        self.gravity = gravityValueBeforePlanetX;
+      }
+      else {
+        // determine planet
+        var planetModel = _.find( self.planetModels, { 'name': planetNew } );
 
-      // set new gravity
-      if ( planetModel.gravity ) {
-        self.gravity = planetModel.gravity;
+        // set new gravity
+        if ( planetModel ) {
+          self.gravity = planetModel.gravity;
+        }
       }
     } );
 
