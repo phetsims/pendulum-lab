@@ -98,7 +98,7 @@ define( function( require ) {
     getVelocity: function() {
       return this.length * this.omega;
     },
-    getPeriod: function() {
+    getApproximatePeriod: function() {
       return 2 * Math.PI * Math.sqrt( this.length / this._gravityProperty.value );
     },
     resetMotion: function() {

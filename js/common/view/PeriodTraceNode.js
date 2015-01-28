@@ -72,7 +72,7 @@ define( function( require ) {
               if ( pathPointsStorage.length > 3 ) {
                 shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, 0, pathPointsStorage[ 2 ].anticlockwise );
                 isCompleted = true;
-                fadeOutPath( 3 * pendulumModel.getPeriod() / 2 * 10 );
+                fadeOutPath( 3 * pendulumModel.getApproximatePeriod() / 2 * 10 );
               }
               else {
                 shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, pendulumModel.angle, pathPointsStorage[ 2 ].anticlockwise );
