@@ -19,7 +19,7 @@ define( function( require ) {
    */
   function Movable( properties ) {
     PropertySet.call( this, _.extend( {
-      location: null // initial value will be set in view, after calculating all bounds of nodes (type: Vector2)
+      location: null // {Vector2} initial value will be set in view, after calculating all bounds of nodes
     }, properties ) );
   }
 
