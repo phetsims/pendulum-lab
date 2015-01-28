@@ -39,7 +39,7 @@ define( function( require ) {
   function PendulumLabView( pendulumLabModel, mvt, screenshotImage ) {
     var pendulumLabView = this, width, height;
 
-    ScreenView.call( this, {renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 )} );
+    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
     width = this.layoutBounds.width;
     height = this.layoutBounds.height;
 

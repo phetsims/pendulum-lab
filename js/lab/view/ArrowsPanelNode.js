@@ -41,8 +41,8 @@ define( function( require ) {
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     var textStrings = [
-      new Text( VelocityString, {font: FONT, centerY: 0} ),
-      new Text( AccelerationString, {font: FONT, centerY: 0} )
+      new Text( VelocityString, { font: FONT, centerY: 0 } ),
+      new Text( AccelerationString, { font: FONT, centerY: 0 } )
     ], maxStringWidth = 0;
 
     textStrings.forEach( function( textString ) {
@@ -59,7 +59,7 @@ define( function( require ) {
             {
               content: new Node( {
                 children: [
-                  textStrings[0],
+                  textStrings[ 0 ],
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
                     fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
                     centerY: 0,
@@ -73,7 +73,7 @@ define( function( require ) {
             {
               content: new Node( {
                 children: [
-                  textStrings[1],
+                  textStrings[ 1 ],
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
                     fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
                     centerY: 0,
@@ -84,10 +84,10 @@ define( function( require ) {
               } ),
               property: isAccelerationVisibleProperty
             }
-          ], {spacing: 5, boxWidth: 15} )
+          ], { spacing: 5, boxWidth: 15 } )
         ]
       } ),
-      _.extend( {yMargin: 7}, options )
+      _.extend( { yMargin: 7 }, options )
     );
   }
 

@@ -52,24 +52,24 @@ define( function( require ) {
       graphStorage = [];
 
     // create energy graphs for each pendulum
-    this._content = new VBox( {align: 'center', resize: false} );
+    this._content = new VBox( { align: 'center', resize: false } );
     pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
       var graphNode = new SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumIndex + 1, SINGLE_GRAPH_SIZE );
-      self._content.addChild( new HBox( {children: [new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ), graphNode, new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 )]} ) );
-      graphStorage[pendulumIndex] = graphNode;
+      self._content.addChild( new HBox( { children: [ new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ), graphNode, new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ) ] } ) );
+      graphStorage[ pendulumIndex ] = graphNode;
     } );
 
     // create radio buttons for switching energy graph mode
     var radioButtonOne = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.ONE,
-      new Text( '1', {font: FONT} ),
+      new Text( '1', { font: FONT } ),
       RADIO_BUTTON_OPTIONS );
 
     var radioButtonTwo = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.TWO,
-      new Text( '2', {font: FONT} ),
+      new Text( '2', { font: FONT } ),
       RADIO_BUTTON_OPTIONS );
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
 
@@ -79,10 +79,10 @@ define( function( require ) {
       in: false,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
-          graphStorage[0].zoomOut();
+          graphStorage[ 0 ].zoomOut();
         }
         else if ( energyGraphModeProperty.value === EnergyGraphMode.TWO ) {
-          graphStorage[1].zoomOut();
+          graphStorage[ 1 ].zoomOut();
         }
       },
       radius: MAGNIFYING_GLASS_RADIUS
@@ -93,10 +93,10 @@ define( function( require ) {
       in: true,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
-          graphStorage[0].zoomIn();
+          graphStorage[ 0 ].zoomIn();
         }
         else if ( energyGraphModeProperty.value === EnergyGraphMode.TWO ) {
-          graphStorage[1].zoomIn();
+          graphStorage[ 1 ].zoomIn();
         }
       },
       radius: MAGNIFYING_GLASS_RADIUS
@@ -105,9 +105,9 @@ define( function( require ) {
     // add accordion box
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
-          new HBox( {spacing: 20, children: [radioButtonOne, radioButtonTwo]} ),
-          new Panel( this._content, {resize: false} ),
-          new HBox( {spacing: 20, children: [zoomOutButton, zoomInButton]} )
+          new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ] } ),
+          new Panel( this._content, { resize: false } ),
+          new HBox( { spacing: 20, children: [ zoomOutButton, zoomInButton ] } )
         ]
       } ),
       _.extend( {
@@ -116,7 +116,7 @@ define( function( require ) {
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        titleNode: new Text( EnergyGraphString, {font: FONT} ),
+        titleNode: new Text( EnergyGraphString, { font: FONT } ),
         titleXMargin: 0,
         contentXMargin: 5,
         contentYMargin: 5,
@@ -135,12 +135,12 @@ define( function( require ) {
 
     energyGraphModeProperty.link( function( energyGraphMode ) {
       if ( energyGraphMode === EnergyGraphMode.ONE ) {
-        graphStorage[0].show();
-        graphStorage[1].hide();
+        graphStorage[ 0 ].show();
+        graphStorage[ 1 ].hide();
       }
       else if ( energyGraphMode === EnergyGraphMode.TWO ) {
-        graphStorage[0].hide();
-        graphStorage[1].show();
+        graphStorage[ 0 ].hide();
+        graphStorage[ 1 ].show();
       }
     } );
   }

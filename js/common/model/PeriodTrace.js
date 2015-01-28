@@ -38,19 +38,19 @@ define( function( require ) {
         if ( self.pathPoints.length < 4 && Math.abs( newAngle - oldAngle ) < Math.PI / 4 ) {
           // first point
           if ( self.pathPoints.length === 0 && newAngle * oldAngle < 0 ) {
-            self.pathPoints.push( {anticlockwise: newAngle < 0} );
+            self.pathPoints.push( { anticlockwise: newAngle < 0 } );
           }
           // second point
-          else if ( self.pathPoints.length === 1 && ((pathArray[0].anticlockwise && newAngle > oldAngle) || (!pathArray[0].anticlockwise && newAngle < oldAngle)) ) {
-            self.pathPoints.push( {angle: oldAngle, anticlockwise: !pathArray[0].anticlockwise} );
+          else if ( self.pathPoints.length === 1 && ((pathArray[ 0 ].anticlockwise && newAngle > oldAngle) || (!pathArray[ 0 ].anticlockwise && newAngle < oldAngle)) ) {
+            self.pathPoints.push( { angle: oldAngle, anticlockwise: !pathArray[ 0 ].anticlockwise } );
           }
           // third point
-          else if ( self.pathPoints.length === 2 && ((pathArray[1].anticlockwise && newAngle > oldAngle) || (!pathArray[1].anticlockwise && newAngle < oldAngle)) ) {
-            self.pathPoints.push( {angle: oldAngle, anticlockwise: !pathArray[1].anticlockwise} );
+          else if ( self.pathPoints.length === 2 && ((pathArray[ 1 ].anticlockwise && newAngle > oldAngle) || (!pathArray[ 1 ].anticlockwise && newAngle < oldAngle)) ) {
+            self.pathPoints.push( { angle: oldAngle, anticlockwise: !pathArray[ 1 ].anticlockwise } );
           }
           // fourth point
           else if ( self.pathPoints.length === 3 && newAngle * oldAngle < 0 ) {
-            self.pathPoints.push( {anticlockwise: pathArray[2].anticlockwise} );
+            self.pathPoints.push( { anticlockwise: pathArray[ 2 ].anticlockwise } );
           }
         }
       }

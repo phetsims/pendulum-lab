@@ -43,8 +43,8 @@ define( function( require ) {
       spacing: 26, children: [
         // radio buttons to control number of pendulums
         new RadioButtonGroup( numberOfPendulumsProperty, [
-          {node: new OnePendulumIconNode(), value: 1},
-          {node: new TwoPendulumIconNode(), value: 2}
+          { node: new OnePendulumIconNode(), value: 1 },
+          { node: new TwoPendulumIconNode(), value: 2 }
         ], {
           spacing: 9,
           orientation: 'horizontal',
@@ -57,22 +57,22 @@ define( function( require ) {
         // play/pause and step buttons
         new HBox( {
           spacing: 10, children: [
-            new PlayPauseButton( playProperty, {radius: 16} ),
-            new StepButton( stepFunction, playProperty, {radius: 12} )
+            new PlayPauseButton( playProperty, { radius: 16 } ),
+            new StepButton( stepFunction, playProperty, { radius: 12 } )
           ]
         } ),
 
         // time speed checkbox
-        new VerticalAquaRadioButtonGroup( [{
+        new VerticalAquaRadioButtonGroup( [ {
           property: timeSpeedProperty,
           value: 1,
-          node: new Text( NormalString, {font: FONT} )
+          node: new Text( NormalString, { font: FONT } )
         }, {
           property: timeSpeedProperty,
           value: 1 / 8,
-          node: new Text( SlowMotionString, {font: FONT} )
+          node: new Text( SlowMotionString, { font: FONT } )
         }
-        ], {radius: 6, spacing: 9, radioButtonOptions: {xSpacing: 5}} )
+        ], { radius: 6, spacing: 9, radioButtonOptions: { xSpacing: 5 } } )
       ]
     }, options ) );
   }

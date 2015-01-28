@@ -60,9 +60,9 @@ define( function( require ) {
       buttonBaseColor: '#DFE0E1'
     }, options );
 
-    Node.call( this, _.extend( {cursor: 'pointer'}, options ) );
+    Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
 
-    var readoutText = new Text( getTextTime( 0 ), {font: FONT_TIME} ),
+    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME } ),
       textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
         fill: '#fff',
         stroke: 'rgba(0,0,0,0.5)'
@@ -79,7 +79,7 @@ define( function( require ) {
       .close().getOffsetShape( -playOffset );
 
     var playPauseButton = new BooleanRectangularToggleButton(
-      new Path( uArrowShape, {fill: options.iconColor, centerX: 0, centerY: 0} ),
+      new Path( uArrowShape, { fill: options.iconColor, centerX: 0, centerY: 0 } ),
       new Path( playShape, {
         stroke: options.iconColor,
         fill: '#eef',
@@ -92,7 +92,7 @@ define( function( require ) {
       } );
 
     var firstPendulumIcon = new Node( {
-      children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
+      children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
         stroke: 'black',
         fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
           addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
@@ -100,10 +100,10 @@ define( function( require ) {
           addColorStop( 0.8, 'white' ).
           addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
       } ),
-        new Text( '1', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
+        new Text( '1', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
     var secondPendulumIcon = new Node( {
-      children: [new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
+      children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
         stroke: 'black',
         fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
           addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
@@ -111,7 +111,7 @@ define( function( require ) {
           addColorStop( 0.8, 'white' ).
           addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
       } ),
-        new Text( '2', {fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2} )]
+        new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
     var graphUnitsSwitch = new ABSwitch( periodTraceModel.property( 'isFirst' ), true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
@@ -127,14 +127,14 @@ define( function( require ) {
       left: PANEL_PAD,
       top: PANEL_PAD,
       children: [
-        new Text( PeriodString, {font: FONT_TEXT} ),
-        new Node( {children: [textBackground, readoutText]} ),
-        new HBox( {spacing: 10, children: [graphUnitsSwitch, playPauseButton]} )
+        new Text( PeriodString, { font: FONT_TEXT } ),
+        new Node( { children: [ textBackground, readoutText ] } ),
+        new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } )
       ]
     } );
 
     var backgroundDimension = vBox.bounds.dilated( PANEL_PAD );
-    this.addChild( new Rectangle( -PANEL_PAD, -PANEL_PAD, backgroundDimension.width + 2 * PANEL_PAD, backgroundDimension.height + 2 * PANEL_PAD, 20, 20, {fill: BACKGROUND_OUT_COLOR} ) );
+    this.addChild( new Rectangle( -PANEL_PAD, -PANEL_PAD, backgroundDimension.width + 2 * PANEL_PAD, backgroundDimension.height + 2 * PANEL_PAD, 20, 20, { fill: BACKGROUND_OUT_COLOR } ) );
 
     // highlight
     this.addChild( new Node( {
@@ -154,7 +154,7 @@ define( function( require ) {
       ]
     } ) );
 
-    this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, {fill: BACKGROUND_IN_COLOR} ) );
+    this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, { fill: BACKGROUND_IN_COLOR } ) );
     this.addChild( vBox );
 
     periodTraceModel.property( 'elapsedTime' ).link( function updateTime( value ) {

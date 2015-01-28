@@ -37,9 +37,9 @@ define( function( require ) {
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
     this._labels = [
-      new Text( RulerString, {font: FONT} ),
-      new Text( StopwatchString, {font: FONT} ),
-      new Text( PeriodTraceString, {font: FONT} )
+      new Text( RulerString, { font: FONT } ),
+      new Text( StopwatchString, { font: FONT } ),
+      new Text( PeriodTraceString, { font: FONT } )
     ];
 
     PanelPendulumAbstract.call( this,
@@ -48,24 +48,24 @@ define( function( require ) {
           // necessary to expand panel
           new HStrut( PANEL_WIDTH ),
 
-          new VerticalCheckBoxGroup( [{
-            content: this._labels[0],
+          new VerticalCheckBoxGroup( [ {
+            content: this._labels[ 0 ],
             property: isRulerProperty
           }, {
-            content: this._labels[1],
+            content: this._labels[ 1 ],
             property: isStopwatchProperty
           }, {
-            content: this._labels[2],
+            content: this._labels[ 2 ],
             property: isPeriodTraceProperty
           }
-          ], {spacing: 5, boxWidth: 15} )
+          ], { spacing: 5, boxWidth: 15 } )
         ]
       } ), options );
   }
 
   return inherit( PanelPendulumAbstract, ToolsControlPanelNode, {
     setLabelText: function( index, text ) {
-      this._labels[index].setText( text );
+      this._labels[ index ].setText( text );
     }
   } );
 } );

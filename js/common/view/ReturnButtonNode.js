@@ -20,7 +20,7 @@ define( function( require ) {
   var FONT = new PhetFont( 12 );
 
   function ReturnButtonNode( options ) {
-    TextPushButton.call( this, ReturnString, _.extend( {font: FONT, baseColor: 'rgb( 231, 232, 233 )'}, options ) );
+    TextPushButton.call( this, ReturnString, _.extend( { font: FONT, baseColor: 'rgb( 231, 232, 233 )' }, options ) );
   }
 
   return inherit( TextPushButton, ReturnButtonNode );

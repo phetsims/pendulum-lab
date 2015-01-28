@@ -24,7 +24,7 @@ define( function( require ) {
   var pattern_0numberOfDegrees_degreeSymbol = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
 
   // constants
-  var FONT = new PhetFont( {size: 14, weight: 'bold'} );
+  var FONT = new PhetFont( { size: 14, weight: 'bold' } );
   var LINE_LENGTH_DEFAULT = 3;
   var PENDULUM_TICK_LENGTH = 12;
   var RADIUS = 87;
@@ -43,16 +43,16 @@ define( function( require ) {
     Node.call( this, options );
 
     // create central dash line
-    if ( pendulumModels[0] ) {
-      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulumModels[0].lengthRange.max ), {
+    if ( pendulumModels[ 0 ] ) {
+      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulumModels[ 0 ].lengthRange.max ), {
         stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
-        lineDash: [4, 7]
+        lineDash: [ 4, 7 ]
       } ) );
     }
 
     // create central circles
-    this.addChild( new Circle( 2, {fill: 'black'} ) );
-    this.addChild( new Circle( 5, {stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR} ) );
+    this.addChild( new Circle( 2, { fill: 'black' } ) );
+    this.addChild( new Circle( 5, { stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR } ) );
 
     // add number of degrees text
     var degreesText = new Text( '0', {
@@ -83,13 +83,13 @@ define( function( require ) {
       x2 = (RADIUS + lineLength) * Math.cos( currentAngleRad );
       y2 = (RADIUS + lineLength) * Math.sin( currentAngleRad );
 
-      this.addChild( new Line( x1, y1, x2, y2, {stroke: 'black'} ) );
+      this.addChild( new Line( x1, y1, x2, y2, { stroke: 'black' } ) );
     }
 
     // add ticks for pendulum
     pendulumModels.forEach( function( pendulumModel ) {
-      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {stroke: pendulumModel.color, lineWidth: 2} );
-      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {stroke: pendulumModel.color, lineWidth: 2} );
+      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulumModel.color, lineWidth: 2 } );
+      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulumModel.color, lineWidth: 2 } );
       self.insertChild( 1, tickNodeLeft );
       self.insertChild( 1, tickNodeRight );
 

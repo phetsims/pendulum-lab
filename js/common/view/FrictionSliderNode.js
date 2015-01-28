@@ -39,7 +39,7 @@ define( function( require ) {
 
     this._property = sliderValueProperty;
 
-    VBox.call( this, _.extend( {spacing: 4}, options ) );
+    VBox.call( this, _.extend( { spacing: 4 }, options ) );
 
     // add slider for friction property
     var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
@@ -50,9 +50,9 @@ define( function( require ) {
     } );
 
     // add ticks
-    hSlider.addMajorTick( sliderValueRange.min, new Text( NoneString, {font: FONT} ) );
+    hSlider.addMajorTick( sliderValueRange.min, new Text( NoneString, { font: FONT } ) );
     hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
-    hSlider.addMajorTick( sliderValueRange.max, new Text( LotsString, {font: FONT} ) );
+    hSlider.addMajorTick( sliderValueRange.max, new Text( LotsString, { font: FONT } ) );
     for ( var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER, i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );
     }

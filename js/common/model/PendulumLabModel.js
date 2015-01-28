@@ -68,7 +68,7 @@ define( function( require ) {
     // change gravity if planet was changed
     this.property( 'planet' ).lazyLink( function( planet ) {
       // determine planet
-      var planetModel = _.find( self.planetModels, {'name': planet} );
+      var planetModel = _.find( self.planetModels, { 'name': planet } );
 
       // set new gravity
       if ( planetModel.gravity ) {
@@ -138,7 +138,7 @@ define( function( require ) {
           oldAcceleration;
 
         for ( var i = 0; i < this.numberOfPendulums; i++ ) {
-          currentPendulum = this.pendulumModels[i];
+          currentPendulum = this.pendulumModels[ i ];
 
           // update position when pendulum is not selected
           if ( !currentPendulum.isUserControlled ) {

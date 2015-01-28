@@ -36,7 +36,7 @@ define( function( require ) {
     Screen.call( this, LabString, icon,
       function() { return new LabModel(); },
       function( model ) { return new LabView( model, mvt, screenshotImage ); },
-      {backgroundColor: PendulumLabConstants.BACKGROUND_COLOR}
+      { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }
 

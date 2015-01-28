@@ -28,7 +28,7 @@ define( function( require ) {
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
   var ARROW_SIZE_DEFAULT = 25;
-  var FONT = new PhetFont( {size: 32, weight: 'bold'} );
+  var FONT = new PhetFont( { size: 32, weight: 'bold' } );
   var RECT_SIZE = new Dimension2( 60, 80 );
 
   /**
@@ -47,7 +47,7 @@ define( function( require ) {
       var massToScale = new LinearFunction( pendulumModel.massRange.min, pendulumModel.massRange.max, 0.25, 1 );
 
       // create solid line
-      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), {stroke: 'black'} );
+      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), { stroke: 'black' } );
 
       // create pendulum
       var pendulumRect = new Node( {
@@ -60,12 +60,12 @@ define( function( require ) {
               addColorStop( 0.8, 'white' ).
               addColorStop( 1, pendulumModel.color )
           } ),
-          new Text( (pendulumIndex + 1).toString(), {font: FONT, fill: 'white', centerY: RECT_SIZE.height / 4, centerX: 0} ),
-          new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, {stroke: 'black', lineCap: 'butt'} )
+          new Text( (pendulumIndex + 1).toString(), { font: FONT, fill: 'white', centerY: RECT_SIZE.height / 4, centerX: 0 } ),
+          new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, { stroke: 'black', lineCap: 'butt' } )
         ]
       } );
 
-      var pendulumNode = new Node( {children: [solidLine, pendulumRect]} );
+      var pendulumNode = new Node( { children: [ solidLine, pendulumRect ] } );
 
       // add velocity arrows if necessary
       if ( options.isVelocityVisibleProperty ) {

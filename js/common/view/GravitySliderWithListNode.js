@@ -51,13 +51,13 @@ define( function( require ) {
   function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
     var self = this, container = new Node();
 
-    VBox.call( this, _.extend( {spacing: 4}, options ) );
-    this.gravityAdjustmentNode = new VBox( {spacing: VALUE_LABEL_SPACING} );
+    VBox.call( this, _.extend( { spacing: 4 }, options ) );
+    this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
 
     // create planet list menu
     var planetListItems = [];
     planetModels.forEach( function( planetModel ) {
-      var planetLabel = new Text( planetModel.title, {font: FONT_LIST} );
+      var planetLabel = new Text( planetModel.title, { font: FONT_LIST } );
       planetLabel.localBounds = planetLabel.localBounds.withMaxX( Math.max( 50, planetLabel.localBounds.maxY ) );
 
       planetListItems.push( {
@@ -82,15 +82,15 @@ define( function( require ) {
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE
     } );
-    hSlider.addMajorTick( gravityPropertyRange.min, new Text( NoneString, {font: FONT} ) );
-    hSlider.addMajorTick( gravityPropertyRange.max, new Text( LotsString, {font: FONT} ) );
+    hSlider.addMajorTick( gravityPropertyRange.min, new Text( NoneString, { font: FONT } ) );
+    hSlider.addMajorTick( gravityPropertyRange.max, new Text( LotsString, { font: FONT } ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( hSlider );
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
-    this.questionNodeText = new Text( WhatIsTheValueOfGravity, {font: FONT} );
-    this.questionNode = new Node( {children: [this.questionNodeBackground, this.questionNodeText]} );
+    this.questionNodeText = new Text( WhatIsTheValueOfGravity, { font: FONT } );
+    this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ] } );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );
 
@@ -125,7 +125,7 @@ define( function( require ) {
         spacing: VALUE_LABEL_SPACING, children: [
           arrowButtonMinus = new ArrowButton( 'left', function() {
             gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-          }, {scale: 0.5} ),
+          }, { scale: 0.5 } ),
           new Node( {
             children: [
               new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
@@ -144,7 +144,7 @@ define( function( require ) {
           } ),
           arrowButtonPlus = new ArrowButton( 'right', function() {
             gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-          }, {scale: 0.5} )
+          }, { scale: 0.5 } )
         ]
       } ) );
 

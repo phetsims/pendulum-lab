@@ -40,7 +40,7 @@ define( function( require ) {
     THERMAL: 'rgb( 253, 87, 31 )',
     TOTAL: 'rgb( 0, 0, 0 )'
   };
-  var FONT = new PhetFont( {size: 10, weight: 'bold'} );
+  var FONT = new PhetFont( { size: 10, weight: 'bold' } );
   var SPACING = 4;
 
   /**
@@ -62,16 +62,16 @@ define( function( require ) {
     } );
 
     // create labels for bars
-    var kineticText = new Text( KineticString, {font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2} );
+    var kineticText = new Text( KineticString, { font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2 } );
     var barLabels = new HBox( {
       resize: false,
       spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - kineticText.width,
       align: 'top',
       children: [
         kineticText,
-        new Text( PotentialString, {font: FONT, fill: COLOR.POTENTIAL, rotation: -Math.PI / 2} ),
-        new Text( ThermalString, {font: FONT, fill: COLOR.THERMAL, rotation: -Math.PI / 2} ),
-        new Text( TotalString, {font: FONT, fill: COLOR.TOTAL, rotation: -Math.PI / 2} )
+        new Text( PotentialString, { font: FONT, fill: COLOR.POTENTIAL, rotation: -Math.PI / 2 } ),
+        new Text( ThermalString, { font: FONT, fill: COLOR.THERMAL, rotation: -Math.PI / 2 } ),
+        new Text( TotalString, { font: FONT, fill: COLOR.TOTAL, rotation: -Math.PI / 2 } )
       ]
     } );
 
@@ -79,7 +79,7 @@ define( function( require ) {
     var graphHeight = dimension.height - header.height - barLabels.height - SPACING * 3;
 
     // create 'x' and 'y' axis
-    var axisX = new Line( 0, graphHeight, dimension.width - ARROW_HEAD_WIDTH / 2, graphHeight, {stroke: 'black'} );
+    var axisX = new Line( 0, graphHeight, dimension.width - ARROW_HEAD_WIDTH / 2, graphHeight, { stroke: 'black' } );
     var axisY = new ArrowNode( 0, graphHeight, 0, 0, {
       tailWidth: 2,
       headHeight: ARROW_HEAD_HEIGHT,
@@ -88,12 +88,12 @@ define( function( require ) {
 
     // create bars
     this.ENERGY_MULTIPLIER = 10;
-    this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.KINETIC, rotation: Math.PI} );
-    this.kineticEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.KINETIC} );
-    this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.POTENTIAL, rotation: Math.PI} );
-    this.potentialEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.POTENTIAL} );
-    this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.THERMAL, rotation: Math.PI} );
-    this.thermalEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, {fill: COLOR.THERMAL} );
+    this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC, rotation: Math.PI } );
+    this.kineticEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC } );
+    this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.POTENTIAL, rotation: Math.PI } );
+    this.potentialEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.POTENTIAL } );
+    this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.THERMAL, rotation: Math.PI } );
+    this.thermalEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.THERMAL } );
 
     var bars = new HBox( {
       resize: false,
@@ -102,16 +102,16 @@ define( function( require ) {
       spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - BAR_WIDTH,
       align: 'bottom',
       clipArea: Shape.rect( -axisY.width / 2, -graphHeight, dimension.width + axisY.width / 2, graphHeight ),
-      children: [this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
+      children: [ this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
         rotation: Math.PI,
-        children: [this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone]
-      } )]
+        children: [ this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone ]
+      } ) ]
     } );
 
     VBox.call( this, {
       resize: false,
       spacing: SPACING,
-      children: [header, new Node( {children: [bars, axisX, axisY]} ), barLabels]
+      children: [ header, new Node( { children: [ bars, axisX, axisY ] } ), barLabels ]
     } );
 
     // add energy observers

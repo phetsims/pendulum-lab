@@ -36,11 +36,11 @@ define( function( require ) {
   function TwoPendulumIconNode( options ) {
     OnePendulumIconNode.call( this, options );
 
-    var line = new Line( 0, 0, 0, LINE_LENGTH, {stroke: 'black', strokeWidth: 1} );
+    var line = new Line( 0, 0, 0, LINE_LENGTH, { stroke: 'black', strokeWidth: 1 } );
     line.rotate( ANGLE );
     this.content.addChild( line );
 
-    var rect = new Rectangle( -RECT_WIDTH / 2, LINE_LENGTH, RECT_WIDTH, RECT_HEIGHT, {stroke: 'black', strokeWidth: 1, fill: RECT_GRADIENT} );
+    var rect = new Rectangle( -RECT_WIDTH / 2, LINE_LENGTH, RECT_WIDTH, RECT_HEIGHT, { stroke: 'black', strokeWidth: 1, fill: RECT_GRADIENT } );
     rect.rotate( ANGLE );
     this.content.addChild( rect );
 

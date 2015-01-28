@@ -26,7 +26,7 @@ define( function( require ) {
   var pattern_0propertyName_1pendulumNumber = require( 'string!PENDULUM_LAB/pattern.0propertyName.1pendulumNumber' );
 
   // constants
-  var FONT_TITLE = new PhetFont( {size: 12, weight: 'bold'} );
+  var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
   var SPACING_CONTENT = 5;
 
   /**
@@ -40,7 +40,7 @@ define( function( require ) {
       currentNumberOfSliders = 0;
 
     this.optionSliders = [];
-    var content = new VBox( {spacing: SPACING_CONTENT, align: 'center'} );
+    var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
 
     // create sliders for each pendulum and put then into storage for further adding
     pendulumLabModel.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
@@ -50,7 +50,7 @@ define( function( require ) {
         pendulumModel.lengthRange,
         pattern_0lengthValue_lengthUnitsMetric,
         pendulumModel.color,
-        {y: SPACING_CONTENT}
+        { y: SPACING_CONTENT }
       );
       self.optionSliders.push( lengthSlider );
 
@@ -60,7 +60,7 @@ define( function( require ) {
         pendulumModel.massRange,
         pattern_0massValue_massUnitsMetric,
         pendulumModel.color,
-        {y: SPACING_CONTENT}
+        { y: SPACING_CONTENT }
       );
       self.optionSliders.push( massSlider );
 
@@ -101,20 +101,20 @@ define( function( require ) {
       // remove extra sliders
       if ( numberDifference > 0 ) {
         for ( ; numberDifference--; ) {
-          content.removeChildWithIndex( pendulumSlidersNodeStorage[currentNumberOfSliders - numberDifference - 1], currentNumberOfSliders - numberDifference - 1 );
+          content.removeChildWithIndex( pendulumSlidersNodeStorage[ currentNumberOfSliders - numberDifference - 1 ], currentNumberOfSliders - numberDifference - 1 );
           currentNumberOfSliders--;
         }
       }
       // add necessary sliders
       else if ( numberDifference < 0 ) {
         for ( ; numberDifference++; ) {
-          content.insertChild( currentNumberOfSliders - numberDifference, pendulumSlidersNodeStorage[currentNumberOfSliders - numberDifference] );
+          content.insertChild( currentNumberOfSliders - numberDifference, pendulumSlidersNodeStorage[ currentNumberOfSliders - numberDifference ] );
           currentNumberOfSliders++;
         }
       }
     } );
 
-    PanelPendulumAbstract.call( this, content, _.extend( {xMargin: 14}, options ) );
+    PanelPendulumAbstract.call( this, content, _.extend( { xMargin: 14 }, options ) );
   }
 
   return inherit( PanelPendulumAbstract, PendulumSlidersNode );

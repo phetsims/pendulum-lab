@@ -37,7 +37,7 @@ define( function( require ) {
         isCompleted = false; // flag to control completing of trace view
 
       // create trace path path
-      var pathNode = new Path( EMPTY_SHAPE, {stroke: pendulumModel.color, lineWidth: 2} );
+      var pathNode = new Path( EMPTY_SHAPE, { stroke: pendulumModel.color, lineWidth: 2 } );
       self.addChild( pathNode );
 
       var resetPath = function() {
@@ -60,30 +60,30 @@ define( function( require ) {
 
           // draw first arc
           if ( pathPointsStorage.length > 1 ) {
-            shape.arc( 0, 0, traceLength, 0, pathPointsStorage[1].angle, pathPointsStorage[0].anticlockwise );
-            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( pathPointsStorage[1].angle ), (traceLength - TRACE_STEP) * Math.sin( pathPointsStorage[1].angle ) );
+            shape.arc( 0, 0, traceLength, 0, pathPointsStorage[ 1 ].angle, pathPointsStorage[ 0 ].anticlockwise );
+            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( pathPointsStorage[ 1 ].angle ), (traceLength - TRACE_STEP) * Math.sin( pathPointsStorage[ 1 ].angle ) );
 
             // draw second arc
             if ( pathPointsStorage.length > 2 ) {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[1].angle, pathPointsStorage[2].angle, pathPointsStorage[1].anticlockwise );
-              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( pathPointsStorage[2].angle ), (traceLength - 2 * TRACE_STEP) * Math.sin( pathPointsStorage[2].angle ) );
+              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[ 1 ].angle, pathPointsStorage[ 2 ].angle, pathPointsStorage[ 1 ].anticlockwise );
+              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( pathPointsStorage[ 2 ].angle ), (traceLength - 2 * TRACE_STEP) * Math.sin( pathPointsStorage[ 2 ].angle ) );
 
               // draw third arc
               if ( pathPointsStorage.length > 3 ) {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[2].angle, 0, pathPointsStorage[2].anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, 0, pathPointsStorage[ 2 ].anticlockwise );
                 isCompleted = true;
                 fadeOutPath( 3 * pendulumModel.getPeriod() / 2 * 10 );
               }
               else {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[2].angle, pendulumModel.angle, pathPointsStorage[2].anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, pendulumModel.angle, pathPointsStorage[ 2 ].anticlockwise );
               }
             }
             else {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[1].angle, pendulumModel.angle, pathPointsStorage[1].anticlockwise );
+              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[ 1 ].angle, pendulumModel.angle, pathPointsStorage[ 1 ].anticlockwise );
             }
           }
           else {
-            shape.arc( 0, 0, traceLength, 0, pendulumModel.angle, pathPointsStorage[0].anticlockwise );
+            shape.arc( 0, 0, traceLength, 0, pendulumModel.angle, pathPointsStorage[ 0 ].anticlockwise );
           }
           pathNode.setShape( shape );
         }

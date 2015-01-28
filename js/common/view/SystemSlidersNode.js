@@ -26,7 +26,7 @@ define( function( require ) {
   var GravityString = require( 'string!PENDULUM_LAB/gravity' );
 
   // constants
-  var FONT_TITLE = new PhetFont( {size: 12, weight: 'bold'} );
+  var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
   var SPACING_CONTENT = 5;
 
   /**
@@ -36,25 +36,25 @@ define( function( require ) {
    * @constructor
    */
   function SystemSlidersNode( pendulumLabModel, planetsListNode, options ) {
-    var content = new VBox( {spacing: SPACING_CONTENT, align: 'center'} );
+    var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
 
     // add gravity slider with title and planet list menu
     this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ),
-      pendulumLabModel.gravityRange, pendulumLabModel.property( 'planet' ), pendulumLabModel.planetModels, planetsListNode, {y: SPACING_CONTENT} );
+      pendulumLabModel.gravityRange, pendulumLabModel.property( 'planet' ), pendulumLabModel.planetModels, planetsListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
-        new Text( GravityString, {font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2} ),
+        new Text( GravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
         this.gravitySlider
       ]
     } ) );
 
     // add friction slider with title when necessary
     if ( pendulumLabModel.property( 'friction' ) ) {
-      this.frictionSlider = new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange, {y: SPACING_CONTENT} );
+      this.frictionSlider = new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
 
       content.addChild( new Node( {
         children: [
-          new Text( FrictionString, {font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2} ),
+          new Text( FrictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
           this.frictionSlider
         ]
       } ) );

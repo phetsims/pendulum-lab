@@ -53,7 +53,7 @@ define( function( require ) {
           spacing: VALUE_LABEL_SPACING, children: [
             arrowButtonMinus = new ArrowButton( 'left', function() {
               trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-            }, {scale: 0.5} ),
+            }, { scale: 0.5 } ),
             new Node( {
               children: [
                 new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
@@ -72,7 +72,7 @@ define( function( require ) {
             } ),
             arrowButtonPlus = new ArrowButton( 'right', function() {
               trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-            }, {scale: 0.5} )
+            }, { scale: 0.5 } )
           ]
         } ),
 

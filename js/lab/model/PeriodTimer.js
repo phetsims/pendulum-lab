@@ -20,7 +20,7 @@ define( function( require ) {
    * @constructor
    */
   function PeriodTimer( pendulumModels, isPeriodTraceVisibleProperty ) {
-    var self = this, activePendulum = pendulumModels[0];
+    var self = this, activePendulum = pendulumModels[ 0 ];
 
     Stopwatch.call( this, {
       isVisible: false, // flag to control visibility of timer
@@ -78,7 +78,7 @@ define( function( require ) {
       pendulumModel.property( 'isUserControlled' ).lazyLink( updateTimer );
       self.property( 'isVisible' ).onValue( false, updateTimer );
 
-      pathListeners[pendulumIndex] = function() {
+      pathListeners[ pendulumIndex ] = function() {
         if ( pendulumModel.periodTrace.pathPoints.length === 1 && self.isRunning ) {
           self.isCalculate = true;
         }
@@ -89,17 +89,17 @@ define( function( require ) {
     } );
 
     // add path listeners
-    pendulumModels[0].periodTrace.pathPoints.addItemAddedListener( pathListeners[0] );
+    pendulumModels[ 0 ].periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
     this.property( 'isFirst' ).lazyLink( function( isFirst ) {
       if ( isFirst ) {
-        activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[1] );
-        activePendulum = pendulumModels[0];
-        activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[0] );
+        activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[ 1 ] );
+        activePendulum = pendulumModels[ 0 ];
+        activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
       }
       else {
-        activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[0] );
-        activePendulum = pendulumModels[1];
-        activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[1] );
+        activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[ 0 ] );
+        activePendulum = pendulumModels[ 1 ];
+        activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[ 1 ] );
       }
     } );
   }
