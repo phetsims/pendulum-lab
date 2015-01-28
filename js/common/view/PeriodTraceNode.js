@@ -113,7 +113,7 @@ define( function( require ) {
       // update visibility of path node
       pendulumModel.periodTrace.property( 'isVisible' ).linkAttribute( pathNode, 'visible' );
 
-      // clear trace if path points was removed
+      // clear trace if path points were removed
       pendulumModel.periodTrace.pathPoints.addItemRemovedListener( resetPath );
     } );
   }

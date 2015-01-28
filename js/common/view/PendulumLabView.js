@@ -112,11 +112,7 @@ define( function( require ) {
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
-      listener: function() {
-        pendulumLabModel.pendulumModels.forEach( function( pendulumModel ) {
-          pendulumModel.resetMotion();
-        } );
-      }
+      listener: pendulumLabModel.returnHandler.bind( pendulumLabModel )
     } );
     returnButtonNode.centerX = resetAllButton.bounds.minX - 75;
     returnButtonNode.centerY = height - SCREEN_PADDING.BOTTOM - 5;

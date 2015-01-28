@@ -27,6 +27,10 @@ define( function( require ) {
       isRepeat: true // flag to control repeating of drawing path
     } );
 
+    // save links to properties
+    this._isPeriodTraceVisibleProperty = isPeriodTraceVisibleProperty;
+    this._pendulumModel = pendulumModel;
+
     // array to store checkpoints when track path
     this.pathPoints = new ObservableArray();
 
@@ -58,22 +62,13 @@ define( function( require ) {
 
     // clear pendulum path
     var clearPathPoints = this.pathPoints.clear.bind( this.pathPoints );
-    pendulumModel.property( 'length' ).lazyLink( clearPathPoints );
     pendulumModel._gravityProperty.lazyLink( clearPathPoints );
+    pendulumModel.property( 'length' ).lazyLink( clearPathPoints );
     pendulumModel.property( 'isUserControlled' ).lazyLink( clearPathPoints );
     this.property( 'isVisible' ).onValue( false, clearPathPoints );
 
-    var setPeriodTraceVisibility = function() {
-      if ( isPeriodTraceVisibleProperty.value && pendulumModel.isVisible ) {
-        self.isVisible = true;
-      }
-      else {
-        self.isVisible = false;
-      }
-    };
-
-    isPeriodTraceVisibleProperty.lazyLink( setPeriodTraceVisibility );
-    pendulumModel.property( 'isVisible' ).lazyLink( setPeriodTraceVisibility );
+    // add visibility observer
+    this.addVisibilityObservers();
   }
 
   return inherit( PropertySet, PeriodTrace, {
@@ -81,6 +76,25 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
 
       this.pathPoints.reset();
+    },
+    addVisibilityObservers: function() {
+      var self = this;
+
+      this.setPeriodTraceVisibility = function() {
+        if ( self._isPeriodTraceVisibleProperty.value && self._pendulumModel.isVisible ) {
+          self.isVisible = true;
+        }
+        else {
+          self.isVisible = false;
+        }
+      };
+
+      self._isPeriodTraceVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
+      self._pendulumModel.property( 'isVisible' ).lazyLink( this.setPeriodTraceVisibility );
+    },
+    removeVisibilityObservers: function() {
+      this._isPeriodTraceVisibleProperty.unlink( this.setPeriodTraceVisibility );
+      this._pendulumModel.property( 'isVisible' ).unlink( this.setPeriodTraceVisibility );
     }
   } );
 } );

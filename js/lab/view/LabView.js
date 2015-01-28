@@ -43,7 +43,7 @@ define( function( require ) {
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange );
 
     // add period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimerModel, mvt, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimerModel, pendulumLabModel.pendulumModels[ 1 ].property( 'isVisible' ), mvt, this.layoutBounds );
     periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );

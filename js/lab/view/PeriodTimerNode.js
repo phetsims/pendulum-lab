@@ -46,13 +46,14 @@ define( function( require ) {
   var TOUCH_AREA_EXPAND_Y = 3;
 
   /**
-   * @param {PendulumLabModel} periodTraceModel - Period trace model.
+   * @param {PropertySet} periodTraceModel - Period trace model.
+   * @param {PropertySet} secondPendulumIsVisibleProperty - Second pendulum visibility property.
    * @param {ModelViewTransform2} mvt
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Object} [options]
    * @constructor
    */
-  function PeriodTimerNode( periodTraceModel, mvt, layoutBounds, options ) {
+  function PeriodTimerNode( periodTraceModel, secondPendulumIsVisibleProperty, mvt, layoutBounds, options ) {
     var self = this;
 
     options = _.extend( {
@@ -159,6 +160,14 @@ define( function( require ) {
 
     periodTraceModel.property( 'elapsedTime' ).link( function updateTime( value ) {
       readoutText.text = getTextTime( value );
+    } );
+
+    // switch to second pendulum when it visible only
+    secondPendulumIsVisibleProperty.link( function( isVisible ) {
+      graphUnitsSwitch.pickable = isVisible;
+      if ( !isVisible ) {
+        periodTraceModel.isFirst = true;
+      }
     } );
 
     // add drag and drop events

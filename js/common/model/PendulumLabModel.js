@@ -167,6 +167,16 @@ define( function( require ) {
       this.stepManualMode = true;
       this.step( 1 );
       this.stepManualMode = false;
+    },
+
+    returnHandler: function() {
+      this.pendulumModels.forEach( function( pendulumModel ) {
+        pendulumModel.resetMotion();
+      } );
+
+      if ( this.periodTimerModel ) {
+        this.periodTimerModel.stop();
+      }
     }
   } );
 } );
