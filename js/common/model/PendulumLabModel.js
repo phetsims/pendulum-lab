@@ -156,7 +156,7 @@ define( function( require ) {
             oldAlpha = currentPendulum.alpha;
 
             currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAlpha * dt * dt) % (Math.PI * 2);
-            currentPendulum.alpha = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
+            currentPendulum.setAlpha( -friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega );
             currentPendulum.omega += 0.5 * (currentPendulum.alpha + oldAlpha) * dt;
 
             // prevent infinite motion after friction

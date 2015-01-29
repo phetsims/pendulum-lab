@@ -116,6 +116,9 @@ define( function( require ) {
       this.updateVectors();
       this.updateEnergiesWithTotalEnergyConstant();
     },
+    setAlpha: function( frictionContribution ) {
+      this.alpha = -this._gravityProperty.value / this.length * Math.sin( this.angle ) + frictionContribution;
+    },
     updateVectors: function() {
       this.updateVelocityVector();
       this.updateAccelerationVector();
