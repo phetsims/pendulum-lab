@@ -1,7 +1,7 @@
 //  Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Main ScreenView node that contains all other nodes.
+ * Main view node for Lab screen in 'Pendulum Lab' simulation.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

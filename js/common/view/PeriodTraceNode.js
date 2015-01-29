@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Protractor node in 'Pendulum Lab' simulation.
+ * Period trace node in 'Pendulum Lab' simulation.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

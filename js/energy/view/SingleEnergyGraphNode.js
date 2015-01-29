@@ -1,8 +1,8 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Energy graph node in 'Pendulum Lab' simulation.
- * Contains graphs for Kinetic, Potential, Thermal and Total energy.
+ * Single graph node in 'Pendulum Lab' simulation.
+ * Contains graphs for Kinetic, Potential, Thermal and Total energy for one pendulum.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

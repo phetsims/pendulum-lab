@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Single pendulum model.
+ * Model for period trace of pendulum. Can draw path once or repeat infinite.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

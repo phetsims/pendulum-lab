@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Control panel node for system options in 'Pendulum Lab' simulation.
+ * Sliders node for system options in 'Pendulum Lab' simulation.
  * Contains friction slider and gravity slider with dropdown menu.
  *
  * @author Andrey Zelenkov (Mlearner)

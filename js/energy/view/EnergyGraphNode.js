@@ -2,7 +2,7 @@
 
 /**
  * Energy graph node in 'Pendulum Lab' simulation.
- * Contains graphs for Kinetic, Potential, Thermal and Total energy.
+ * Contains graphs for Kinetic, Potential, Thermal, Total energy and zoom buttons.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
