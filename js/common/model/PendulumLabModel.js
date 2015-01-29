@@ -146,23 +146,23 @@ define( function( require ) {
       if ( this.play || this.stepManualMode ) {
         var friction = this.friction || 0;
         var currentPendulum;
-        var oldAcceleration;
+        var oldAlpha;
 
         for ( var i = 0; i < this.numberOfPendulums; i++ ) {
           currentPendulum = this.pendulumModels[ i ];
 
           // update position when pendulum is not selected
           if ( !currentPendulum.isUserControlled ) {
-            oldAcceleration = currentPendulum.acceleration;
+            oldAlpha = currentPendulum.alpha;
 
-            currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAcceleration * dt * dt) % (Math.PI * 2);
-            currentPendulum.acceleration = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
-            currentPendulum.omega += 0.5 * (currentPendulum.acceleration + oldAcceleration) * dt;
+            currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAlpha * dt * dt) % (Math.PI * 2);
+            currentPendulum.alpha = -this.gravity / currentPendulum.length * Math.sin( currentPendulum.angle ) - friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega;
+            currentPendulum.omega += 0.5 * (currentPendulum.alpha + oldAlpha) * dt;
 
             // prevent infinite motion after friction
-            if ( Math.abs( currentPendulum.angle ) < 1e-3 && Math.abs( currentPendulum.acceleration ) < 1e-3 && Math.abs( currentPendulum.omega ) < 1e-3 ) {
+            if ( Math.abs( currentPendulum.angle ) < 1e-3 && Math.abs( currentPendulum.alpha ) < 1e-3 && Math.abs( currentPendulum.omega ) < 1e-3 ) {
               currentPendulum.angle = 0;
-              currentPendulum.acceleration = 0;
+              currentPendulum.alpha = 0;
               currentPendulum.omega = 0;
             }
 

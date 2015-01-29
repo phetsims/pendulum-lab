@@ -34,10 +34,10 @@ define( function( require ) {
       angle: 0, // value of the angular displacement
       length: length, // length of pendulum
       mass: mass, // mass of pendulum
-      acceleration: 0, // acceleration value of pendulum
+      alpha: 0, // angular acceleration of pendulum
       omega: 0, // angular velocity
-      accelerationVector: new Vector2( 0, 0 ),
-      velocityVector: new Vector2( 0, 0 ), // velocity value of pendulum
+      accelerationVector: new Vector2( 0, 0 ), // acceleration vector of pendulum
+      velocityVector: new Vector2( 0, 0 ), // velocity vector of pendulum
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
       isVisible: isVisible, // flag: is pendulum visible
@@ -103,7 +103,7 @@ define( function( require ) {
     },
     resetMotion: function() {
       this.property( 'angle' ).reset();
-      this.property( 'acceleration' ).reset();
+      this.property( 'alpha' ).reset();
       this.property( 'omega' ).reset();
       this.property( 'kineticEnergy' ).reset();
       this.property( 'potentialEnergy' ).reset();
@@ -126,8 +126,8 @@ define( function( require ) {
     },
     updateAccelerationVector: function() {
       var omegaSq = this.omega * this.omega;
-      var accelerationMagnitude = this.length * Math.sqrt( this.acceleration * this.acceleration + omegaSq * omegaSq );
-      var accelerationAngle = Math.atan2( omegaSq, this.acceleration );
+      var accelerationMagnitude = this.length * Math.sqrt( this.alpha * this.alpha + omegaSq * omegaSq );
+      var accelerationAngle = Math.atan2( omegaSq, this.alpha );
 
       this.accelerationVector.setPolar( -accelerationMagnitude, accelerationAngle );
       this.property( 'accelerationVector' ).notifyObserversStatic();
@@ -144,7 +144,7 @@ define( function( require ) {
     },
     resetVectorParameters: function() {
       this.omega = 0;
-      this.acceleration = -this._gravityProperty.value / this.length * Math.sin( this.angle );
+      this.alpha = -this._gravityProperty.value / this.length * Math.sin( this.angle );
     }
   } );
 } );
