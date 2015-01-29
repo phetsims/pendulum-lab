@@ -13,14 +13,15 @@ define( function( require ) {
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
 
   /**
+   * @param [properties] for extending by this constructor.
    * @constructor
    */
-  function Stopwatch( options ) {
+  function Stopwatch( properties ) {
     Movable.call( this, _.extend( {
       isVisible: false, // flag to control stopwatch visibility
       isRunning: false, // flag to determine stopwatch state
       elapsedTime: 0 // passed time
-    }, options ) );
+    }, properties ) );
   }
 
   return inherit( Movable, Stopwatch );

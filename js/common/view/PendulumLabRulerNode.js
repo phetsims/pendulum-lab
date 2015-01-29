@@ -27,7 +27,7 @@ define( function( require ) {
 
   /**
    * @param {PropertySet} rulerModel - Model for ruler.
-   * @param {Function} metersToPixels - Function to convert meters to pixels.
+   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {ModelViewTransform2} mvt
    * @param {Bounds2} layoutBounds - Bounds of screen view
    * @constructor

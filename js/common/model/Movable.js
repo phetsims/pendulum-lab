@@ -14,7 +14,9 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * Constructor
+   * Constructor for movable objects.
+   *
+   * @param {Object} [properties] for extending by this constructor.
    * @constructor
    */
   function Movable( properties ) {

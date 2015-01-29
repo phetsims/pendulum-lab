@@ -31,11 +31,11 @@ define( function( require ) {
   var RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
 
   /**
-   * {Property} numberOfPendulumsProperty - property to control number of pendulums
-   * {Property} playProperty - property to control stream of time
-   * {Property} timeSpeedProperty - property to control speed of time
-   * {Function} stepFunction - handler for step button
-   * {Object} options for tools control panel node
+   * @param {Property<number>} numberOfPendulumsProperty - property to control number of pendulums.
+   * @param {Property<boolean>} playProperty - property to control stream of time.
+   * @param {Property<number>} timeSpeedProperty - property to control speed of time.
+   * @param {Function} stepFunction - handler for step button.
+   * @param {Object} [options] for tools control panel node
    * @constructor
    */
   function PendulumSystemControlPanelNode( numberOfPendulumsProperty, playProperty, timeSpeedProperty, stepFunction, options ) {

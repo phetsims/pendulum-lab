@@ -45,9 +45,9 @@ define( function( require ) {
 
   /**
    * @param {PropertySet} pendulumModel - Property with selected mode of energy graph representation.
-   * @param {Property} isEnergyGraphExpandedProperty - Property which track expansion of graph.
+   * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
-   * @param {dimension} dimension of graph
+   * @param {dimension} dimension of graph.
    * @constructor
    */
   function SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {

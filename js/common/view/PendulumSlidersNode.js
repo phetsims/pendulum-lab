@@ -31,7 +31,7 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
-   * @param {Object} options for control panel node
+   * @param {Object} [options] for control panel node
    * @constructor
    */
   function PendulumSlidersNode( pendulumLabModel, options ) {

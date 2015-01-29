@@ -31,12 +31,13 @@ define( function( require ) {
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
 
   /**
-   * Constructor for the sliders control
-   * @param {Property} trackProperty - Property to update by slider
-   * @param {Object} trackPropertyRange - Range of track property
-   * @param {string} valuePatternString - String pattern for representation current property value in label
-   * @param {string} color - Base color for thumb and label text in rgb format
-   * @param {Object} options
+   * Constructor for the sliders control.
+   *
+   * @param {Property<number>} trackProperty - Property to update by slider.
+   * @param {Object} trackPropertyRange - Range of track property.
+   * @param {string} valuePatternString - String pattern for representation current property value in label.
+   * @param {string} color - Base color for thumb and label text in rgb format.
+   * @param {Object} [options]
    * @constructor
    */
   function PendulumOptionSliderNode( trackProperty, trackPropertyRange, valuePatternString, color, options ) {

@@ -34,9 +34,9 @@ define( function( require ) {
   var PANEL_WIDTH = 122;
 
   /**
-   * {Property} isVelocityVisibleProperty - property to control visibility of velocity arrows
-   * {Property} isAccelerationProperty - property to control visibility of acceleration arrows
-   * {Object} options for tools control panel node
+   * @param {Property<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.
+   * @param {Property<boolean>} isAccelerationVisibleProperty - Property to control visibility of acceleration arrows.
+   * @param {Object} [options] for tools control panel node
    * @constructor
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {

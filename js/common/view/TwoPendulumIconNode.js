@@ -30,7 +30,7 @@ define( function( require ) {
     addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR );
 
   /**
-   * {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function TwoPendulumIconNode( options ) {

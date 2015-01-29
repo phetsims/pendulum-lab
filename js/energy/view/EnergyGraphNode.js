@@ -40,11 +40,11 @@ define( function( require ) {
   };
 
   /**
-   * @param {Array} pendulumModels - Pendulum models.
-   * @param {Property} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
-   * @param {Property} energyGraphModeProperty - Property to select mode of energy graph representation
-   * @param {Property} numberOfPendulumsProperty - Property to control number of pendulums.
-   * @param {Object} options
+   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
+   * @param {Property<string>} energyGraphModeProperty - Property to select mode of energy graph representation
+   * @param {Property<string>} numberOfPendulumsProperty - Property to control number of pendulums.
+   * @param {Object} [options]
    * @constructor
    */
   function EnergyGraphNode( pendulumModels, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, options ) {

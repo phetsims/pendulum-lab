@@ -30,9 +30,9 @@ define( function( require ) {
   var SPACING_CONTENT = 5;
 
   /**
-   * @param {PendulumLabModel} pendulumLabModel
-   * @param {Node} planetsListNode - Node for planets list. Should be displayed above all other layers
-   * @param {Object} options for control panel node
+   * @param {PendulumLabModel} pendulumLabModel - Model of Lab screen.
+   * @param {Node} planetsListNode - Node for planets list. Should be displayed above all other layers.
+   * @param {Object} [options] for control panel node.
    * @constructor
    */
   function SystemSlidersNode( pendulumLabModel, planetsListNode, options ) {

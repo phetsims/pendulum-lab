@@ -39,13 +39,14 @@ define( function( require ) {
   var VALUE_LABEL_SPACING = 4;
 
   /**
-   * Constructor for the gravity slider control
-   * @param {Property} gravityProperty - Property to update by slider
-   * @param {Range} gravityPropertyRange - Range of gravity property
-   * @param {Property} planetProperty - Property to update by combo box
-   * @param {Array} planetModels - Models of all planets
-   * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes
-   * @param {Object} options
+   * Constructor for the gravity slider control.
+   *
+   * @param {Property<number>} gravityProperty - Property to update by slider.
+   * @param {Range} gravityPropertyRange - Range of gravity property.
+   * @param {Property<string>} planetProperty - Property to update by combo box.
+   * @param {Array} planetModels - Models of all planets.
+   * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes.
+   * @param {Object} [options]
    * @constructor
    */
   function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {

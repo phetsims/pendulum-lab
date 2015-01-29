@@ -34,9 +34,9 @@ define( function( require ) {
   var TICK_10_LENGTH = 9;
 
   /**
-   * @param {Array} pendulumModels - Array of pendulum models
-   * @param {Function} metersToPixels - Function to convert meters to pixels.
-   * @param {Object} options for protractor node
+   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
+   * @param {Object} [options] for protractor node.
    * @constructor
    */
   function ProtractorNode( pendulumModels, metersToPixels, options ) {

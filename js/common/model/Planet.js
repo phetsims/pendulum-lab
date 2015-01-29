@@ -9,9 +9,9 @@ define( function() {
   'use strict';
 
   /**
-   * @param {string} name of planet
-   * @param {string} title of planet
-   * @param {number} gravity acceleration of planet
+   * @param {string} name of planet.
+   * @param {string} title of planet.
+   * @param {number} gravity acceleration of planet.
    * @constructor
    */
   function Planet( name, title, gravity ) {

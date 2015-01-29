@@ -22,7 +22,7 @@ define( function( require ) {
 
   /**
    * @param {Array} pendulumModels - Array of pendulum models.
-   * @param {Function} metersToPixels - Function to convert meters to pixels.
+   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {Object} options for protractor node
    * @constructor
    */

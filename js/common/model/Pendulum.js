@@ -16,12 +16,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
-   * @param {number} mass of pendulum, kg
-   * @param {number} length of pendulum, m
-   * @param {string} color of pendulum
+   * Constructor for single pendulum model.
+   *
+   * @param {number} mass of pendulum, kg.
+   * @param {number} length of pendulum, m.
+   * @param {string} color of pendulum.
    * @param {boolean} isVisible - Initial visibility of pendulum.
-   * @param {Property} gravityProperty - Property with current gravity value.
-   * @param {Property} isPeriodTraceVisibleProperty - Flag property to track pendulum path.
+   * @param {Property<number>} gravityProperty - Property with current gravity value.
+   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track pendulum path.
    * @constructor
    */
   function Pendulum( mass, length, color, isVisible, gravityProperty, isPeriodTraceVisibleProperty ) {

@@ -27,10 +27,11 @@ define( function( require ) {
   var TICK_NUMBER = 10;
 
   /**
-   * Constructor for the gravity slider control
-   * @param {Property} frictionProperty - Property to update by slider
-   * @param {Range} frictionPropertyRange - Possible range of frictionProperty value
-   * @param {Object} options
+   * Constructor for the gravity slider control.
+   *
+   * @param {Property<number>} frictionProperty - Property to update by slider.
+   * @param {Range} frictionPropertyRange - Possible range of frictionProperty value.
+   * @param {Object} [options]
    * @constructor
    */
   function FrictionSliderNode( frictionProperty, frictionPropertyRange, options ) {
