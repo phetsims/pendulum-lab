@@ -120,10 +120,10 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
 
       // reset ruler model
-      PropertySet.prototype.reset.call( this.ruler );
+      this.ruler.reset();
 
       // reset stopwatch model
-      PropertySet.prototype.reset.call( this.stopwatch );
+      this.stopwatch.reset();
 
       // reset pendulum models
       this.pendulums.forEach( function( pendulum ) {

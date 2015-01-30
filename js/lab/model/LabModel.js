@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
-  var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -34,7 +33,7 @@ define( function( require ) {
       EnergyModel.prototype.reset.call( this );
 
       // reset period trace model
-      PropertySet.prototype.reset.call( this.periodTimer );
+      this.periodTimer.reset();
     }
   } );
 } );
