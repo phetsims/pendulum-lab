@@ -1,9 +1,17 @@
 pendulum-lab
 ===========
 
-Pendulum Lab by 0, using libraries from PhET Interactive Simulations at the University of Colorado Boulder (please see http://bit.ly/phet-development-overview for more). Readme file automatically created by https://github.com/phetsims/chipper
+Pendulum Lab simulation, PhET Interactive Simulations http://phet.colorado.edu/
 
+NOTE: This repository has dependency on other repositories. Those repositories
+much be checked out as siblings to this repository in your directory structure.
+See package.json for a list of dependencies.
 
+Third Party Dependencies
+=============
+
+This simulation uses a number of third party libraries, which are enumerated in package.json.
+The dependencies and corresponding licenses are available in: https://github.com/phetsims/sherpa
 
 
 
