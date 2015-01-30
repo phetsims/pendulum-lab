@@ -114,13 +114,13 @@ define( function( require ) {
 
     // render order
     this.addChild( protractorNode );
-    this.addChild( periodTraceNode );
     this.addChild( slidersPanelNode );
     this.addChild( planetsListNode );
     this.addChild( toolsControlPanelNode );
     this.addChild( pendulumSystemControlPanelNode );
     this.addChild( resetAllButton );
     this.addChild( returnButtonNode );
+    this.addChild( periodTraceNode );
     this.addChild( pendulumsNode );
     this.addChild( rulerNode );
     this.addChild( stopwatchNode );
