@@ -44,13 +44,13 @@ define( function( require ) {
   var SPACING = 4;
 
   /**
-   * @param {PropertySet} pendulumModel - Property with selected mode of energy graph representation.
+   * @param {PropertySet} pendulum - Property with selected mode of energy graph representation.
    * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
    * @param {dimension} dimension of graph.
    * @constructor
    */
-  function SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+  function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
     var self = this;
 
     this._isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
@@ -58,7 +58,7 @@ define( function( require ) {
     // create header of graph
     var header = new Text( StringUtils.format( pattern_energyOf_0pendulumNumber, pendulumNumber ), {
       font: FONT,
-      fill: pendulumModel.color
+      fill: pendulum.color
     } );
 
     // create labels for bars
@@ -115,11 +115,11 @@ define( function( require ) {
     } );
 
     // add energy observers
-    this.kineticEnergyProperty = pendulumModel.property( 'kineticEnergy' );
+    this.kineticEnergyProperty = pendulum.property( 'kineticEnergy' );
     this.kineticEnergyProperty.link( this.updateKineticEnergy.bind( this ) );
-    this.potentialEnergyProperty = pendulumModel.property( 'potentialEnergy' );
+    this.potentialEnergyProperty = pendulum.property( 'potentialEnergy' );
     this.potentialEnergyProperty.link( this.updatePotentialEnergy.bind( this ) );
-    this.thermalEnergyProperty = pendulumModel.property( 'thermalEnergy' );
+    this.thermalEnergyProperty = pendulum.property( 'thermalEnergy' );
     this.thermalEnergyProperty.link( this.updateThermalEnergy.bind( this ) );
 
     isEnergyGraphExpandedProperty.link( function( isEnergyGraphExpanded ) {

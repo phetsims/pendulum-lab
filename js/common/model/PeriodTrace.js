@@ -14,12 +14,12 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {PropertySet} pendulumModel - Pendulum model.
+   * @param {PropertySet} pendulum - Pendulum model.
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track pendulum path.
    *
    * @constructor
    */
-  function PeriodTrace( pendulumModel, isPeriodTraceVisibleProperty ) {
+  function PeriodTrace( pendulum, isPeriodTraceVisibleProperty ) {
     var self = this;
 
     PropertySet.call( this, {
@@ -29,14 +29,14 @@ define( function( require ) {
 
     // save links to properties
     this._isPeriodTraceVisibleProperty = isPeriodTraceVisibleProperty;
-    this._pendulumModel = pendulumModel;
+    this._pendulum = pendulum;
 
     // array to store checkpoints when track path
     this.pathPoints = new ObservableArray();
 
     // track path of pendulum
-    pendulumModel.property( 'angle' ).link( function( newAngle, oldAngle ) {
-      if ( self.isVisible && !pendulumModel.isUserControlled ) {
+    pendulum.property( 'angle' ).link( function( newAngle, oldAngle ) {
+      if ( self.isVisible && !pendulum.isUserControlled ) {
         var pathArray = self.pathPoints.getArray();
 
         if ( self.pathPoints.length < 4 && Math.abs( newAngle - oldAngle ) < Math.PI / 4 ) {
@@ -62,9 +62,9 @@ define( function( require ) {
 
     // clear pendulum path
     var clearPathPoints = this.pathPoints.clear.bind( this.pathPoints );
-    pendulumModel._gravityProperty.lazyLink( clearPathPoints );
-    pendulumModel.property( 'length' ).lazyLink( clearPathPoints );
-    pendulumModel.property( 'isUserControlled' ).lazyLink( clearPathPoints );
+    pendulum._gravityProperty.lazyLink( clearPathPoints );
+    pendulum.property( 'length' ).lazyLink( clearPathPoints );
+    pendulum.property( 'isUserControlled' ).lazyLink( clearPathPoints );
     this.property( 'isVisible' ).onValue( false, clearPathPoints );
 
     // add visibility observer
@@ -81,7 +81,7 @@ define( function( require ) {
       var self = this;
 
       this.setPeriodTraceVisibility = function() {
-        if ( self._isPeriodTraceVisibleProperty.value && self._pendulumModel.isVisible ) {
+        if ( self._isPeriodTraceVisibleProperty.value && self._pendulum.isVisible ) {
           self.isVisible = true;
         }
         else {
@@ -90,11 +90,11 @@ define( function( require ) {
       };
 
       self._isPeriodTraceVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
-      self._pendulumModel.property( 'isVisible' ).lazyLink( this.setPeriodTraceVisibility );
+      self._pendulum.property( 'isVisible' ).lazyLink( this.setPeriodTraceVisibility );
     },
     removeVisibilityObservers: function() {
       this._isPeriodTraceVisibleProperty.unlink( this.setPeriodTraceVisibility );
-      this._pendulumModel.property( 'isVisible' ).unlink( this.setPeriodTraceVisibility );
+      this._pendulum.property( 'isVisible' ).unlink( this.setPeriodTraceVisibility );
     }
   } );
 } );

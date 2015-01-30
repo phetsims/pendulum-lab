@@ -43,7 +43,7 @@ define( function( require ) {
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange );
 
     // add period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimerModel, pendulumLabModel.pendulumModels[ 1 ].property( 'isVisible' ), mvt, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].property( 'isVisible' ), mvt, this.layoutBounds );
     periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
@@ -51,7 +51,7 @@ define( function( require ) {
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, PeriodTimerString );
 
-    pendulumLabModel.periodTimerModel.setInitialLocationValue( periodTimerNode.center );
+    pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
   }
 
   return inherit( EnergyView, LabView );

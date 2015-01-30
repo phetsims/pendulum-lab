@@ -46,14 +46,14 @@ define( function( require ) {
   var TOUCH_AREA_EXPAND_Y = 3;
 
   /**
-   * @param {PropertySet} periodTraceModel - Period trace model.
+   * @param {PropertySet} periodTrace - Period trace model.
    * @param {PropertySet} secondPendulumIsVisibleProperty - Second pendulum visibility property.
    * @param {ModelViewTransform2} mvt
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Object} [options]
    * @constructor
    */
-  function PeriodTimerNode( periodTraceModel, secondPendulumIsVisibleProperty, mvt, layoutBounds, options ) {
+  function PeriodTimerNode( periodTrace, secondPendulumIsVisibleProperty, mvt, layoutBounds, options ) {
     var self = this;
 
     options = _.extend( {
@@ -87,7 +87,7 @@ define( function( require ) {
         lineWidth: halfPlayStroke * 2,
         centerX: 0,
         centerY: 0
-      } ), periodTraceModel.property( 'isRunning' ), {
+      } ), periodTrace.property( 'isRunning' ), {
         baseColor: options.buttonBaseColor,
         minWidth: BUTTON_WIDTH
       } );
@@ -114,7 +114,7 @@ define( function( require ) {
       } ),
         new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
-    var graphUnitsSwitch = new ABSwitch( periodTraceModel.property( 'isFirst' ), true, firstPendulumIcon, false, secondPendulumIcon, {
+    var graphUnitsSwitch = new ABSwitch( periodTrace.property( 'isFirst' ), true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
       setEnabled: function() {}
@@ -158,7 +158,7 @@ define( function( require ) {
     this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, { fill: BACKGROUND_IN_COLOR } ) );
     this.addChild( vBox );
 
-    periodTraceModel.property( 'elapsedTime' ).link( function updateTime( value ) {
+    periodTrace.property( 'elapsedTime' ).link( function updateTime( value ) {
       readoutText.text = getTextTime( value );
     } );
 
@@ -166,23 +166,23 @@ define( function( require ) {
     secondPendulumIsVisibleProperty.link( function( isVisible ) {
       graphUnitsSwitch.pickable = isVisible;
       if ( !isVisible ) {
-        periodTraceModel.isFirst = true;
+        periodTrace.isFirst = true;
       }
     } );
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
-      locationProperty: periodTraceModel.property( 'location' ),
+      locationProperty: periodTrace.property( 'location' ),
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     }, mvt ) );
 
     // add update of node location
-    periodTraceModel.property( 'location' ).lazyLink( function( location ) {
+    periodTrace.property( 'location' ).lazyLink( function( location ) {
       self.center = location;
     } );
 
     // set visibility observer
-    periodTraceModel.property( 'isVisible' ).linkAttribute( this, 'visible' );
+    periodTrace.property( 'isVisible' ).linkAttribute( this, 'visible' );
   }
 
   // uniformly expands touch area for controls

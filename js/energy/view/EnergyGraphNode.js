@@ -40,21 +40,21 @@ define( function( require ) {
   };
 
   /**
-   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {Array} pendulums - Array of pendulum models.
    * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
    * @param {Property<string>} energyGraphModeProperty - Property to select mode of energy graph representation
    * @param {Property<string>} numberOfPendulumsProperty - Property to control number of pendulums.
    * @param {Object} [options]
    * @constructor
    */
-  function EnergyGraphNode( pendulumModels, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
+  function EnergyGraphNode( pendulums, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
     var self = this;
     var graphStorage = [];
 
     // create energy graphs for each pendulum
     this._content = new VBox( { align: 'center', resize: false } );
-    pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
-      var graphNode = new SingleEnergyGraphNode( pendulumModel, isEnergyGraphExpandedProperty, pendulumIndex + 1, SINGLE_GRAPH_SIZE );
+    pendulums.forEach( function( pendulum, pendulumIndex ) {
+      var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, SINGLE_GRAPH_SIZE );
       self._content.addChild( new HBox( { children: [ new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ), graphNode, new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ) ] } ) );
       graphStorage[ pendulumIndex ] = graphNode;
     } );

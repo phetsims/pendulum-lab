@@ -14,12 +14,12 @@ define( function( require ) {
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**
-   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {Array} pendulums - Array of pendulum models.
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Property to control visibility of period trace path.
    *
    * @constructor
    */
-  function PeriodTimer( pendulumModels, isPeriodTraceVisibleProperty ) {
+  function PeriodTimer( pendulums, isPeriodTraceVisibleProperty ) {
     var self = this;
 
     Stopwatch.call( this, {
@@ -28,7 +28,7 @@ define( function( require ) {
       isCalculate: false // flag to trace time calculating
     } );
 
-    this.activePendulum = pendulumModels[ 0 ];
+    this.activePendulum = pendulums[ 0 ];
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
@@ -36,9 +36,9 @@ define( function( require ) {
       self.isVisible = isPeriodTraceVisible;
 
       // hide all traces
-      pendulumModels.forEach( function( pendulumModel ) {
-        pendulumModel.periodTrace.removeVisibilityObservers();
-        pendulumModel.periodTrace.isVisible = false;
+      pendulums.forEach( function( pendulum ) {
+        pendulum.periodTrace.removeVisibilityObservers();
+        pendulum.periodTrace.isVisible = false;
       } );
     } );
 
@@ -71,20 +71,20 @@ define( function( require ) {
 
     // create listeners
     var pathListeners = [];
-    pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
-      pendulumModel.periodTrace.isRepeat = false;
-      pendulumModel.periodTrace.isVisible = false;
+    pendulums.forEach( function( pendulum, pendulumIndex ) {
+      pendulum.periodTrace.isRepeat = false;
+      pendulum.periodTrace.isVisible = false;
 
-      pendulumModel.property( 'length' ).lazyLink( updateTimer );
-      pendulumModel._gravityProperty.lazyLink( updateTimer );
-      pendulumModel.property( 'isUserControlled' ).lazyLink( updateTimer );
+      pendulum.property( 'length' ).lazyLink( updateTimer );
+      pendulum._gravityProperty.lazyLink( updateTimer );
+      pendulum.property( 'isUserControlled' ).lazyLink( updateTimer );
       self.property( 'isVisible' ).onValue( false, updateTimer );
 
       pathListeners[ pendulumIndex ] = function() {
-        if ( pendulumModel.periodTrace.pathPoints.length === 1 && self.isRunning ) {
+        if ( pendulum.periodTrace.pathPoints.length === 1 && self.isRunning ) {
           self.isCalculate = true;
         }
-        else if ( (pendulumModel.periodTrace.pathPoints.length === 4 || pendulumModel.periodTrace.pathPoints.length === 0) && self.isRunning ) {
+        else if ( (pendulum.periodTrace.pathPoints.length === 4 || pendulum.periodTrace.pathPoints.length === 0) && self.isRunning ) {
           self.isRunning = false;
         }
       };
@@ -92,19 +92,19 @@ define( function( require ) {
     } );
 
     // add path listeners
-    pendulumModels[ 0 ].periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
+    pendulums[ 0 ].periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
     this.property( 'isFirst' ).lazyLink( function( isFirst ) {
       self.activePendulum.periodTrace.pathPoints.reset();
       self.clear();
 
       if ( isFirst ) {
         self.activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[ 1 ] );
-        self.activePendulum = pendulumModels[ 0 ];
+        self.activePendulum = pendulums[ 0 ];
         self.activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
       }
       else {
         self.activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[ 0 ] );
-        self.activePendulum = pendulumModels[ 1 ];
+        self.activePendulum = pendulums[ 1 ];
         self.activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[ 1 ] );
       }
 

@@ -34,19 +34,19 @@ define( function( require ) {
   var TICK_10_LENGTH = 9;
 
   /**
-   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {Array} pendulums - Array of pendulum models.
    * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {Object} [options] for protractor node.
    * @constructor
    */
-  function ProtractorNode( pendulumModels, metersToPixels, options ) {
+  function ProtractorNode( pendulums, metersToPixels, options ) {
     var self = this;
 
     Node.call( this, options );
 
     // create central dash line
-    if ( pendulumModels[ 0 ] ) {
-      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulumModels[ 0 ].lengthRange.max ), {
+    if ( pendulums[ 0 ] ) {
+      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulums[ 0 ].lengthRange.max ), {
         stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
         lineDash: [ 4, 7 ]
       } ) );
@@ -100,22 +100,22 @@ define( function( require ) {
     this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
 
     // add ticks for pendulum
-    pendulumModels.forEach( function( pendulumModel ) {
-      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulumModel.color, lineWidth: 2 } );
-      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulumModel.color, lineWidth: 2 } );
+    pendulums.forEach( function( pendulum ) {
+      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
+      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
       self.insertChild( 1, tickNodeLeft );
       self.insertChild( 1, tickNodeRight );
 
       var updateTicksPosition = function() {
-        if ( pendulumModel.isUserControlled ) {
-          tickNodeLeft.setRotation( Math.PI / 2 - pendulumModel.angle );
-          tickNodeRight.setRotation( Math.PI / 2 + pendulumModel.angle );
+        if ( pendulum.isUserControlled ) {
+          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle );
+          tickNodeRight.setRotation( Math.PI / 2 + pendulum.angle );
         }
       };
 
       var updateDegreesText = function() {
-        if ( pendulumModel.isUserControlled ) {
-          var angle = -pendulumModel.angle * 180 / Math.PI;
+        if ( pendulum.isUserControlled ) {
+          var angle = -pendulum.angle * 180 / Math.PI;
 
           // angle belongs to an interval from -90 to 270 degrees
           if ( angle < -90 ) {
@@ -130,20 +130,20 @@ define( function( require ) {
       };
 
       // update tick position
-      pendulumModel.property( 'angle' ).link( function() {
+      pendulum.property( 'angle' ).link( function() {
         updateTicksPosition();
         updateDegreesText();
       } );
 
       // set ticks visibility observer
-      pendulumModel.property( 'isTickVisible' ).link( function( isTickVisible ) {
+      pendulum.property( 'isTickVisible' ).link( function( isTickVisible ) {
         tickNodeLeft.visible = isTickVisible;
         tickNodeRight.visible = isTickVisible;
         updateTicksPosition();
       } );
 
       // set degrees text visibility observer
-      pendulumModel.property( 'isUserControlled' ).link( function( isUserControlled ) {
+      pendulum.property( 'isUserControlled' ).link( function( isUserControlled ) {
         degreesText.visible = isUserControlled;
         updateDegreesText();
         updateTicksPosition();

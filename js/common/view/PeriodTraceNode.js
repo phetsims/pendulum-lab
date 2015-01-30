@@ -21,23 +21,23 @@ define( function( require ) {
   var TRACE_STEP = 10; // in pixels
 
   /**
-   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {Array} pendulums - Array of pendulum models.
    * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {Object} options for protractor node
    * @constructor
    */
-  function PeriodTraceNode( pendulumModels, metersToPixels, options ) {
+  function PeriodTraceNode( pendulums, metersToPixels, options ) {
     var self = this;
     Node.call( this, options );
 
     this.rotation = Math.PI / 2;
 
-    pendulumModels.forEach( function( pendulumModel ) {
+    pendulums.forEach( function( pendulum ) {
       var intervalId = null; // interval id for fading timer
       var isCompleted = false; // flag to control completing of trace view
 
       // create trace path path
-      var pathNode = new Path( EMPTY_SHAPE, { stroke: pendulumModel.color, lineWidth: 2 } );
+      var pathNode = new Path( EMPTY_SHAPE, { stroke: pendulum.color, lineWidth: 2 } );
       self.addChild( pathNode );
 
       var resetPath = function() {
@@ -51,12 +51,12 @@ define( function( require ) {
       };
 
       var updateShape = function() {
-        var pathPointsStorage = pendulumModel.periodTrace.pathPoints.getArray(),
+        var pathPointsStorage = pendulum.periodTrace.pathPoints.getArray(),
           shape, traceLength;
 
         if ( pathPointsStorage.length > 0 ) {
           shape = new Shape();
-          traceLength = metersToPixels( pendulumModel.length * 3 / 4 );
+          traceLength = metersToPixels( pendulum.length * 3 / 4 );
 
           // draw first arc
           if ( pathPointsStorage.length > 1 ) {
@@ -72,18 +72,18 @@ define( function( require ) {
               if ( pathPointsStorage.length > 3 ) {
                 shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, 0, pathPointsStorage[ 2 ].anticlockwise );
                 isCompleted = true;
-                fadeOutPath( 3 * pendulumModel.getApproximatePeriod() / 2 * 10 );
+                fadeOutPath( 3 * pendulum.getApproximatePeriod() / 2 * 10 );
               }
               else {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, pendulumModel.angle, pathPointsStorage[ 2 ].anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, pendulum.angle, pathPointsStorage[ 2 ].anticlockwise );
               }
             }
             else {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[ 1 ].angle, pendulumModel.angle, pathPointsStorage[ 1 ].anticlockwise );
+              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[ 1 ].angle, pendulum.angle, pathPointsStorage[ 1 ].anticlockwise );
             }
           }
           else {
-            shape.arc( 0, 0, traceLength, 0, pendulumModel.angle, pathPointsStorage[ 0 ].anticlockwise );
+            shape.arc( 0, 0, traceLength, 0, pendulum.angle, pathPointsStorage[ 0 ].anticlockwise );
           }
           pathNode.setShape( shape );
         }
@@ -93,28 +93,28 @@ define( function( require ) {
         intervalId = Timer.setInterval( function() {
           pathNode.opacity -= 0.01;
           if ( pathNode.opacity <= 0 ) {
-            pendulumModel.periodTrace.isVisible = false;
+            pendulum.periodTrace.isVisible = false;
 
             // show track continuously
-            if ( pendulumModel.periodTrace.isRepeat ) {
-              pendulumModel.periodTrace.isVisible = true;
+            if ( pendulum.periodTrace.isRepeat ) {
+              pendulum.periodTrace.isVisible = true;
             }
           }
         }, tickTime );
       };
 
       // update path shape
-      pendulumModel.property( 'angle' ).link( function() {
+      pendulum.property( 'angle' ).link( function() {
         if ( pathNode.visible && !isCompleted ) {
           updateShape();
         }
       } );
 
       // update visibility of path node
-      pendulumModel.periodTrace.property( 'isVisible' ).linkAttribute( pathNode, 'visible' );
+      pendulum.periodTrace.property( 'isVisible' ).linkAttribute( pathNode, 'visible' );
 
       // clear trace if path points were removed
-      pendulumModel.periodTrace.pathPoints.addItemRemovedListener( resetPath );
+      pendulum.periodTrace.pathPoints.addItemRemovedListener( resetPath );
     } );
   }
 

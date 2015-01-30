@@ -43,12 +43,12 @@ define( function( require ) {
     var height = this.layoutBounds.height;
 
     // add protractor node
-    var protractorNode = new ProtractorNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels );
+    var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels );
     protractorNode.centerX = width / 2;
     protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP - 5;
 
     // add pendulums
-    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
+    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels, {
       isAccelerationVisibleProperty: pendulumLabModel.property( 'isAccelerationVisible' ),
       isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
     } );
@@ -56,7 +56,7 @@ define( function( require ) {
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
 
     // add period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulumModels, pendulumLabModel.metersToPixels, {
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels, {
       x: width / 2,
       y: SCREEN_PADDING.TOP
     } );
@@ -75,8 +75,8 @@ define( function( require ) {
     this.slidersPanelNode = slidersPanelNode;
 
     // add tools control panel
-    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.rulerModel.property( 'isVisible' ),
-      pendulumLabModel.stopwatchModel.property( 'isVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
+    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.property( 'isVisible' ),
+      pendulumLabModel.stopwatch.property( 'isVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
     toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
     this.toolsControlPanelNode = toolsControlPanelNode;
@@ -99,11 +99,11 @@ define( function( require ) {
     resetAllButton.scale( 0.75 );
 
     // add ruler node
-    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.rulerModel, pendulumLabModel.metersToPixels, mvt, this.layoutBounds );
+    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, pendulumLabModel.metersToPixels, mvt, this.layoutBounds );
     this.rulerNode = rulerNode;
 
     // add timer node
-    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatchModel, mvt, this.layoutBounds, toolsControlPanelNode.bounds );
+    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, mvt, this.layoutBounds, toolsControlPanelNode.bounds );
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
@@ -126,8 +126,8 @@ define( function( require ) {
     this.addChild( stopwatchNode );
 
     // set initial value for ruler and stopwatch 'location' property
-    pendulumLabModel.rulerModel.setInitialLocationValue( rulerNode.center );
-    pendulumLabModel.stopwatchModel.setInitialLocationValue( stopwatchNode.center );
+    pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );
+    pendulumLabModel.stopwatch.setInitialLocationValue( stopwatchNode.center );
   }
 
   return inherit( ScreenView, PendulumLabView, {

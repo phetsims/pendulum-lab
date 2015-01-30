@@ -22,8 +22,8 @@ define( function( require ) {
     PendulumLabModel.call( this );
 
     // hide ruler bu default
-    this.rulerModel.property( 'isVisible' ).storeInitialValue( false );
-    this.rulerModel.isVisible = false;
+    this.ruler.property( 'isVisible' ).storeInitialValue( false );
+    this.ruler.isVisible = false;
 
     // friction coefficient description
     this.frictionRange = new Range( 0, 0.5115, 0 );

@@ -43,12 +43,12 @@ define( function( require ) {
       isPeriodTraceVisible: false // flag: controls visibility of period trace timer
     } );
 
-    this.pendulumModels = [
+    this.pendulums = [
       new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ), this.property( 'isPeriodTraceVisible' ) ),
       new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.property( 'gravity' ), this.property( 'isPeriodTraceVisible' ) )
     ];
 
-    this.planetModels = [
+    this.planets = [
       new Planet( Planets.MOON, MoonString, 1.62 ), // moon
       new Planet( Planets.EARTH, EarthString, 9.81 ), // earth
       new Planet( Planets.JUPITER, JupiterString, 24.79 ), // jupiter
@@ -60,10 +60,10 @@ define( function( require ) {
     this.gravityRange = new Range( 0, 25, this.gravity );
 
     // model for ruler
-    this.rulerModel = new Ruler();
+    this.ruler = new Ruler();
 
     // model for stopwatch
-    this.stopwatchModel = new Stopwatch();
+    this.stopwatch = new Stopwatch();
 
     // change gravity if planet was changed
     var gravityValueBeforePlanetX = this.gravity;
@@ -78,11 +78,11 @@ define( function( require ) {
       }
       else {
         // determine planet
-        var planetModel = _.find( self.planetModels, { 'name': planetNew } );
+        var planet = _.find( self.planets, { 'name': planetNew } );
 
         // set new gravity
-        if ( planetModel ) {
-          self.gravity = planetModel.gravity;
+        if ( planet ) {
+          self.gravity = planet.gravity;
         }
       }
     } );
@@ -90,13 +90,13 @@ define( function( require ) {
     // change planet if gravity was changed
     this.property( 'gravity' ).lazyLink( function( gravity ) {
       // determine planet
-      var planetModel = _.find( self.planetModels, function( planetModel ) {
-        return Math.abs( planetModel.gravity - gravity ) < 0.1;
+      var planet = _.find( self.planets, function( planet ) {
+        return Math.abs( planet.gravity - gravity ) < 0.1;
       } );
 
       // set new planet
-      if ( planetModel && planetModel.name !== Planets.PLANET_X ) {
-        self.planet = planetModel.name;
+      if ( planet && planet.name !== Planets.PLANET_X ) {
+        self.planet = planet.name;
       }
       else {
         self.planet = Planets.CUSTOM;
@@ -105,8 +105,8 @@ define( function( require ) {
 
     // change pendulum visibility if number of pendulums was changed
     this.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {
-      self.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
-        pendulumModel.isVisible = (numberOfPendulums > pendulumModelIndex);
+      self.pendulums.forEach( function( pendulum, pendulumIndex ) {
+        pendulum.isVisible = (numberOfPendulums > pendulumIndex);
       } );
     } );
   }
@@ -120,14 +120,14 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
 
       // reset ruler model
-      PropertySet.prototype.reset.call( this.rulerModel );
+      PropertySet.prototype.reset.call( this.ruler );
 
       // reset stopwatch model
-      PropertySet.prototype.reset.call( this.stopwatchModel );
+      PropertySet.prototype.reset.call( this.stopwatch );
 
       // reset pendulum models
-      this.pendulumModels.forEach( function( pendulumModel ) {
-        pendulumModel.reset();
+      this.pendulums.forEach( function( pendulum ) {
+        pendulum.reset();
       } );
     },
 
@@ -135,12 +135,12 @@ define( function( require ) {
     step: function( dt ) {
       dt = Math.min( 0.05, dt * this.timeSpeed );
 
-      if ( (this.stopwatchModel.isRunning && this.play) || this.stepManualMode ) {
-        this.stopwatchModel.elapsedTime += dt;
+      if ( (this.stopwatch.isRunning && this.play) || this.stepManualMode ) {
+        this.stopwatch.elapsedTime += dt;
       }
 
-      if ( this.periodTimerModel && ((this.periodTimerModel.isCalculate && this.play) || this.stepManualMode) ) {
-        this.periodTimerModel.elapsedTime += dt;
+      if ( this.periodTimer && ((this.periodTimer.isCalculate && this.play) || this.stepManualMode) ) {
+        this.periodTimer.elapsedTime += dt;
       }
 
       if ( this.play || this.stepManualMode ) {
@@ -149,7 +149,7 @@ define( function( require ) {
         var oldAlpha;
 
         for ( var i = 0; i < this.numberOfPendulums; i++ ) {
-          currentPendulum = this.pendulumModels[ i ];
+          currentPendulum = this.pendulums[ i ];
 
           // update position when pendulum is not selected
           if ( !currentPendulum.isUserControlled ) {
@@ -181,12 +181,12 @@ define( function( require ) {
     },
 
     returnHandler: function() {
-      this.pendulumModels.forEach( function( pendulumModel ) {
-        pendulumModel.resetMotion();
+      this.pendulums.forEach( function( pendulum ) {
+        pendulum.resetMotion();
       } );
 
-      if ( this.periodTimerModel ) {
-        this.periodTimerModel.stop();
+      if ( this.periodTimer ) {
+        this.periodTimer.stop();
       }
     }
   } );

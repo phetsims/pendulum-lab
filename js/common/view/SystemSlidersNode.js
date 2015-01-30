@@ -40,7 +40,7 @@ define( function( require ) {
 
     // add gravity slider with title and planet list menu
     this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ),
-      pendulumLabModel.gravityRange, pendulumLabModel.property( 'planet' ), pendulumLabModel.planetModels, planetsListNode, { y: SPACING_CONTENT } );
+      pendulumLabModel.gravityRange, pendulumLabModel.property( 'planet' ), pendulumLabModel.planets, planetsListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
         new Text( GravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),

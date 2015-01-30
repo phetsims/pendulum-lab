@@ -43,23 +43,23 @@ define( function( require ) {
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
 
     // create sliders for each pendulum and put then into storage for further adding
-    pendulumLabModel.pendulumModels.forEach( function( pendulumModel, pendulumModelIndex ) {
+    pendulumLabModel.pendulums.forEach( function( pendulum, pendulumIndex ) {
       // create length slider
       var lengthSlider = new PendulumOptionSliderNode(
-        pendulumModel.property( 'length' ),
-        pendulumModel.lengthRange,
+        pendulum.property( 'length' ),
+        pendulum.lengthRange,
         pattern_0lengthValue_lengthUnitsMetric,
-        pendulumModel.color,
+        pendulum.color,
         { y: SPACING_CONTENT }
       );
       self.optionSliders.push( lengthSlider );
 
       // create mass slider
       var massSlider = new PendulumOptionSliderNode(
-        pendulumModel.property( 'mass' ),
-        pendulumModel.massRange,
+        pendulum.property( 'mass' ),
+        pendulum.massRange,
         pattern_0massValue_massUnitsMetric,
-        pendulumModel.color,
+        pendulum.color,
         { y: SPACING_CONTENT }
       );
       self.optionSliders.push( massSlider );
@@ -69,9 +69,9 @@ define( function( require ) {
           new Node( {
             children: [
               // add length slider label
-              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Length', (pendulumModelIndex + 1).toString() ), {
+              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Length', (pendulumIndex + 1).toString() ), {
                 font: FONT_TITLE,
-                fill: pendulumModel.color
+                fill: pendulum.color
               } ),
               // add length slider
               lengthSlider
@@ -81,9 +81,9 @@ define( function( require ) {
           new Node( {
             children: [
               // add mass slider label
-              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Mass', (pendulumModelIndex + 1).toString() ), {
+              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, 'Mass', (pendulumIndex + 1).toString() ), {
                 font: FONT_TITLE,
-                fill: pendulumModel.color
+                fill: pendulum.color
               } ),
 
               // add mass slider

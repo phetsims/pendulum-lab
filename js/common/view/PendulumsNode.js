@@ -32,22 +32,22 @@ define( function( require ) {
   var RECT_SIZE = new Dimension2( 60, 80 );
 
   /**
-   * @param {Array} pendulumModels - Array of pendulum models.
+   * @param {Array} pendulums - Array of pendulum models.
    * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {Object} [options]
    * @constructor
    */
-  function PendulumsNode( pendulumModels, metersToPixels, options ) {
+  function PendulumsNode( pendulums, metersToPixels, options ) {
     var self = this;
 
     Node.call( this, options );
 
     // add pendulums
-    pendulumModels.forEach( function( pendulumModel, pendulumIndex ) {
-      var massToScale = new LinearFunction( pendulumModel.massRange.min, pendulumModel.massRange.max, 0.25, 1 );
+    pendulums.forEach( function( pendulum, pendulumIndex ) {
+      var massToScale = new LinearFunction( pendulum.massRange.min, pendulum.massRange.max, 0.25, 1 );
 
       // create solid line
-      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulumModel.length ), { stroke: 'black' } );
+      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulum.length ), { stroke: 'black' } );
 
       // create pendulum
       var pendulumRect = new Node( {
@@ -55,10 +55,10 @@ define( function( require ) {
         children: [
           new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
             fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
-              addColorStop( 0, pendulumModel.color ).
-              addColorStop( 0.3, pendulumModel.color ).
+              addColorStop( 0, pendulum.color ).
+              addColorStop( 0.3, pendulum.color ).
               addColorStop( 0.8, 'white' ).
-              addColorStop( 1, pendulumModel.color )
+              addColorStop( 1, pendulum.color )
           } ),
           new Text( (pendulumIndex + 1).toString(), { font: FONT, fill: 'white', centerY: RECT_SIZE.height / 4, centerX: 0 } ),
           new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, { stroke: 'black', lineCap: 'butt' } )
@@ -82,7 +82,7 @@ define( function( require ) {
         } );
 
         // add arrow size observer
-        pendulumModel.property( 'velocityVector' ).link( function( velocityVector ) {
+        pendulum.property( 'velocityVector' ).link( function( velocityVector ) {
           if ( velocityArrow.visible ) {
             velocityArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * velocityVector.x, ARROW_SIZE_DEFAULT * velocityVector.y );
           }
@@ -103,11 +103,11 @@ define( function( require ) {
         // add visibility observer
         options.isAccelerationVisibleProperty.link( function( isAccelerationVisible ) {
           accelerationArrow.visible = isAccelerationVisible;
-          pendulumModel.updateAccelerationVector();
+          pendulum.updateAccelerationVector();
         } );
 
         // add arrow size observer
-        pendulumModel.property( 'accelerationVector' ).link( function( accelerationVector ) {
+        pendulum.property( 'accelerationVector' ).link( function( accelerationVector ) {
           if ( accelerationArrow.visible ) {
             accelerationArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * accelerationVector.x, ARROW_SIZE_DEFAULT * accelerationVector.y );
           }
@@ -122,29 +122,29 @@ define( function( require ) {
       var clickXOffset;
       pendulumRect.addInputListener( new SimpleDragHandler( {
         start: function( e ) {
-          clickXOffset = self.globalToParentPoint( e.pointer.point ).x + metersToPixels( pendulumModel.length ) * Math.sin( pendulumNode.rotation );
-          clickYOffset = self.globalToParentPoint( e.pointer.point ).y - metersToPixels( pendulumModel.length ) * Math.cos( pendulumNode.rotation );
+          clickXOffset = self.globalToParentPoint( e.pointer.point ).x + metersToPixels( pendulum.length ) * Math.sin( pendulumNode.rotation );
+          clickYOffset = self.globalToParentPoint( e.pointer.point ).y - metersToPixels( pendulum.length ) * Math.cos( pendulumNode.rotation );
 
-          pendulumModel.isUserControlled = true;
+          pendulum.isUserControlled = true;
         },
         drag: function( e ) {
           var x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
           var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
 
-          pendulumModel.angle = -Math.atan2( x, y ) % (Math.PI * 2);
+          pendulum.angle = -Math.atan2( x, y ) % (Math.PI * 2);
         },
         end: function() {
-          pendulumModel.isUserControlled = false;
+          pendulum.isUserControlled = false;
         }
       } ) );
 
       // update pendulum rotation
-      pendulumModel.property( 'angle' ).link( function( angle ) {
+      pendulum.property( 'angle' ).link( function( angle ) {
         pendulumNode.rotation = angle;
       } );
 
       // update pendulum components position
-      pendulumModel.property( 'length' ).link( function( length ) {
+      pendulum.property( 'length' ).link( function( length ) {
         var lengthMeters = metersToPixels( length );
 
         pendulumRect.setY( lengthMeters );
@@ -160,12 +160,12 @@ define( function( require ) {
       } );
 
       // update rectangle size
-      pendulumModel.property( 'mass' ).link( function( mass ) {
+      pendulum.property( 'mass' ).link( function( mass ) {
         pendulumRect.setScaleMagnitude( massToScale( mass ) );
       } );
 
       // update visibility
-      pendulumModel.property( 'isVisible' ).linkAttribute( pendulumNode, 'visible' );
+      pendulum.property( 'isVisible' ).linkAttribute( pendulumNode, 'visible' );
     } );
   }
 

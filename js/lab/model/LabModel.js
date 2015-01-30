@@ -26,7 +26,7 @@ define( function( require ) {
     this.addProperty( 'isAccelerationVisible', false );
 
     // model for period trace
-    this.periodTimerModel = new PeriodTimer( this.pendulumModels, this.property( 'isPeriodTraceVisible' ) );
+    this.periodTimer = new PeriodTimer( this.pendulums, this.property( 'isPeriodTraceVisible' ) );
   }
 
   return inherit( EnergyModel, LabModel, {
@@ -34,7 +34,7 @@ define( function( require ) {
       EnergyModel.prototype.reset.call( this );
 
       // reset period trace model
-      PropertySet.prototype.reset.call( this.periodTimerModel );
+      PropertySet.prototype.reset.call( this.periodTimer );
     }
   } );
 } );

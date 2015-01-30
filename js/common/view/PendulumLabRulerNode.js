@@ -26,26 +26,26 @@ define( function( require ) {
   var TICK_INTERVAL = 10; // tick interval in cm
 
   /**
-   * @param {PropertySet} rulerModel - Model for ruler.
+   * @param {PropertySet} ruler - Model for ruler.
    * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {ModelViewTransform2} mvt
    * @param {Bounds2} layoutBounds - Bounds of screen view
    * @constructor
    */
-  function PendulumLabRulerNode( rulerModel, metersToPixels, mvt, layoutBounds ) {
+  function PendulumLabRulerNode( ruler, metersToPixels, mvt, layoutBounds ) {
     var self = this;
 
     // create tick labels
     var tickLabel;
     var rulerTicks = [ '' ]; // zero tick is not labeled
-    for ( var currentTick = TICK_INTERVAL; currentTick < rulerModel.length * 100; currentTick += TICK_INTERVAL ) {
+    for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
     rulerTicks.push( '' );
 
     // define ruler params in pixels
-    var rulerWidth = metersToPixels( rulerModel.length );
+    var rulerWidth = metersToPixels( ruler.length );
     var tickWidth = rulerWidth / (rulerTicks.length - 1);
 
     RulerNode.call( this, rulerWidth, 34, tickWidth, rulerTicks, rulerUnitsString, { // -1px to
@@ -68,17 +68,17 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
-      locationProperty: rulerModel.property( 'location' ),
+      locationProperty: ruler.property( 'location' ),
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     }, mvt ) );
 
     // add update of node location
-    rulerModel.property( 'location' ).lazyLink( function( location ) {
+    ruler.property( 'location' ).lazyLink( function( location ) {
       self.center = location;
     } );
 
     // set visibility observer
-    rulerModel.property( 'isVisible' ).linkAttribute( this, 'visible' );
+    ruler.property( 'isVisible' ).linkAttribute( this, 'visible' );
   }
 
   return inherit( RulerNode, PendulumLabRulerNode );

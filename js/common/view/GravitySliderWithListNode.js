@@ -44,12 +44,12 @@ define( function( require ) {
    * @param {Property<number>} gravityProperty - Property to update by slider.
    * @param {Range} gravityPropertyRange - Range of gravity property.
    * @param {Property<string>} planetProperty - Property to update by combo box.
-   * @param {Array} planetModels - Models of all planets.
+   * @param {Array} planets - Models of all planets.
    * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes.
    * @param {Object} [options]
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planetModels, planetsListNode, options ) {
+  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planets, planetsListNode, options ) {
     var self = this;
     var container = new Node();
 
@@ -58,13 +58,13 @@ define( function( require ) {
 
     // create planet list menu
     var planetListItems = [];
-    planetModels.forEach( function( planetModel ) {
-      var planetLabel = new Text( planetModel.title, { font: FONT_LIST } );
+    planets.forEach( function( planet ) {
+      var planetLabel = new Text( planet.title, { font: FONT_LIST } );
       planetLabel.localBounds = planetLabel.localBounds.withMaxX( Math.max( 50, planetLabel.localBounds.maxY ) );
 
       planetListItems.push( {
         node: planetLabel,
-        value: planetModel.name
+        value: planet.name
       } );
     } );
 
