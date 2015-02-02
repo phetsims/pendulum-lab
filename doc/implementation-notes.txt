@@ -1,0 +1,15 @@
+Implementation notes for "Pendulum Lab" (pendulum-lab)
+
+This is a port of the Java version of pendulum-lab. It differs greatly from the Java implementation.
+
+For a description of the model, see model.txt.
+
+"Return" button stop motion and return pendulums into initial state.
+Trace is disappear immediately.
+
+Gravity equal to some planet gravity if delta less 0.1 m/s^2.
+
+Meters transform to pixels throw the liner function. Necessary for correct constructing of ruler.
+
+Custom time step is equal to 1 second.
+

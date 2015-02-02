@@ -1,0 +1,38 @@
+---
+
+Description of the model used in "Pendulum Lab"
+
+This simulation contains models of 2 pendulums and 4 planets:
+ - Moon
+ - Earth
+ - Jupiter
+ - Planet X
+
+Constants:
+  gravity of Moon = 1.62 m/s^2
+  gravity of Earth = 9.81 m/s^2
+  gravity of Jupiter = 24.79 m/s^2
+  gravity of Planet X = 14.2 m/s^2
+
+Variables:
+  angle - rotation angle of pendulum
+  alpha - angular acceleration of pendulum
+  omega - angular velocity of pendulum
+  length - length of pendulum
+  g - gravitational acceleration
+  A - friction coefficient
+
+Motion formulas:
+  angle_1 = angle_0 + omega * dt + 0.5 * alpha_0 * dt * dt
+  alpha_1 = g * length * Math.sin( angle_1 ) - A / mass^(1/3)
+  omega_1 = omega_0 + 0.5 * (alpha_1 + alpha_0) * dt
+
+Approximate period formula:
+  T = 2 * Math.PI * Math.sqrt( length / g )
+
+Energy formulas:
+  potentialEnergy = mass * g * length * (1 - Math.cos( angle ))
+  kineticEnergy = 0.5 * mass * (length * omega)^2
+  thermalEnergy = totalEnergy - (this.kineticEnergy + this.potentialEnergy)
+
+---
