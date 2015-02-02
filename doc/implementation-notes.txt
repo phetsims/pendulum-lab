@@ -1,6 +1,6 @@
 Implementation notes for "Pendulum Lab" (pendulum-lab)
 
-This is a port of the Java version of pendulum-lab. It differs greatly from the Java implementation.
+This is a port of the Flash version of pendulum-lab. It differs greatly from the Java implementation.
 
 For a description of the model, see model.txt.
 
