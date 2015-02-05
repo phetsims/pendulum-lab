@@ -81,7 +81,7 @@ define( function( require ) {
         var planet = _.find( self.planets, { 'name': planetNew } );
 
         // set new gravity
-        if ( planet ) {
+        if ( planet && planet.name !== Planets.CUSTOM ) {
           self.gravity = planet.gravity;
         }
       }
