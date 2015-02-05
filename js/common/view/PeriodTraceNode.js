@@ -17,7 +17,6 @@ define( function( require ) {
   var Timer = require( 'JOIST/Timer' );
 
   // constants
-  var EMPTY_SHAPE = new Shape();
   var TRACE_STEP = 10; // in pixels
 
   /**
@@ -37,11 +36,11 @@ define( function( require ) {
       var isCompleted = false; // flag to control completing of trace view
 
       // create trace path path
-      var pathNode = new Path( EMPTY_SHAPE, { stroke: pendulum.color, lineWidth: 2 } );
+      var pathNode = new Path( null, { stroke: pendulum.color, lineWidth: 2 } );
       self.addChild( pathNode );
 
       var resetPath = function() {
-        pathNode.setShape( EMPTY_SHAPE );
+        pathNode.setShape( null );
         isCompleted = false;
         if ( intervalId ) {
           Timer.clearInterval( intervalId );
