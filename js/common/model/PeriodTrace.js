@@ -41,6 +41,7 @@ define( function( require ) {
       if ( self.isVisible && !pendulum.isUserControlled ) {
         if ( self.numberOfPoints < 4 && Math.abs( newAngle - oldAngle ) < Math.PI / 4 ) {
           // first point
+          // acceptable range for angles newAngle and oldAngle is [ -2 * pi ; 2 * pi ], it is rounded in PendulumLabModel.step function.
           if ( self.numberOfPoints === 0 && newAngle * oldAngle < 0 ) {
             self.anticlockwise = newAngle < 0;
             self.numberOfPoints = 1;
@@ -56,6 +57,7 @@ define( function( require ) {
             self.numberOfPoints = 3;
           }
           // fourth point
+          // acceptable range for angles newAngle and oldAngle is [ -2 * pi ; 2 * pi ], it is rounded in PendulumLabModel.step function.
           else if ( self.numberOfPoints === 3 && newAngle * oldAngle < 0 ) {
             self.numberOfPoints = 4;
           }
