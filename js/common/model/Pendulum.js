@@ -30,7 +30,7 @@ define( function( require ) {
     var self = this;
 
     // save link to gravity property
-    this._gravityProperty = gravityProperty;
+    this.gravityProperty = gravityProperty;
 
     Movable.call( this, {
       angle: 0, // value of the angular displacement
@@ -63,10 +63,10 @@ define( function( require ) {
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty );
 
     // make tick on protractor visible after first drag
-    this.property( 'isUserControlled' ).link( function( isUserControlled ) {
+    this.isUserControlledProperty.link( function( isUserControlled ) {
       if ( isUserControlled ) {
         self.isTickVisible = true;
-        self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+        self.totalEnergy = self.mass * self.gravityProperty.value * self.getHeight();
         self.resetVectorParameters();
 
         self.updateVectors();
@@ -74,22 +74,22 @@ define( function( require ) {
       }
     } );
 
-    this.property( 'angle' ).link( function() {
+    this.angleProperty.link( function() {
       if ( self.isUserControlled ) {
-        self.totalEnergy = self.mass * self._gravityProperty.value * self.getHeight();
+        self.totalEnergy = self.mass * self.gravityProperty.value * self.getHeight();
         self.resetVectorParameters();
         self.updateVectors();
         self.updateEnergiesWithTotalEnergyConstant();
       }
     } );
 
-    this.property( 'length' ).lazyLink( function( newLength, oldLength ) {
+    this.lengthProperty.lazyLink( function( newLength, oldLength ) {
       self.omega = self.omega * oldLength / newLength;
       self.updateVectors();
       self.updateEnergiesWithThermalEnergyConstant();
     } );
 
-    this.property( 'mass' ).link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
+    this.massProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
     gravityProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
   }
 
@@ -101,17 +101,17 @@ define( function( require ) {
       return this.length * this.omega;
     },
     getApproximatePeriod: function() {
-      return 2 * Math.PI * Math.sqrt( this.length / this._gravityProperty.value );
+      return 2 * Math.PI * Math.sqrt( this.length / this.gravityProperty.value );
     },
     resetMotion: function() {
-      this.property( 'angle' ).reset();
-      this.property( 'alpha' ).reset();
-      this.property( 'omega' ).reset();
-      this.property( 'kineticEnergy' ).reset();
-      this.property( 'potentialEnergy' ).reset();
-      this.property( 'thermalEnergy' ).reset();
-      this.property( 'totalEnergy' ).reset();
-      this.property( 'isTickVisible' ).reset();
+      this.angleProperty.reset();
+      this.alphaProperty.reset();
+      this.omegaProperty.reset();
+      this.kineticEnergyProperty.reset();
+      this.potentialEnergyProperty.reset();
+      this.thermalEnergyProperty.reset();
+      this.totalEnergyProperty.reset();
+      this.isTickVisibleProperty.reset();
 
       this.periodTrace.pathPoints.reset();
 
@@ -119,7 +119,7 @@ define( function( require ) {
       this.updateEnergiesWithTotalEnergyConstant();
     },
     setAlpha: function( frictionContribution ) {
-      this.alpha = -this._gravityProperty.value / this.length * Math.sin( this.angle ) + frictionContribution;
+      this.alpha = -this.gravityProperty.value / this.length * Math.sin( this.angle ) + frictionContribution;
     },
     updateVectors: function() {
       this.updateVelocityVector();
@@ -127,7 +127,7 @@ define( function( require ) {
     },
     updateVelocityVector: function() {
       this.velocityVector.setXY( -this.getVelocity(), 0 );
-      this.property( 'velocityVector' ).notifyObserversStatic();
+      this.velocityVectorProperty.notifyObserversStatic();
     },
     updateAccelerationVector: function() {
       var omegaSq = this.omega * this.omega;
@@ -135,21 +135,21 @@ define( function( require ) {
       var accelerationAngle = Math.atan2( omegaSq, this.alpha );
 
       this.accelerationVector.setPolar( -accelerationMagnitude, accelerationAngle );
-      this.property( 'accelerationVector' ).notifyObserversStatic();
+      this.accelerationVectorProperty.notifyObserversStatic();
     },
     updateEnergiesWithTotalEnergyConstant: function() {
-      this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
+      this.potentialEnergy = this.mass * this.gravityProperty.value * this.getHeight();
       this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
       this.thermalEnergy = Math.max( 0, this.totalEnergy - (this.kineticEnergy + this.potentialEnergy) );
     },
     updateEnergiesWithThermalEnergyConstant: function() {
-      this.potentialEnergy = this.mass * this._gravityProperty.value * this.getHeight();
+      this.potentialEnergy = this.mass * this.gravityProperty.value * this.getHeight();
       this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
       this.totalEnergy = this.kineticEnergy + this.potentialEnergy + this.thermalEnergy;
     },
     resetVectorParameters: function() {
       this.omega = 0;
-      this.alpha = -this._gravityProperty.value / this.length * Math.sin( this.angle );
+      this.alpha = -this.gravityProperty.value / this.length * Math.sin( this.angle );
     }
   } );
 } );

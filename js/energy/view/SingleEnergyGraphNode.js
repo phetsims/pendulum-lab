@@ -115,11 +115,11 @@ define( function( require ) {
     } );
 
     // add energy observers
-    this.kineticEnergyProperty = pendulum.property( 'kineticEnergy' );
+    this.kineticEnergyProperty = pendulum.kineticEnergyProperty;
     this.kineticEnergyProperty.link( this.updateKineticEnergy.bind( this ) );
-    this.potentialEnergyProperty = pendulum.property( 'potentialEnergy' );
+    this.potentialEnergyProperty = pendulum.potentialEnergyProperty;
     this.potentialEnergyProperty.link( this.updatePotentialEnergy.bind( this ) );
-    this.thermalEnergyProperty = pendulum.property( 'thermalEnergy' );
+    this.thermalEnergyProperty = pendulum.thermalEnergyProperty;
     this.thermalEnergyProperty.link( this.updateThermalEnergy.bind( this ) );
 
     isEnergyGraphExpandedProperty.link( function( isEnergyGraphExpanded ) {

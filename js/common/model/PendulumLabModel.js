@@ -44,8 +44,8 @@ define( function( require ) {
     } );
 
     this.pendulums = [
-      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.property( 'gravity' ), this.property( 'isPeriodTraceVisible' ) ),
-      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.property( 'gravity' ), this.property( 'isPeriodTraceVisible' ) )
+      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.isPeriodTraceVisibleProperty ),
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.isPeriodTraceVisibleProperty )
     ];
 
     this.planets = [
@@ -67,7 +67,7 @@ define( function( require ) {
 
     // change gravity if planet was changed
     var gravityValueBeforePlanetX = this.gravity;
-    this.property( 'planet' ).lazyLink( function( planetNew, planetPrev ) {
+    this.planetProperty.lazyLink( function( planetNew, planetPrev ) {
       if ( planetNew === Planets.PLANET_X ) {
         // save value for further restoring
         gravityValueBeforePlanetX = self.gravity;
@@ -88,7 +88,7 @@ define( function( require ) {
     } );
 
     // change planet if gravity was changed
-    this.property( 'gravity' ).lazyLink( function( gravity ) {
+    this.gravityProperty.lazyLink( function( gravity ) {
       // determine planet
       var planet = _.find( self.planets, function( planet ) {
         return Math.abs( planet.gravity - gravity ) < 0.1;
@@ -104,7 +104,7 @@ define( function( require ) {
     } );
 
     // change pendulum visibility if number of pendulums was changed
-    this.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {
+    this.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
       self.pendulums.forEach( function( pendulum, pendulumIndex ) {
         pendulum.isVisible = (numberOfPendulums > pendulumIndex);
       } );

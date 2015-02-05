@@ -87,7 +87,7 @@ define( function( require ) {
         lineWidth: halfPlayStroke * 2,
         centerX: 0,
         centerY: 0
-      } ), periodTrace.property( 'isRunning' ), {
+      } ), periodTrace.isRunningProperty, {
         baseColor: options.buttonBaseColor,
         minWidth: BUTTON_WIDTH
       } );
@@ -114,7 +114,7 @@ define( function( require ) {
       } ),
         new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
-    var graphUnitsSwitch = new ABSwitch( periodTrace.property( 'isFirst' ), true, firstPendulumIcon, false, secondPendulumIcon, {
+    var graphUnitsSwitch = new ABSwitch( periodTrace.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
       setEnabled: function() {}
@@ -158,7 +158,7 @@ define( function( require ) {
     this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, { fill: BACKGROUND_IN_COLOR } ) );
     this.addChild( vBox );
 
-    periodTrace.property( 'elapsedTime' ).link( function updateTime( value ) {
+    periodTrace.elapsedTimeProperty.link( function updateTime( value ) {
       readoutText.text = getTextTime( value );
     } );
 
@@ -172,17 +172,17 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
-      locationProperty: periodTrace.property( 'location' ),
+      locationProperty: periodTrace.locationProperty,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     }, mvt ) );
 
     // add update of node location
-    periodTrace.property( 'location' ).lazyLink( function( location ) {
+    periodTrace.locationProperty.lazyLink( function( location ) {
       self.center = location;
     } );
 
     // set visibility observer
-    periodTrace.property( 'isVisible' ).linkAttribute( this, 'visible' );
+    periodTrace.isVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   // uniformly expands touch area for controls

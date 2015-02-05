@@ -27,8 +27,8 @@ define( function( require ) {
 
   return inherit( PropertySet, Movable, {
     setInitialLocationValue: function( initialLocation ) {
-      this.property( 'location' ).storeInitialValue( initialLocation.copy() );
-      this.property( 'location' ).storeValue( initialLocation.copy() );
+      this.locationProperty.storeInitialValue( initialLocation.copy() );
+      this.locationProperty.storeValue( initialLocation.copy() );
     }
   } );
 } );

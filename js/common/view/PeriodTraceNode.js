@@ -104,14 +104,14 @@ define( function( require ) {
       };
 
       // update path shape
-      pendulum.property( 'angle' ).link( function() {
+      pendulum.angleProperty.link( function() {
         if ( pathNode.visible && !isCompleted ) {
           updateShape();
         }
       } );
 
       // update visibility of path node
-      pendulum.periodTrace.property( 'isVisible' ).linkAttribute( pathNode, 'visible' );
+      pendulum.periodTrace.isVisibleProperty.linkAttribute( pathNode, 'visible' );
 
       // clear trace if path points were removed
       pendulum.periodTrace.pathPoints.addItemRemovedListener( resetPath );

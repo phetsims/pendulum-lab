@@ -130,20 +130,20 @@ define( function( require ) {
       };
 
       // update tick position
-      pendulum.property( 'angle' ).link( function() {
+      pendulum.angleProperty.link( function() {
         updateTicksPosition();
         updateDegreesText();
       } );
 
       // set ticks visibility observer
-      pendulum.property( 'isTickVisible' ).link( function( isTickVisible ) {
+      pendulum.isTickVisibleProperty.link( function( isTickVisible ) {
         tickNodeLeft.visible = isTickVisible;
         tickNodeRight.visible = isTickVisible;
         updateTicksPosition();
       } );
 
       // set degrees text visibility observer
-      pendulum.property( 'isUserControlled' ).link( function( isUserControlled ) {
+      pendulum.isUserControlledProperty.link( function( isUserControlled ) {
         degreesText.visible = isUserControlled;
         updateDegreesText();
         updateTicksPosition();

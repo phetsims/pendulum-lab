@@ -46,7 +46,7 @@ define( function( require ) {
     pendulumLabModel.pendulums.forEach( function( pendulum, pendulumIndex ) {
       // create length slider
       var lengthSlider = new PendulumOptionSliderNode(
-        pendulum.property( 'length' ),
+        pendulum.lengthProperty,
         pendulum.lengthRange,
         pattern_0lengthValue_lengthUnitsMetric,
         pendulum.color,
@@ -56,7 +56,7 @@ define( function( require ) {
 
       // create mass slider
       var massSlider = new PendulumOptionSliderNode(
-        pendulum.property( 'mass' ),
+        pendulum.massProperty,
         pendulum.massRange,
         pattern_0massValue_massUnitsMetric,
         pendulum.color,
@@ -95,7 +95,7 @@ define( function( require ) {
     } );
 
     // add necessary pendulum sliders
-    pendulumLabModel.property( 'numberOfPendulums' ).link( function( numberOfPendulums ) {
+    pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
       var numberDifference = currentNumberOfSliders - numberOfPendulums;
 
       // remove extra sliders

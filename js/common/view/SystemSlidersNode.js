@@ -39,8 +39,8 @@ define( function( require ) {
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
 
     // add gravity slider with title and planet list menu
-    this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.property( 'gravity' ),
-      pendulumLabModel.gravityRange, pendulumLabModel.property( 'planet' ), pendulumLabModel.planets, planetsListNode, { y: SPACING_CONTENT } );
+    this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.gravityProperty,
+      pendulumLabModel.gravityRange, pendulumLabModel.planetProperty, pendulumLabModel.planets, planetsListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
         new Text( GravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
@@ -49,8 +49,8 @@ define( function( require ) {
     } ) );
 
     // add friction slider with title when necessary
-    if ( pendulumLabModel.property( 'friction' ) ) {
-      this.frictionSlider = new FrictionSliderNode( pendulumLabModel.property( 'friction' ), pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
+    if ( pendulumLabModel.frictionProperty ) {
+      this.frictionSlider = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
 
       content.addChild( new Node( {
         children: [

@@ -82,7 +82,7 @@ define( function( require ) {
         } );
 
         // add arrow size observer
-        pendulum.property( 'velocityVector' ).link( function( velocityVector ) {
+        pendulum.velocityVectorProperty.link( function( velocityVector ) {
           if ( velocityArrow.visible ) {
             velocityArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * velocityVector.x, ARROW_SIZE_DEFAULT * velocityVector.y );
           }
@@ -107,7 +107,7 @@ define( function( require ) {
         } );
 
         // add arrow size observer
-        pendulum.property( 'accelerationVector' ).link( function( accelerationVector ) {
+        pendulum.accelerationVectorProperty.link( function( accelerationVector ) {
           if ( accelerationArrow.visible ) {
             accelerationArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * accelerationVector.x, ARROW_SIZE_DEFAULT * accelerationVector.y );
           }
@@ -139,12 +139,12 @@ define( function( require ) {
       } ) );
 
       // update pendulum rotation
-      pendulum.property( 'angle' ).link( function( angle ) {
+      pendulum.angleProperty.link( function( angle ) {
         pendulumNode.rotation = angle;
       } );
 
       // update pendulum components position
-      pendulum.property( 'length' ).link( function( length ) {
+      pendulum.lengthProperty.link( function( length ) {
         var lengthMeters = metersToPixels( length );
 
         pendulumRect.setY( lengthMeters );
@@ -160,12 +160,12 @@ define( function( require ) {
       } );
 
       // update rectangle size
-      pendulum.property( 'mass' ).link( function( mass ) {
+      pendulum.massProperty.link( function( mass ) {
         pendulumRect.setScaleMagnitude( massToScale( mass ) );
       } );
 
       // update visibility
-      pendulum.property( 'isVisible' ).linkAttribute( pendulumNode, 'visible' );
+      pendulum.isVisibleProperty.linkAttribute( pendulumNode, 'visible' );
     } );
   }
 

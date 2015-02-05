@@ -68,17 +68,17 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
-      locationProperty: ruler.property( 'location' ),
+      locationProperty: ruler.locationProperty,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     }, mvt ) );
 
     // add update of node location
-    ruler.property( 'location' ).lazyLink( function( location ) {
+    ruler.locationProperty.lazyLink( function( location ) {
       self.center = location;
     } );
 
     // set visibility observer
-    ruler.property( 'isVisible' ).linkAttribute( this, 'visible' );
+    ruler.isVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   return inherit( RulerNode, PendulumLabRulerNode );

@@ -25,7 +25,7 @@ define( function( require ) {
     this.addProperty( 'isAccelerationVisible', false );
 
     // model for period trace
-    this.periodTimer = new PeriodTimer( this.pendulums, this.property( 'isPeriodTraceVisible' ) );
+    this.periodTimer = new PeriodTimer( this.pendulums, this.isPeriodTraceVisibleProperty );
   }
 
   return inherit( EnergyModel, LabModel, {

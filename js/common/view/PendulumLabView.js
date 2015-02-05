@@ -49,8 +49,8 @@ define( function( require ) {
 
     // add pendulums
     var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels, {
-      isAccelerationVisibleProperty: pendulumLabModel.property( 'isAccelerationVisible' ),
-      isVelocityVisibleProperty: pendulumLabModel.property( 'isVelocityVisible' )
+      isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
+      isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
     } );
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
@@ -75,15 +75,15 @@ define( function( require ) {
     this.slidersPanelNode = slidersPanelNode;
 
     // add tools control panel
-    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.property( 'isVisible' ),
-      pendulumLabModel.stopwatch.property( 'isVisible' ), pendulumLabModel.property( 'isPeriodTraceVisible' ) );
+    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.isVisibleProperty,
+      pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty );
     toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // add pendulum system control panel
-    var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.property( 'numberOfPendulums' ),
-      pendulumLabModel.property( 'play' ), pendulumLabModel.property( 'timeSpeed' ), pendulumLabModel.stepManual.bind( pendulumLabModel ) );
+    var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.numberOfPendulumsProperty,
+      pendulumLabModel.playProperty, pendulumLabModel.timeSpeedProperty, pendulumLabModel.stepManual.bind( pendulumLabModel ) );
     pendulumSystemControlPanelNode.centerX = width / 2;
     pendulumSystemControlPanelNode.centerY = height - pendulumSystemControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
 

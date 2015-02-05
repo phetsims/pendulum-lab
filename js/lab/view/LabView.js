@@ -30,8 +30,8 @@ define( function( require ) {
     EnergyView.call( this, pendulumLabModel, mvt );
 
     // add arrow panel node to the bottom layer
-    var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.property( 'isVelocityVisible' ),
-      pendulumLabModel.property( 'isAccelerationVisible' ) );
+    var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.isVelocityVisibleProperty,
+      pendulumLabModel.isAccelerationVisibleProperty );
     arrowsPanelNode.centerX = arrowsPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
     this.insertChild( 3, arrowsPanelNode );
@@ -40,10 +40,10 @@ define( function( require ) {
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
 
     // add tweakers for gravity slider slider
-    this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.property( 'gravity' ), pendulumLabModel.gravityRange );
+    this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
 
     // add period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].property( 'isVisible' ), mvt, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, mvt, this.layoutBounds );
     periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );

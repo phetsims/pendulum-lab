@@ -23,24 +23,24 @@ define( function( require ) {
    */
   function StopwatchNode( stopwatch, mvt, layoutBounds, toolsControlPanelNodeBounds ) {
     var self = this;
-    Timer.call( this, stopwatch.property( 'elapsedTime' ), stopwatch.property( 'isRunning' ) );
+    Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty );
 
     this.centerX = toolsControlPanelNodeBounds.maxX - this.width / 2;
     this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( {
-      locationProperty: stopwatch.property( 'location' ),
+      locationProperty: stopwatch.locationProperty,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     }, mvt ) );
 
     // add update of node location
-    stopwatch.property( 'location' ).lazyLink( function( location ) {
+    stopwatch.locationProperty.lazyLink( function( location ) {
       self.center = location;
     } );
 
     // set visibility observer
-    stopwatch.property( 'isVisible' ).linkAttribute( this, 'visible' );
+    stopwatch.isVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   return inherit( Timer, StopwatchNode );

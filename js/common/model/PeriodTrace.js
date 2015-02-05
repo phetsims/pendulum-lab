@@ -35,7 +35,7 @@ define( function( require ) {
     this.pathPoints = new ObservableArray();
 
     // track path of pendulum
-    pendulum.property( 'angle' ).link( function( newAngle, oldAngle ) {
+    pendulum.angleProperty.link( function( newAngle, oldAngle ) {
       if ( self.isVisible && !pendulum.isUserControlled ) {
         var pathArray = self.pathPoints.getArray();
 
@@ -62,10 +62,10 @@ define( function( require ) {
 
     // clear pendulum path
     var clearPathPoints = this.pathPoints.clear.bind( this.pathPoints );
-    pendulum._gravityProperty.lazyLink( clearPathPoints );
-    pendulum.property( 'length' ).lazyLink( clearPathPoints );
-    pendulum.property( 'isUserControlled' ).lazyLink( clearPathPoints );
-    this.property( 'isVisible' ).onValue( false, clearPathPoints );
+    pendulum.gravityProperty.lazyLink( clearPathPoints );
+    pendulum.lengthProperty.lazyLink( clearPathPoints );
+    pendulum.isUserControlledProperty.lazyLink( clearPathPoints );
+    this.isVisibleProperty.onValue( false, clearPathPoints );
 
     // add visibility observer
     this.addVisibilityObservers();
@@ -90,11 +90,11 @@ define( function( require ) {
       };
 
       self._isPeriodTraceVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
-      self._pendulum.property( 'isVisible' ).lazyLink( this.setPeriodTraceVisibility );
+      self._pendulum.isVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
     },
     removeVisibilityObservers: function() {
       this._isPeriodTraceVisibleProperty.unlink( this.setPeriodTraceVisibility );
-      this._pendulum.property( 'isVisible' ).unlink( this.setPeriodTraceVisibility );
+      this._pendulum.isVisibleProperty.unlink( this.setPeriodTraceVisibility );
     }
   } );
 } );

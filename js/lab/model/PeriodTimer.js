@@ -43,11 +43,11 @@ define( function( require ) {
     } );
 
     // clear timer before starting calculating
-    this.property( 'isCalculate' ).onValue( true, function() {
+    this.isCalculateProperty.onValue( true, function() {
       self.elapsedTime = 0;
     } );
 
-    this.property( 'isRunning' ).link( function( isRunning ) {
+    this.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
         // clear time when timer revert to init state
         self.elapsedTime = 0;
@@ -75,10 +75,10 @@ define( function( require ) {
       pendulum.periodTrace.isRepeat = false;
       pendulum.periodTrace.isVisible = false;
 
-      pendulum.property( 'length' ).lazyLink( updateTimer );
-      pendulum._gravityProperty.lazyLink( updateTimer );
-      pendulum.property( 'isUserControlled' ).lazyLink( updateTimer );
-      self.property( 'isVisible' ).onValue( false, updateTimer );
+      pendulum.lengthProperty.lazyLink( updateTimer );
+      pendulum.gravityProperty.lazyLink( updateTimer );
+      pendulum.isUserControlledProperty.lazyLink( updateTimer );
+      self.isVisibleProperty.onValue( false, updateTimer );
 
       pathListeners[ pendulumIndex ] = function() {
         if ( pendulum.periodTrace.pathPoints.length === 1 && self.isRunning ) {
@@ -93,7 +93,7 @@ define( function( require ) {
 
     // add path listeners
     pendulums[ 0 ].periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
-    this.property( 'isFirst' ).lazyLink( function( isFirst ) {
+    this.isFirstProperty.lazyLink( function( isFirst ) {
       self.activePendulum.periodTrace.pathPoints.reset();
       self.clear();
 
