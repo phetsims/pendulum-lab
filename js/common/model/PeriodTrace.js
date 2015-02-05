@@ -35,7 +35,7 @@ define( function( require ) {
     this.pathPoints = new ObservableArray();
 
     // track path of pendulum
-    pendulum.angleProperty.link( function( newAngle, oldAngle ) {
+    pendulum.angleProperty.lazyLink( function( newAngle, oldAngle ) {
       if ( self.isVisible && !pendulum.isUserControlled ) {
         var pathArray = self.pathPoints.getArray();
 
