@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
@@ -23,6 +22,7 @@ define( function( require ) {
     var self = this;
 
     PropertySet.call( this, {
+      numberOfPoints: 0,
       isVisible: false, // flag to control visibility
       isRepeat: true // flag to control repeating of drawing path
     } );
@@ -31,41 +31,44 @@ define( function( require ) {
     this._isPeriodTraceVisibleProperty = isPeriodTraceVisibleProperty;
     this._pendulum = pendulum;
 
-    // array to store checkpoints when track path
-    this.pathPoints = new ObservableArray();
+    // properties for drawing path shape
+    this.anticlockwise = null;
+    this.firstAngle = null;
+    this.secondAngle = null;
 
     // track path of pendulum
     pendulum.angleProperty.lazyLink( function( newAngle, oldAngle ) {
       if ( self.isVisible && !pendulum.isUserControlled ) {
-        var pathArray = self.pathPoints.getArray();
-
-        if ( self.pathPoints.length < 4 && Math.abs( newAngle - oldAngle ) < Math.PI / 4 ) {
+        if ( self.numberOfPoints < 4 && Math.abs( newAngle - oldAngle ) < Math.PI / 4 ) {
           // first point
-          if ( self.pathPoints.length === 0 && newAngle * oldAngle < 0 ) {
-            self.pathPoints.push( { anticlockwise: newAngle < 0 } );
+          if ( self.numberOfPoints === 0 && newAngle * oldAngle < 0 ) {
+            self.anticlockwise = newAngle < 0;
+            self.numberOfPoints = 1;
           }
           // second point
-          else if ( self.pathPoints.length === 1 && ((pathArray[ 0 ].anticlockwise && newAngle > oldAngle) || (!pathArray[ 0 ].anticlockwise && newAngle < oldAngle)) ) {
-            self.pathPoints.push( { angle: oldAngle, anticlockwise: !pathArray[ 0 ].anticlockwise } );
+          else if ( self.numberOfPoints === 1 && ((self.anticlockwise && newAngle > oldAngle) || (!self.anticlockwise && newAngle < oldAngle)) ) {
+            self.firstAngle = oldAngle;
+            self.numberOfPoints = 2;
           }
           // third point
-          else if ( self.pathPoints.length === 2 && ((pathArray[ 1 ].anticlockwise && newAngle > oldAngle) || (!pathArray[ 1 ].anticlockwise && newAngle < oldAngle)) ) {
-            self.pathPoints.push( { angle: oldAngle, anticlockwise: !pathArray[ 1 ].anticlockwise } );
+          else if ( self.numberOfPoints === 2 && ((!self.anticlockwise && newAngle > oldAngle) || (self.anticlockwise && newAngle < oldAngle)) ) {
+            self.secondAngle = oldAngle;
+            self.numberOfPoints = 3;
           }
           // fourth point
-          else if ( self.pathPoints.length === 3 && newAngle * oldAngle < 0 ) {
-            self.pathPoints.push( { anticlockwise: pathArray[ 2 ].anticlockwise } );
+          else if ( self.numberOfPoints === 3 && newAngle * oldAngle < 0 ) {
+            self.numberOfPoints = 4;
           }
         }
       }
     } );
 
     // clear pendulum path
-    var clearPathPoints = this.pathPoints.clear.bind( this.pathPoints );
-    pendulum.gravityProperty.lazyLink( clearPathPoints );
-    pendulum.lengthProperty.lazyLink( clearPathPoints );
-    pendulum.isUserControlledProperty.lazyLink( clearPathPoints );
-    this.isVisibleProperty.onValue( false, clearPathPoints );
+    var resetPathPoints = this.resetPathPoints.bind( this );
+    pendulum.gravityProperty.lazyLink( resetPathPoints );
+    pendulum.lengthProperty.lazyLink( resetPathPoints );
+    pendulum.isUserControlledProperty.lazyLink( resetPathPoints );
+    this.isVisibleProperty.onValue( false, resetPathPoints );
 
     // add visibility observer
     this.addVisibilityObservers();
@@ -75,8 +78,16 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
-      this.pathPoints.reset();
+      this.resetPathPoints();
     },
+
+    resetPathPoints: function() {
+      this.anticlockwise = null;
+      this.firstAngle = null;
+      this.secondAngle = null;
+      this.numberOfPoints = 0;
+    },
+
     addVisibilityObservers: function() {
       var self = this;
 

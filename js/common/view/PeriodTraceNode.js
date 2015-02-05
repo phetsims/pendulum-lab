@@ -50,39 +50,41 @@ define( function( require ) {
       };
 
       var updateShape = function() {
-        var pathPointsStorage = pendulum.periodTrace.pathPoints.getArray(),
-          shape, traceLength;
+        var periodTrace = pendulum.periodTrace;
+        var numberOfPoints = periodTrace.numberOfPoints;
+        var shape;
+        var traceLength;
 
-        if ( pathPointsStorage.length > 0 ) {
+        if ( numberOfPoints > 0 ) {
           shape = new Shape();
           traceLength = metersToPixels( pendulum.length * 3 / 4 );
 
           // draw first arc
-          if ( pathPointsStorage.length > 1 ) {
-            shape.arc( 0, 0, traceLength, 0, pathPointsStorage[ 1 ].angle, pathPointsStorage[ 0 ].anticlockwise );
-            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( pathPointsStorage[ 1 ].angle ), (traceLength - TRACE_STEP) * Math.sin( pathPointsStorage[ 1 ].angle ) );
+          if ( numberOfPoints > 1 ) {
+            shape.arc( 0, 0, traceLength, 0, periodTrace.firstAngle, periodTrace.anticlockwise );
+            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( periodTrace.firstAngle ), (traceLength - TRACE_STEP) * Math.sin( periodTrace.firstAngle ) );
 
             // draw second arc
-            if ( pathPointsStorage.length > 2 ) {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[ 1 ].angle, pathPointsStorage[ 2 ].angle, pathPointsStorage[ 1 ].anticlockwise );
-              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( pathPointsStorage[ 2 ].angle ), (traceLength - 2 * TRACE_STEP) * Math.sin( pathPointsStorage[ 2 ].angle ) );
+            if ( numberOfPoints > 2 ) {
+              shape.arc( 0, 0, traceLength - TRACE_STEP, periodTrace.firstAngle, periodTrace.secondAngle, !periodTrace.anticlockwise );
+              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( periodTrace.secondAngle ), (traceLength - 2 * TRACE_STEP) * Math.sin( periodTrace.secondAngle ) );
 
               // draw third arc
-              if ( pathPointsStorage.length > 3 ) {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, 0, pathPointsStorage[ 2 ].anticlockwise );
+              if ( numberOfPoints > 3 ) {
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, periodTrace.secondAngle, 0, periodTrace.anticlockwise );
                 isCompleted = true;
                 fadeOutPath( 3 * pendulum.getApproximatePeriod() / 2 * 10 );
               }
               else {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, pathPointsStorage[ 2 ].angle, pendulum.angle, pathPointsStorage[ 2 ].anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, periodTrace.secondAngle, pendulum.angle, periodTrace.anticlockwise );
               }
             }
             else {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, pathPointsStorage[ 1 ].angle, pendulum.angle, pathPointsStorage[ 1 ].anticlockwise );
+              shape.arc( 0, 0, traceLength - TRACE_STEP, periodTrace.firstAngle, pendulum.angle, !periodTrace.anticlockwise );
             }
           }
           else {
-            shape.arc( 0, 0, traceLength, 0, pendulum.angle, pathPointsStorage[ 0 ].anticlockwise );
+            shape.arc( 0, 0, traceLength, 0, pendulum.angle, periodTrace.anticlockwise );
           }
           pathNode.setShape( shape );
         }
@@ -113,7 +115,11 @@ define( function( require ) {
       pendulum.periodTrace.isVisibleProperty.linkAttribute( pathNode, 'visible' );
 
       // clear trace if path points were removed
-      pendulum.periodTrace.pathPoints.addItemRemovedListener( resetPath );
+      pendulum.periodTrace.numberOfPointsProperty.lazyLink( function( numberNew, numberPrev ) {
+        if ( numberNew < numberPrev ) {
+          resetPath();
+        }
+      } );
     } );
   }
 
