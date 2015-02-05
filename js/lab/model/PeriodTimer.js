@@ -53,7 +53,7 @@ define( function( require ) {
         self.elapsedTime = 0;
 
         // reset and show trace path
-        self.activePendulum.periodTrace.pathPoints.reset();
+        self.activePendulum.periodTrace.resetPathPoints();
         self.activePendulum.periodTrace.isVisible = true;
       }
       else {
@@ -81,10 +81,10 @@ define( function( require ) {
       self.isVisibleProperty.onValue( false, updateTimer );
 
       pathListeners[ pendulumIndex ] = function() {
-        if ( pendulum.periodTrace.pathPoints.length === 1 && self.isRunning ) {
+        if ( pendulum.periodTrace.numberOfPoints === 1 && self.isRunning ) {
           self.isCalculate = true;
         }
-        else if ( (pendulum.periodTrace.pathPoints.length === 4 || pendulum.periodTrace.pathPoints.length === 0) && self.isRunning ) {
+        else if ( (pendulum.periodTrace.numberOfPoints === 4 || pendulum.periodTrace.numberOfPoints === 0) && self.isRunning ) {
           self.isRunning = false;
         }
       };
@@ -92,20 +92,20 @@ define( function( require ) {
     } );
 
     // add path listeners
-    pendulums[ 0 ].periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
+    pendulums[ 0 ].periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
     this.isFirstProperty.lazyLink( function( isFirst ) {
-      self.activePendulum.periodTrace.pathPoints.reset();
+      self.activePendulum.periodTrace.resetPathPoints();
       self.clear();
 
       if ( isFirst ) {
-        self.activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[ 1 ] );
+        self.activePendulum.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
         self.activePendulum = pendulums[ 0 ];
-        self.activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[ 0 ] );
+        self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
       }
       else {
-        self.activePendulum.periodTrace.pathPoints.removeItemAddedListener( pathListeners[ 0 ] );
+        self.activePendulum.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 0 ] );
         self.activePendulum = pendulums[ 1 ];
-        self.activePendulum.periodTrace.pathPoints.addItemAddedListener( pathListeners[ 1 ] );
+        self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
       }
 
       if ( self.isRunning ) {
