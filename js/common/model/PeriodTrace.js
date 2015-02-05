@@ -13,7 +13,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {PropertySet} pendulum - Pendulum model.
+   * @param {Pendulum} pendulum - Pendulum model.
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track pendulum path.
    *
    * @constructor

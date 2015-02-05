@@ -44,7 +44,7 @@ define( function( require ) {
   var SPACING = 4;
 
   /**
-   * @param {PropertySet} pendulum - Property with selected mode of energy graph representation.
+   * @param {Pendulum} pendulum - Property with selected pendulum for energy graph representation.
    * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
    * @param {dimension} dimension of graph.
