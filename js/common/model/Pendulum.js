@@ -33,7 +33,10 @@ define( function( require ) {
     this.gravityProperty = gravityProperty;
 
     Movable.call( this, {
-      angle: 0, // value of the angular displacement
+      // value of the angular displacement
+      // acceptable range for angle is [ -2 * pi ; 2 * pi ], it is rounded in PendulumLabModel.step function.
+      angle: 0,
+
       length: length, // length of pendulum
       mass: mass, // mass of pendulum
       alpha: 0, // angular acceleration of pendulum
