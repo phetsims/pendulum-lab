@@ -27,7 +27,7 @@ define( function( require ) {
   var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // strings
-  var EnergyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
+  var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
 
   // constants
   var FONT = new PhetFont( 11 );
@@ -116,7 +116,7 @@ define( function( require ) {
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        titleNode: new Text( EnergyGraphString, { font: FONT } ),
+        titleNode: new Text( energyGraphString, { font: FONT } ),
         titleXMargin: 0,
         contentXMargin: 5,
         contentYMargin: 5,

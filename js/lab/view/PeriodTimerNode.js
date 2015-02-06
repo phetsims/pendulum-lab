@@ -32,7 +32,7 @@ define( function( require ) {
 
   // strings
   var pattern_0timeValue_timeUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0timeValue.timeUnitsMetric' );
-  var PeriodString = require( 'string!PENDULUM_LAB/period' );
+  var periodString = require( 'string!PENDULUM_LAB/period' );
 
   // constants
   var BACKGROUND_IN_COLOR = 'rgb( 245, 217, 73 )';
@@ -128,7 +128,7 @@ define( function( require ) {
       left: PANEL_PAD,
       top: PANEL_PAD,
       children: [
-        new Text( PeriodString, { font: FONT_TEXT } ),
+        new Text( periodString, { font: FONT_TEXT } ),
         new Node( { children: [ textBackground, readoutText ] } ),
         new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } )
       ]

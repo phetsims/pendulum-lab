@@ -14,7 +14,7 @@ define( function( require ) {
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
-  var ReturnString = require( 'string!PENDULUM_LAB/return' );
+  var returnString = require( 'string!PENDULUM_LAB/return' );
 
   // constants
   var FONT = new PhetFont( 12 );
@@ -26,7 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function ReturnButtonNode( options ) {
-    TextPushButton.call( this, ReturnString, _.extend( { font: FONT, baseColor: 'rgb( 231, 232, 233 )' }, options ) );
+    TextPushButton.call( this, returnString, _.extend( { font: FONT, baseColor: 'rgb( 231, 232, 233 )' }, options ) );
   }
 
   return inherit( TextPushButton, ReturnButtonNode );

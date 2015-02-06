@@ -20,9 +20,9 @@ define( function( require ) {
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
   // strings
-  var RulerString = require( 'string!PENDULUM_LAB/ruler' );
-  var StopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
-  var PeriodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
+  var rulerString = require( 'string!PENDULUM_LAB/ruler' );
+  var stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
+  var periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
 
   // constants
   var FONT = new PhetFont( 11 );
@@ -37,9 +37,9 @@ define( function( require ) {
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
     this._labels = [
-      new Text( RulerString, { font: FONT } ),
-      new Text( StopwatchString, { font: FONT } ),
-      new Text( PeriodTraceString, { font: FONT } )
+      new Text( rulerString, { font: FONT } ),
+      new Text( stopwatchString, { font: FONT } ),
+      new Text( periodTraceString, { font: FONT } )
     ];
 
     PanelPendulumAbstract.call( this,

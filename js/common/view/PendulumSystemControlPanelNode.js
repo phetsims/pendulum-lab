@@ -23,8 +23,8 @@ define( function( require ) {
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
-  var NormalString = require( 'string!PENDULUM_LAB/normal' );
-  var SlowMotionString = require( 'string!PENDULUM_LAB/slowMotion' );
+  var normalString = require( 'string!PENDULUM_LAB/normal' );
+  var slowMotionString = require( 'string!PENDULUM_LAB/slowMotion' );
 
   // constants
   var FONT = new PhetFont( 11 );
@@ -66,11 +66,11 @@ define( function( require ) {
         new VerticalAquaRadioButtonGroup( [ {
           property: timeSpeedProperty,
           value: 1,
-          node: new Text( NormalString, { font: FONT } )
+          node: new Text( normalString, { font: FONT } )
         }, {
           property: timeSpeedProperty,
           value: 1 / 8,
-          node: new Text( SlowMotionString, { font: FONT } )
+          node: new Text( slowMotionString, { font: FONT } )
         }
         ], { radius: 6, spacing: 9, radioButtonOptions: { xSpacing: 5 } } )
       ]

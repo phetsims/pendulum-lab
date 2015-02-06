@@ -22,8 +22,8 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var FrictionString = require( 'string!PENDULUM_LAB/friction' );
-  var GravityString = require( 'string!PENDULUM_LAB/gravity' );
+  var frictionString = require( 'string!PENDULUM_LAB/friction' );
+  var gravityString = require( 'string!PENDULUM_LAB/gravity' );
 
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
@@ -43,7 +43,7 @@ define( function( require ) {
       pendulumLabModel.gravityRange, pendulumLabModel.planetProperty, pendulumLabModel.planets, planetsListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
-        new Text( GravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
+        new Text( gravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
         this.gravitySlider
       ]
     } ) );
@@ -54,7 +54,7 @@ define( function( require ) {
 
       content.addChild( new Node( {
         children: [
-          new Text( FrictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
+          new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
           this.frictionSlider
         ]
       } ) );

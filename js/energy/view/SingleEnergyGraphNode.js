@@ -24,11 +24,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var KineticString = require( 'string!PENDULUM_LAB/kinetic' );
+  var kineticString = require( 'string!PENDULUM_LAB/kinetic' );
   var pattern_energyOf_0pendulumNumber = require( 'string!PENDULUM_LAB/pattern.energyOf.0pendulumNumber' );
-  var PotentialString = require( 'string!PENDULUM_LAB/potential' );
-  var ThermalString = require( 'string!PENDULUM_LAB/thermal' );
-  var TotalString = require( 'string!PENDULUM_LAB/total' );
+  var potentialString = require( 'string!PENDULUM_LAB/potential' );
+  var thermalString = require( 'string!PENDULUM_LAB/thermal' );
+  var totalString = require( 'string!PENDULUM_LAB/total' );
 
   // constants
   var ARROW_HEAD_WIDTH = 6;
@@ -62,16 +62,16 @@ define( function( require ) {
     } );
 
     // create labels for bars
-    var kineticText = new Text( KineticString, { font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2 } );
+    var kineticText = new Text( kineticString, { font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2 } );
     var barLabels = new HBox( {
       resize: false,
       spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - kineticText.width,
       align: 'top',
       children: [
         kineticText,
-        new Text( PotentialString, { font: FONT, fill: COLOR.POTENTIAL, rotation: -Math.PI / 2 } ),
-        new Text( ThermalString, { font: FONT, fill: COLOR.THERMAL, rotation: -Math.PI / 2 } ),
-        new Text( TotalString, { font: FONT, fill: COLOR.TOTAL, rotation: -Math.PI / 2 } )
+        new Text( potentialString, { font: FONT, fill: COLOR.POTENTIAL, rotation: -Math.PI / 2 } ),
+        new Text( thermalString, { font: FONT, fill: COLOR.THERMAL, rotation: -Math.PI / 2 } ),
+        new Text( totalString, { font: FONT, fill: COLOR.TOTAL, rotation: -Math.PI / 2 } )
       ]
     } );
 

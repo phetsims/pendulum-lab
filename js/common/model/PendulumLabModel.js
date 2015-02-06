@@ -21,11 +21,11 @@ define( function( require ) {
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   // strings
-  var CustomString = require( 'string!PENDULUM_LAB/custom' );
-  var EarthString = require( 'string!PENDULUM_LAB/earth' );
-  var JupiterString = require( 'string!PENDULUM_LAB/jupiter' );
-  var MoonString = require( 'string!PENDULUM_LAB/moon' );
-  var PlanetXString = require( 'string!PENDULUM_LAB/planetX' );
+  var customString = require( 'string!PENDULUM_LAB/custom' );
+  var earthString = require( 'string!PENDULUM_LAB/earth' );
+  var jupiterString = require( 'string!PENDULUM_LAB/jupiter' );
+  var moonString = require( 'string!PENDULUM_LAB/moon' );
+  var planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -51,11 +51,11 @@ define( function( require ) {
     ];
 
     this.planets = [
-      new Planet( Planets.MOON, MoonString, 1.62 ), // moon
-      new Planet( Planets.EARTH, EarthString, 9.81 ), // earth
-      new Planet( Planets.JUPITER, JupiterString, 24.79 ), // jupiter
-      new Planet( Planets.PLANET_X, PlanetXString, 14.2 ), // planet x
-      new Planet( Planets.CUSTOM, CustomString ) // custom
+      new Planet( Planets.MOON, moonString, 1.62 ), // moon
+      new Planet( Planets.EARTH, earthString, 9.81 ), // earth
+      new Planet( Planets.JUPITER, jupiterString, 24.79 ), // jupiter
+      new Planet( Planets.PLANET_X, planetXString, 14.2 ), // planet x
+      new Planet( Planets.CUSTOM, customString ) // custom
     ];
 
     // possible gravity range

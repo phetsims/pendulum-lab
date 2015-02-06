@@ -16,7 +16,7 @@ define( function( require ) {
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
 
   // strings
-  var PeriodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
+  var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -49,7 +49,7 @@ define( function( require ) {
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
 
     // change label for period timer
-    this.toolsControlPanelNode.setLabelText( 2, PeriodTimerString );
+    this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
 
     pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
   }

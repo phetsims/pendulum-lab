@@ -27,10 +27,10 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var LotsString = require( 'string!PENDULUM_LAB/lots' );
-  var NoneString = require( 'string!PENDULUM_LAB/none' );
+  var lotsString = require( 'string!PENDULUM_LAB/lots' );
+  var noneString = require( 'string!PENDULUM_LAB/none' );
   var pattern_0gravityValue_gravityUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0gravityValue.gravityUnitsMetric' );
-  var WhatIsTheValueOfGravity = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
+  var whatIsTheValueOfGravity = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   // constants
   var FONT = new PhetFont( 9 );
@@ -84,14 +84,14 @@ define( function( require ) {
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE
     } );
-    hSlider.addMajorTick( gravityPropertyRange.min, new Text( NoneString, { font: FONT } ) );
-    hSlider.addMajorTick( gravityPropertyRange.max, new Text( LotsString, { font: FONT } ) );
+    hSlider.addMajorTick( gravityPropertyRange.min, new Text( noneString, { font: FONT } ) );
+    hSlider.addMajorTick( gravityPropertyRange.max, new Text( lotsString, { font: FONT } ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( hSlider );
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
-    this.questionNodeText = new Text( WhatIsTheValueOfGravity, { font: FONT } );
+    this.questionNodeText = new Text( whatIsTheValueOfGravity, { font: FONT } );
     this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ] } );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );

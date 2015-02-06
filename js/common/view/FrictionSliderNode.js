@@ -19,8 +19,8 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var LotsString = require( 'string!PENDULUM_LAB/lots' );
-  var NoneString = require( 'string!PENDULUM_LAB/none' );
+  var lotsString = require( 'string!PENDULUM_LAB/lots' );
+  var noneString = require( 'string!PENDULUM_LAB/none' );
 
   // constants
   var FONT = new PhetFont( 9 );
@@ -52,9 +52,9 @@ define( function( require ) {
     } );
 
     // add ticks
-    hSlider.addMajorTick( sliderValueRange.min, new Text( NoneString, { font: FONT } ) );
+    hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT } ) );
     hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
-    hSlider.addMajorTick( sliderValueRange.max, new Text( LotsString, { font: FONT } ) );
+    hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT } ) );
     tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );

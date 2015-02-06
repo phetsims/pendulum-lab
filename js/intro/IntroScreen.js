@@ -18,7 +18,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var IntroString = require( 'string!PENDULUM_LAB/tab.intro' );
+  var introString = require( 'string!PENDULUM_LAB/tab.intro' );
 
   /**
    * @constructor
@@ -33,7 +33,7 @@ define( function( require ) {
     // model coordinates are the same as view coordinates
     var mvt = ModelViewTransform2.createIdentity();
 
-    Screen.call( this, IntroString, icon,
+    Screen.call( this, introString, icon,
       function() { return new PendulumLabModel(); },
       function( model ) { return new PendulumLabView( model, mvt ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }

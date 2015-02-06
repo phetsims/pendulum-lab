@@ -22,8 +22,8 @@ define( function( require ) {
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
   // strings
-  var VelocityString = require( 'string!PENDULUM_LAB/velocity' );
-  var AccelerationString = require( 'string!PENDULUM_LAB/acceleration' );
+  var velocityString = require( 'string!PENDULUM_LAB/velocity' );
+  var accelerationString = require( 'string!PENDULUM_LAB/acceleration' );
 
   // constants
   var ARROW_LENGTH = 22;
@@ -41,8 +41,8 @@ define( function( require ) {
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     var textStrings = [
-      new Text( VelocityString, { font: FONT, centerY: 0 } ),
-      new Text( AccelerationString, { font: FONT, centerY: 0 } )
+      new Text( velocityString, { font: FONT, centerY: 0 } ),
+      new Text( accelerationString, { font: FONT, centerY: 0 } )
     ];
 
     var maxStringWidth = 0;
