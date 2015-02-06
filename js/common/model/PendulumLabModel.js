@@ -40,7 +40,9 @@ define( function( require ) {
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
-      isPeriodTraceVisible: false // flag: controls visibility of period trace timer
+
+      // flag: controls check box value of period trace visibility
+      isPeriodTraceVisible: false
     } );
 
     this.pendulums = [

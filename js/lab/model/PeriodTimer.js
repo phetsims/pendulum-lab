@@ -15,7 +15,7 @@ define( function( require ) {
 
   /**
    * @param {Array} pendulums - Array of pendulum models.
-   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Property to control visibility of period trace path.
+   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    *
    * @constructor
    */

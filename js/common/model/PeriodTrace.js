@@ -14,7 +14,7 @@ define( function( require ) {
 
   /**
    * @param {Pendulum} pendulum - Pendulum model.
-   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track pendulum path.
+   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    *
    * @constructor
    */
@@ -23,7 +23,11 @@ define( function( require ) {
 
     PropertySet.call( this, {
       numberOfPoints: 0,
-      isVisible: false, // flag to control visibility
+
+      // flag to control visibility of period trace
+      // it's necessary because period trace can be hide even when isPeriodTraceVisibleProperty === true (example: while pendulum not reach central position)
+      isVisible: false,
+
       isRepeat: true // flag to control repeating of drawing path
     } );
 
