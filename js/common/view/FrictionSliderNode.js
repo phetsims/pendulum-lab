@@ -26,6 +26,14 @@ define( function( require ) {
   var FONT = new PhetFont( 9 );
   var TICK_NUMBER = 10;
 
+  function sliderValueToFriction( sliderValue ) {
+    return 0.0005 * ( Math.pow( 2, sliderValue ) - 1 );
+  }
+
+  function frictionToSliderValue( friction ) {
+    return Math.round( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
+  }
+
   /**
    * Constructor for the gravity slider control.
    *
@@ -72,14 +80,6 @@ define( function( require ) {
       }
     } );
   }
-
-  var sliderValueToFriction = function( sliderValue ) {
-    return 0.0005 * (Math.pow( 2, sliderValue ) - 1);
-  };
-
-  var frictionToSliderValue = function( friction ) {
-    return Math.round( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
-  };
 
   return inherit( VBox, FrictionSliderNode, {
     reset: function() {
