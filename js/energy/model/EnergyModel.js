@@ -21,7 +21,7 @@ define( function( require ) {
   function EnergyModel() {
     PendulumLabModel.call( this );
 
-    // hide ruler bu default
+    // hide ruler by default
     this.ruler.isVisibleProperty.storeInitialValue( false );
     this.ruler.isVisible = false;
 
