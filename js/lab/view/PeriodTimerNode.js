@@ -171,10 +171,10 @@ define( function( require ) {
     } );
 
     // add drag and drop events
-    this.addInputListener( new MovableDragHandler( {
-      locationProperty: periodTrace.locationProperty,
+    this.addInputListener( new MovableDragHandler( periodTrace.locationProperty, {
+      modelViewTransform: mvt,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
-    }, mvt ) );
+    } ) );
 
     // add update of node location
     periodTrace.locationProperty.lazyLink( function( location ) {

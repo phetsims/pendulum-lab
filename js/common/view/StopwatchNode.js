@@ -29,10 +29,10 @@ define( function( require ) {
     this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
 
     // add drag and drop events
-    this.addInputListener( new MovableDragHandler( {
-      locationProperty: stopwatch.locationProperty,
+    this.addInputListener( new MovableDragHandler( stopwatch.locationProperty, {
+      modelViewTransform: mvt,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
-    }, mvt ) );
+    } ) );
 
     // add update of node location
     stopwatch.locationProperty.lazyLink( function( location ) {

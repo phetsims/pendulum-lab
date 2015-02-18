@@ -67,10 +67,10 @@ define( function( require ) {
     this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
 
     // add drag and drop events
-    this.addInputListener( new MovableDragHandler( {
-      locationProperty: ruler.locationProperty,
+    this.addInputListener( new MovableDragHandler( ruler.locationProperty, {
+      modelViewTransform: mvt,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
-    }, mvt ) );
+    } ) );
 
     // add update of node location
     ruler.locationProperty.lazyLink( function( location ) {
