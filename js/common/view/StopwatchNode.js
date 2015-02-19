@@ -16,12 +16,12 @@ define( function( require ) {
 
   /**
    * @param {PropertySet} stopwatch - Model of stopwatch.
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Bounds2} toolsControlPanelNodeBounds - Bounds of tool control panel. Necessary to set relative position of stopwatch.
    * @constructor
    */
-  function StopwatchNode( stopwatch, mvt, layoutBounds, toolsControlPanelNodeBounds ) {
+  function StopwatchNode( stopwatch, modelViewTransform, layoutBounds, toolsControlPanelNodeBounds ) {
     var self = this;
     Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty );
 
@@ -30,7 +30,7 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( stopwatch.locationProperty, {
-      modelViewTransform: mvt,
+      modelViewTransform: modelViewTransform,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } ) );
 

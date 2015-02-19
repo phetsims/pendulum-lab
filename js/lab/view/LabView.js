@@ -23,11 +23,11 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function LabView( pendulumLabModel, mvt ) {
-    EnergyView.call( this, pendulumLabModel, mvt );
+  function LabView( pendulumLabModel, modelViewTransform ) {
+    EnergyView.call( this, pendulumLabModel, modelViewTransform );
 
     // add arrow panel node to the bottom layer
     var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.isVelocityVisibleProperty,
@@ -43,7 +43,7 @@ define( function( require ) {
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
 
     // add period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, mvt, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, modelViewTransform, this.layoutBounds );
     periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );

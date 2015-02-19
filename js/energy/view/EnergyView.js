@@ -19,11 +19,11 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function EnergyView( pendulumLabModel, mvt ) {
-    PendulumLabView.call( this, pendulumLabModel, mvt );
+  function EnergyView( pendulumLabModel, modelViewTransform ) {
+    PendulumLabView.call( this, pendulumLabModel, modelViewTransform );
 
     // add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulums, pendulumLabModel.isEnergyGraphExpandedProperty, pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulumsProperty );

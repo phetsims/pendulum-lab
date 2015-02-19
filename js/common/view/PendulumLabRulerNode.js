@@ -28,11 +28,11 @@ define( function( require ) {
   /**
    * @param {PropertySet} ruler - Model for ruler.
    * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view
    * @constructor
    */
-  function PendulumLabRulerNode( ruler, metersToPixels, mvt, layoutBounds ) {
+  function PendulumLabRulerNode( ruler, metersToPixels, modelViewTransform, layoutBounds ) {
     var self = this;
 
     // create tick labels
@@ -68,7 +68,7 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( ruler.locationProperty, {
-      modelViewTransform: mvt,
+      modelViewTransform: modelViewTransform,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } ) );
 

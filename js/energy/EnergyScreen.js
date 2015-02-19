@@ -31,11 +31,11 @@ define( function( require ) {
     } );
 
     // model coordinates are the same as view coordinates
-    var mvt = ModelViewTransform2.createIdentity();
+    var modelViewTransform = ModelViewTransform2.createIdentity();
 
     Screen.call( this, energyString, icon,
       function() { return new EnergyModel(); },
-      function( model ) { return new EnergyView( model, mvt ); },
+      function( model ) { return new EnergyView( model, modelViewTransform ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

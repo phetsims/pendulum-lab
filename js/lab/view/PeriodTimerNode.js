@@ -48,12 +48,12 @@ define( function( require ) {
   /**
    * @param {PropertySet} periodTrace - Period trace model.
    * @param {PropertySet} secondPendulumIsVisibleProperty - Second pendulum visibility property.
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Object} [options]
    * @constructor
    */
-  function PeriodTimerNode( periodTrace, secondPendulumIsVisibleProperty, mvt, layoutBounds, options ) {
+  function PeriodTimerNode( periodTrace, secondPendulumIsVisibleProperty, modelViewTransform, layoutBounds, options ) {
     var self = this;
 
     options = _.extend( {
@@ -172,7 +172,7 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( periodTrace.locationProperty, {
-      modelViewTransform: mvt,
+      modelViewTransform: modelViewTransform,
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } ) );
 

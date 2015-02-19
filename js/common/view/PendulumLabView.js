@@ -32,10 +32,10 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
-   * @param {ModelViewTransform2} mvt
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function PendulumLabView( pendulumLabModel, mvt ) {
+  function PendulumLabView( pendulumLabModel, modelViewTransform ) {
     var pendulumLabView = this;
 
     ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
@@ -99,11 +99,11 @@ define( function( require ) {
     resetAllButton.scale( 0.75 );
 
     // add ruler node
-    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, pendulumLabModel.metersToPixels, mvt, this.layoutBounds );
+    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, pendulumLabModel.metersToPixels, modelViewTransform, this.layoutBounds );
     this.rulerNode = rulerNode;
 
     // add timer node
-    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, mvt, this.layoutBounds, toolsControlPanelNode.bounds );
+    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, modelViewTransform, this.layoutBounds, toolsControlPanelNode.bounds );
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
