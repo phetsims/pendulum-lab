@@ -49,11 +49,11 @@ define( function( require ) {
     rect.rotate( -ANGLE );
     this.content.addChild( rect );
 
-    this.centeringAndScaling( ICON_SIZE );
+    this.centerAndScale( ICON_SIZE );
   }
 
   return inherit( Node, OnePendulumIconNode, {
-    centeringAndScaling: function( iconSize ) {
+    centerAndScale: function( iconSize ) {
       var content = this.content;
 
       // centering of icon

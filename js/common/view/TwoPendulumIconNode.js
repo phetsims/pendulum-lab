@@ -44,7 +44,7 @@ define( function( require ) {
     rect.rotate( ANGLE );
     this.content.addChild( rect );
 
-    this.centeringAndScaling( ICON_SIZE );
+    this.centerAndScale( ICON_SIZE );
   }
 
   return inherit( OnePendulumIconNode, TwoPendulumIconNode );
