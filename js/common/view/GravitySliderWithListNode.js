@@ -119,15 +119,26 @@ define( function( require ) {
   return inherit( VBox, GravitySliderWithListNode, {
     // add arrow buttons and value panel
     addTweakers: function( gravityProperty, gravityPropertyRange ) {
-      var arrowButtonMinus;
-      var valueLabel;
-      var arrowButtonPlus;
+      // create minus button
+      var arrowButtonMinus= new ArrowButton( 'left', function() {
+        gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+      }, { scale: 0.5 } );
+
+      // create value label
+      var valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
+        centerX: 0,
+        centerY: -1,
+        font: FONT
+      } );
+
+      // create plus button
+      var arrowButtonPlus = new ArrowButton( 'right', function() {
+        gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+      }, { scale: 0.5 } );
 
       this.gravityAdjustmentNode.insertChild( 0, new HBox( {
         spacing: VALUE_LABEL_SPACING, children: [
-          arrowButtonMinus = new ArrowButton( 'left', function() {
-            gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-          }, { scale: 0.5 } ),
+          arrowButtonMinus,
           new Node( {
             children: [
               new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
@@ -137,16 +148,10 @@ define( function( require ) {
                 stroke: 'black',
                 lineWidth: 1
               } ),
-              valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
-                centerX: 0,
-                centerY: -1,
-                font: FONT
-              } )
+              valueLabel
             ]
           } ),
-          arrowButtonPlus = new ArrowButton( 'right', function() {
-            gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-          }, { scale: 0.5 } )
+          arrowButtonPlus
         ]
       } ) );
 

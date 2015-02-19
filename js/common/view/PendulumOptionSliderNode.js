@@ -41,8 +41,24 @@ define( function( require ) {
    * @constructor
    */
   function PendulumOptionSliderNode( trackProperty, trackPropertyRange, valuePatternString, color, options ) {
-    var arrowButtonMinus, arrowButtonPlus, valueLabel, sliderProperty = new Property( trackProperty.value );
+    // create minus button
+    var arrowButtonMinus = new ArrowButton( 'left', function() {
+      trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+    }, { scale: 0.5 } );
 
+    // create value label
+    var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
+      centerX: 0,
+      centerY: -1,
+      font: FONT_LABEL
+    } );
+
+    // create plus button
+    var arrowButtonPlus = new ArrowButton( 'right', function() {
+      trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+    }, { scale: 0.5 } );
+
+    var sliderProperty = new Property( trackProperty.value );
     this._property = sliderProperty;
 
     VBox.call( this, _.extend( {
@@ -52,9 +68,7 @@ define( function( require ) {
         // arrow buttons and value panel
         new HBox( {
           spacing: VALUE_LABEL_SPACING, children: [
-            arrowButtonMinus = new ArrowButton( 'left', function() {
-              trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-            }, { scale: 0.5 } ),
+            arrowButtonMinus,
             new Node( {
               children: [
                 new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
@@ -64,16 +78,10 @@ define( function( require ) {
                   stroke: 'black',
                   lineWidth: 1
                 } ),
-                valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
-                  centerX: 0,
-                  centerY: -1,
-                  font: FONT_LABEL
-                } )
+                valueLabel
               ]
             } ),
-            arrowButtonPlus = new ArrowButton( 'right', function() {
-              trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
-            }, { scale: 0.5 } )
+            arrowButtonPlus
           ]
         } ),
 
