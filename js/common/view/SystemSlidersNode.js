@@ -43,19 +43,21 @@ define( function( require ) {
       pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
-        new Text( gravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
+        new Text( gravityString, { font: FONT_TITLE } ),
         this.gravitySlider
       ]
     } ) );
 
     // add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
-      this.frictionSlider = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
+      var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
+      var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } );
+      frictionSliderLabel.centerY = -(frictionSliderNode.height + frictionSliderLabel.height) / 2 - 4;
 
       content.addChild( new Node( {
         children: [
-          new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),
-          this.frictionSlider
+          frictionSliderLabel,
+          frictionSliderNode
         ]
       } ) );
     }

@@ -16,7 +16,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
@@ -45,28 +44,23 @@ define( function( require ) {
   function FrictionSliderNode( frictionProperty, frictionPropertyRange, options ) {
     var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
     var sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
-    var tickStep;
 
-    VBox.call( this, _.extend( { spacing: 4 }, options ) );
-
-    // add slider for friction property
-    var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
+    HSlider.call( this, sliderValueProperty, sliderValueRange, _.extend( {
       majorTickLength: 10,
       minorTickLength: 5,
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE
-    } );
+    }, options ) );
 
     // add ticks
-    hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT } ) );
-    hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
-    hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT } ) );
-    tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
-    for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
-      hSlider.addMinorTick( i );
-    }
+    this.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT } ) );
+    this.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
+    this.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT } ) );
 
-    this.addChild( hSlider );
+    var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
+    for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
+      this.addMinorTick( i );
+    }
 
     sliderValueProperty.link( function( sliderValue ) {
       // snap to integer values
@@ -83,5 +77,5 @@ define( function( require ) {
     } );
   }
 
-  return inherit( VBox, FrictionSliderNode );
+  return inherit( HSlider, FrictionSliderNode );
 } );
