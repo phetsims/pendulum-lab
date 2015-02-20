@@ -32,6 +32,7 @@ define( function( require ) {
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
+      friction: 0, // friction coefficient
 
       // flag: controls check box value of period trace visibility
       isPeriodTraceVisible: false
@@ -52,6 +53,9 @@ define( function( require ) {
 
     // possible gravity range
     this.gravityRange = new Range( 0, 25, this.gravity );
+
+    // possible friction range
+    this.frictionRange = new Range( 0, 0.5115, 0 );
 
     // model for ruler
     this.ruler = new Ruler();
@@ -138,7 +142,6 @@ define( function( require ) {
       }
 
       if ( this.play || this.stepManualMode ) {
-        var friction = this.friction || 0;
         var currentPendulum;
         var oldAlpha;
 
@@ -150,7 +153,7 @@ define( function( require ) {
             oldAlpha = currentPendulum.alpha;
 
             currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAlpha * dt * dt) % (Math.PI * 2);
-            currentPendulum.setAlpha( -friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega );
+            currentPendulum.setAlpha( -this.friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega );
             currentPendulum.omega += 0.5 * (currentPendulum.alpha + oldAlpha) * dt;
 
             // prevent infinite motion after friction

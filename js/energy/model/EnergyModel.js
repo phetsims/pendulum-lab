@@ -12,7 +12,6 @@ define( function( require ) {
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
-  var Range = require( 'DOT/Range' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -24,10 +23,6 @@ define( function( require ) {
     // hide ruler by default
     this.ruler.isVisibleProperty.storeInitialValue( false );
     this.ruler.isVisible = false;
-
-    // friction coefficient description
-    this.frictionRange = new Range( 0, 0.5115, 0 );
-    this.addProperty( 'friction', this.frictionRange.defaultValue );
 
     // add energy mode property
     this.addProperty( 'isEnergyGraphExpanded', false );
