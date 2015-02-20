@@ -47,8 +47,6 @@ define( function( require ) {
     var sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
     var tickStep;
 
-    this._property = sliderValueProperty;
-
     VBox.call( this, _.extend( { spacing: 4 }, options ) );
 
     // add slider for friction property
@@ -79,11 +77,11 @@ define( function( require ) {
         sliderValueProperty.value = Math.round( sliderValue );
       }
     } );
+
+    frictionProperty.lazyLink( function( frictionValue ) {
+      sliderValueProperty.value = Math.round( frictionToSliderValue( frictionValue ) );
+    } );
   }
 
-  return inherit( VBox, FrictionSliderNode, {
-    reset: function() {
-      this._property.reset();
-    }
-  } );
+  return inherit( VBox, FrictionSliderNode );
 } );

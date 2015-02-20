@@ -63,11 +63,5 @@ define( function( require ) {
     PanelPendulumAbstract.call( this, content, options );
   }
 
-  return inherit( PanelPendulumAbstract, SystemSlidersNode, {
-    reset: function() {
-      if ( this.frictionSlider ) {
-        this.frictionSlider.reset();
-      }
-    }
-  } );
+  return inherit( PanelPendulumAbstract, SystemSlidersNode );
 } );
