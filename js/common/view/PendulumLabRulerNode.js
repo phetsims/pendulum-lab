@@ -22,6 +22,7 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 10 );
+  var RULER_HEIGHT = 34;
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
   var TICK_INTERVAL = 10; // tick interval in cm
 
@@ -48,7 +49,7 @@ define( function( require ) {
     var rulerWidth = metersToPixels( ruler.length );
     var tickWidth = rulerWidth / (rulerTicks.length - 1);
 
-    RulerNode.call( this, rulerWidth, 34, tickWidth, rulerTicks, rulerUnitsString, { // -1px to
+    RulerNode.call( this, rulerWidth, RULER_HEIGHT, tickWidth, rulerTicks, rulerUnitsString, {
       backgroundFill: 'rgb( 237, 225, 121 )',
       cursor: 'pointer',
       insetsWidth: 0,
