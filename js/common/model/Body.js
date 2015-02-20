@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Single planet model.
+ * Single body model.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -16,11 +16,11 @@ define( function( require ) {
   var planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
-   * @param {string} title of planet.
-   * @param {number} gravity acceleration of planet.
+   * @param {string} title of body.
+   * @param {number} gravity acceleration of body.
    * @constructor
    */
-  function Planet( title, gravity ) {
+  function Body( title, gravity ) {
     // set title
     this.title = title;
 
@@ -29,10 +29,10 @@ define( function( require ) {
   }
 
   return {
-    MOON: new Planet( moonString, 1.62 ),
-    EARTH: new Planet( earthString, 9.81 ),
-    JUPITER: new Planet( jupiterString, 24.79 ),
-    PLANET_X: new Planet( planetXString, 14.2 ),
-    CUSTOM: new Planet( customString )
+    MOON: new Body( moonString, 1.62 ),
+    EARTH: new Body( earthString, 9.81 ),
+    JUPITER: new Body( jupiterString, 24.79 ),
+    PLANET_X: new Body( planetXString, 14.2 ),
+    CUSTOM: new Body( customString )
   };
 } );

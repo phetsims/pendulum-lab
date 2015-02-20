@@ -31,16 +31,16 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel - Model of Lab screen.
-   * @param {Node} planetsListNode - Node for planets list. Should be displayed above all other layers.
+   * @param {Node} bodiesListNode - Node for bodies list. Should be displayed above all other layers.
    * @param {Object} [options] for control panel node.
    * @constructor
    */
-  function SystemSlidersNode( pendulumLabModel, planetsListNode, options ) {
+  function SystemSlidersNode( pendulumLabModel, bodiesListNode, options ) {
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
 
-    // add gravity slider with title and planet list menu
+    // add gravity slider with title and body list menu
     this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.gravityProperty,
-      pendulumLabModel.gravityRange, pendulumLabModel.planetProperty, pendulumLabModel.planets, planetsListNode, { y: SPACING_CONTENT } );
+      pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
         new Text( gravityString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } ),

@@ -62,8 +62,8 @@ define( function( require ) {
     } );
 
     // add panel with sliders for pendulums
-    var planetsListNode = new Node();
-    this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, planetsListNode );
+    var bodiesListNode = new Node();
+    this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, bodiesListNode );
     var slidersPanelNode = new VBox( {
       spacing: 8, children: [
         new PendulumSlidersNode( pendulumLabModel ),
@@ -115,7 +115,7 @@ define( function( require ) {
     // render order
     this.addChild( protractorNode );
     this.addChild( slidersPanelNode );
-    this.addChild( planetsListNode );
+    this.addChild( bodiesListNode );
     this.addChild( toolsControlPanelNode );
     this.addChild( pendulumSystemControlPanelNode );
     this.addChild( resetAllButton );

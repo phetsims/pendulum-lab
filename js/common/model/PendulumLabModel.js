@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
   var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
@@ -27,8 +27,8 @@ define( function( require ) {
     var self = this;
 
     PropertySet.call( this, {
-      gravity: Planet.EARTH.gravity, // gravitational acceleration
-      planet: Planet.EARTH, // current planet name
+      gravity: Body.EARTH.gravity, // gravitational acceleration
+      body: Body.EARTH, // current body name
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
@@ -42,12 +42,12 @@ define( function( require ) {
       new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.isPeriodTraceVisibleProperty )
     ];
 
-    this.planets = [
-      Planet.MOON,
-      Planet.EARTH,
-      Planet.JUPITER,
-      Planet.PLANET_X,
-      Planet.CUSTOM
+    this.bodies = [
+      Body.MOON,
+      Body.EARTH,
+      Body.JUPITER,
+      Body.PLANET_X,
+      Body.CUSTOM
     ];
 
     // possible gravity range
@@ -59,41 +59,41 @@ define( function( require ) {
     // model for stopwatch
     this.stopwatch = new Stopwatch();
 
-    // change gravity if planet was changed
+    // change gravity if body was changed
     var gravityValueBeforePlanetX = this.gravity;
-    this.planetProperty.lazyLink( function( planetNew, planetPrev ) {
-      if ( planetNew === Planet.PLANET_X ) {
+    this.bodyProperty.lazyLink( function( bodyNew, bodyPrev ) {
+      if ( bodyNew === Body.PLANET_X ) {
         // save value for further restoring
         gravityValueBeforePlanetX = self.gravity;
       }
-      else if ( planetPrev === Planet.PLANET_X ) {
+      else if ( bodyPrev === Body.PLANET_X ) {
         // restore previous value
         self.gravity = gravityValueBeforePlanetX;
       }
       else {
-        // determine planet
-        var planet = _.find( self.planets, planetNew );
+        // determine body
+        var body = _.find( self.bodies, bodyNew );
 
         // set new gravity
-        if ( planet && planet !== Planet.CUSTOM ) {
-          self.gravity = planet.gravity;
+        if ( body && body !== Body.CUSTOM ) {
+          self.gravity = body.gravity;
         }
       }
     } );
 
-    // change planet if gravity was changed
+    // change body if gravity was changed
     this.gravityProperty.lazyLink( function( gravity ) {
-      // determine planet
-      var planet = _.find( self.planets, function( planet ) {
-        return Math.abs( planet.gravity - gravity ) < 0.1;
+      // determine body
+      var body = _.find( self.bodies, function( body ) {
+        return Math.abs( body.gravity - gravity ) < 0.1;
       } );
 
-      // set new planet
-      if ( planet && planet !== Planet.PLANET_X ) {
-        self.planet = planet;
+      // set new body
+      if ( body && body !== Body.PLANET_X ) {
+        self.body = body;
       }
       else {
-        self.planet = Planet.CUSTOM;
+        self.body = Body.CUSTOM;
       }
     } );
 

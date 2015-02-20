@@ -1,7 +1,7 @@
 // Copyright 2002-2014, University of Colorado Boulder
 
 /**
- * Gravity slider and planet list node in 'Pendulum lab' simulation.
+ * Gravity slider and body list node in 'Pendulum lab' simulation.
  * Tweakers can be added using special function.
  *
  * @author Andrey Zelenkov (Mlearner)
@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
+  var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
@@ -18,7 +19,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -43,34 +43,34 @@ define( function( require ) {
    *
    * @param {Property<number>} gravityProperty - Property to update by slider.
    * @param {Range} gravityPropertyRange - Range of gravity property.
-   * @param {Property<object>} planetProperty - Property to update by combo box.
-   * @param {Array} planets - Models of all planets.
-   * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes.
+   * @param {Property<object>} bodyProperty - Property to update by combo box.
+   * @param {Array} bodies - Models of all bodies.
+   * @param {Node} bodiesListNode - Node for displaying body list. Should be above all other nodes.
    * @param {Object} [options]
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, planetProperty, planets, planetsListNode, options ) {
+  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, bodyProperty, bodies, bodiesListNode, options ) {
     var self = this;
     var container = new Node();
 
     VBox.call( this, _.extend( { spacing: 4 }, options ) );
     this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
 
-    // create planet list menu
-    var planetListItems = [];
-    planets.forEach( function( planet ) {
-      var planetLabel = new Text( planet.title, { font: FONT_LIST } );
-      planetLabel.localBounds = planetLabel.localBounds.withMaxX( Math.max( 50, planetLabel.localBounds.maxY ) );
+    // create body list menu
+    var bodyListItems = [];
+    bodies.forEach( function( body ) {
+      var bodyLabel = new Text( body.title, { font: FONT_LIST } );
+      bodyLabel.localBounds = bodyLabel.localBounds.withMaxX( Math.max( 50, bodyLabel.localBounds.maxY ) );
 
-      planetListItems.push( {
-        node: planetLabel,
-        value: planet
+      bodyListItems.push( {
+        node: bodyLabel,
+        value: body
       } );
     } );
 
-    // add planet menu combo box
-    planetsListNode.scale( 1.2 );
-    this.addChild( new ComboBox( planetListItems, planetProperty, planetsListNode, {
+    // add body menu combo box
+    bodiesListNode.scale( 1.2 );
+    this.addChild( new ComboBox( bodyListItems, bodyProperty, bodiesListNode, {
       listPosition: 'above',
       buttonCornerRadius: 3,
       buttonYMargin: 0,
@@ -97,8 +97,8 @@ define( function( require ) {
     container.addChild( this.questionNode );
 
     // if planet X was chosen then replace slider to question
-    planetProperty.link( function( planet ) {
-      if ( planet === Planet.PLANET_X ) {
+    bodyProperty.link( function( body ) {
+      if ( body === Body.PLANET_X ) {
         self.gravityAdjustmentNode.visible = false;
         self.questionNode.visible = true;
       }
