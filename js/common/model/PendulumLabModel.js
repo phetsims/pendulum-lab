@@ -14,18 +14,10 @@ define( function( require ) {
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
-  var Planets = require( 'PENDULUM_LAB/common/Planets' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
   var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
-
-  // strings
-  var customString = require( 'string!PENDULUM_LAB/custom' );
-  var earthString = require( 'string!PENDULUM_LAB/earth' );
-  var jupiterString = require( 'string!PENDULUM_LAB/jupiter' );
-  var moonString = require( 'string!PENDULUM_LAB/moon' );
-  var planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -35,8 +27,8 @@ define( function( require ) {
     var self = this;
 
     PropertySet.call( this, {
-      gravity: 9.81, // gravitational acceleration
-      planet: Planets.EARTH, // current planet name
+      gravity: Planet.EARTH.gravity, // gravitational acceleration
+      planet: Planet.EARTH, // current planet name
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
@@ -51,11 +43,11 @@ define( function( require ) {
     ];
 
     this.planets = [
-      new Planet( Planets.MOON, moonString, 1.62 ), // moon
-      new Planet( Planets.EARTH, earthString, 9.81 ), // earth
-      new Planet( Planets.JUPITER, jupiterString, 24.79 ), // jupiter
-      new Planet( Planets.PLANET_X, planetXString, 14.2 ), // planet x
-      new Planet( Planets.CUSTOM, customString ) // custom
+      Planet.MOON,
+      Planet.EARTH,
+      Planet.JUPITER,
+      Planet.PLANET_X,
+      Planet.CUSTOM
     ];
 
     // possible gravity range
@@ -70,20 +62,20 @@ define( function( require ) {
     // change gravity if planet was changed
     var gravityValueBeforePlanetX = this.gravity;
     this.planetProperty.lazyLink( function( planetNew, planetPrev ) {
-      if ( planetNew === Planets.PLANET_X ) {
+      if ( planetNew === Planet.PLANET_X ) {
         // save value for further restoring
         gravityValueBeforePlanetX = self.gravity;
       }
-      else if ( planetPrev === Planets.PLANET_X ) {
+      else if ( planetPrev === Planet.PLANET_X ) {
         // restore previous value
         self.gravity = gravityValueBeforePlanetX;
       }
       else {
         // determine planet
-        var planet = _.find( self.planets, { 'name': planetNew } );
+        var planet = _.find( self.planets, planetNew );
 
         // set new gravity
-        if ( planet && planet.name !== Planets.CUSTOM ) {
+        if ( planet && planet !== Planet.CUSTOM ) {
           self.gravity = planet.gravity;
         }
       }
@@ -97,11 +89,11 @@ define( function( require ) {
       } );
 
       // set new planet
-      if ( planet && planet.name !== Planets.PLANET_X ) {
-        self.planet = planet.name;
+      if ( planet && planet !== Planet.PLANET_X ) {
+        self.planet = planet;
       }
       else {
-        self.planet = Planets.CUSTOM;
+        self.planet = Planet.CUSTOM;
       }
     } );
 

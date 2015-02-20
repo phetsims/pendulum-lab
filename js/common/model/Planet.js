@@ -5,19 +5,22 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function() {
+define( function( require ) {
   'use strict';
 
+  // strings
+  var customString = require( 'string!PENDULUM_LAB/custom' );
+  var earthString = require( 'string!PENDULUM_LAB/earth' );
+  var jupiterString = require( 'string!PENDULUM_LAB/jupiter' );
+  var moonString = require( 'string!PENDULUM_LAB/moon' );
+  var planetXString = require( 'string!PENDULUM_LAB/planetX' );
+
   /**
-   * @param {string} name of planet.
    * @param {string} title of planet.
    * @param {number} gravity acceleration of planet.
    * @constructor
    */
-  function Planet( name, title, gravity ) {
-    // set name
-    this.name = name;
-
+  function Planet( title, gravity ) {
     // set title
     this.title = title;
 
@@ -25,5 +28,11 @@ define( function() {
     this.gravity = gravity;
   }
 
-  return Planet;
+  return {
+    MOON: new Planet( moonString, 1.62 ),
+    EARTH: new Planet( earthString, 9.81 ),
+    JUPITER: new Planet( jupiterString, 24.79 ),
+    PLANET_X: new Planet( planetXString, 14.2 ),
+    CUSTOM: new Planet( customString )
+  };
 } );

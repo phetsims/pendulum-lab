@@ -18,7 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Planets = require( 'PENDULUM_LAB/common/Planets' );
+  var Planet = require( 'PENDULUM_LAB/common/model/Planet' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -43,7 +43,7 @@ define( function( require ) {
    *
    * @param {Property<number>} gravityProperty - Property to update by slider.
    * @param {Range} gravityPropertyRange - Range of gravity property.
-   * @param {Property<string>} planetProperty - Property to update by combo box.
+   * @param {Property<object>} planetProperty - Property to update by combo box.
    * @param {Array} planets - Models of all planets.
    * @param {Node} planetsListNode - Node for displaying planet list. Should be above all other nodes.
    * @param {Object} [options]
@@ -64,7 +64,7 @@ define( function( require ) {
 
       planetListItems.push( {
         node: planetLabel,
-        value: planet.name
+        value: planet
       } );
     } );
 
@@ -98,7 +98,7 @@ define( function( require ) {
 
     // if planet X was chosen then replace slider to question
     planetProperty.link( function( planet ) {
-      if ( planet === Planets.PLANET_X ) {
+      if ( planet === Planet.PLANET_X ) {
         self.gravityAdjustmentNode.visible = false;
         self.questionNode.visible = true;
       }
