@@ -14,7 +14,7 @@ define( function( require ) {
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**
-   * @param {Array} pendulums - Array of pendulum models.
+   * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    *
    * @constructor
