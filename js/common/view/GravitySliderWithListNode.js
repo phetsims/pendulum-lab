@@ -44,7 +44,7 @@ define( function( require ) {
    * @param {Property<number>} gravityProperty - Property to update by slider.
    * @param {Range} gravityPropertyRange - Range of gravity property.
    * @param {Property<object>} bodyProperty - Property to update by combo box.
-   * @param {Array} bodies - Models of all bodies.
+   * @param {Array.<Body>} bodies - Models of all bodies.
    * @param {Node} bodiesListNode - Node for displaying body list. Should be above all other nodes.
    * @param {Object} [options]
    * @constructor
