@@ -75,10 +75,12 @@ define( function( require ) {
           headWidth: ARROW_HEAD_WIDTH
         } );
         pendulumNode.addChild( velocityArrow );
+        options.isVelocityVisibleProperty.linkAttribute( velocityArrow, 'visible' );
 
-        // add visibility observer
-        options.isVelocityVisibleProperty.link( function( isVelocityVisible ) {
+        // updateVelocityVector call necessary to update view when turning on vector while pause
+        options.isVelocityVisibleProperty.lazyLink( function( isVelocityVisible ) {
           velocityArrow.visible = isVelocityVisible;
+          pendulum.updateVelocityVector();
         } );
 
         // add arrow size observer
@@ -101,7 +103,8 @@ define( function( require ) {
         options.isAccelerationVisibleProperty.linkAttribute( accelerationArrow, 'visible' );
 
         // add visibility observer
-        options.isAccelerationVisibleProperty.link( function( isAccelerationVisible ) {
+        // updateAccelerationVector call necessary to update view when turning on vector while pause
+        options.isAccelerationVisibleProperty.lazyLink( function( isAccelerationVisible ) {
           accelerationArrow.visible = isAccelerationVisible;
           pendulum.updateAccelerationVector();
         } );
