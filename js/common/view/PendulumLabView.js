@@ -36,7 +36,7 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabView( pendulumLabModel, modelViewTransform ) {
-    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
+    ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
