@@ -34,13 +34,14 @@ define( function( require ) {
    * @param {Property<number>} numberOfPendulumsProperty - property to control number of pendulums.
    * @param {Property<boolean>} playProperty - property to control stream of time.
    * @param {Property<number>} timeSpeedProperty - property to control speed of time.
-   * @param {Function} stepFunction - handler for step button.
+   * @param {function} stepFunction - handler for step button.
    * @param {Object} [options] for tools control panel node
    * @constructor
    */
   function PendulumSystemControlPanelNode( numberOfPendulumsProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
     HBox.call( this, _.extend( {
-      spacing: 26, children: [
+      spacing: 26,
+      children: [
         // radio buttons to control number of pendulums
         new RadioButtonGroup( numberOfPendulumsProperty, [
           { node: new OnePendulumIconNode(), value: 1 },
