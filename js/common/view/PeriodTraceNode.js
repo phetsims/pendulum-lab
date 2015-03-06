@@ -22,7 +22,7 @@ define( function( require ) {
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
    * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
-   * @param {Object} options for protractor node
+   * @param {Object} [options] for protractor node
    * @constructor
    */
   function PeriodTraceNode( pendulums, metersToPixels, options ) {
