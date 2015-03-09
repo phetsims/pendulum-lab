@@ -103,6 +103,8 @@ define( function( require ) {
     pendulums.forEach( function( pendulum ) {
       var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
       var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
+
+      // to make blue ticks upper than red
       self.insertChild( 1, tickNodeLeft );
       self.insertChild( 1, tickNodeRight );
 
