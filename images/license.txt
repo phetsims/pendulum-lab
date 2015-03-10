@@ -1,0 +1,3 @@
+energy-screen-icon.png author=PhET
+intro-screen-icon.png author=PhET
+lab-screen-icon.png author=PhET
