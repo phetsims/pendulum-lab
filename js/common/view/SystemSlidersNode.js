@@ -30,7 +30,7 @@ define( function( require ) {
   var SPACING_CONTENT = 5;
 
   /**
-   * @param {PendulumLabModel} pendulumLabModel - Model of Lab screen.
+   * @param {PendulumLabModel} pendulumLabModel - Main model of pendulum lab simulation.
    * @param {Node} bodiesListNode - Node for bodies list. Should be displayed above all other layers.
    * @param {Object} [options] for control panel node.
    * @constructor
