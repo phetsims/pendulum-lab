@@ -14,26 +14,24 @@ define( function( require ) {
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
   var introString = require( 'string!PENDULUM_LAB/tab.intro' );
+
+  // images
+  var introImage = require( 'mipmap!PENDULUM_LAB/intro-screen-icon.png' );
 
   /**
    * @constructor
    */
   function IntroScreen() {
 
-    // icon for screen
-    var icon = Rectangle.rect( 0, 0, Screen.HOME_SCREEN_ICON_SIZE.width, Screen.HOME_SCREEN_ICON_SIZE.height, {
-      fill: 'white'
-    } );
-
     // model coordinates are the same as view coordinates
     var modelViewTransform = ModelViewTransform2.createIdentity();
 
-    Screen.call( this, introString, icon,
+    Screen.call( this, introString, new Image( introImage ),
       function() { return new PendulumLabModel(); },
       function( model ) { return new PendulumLabView( model, modelViewTransform ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
