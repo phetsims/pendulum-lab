@@ -27,9 +27,9 @@ define( function( require ) {
    */
   function PeriodTraceNode( pendulums, metersToPixels, options ) {
     var self = this;
-    Node.call( this, options );
-
-    this.rotation = Math.PI / 2;
+    Node.call( this, _.extend( {
+      rotation: Math.PI / 2
+    }, options ) );
 
     pendulums.forEach( function( pendulum ) {
       var intervalId = null; // interval id for fading timer

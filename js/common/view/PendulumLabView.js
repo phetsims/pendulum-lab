@@ -102,10 +102,10 @@ define( function( require ) {
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
-      listener: pendulumLabModel.returnHandler.bind( pendulumLabModel )
+      listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
+      centerX: resetAllButton.bounds.minX - 75,
+      centerY: height - SCREEN_PADDING.BOTTOM - 5
     } );
-    returnButtonNode.centerX = resetAllButton.bounds.minX - 75;
-    returnButtonNode.centerY = height - SCREEN_PADDING.BOTTOM - 5;
 
     // render order
     this.addChild( protractorNode );
