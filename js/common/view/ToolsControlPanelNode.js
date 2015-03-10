@@ -64,6 +64,12 @@ define( function( require ) {
   }
 
   return inherit( PanelPendulumAbstract, ToolsControlPanelNode, {
+    /**
+     * Set text of label selected by index.
+     *
+     * @param {number} index - Index of label.
+     * @param {string} text - New text for label.
+     */
     setLabelText: function( index, text ) {
       this._labels[ index ].setText( text );
     }
