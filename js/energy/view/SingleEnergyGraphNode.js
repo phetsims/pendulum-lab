@@ -87,7 +87,7 @@ define( function( require ) {
     } );
 
     // create bars
-    this.ENERGY_MULTIPLIER = 10;
+    this.energyMultiplier = 10; // @private
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC, rotation: Math.PI } );
     this.kineticEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC } );
     this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.POTENTIAL, rotation: Math.PI } );
@@ -137,8 +137,8 @@ define( function( require ) {
       this.visible = true;
     },
     updateEnergy: function( node, nodeClone, energy ) {
-      node.setRectHeight( energy * this.ENERGY_MULTIPLIER );
-      nodeClone.setRectHeight( energy * this.ENERGY_MULTIPLIER );
+      node.setRectHeight( energy * this.energyMultiplier );
+      nodeClone.setRectHeight( energy * this.energyMultiplier );
     },
     updateKineticEnergy: function() {
       if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
@@ -161,11 +161,11 @@ define( function( require ) {
       this.updateThermalEnergy();
     },
     zoomIn: function() {
-      this.ENERGY_MULTIPLIER *= 1.05;
+      this.energyMultiplier *= 1.05;
       this.updateAllEnergies();
     },
     zoomOut: function() {
-      this.ENERGY_MULTIPLIER *= 0.95;
+      this.energyMultiplier *= 0.95;
       this.updateAllEnergies();
     }
   } );
