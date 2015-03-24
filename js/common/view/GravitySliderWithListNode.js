@@ -60,7 +60,7 @@ define( function( require ) {
     var bodyListItems = [];
     bodies.forEach( function( body ) {
       var bodyLabel = new Text( body.title, { font: FONT_LIST } );
-      bodyLabel.localBounds = bodyLabel.localBounds.withMaxX( Math.max( 50, bodyLabel.localBounds.maxY ) );
+      bodyLabel.localBounds = bodyLabel.localBounds.withMaxX( Math.max( 50, bodyLabel.localBounds.maxX ) );
 
       bodyListItems.push( {
         node: bodyLabel,
