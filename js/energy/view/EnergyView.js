@@ -31,7 +31,7 @@ define( function( require ) {
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
     this.energyGraphNode = energyGraphNode;
-    this.insertChild( 3, energyGraphNode );
+    this.energyGraphLayer.addChild( energyGraphNode );
 
     // move ruler and stopwatch on the right side
     this.rulerNode.centerX += (energyGraphNode.width + 10);

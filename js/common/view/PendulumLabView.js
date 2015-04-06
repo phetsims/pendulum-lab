@@ -107,9 +107,15 @@ define( function( require ) {
       centerY: height - SCREEN_PADDING.BOTTOM - 5
     } );
 
+    this.arrowsPanelLayer = new Node();
+    this.energyGraphLayer = new Node();
+    this.periodTimerLayer = new Node();
+
     // render order
     this.addChild( protractorNode );
     this.addChild( slidersPanelNode );
+    this.addChild( this.energyGraphLayer );
+    this.addChild( this.arrowsPanelLayer );
     this.addChild( bodiesListNode );
     this.addChild( toolsControlPanelNode );
     this.addChild( pendulumSystemControlPanelNode );
@@ -118,6 +124,7 @@ define( function( require ) {
     this.addChild( periodTraceNode );
     this.addChild( pendulumsNode );
     this.addChild( rulerNode );
+    this.addChild( this.periodTimerLayer );
     this.addChild( stopwatchNode );
 
     // set initial value for ruler and stopwatch 'location' property

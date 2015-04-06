@@ -34,7 +34,7 @@ define( function( require ) {
       pendulumLabModel.isAccelerationVisibleProperty );
     arrowsPanelNode.centerX = arrowsPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
-    this.insertChild( 3, arrowsPanelNode );
+    this.arrowsPanelLayer.addChild( arrowsPanelNode );
 
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
@@ -46,7 +46,7 @@ define( function( require ) {
     var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, modelViewTransform, this.layoutBounds );
     periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
-    this.insertChild( this.indexOfChild( this.stopwatchNode ), periodTimerNode );
+    this.periodTimerLayer.addChild( periodTimerNode );
 
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
