@@ -21,8 +21,8 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var LengthString = require( 'string!PENDULUM_LAB/length' );
-  var MassString = require( 'string!PENDULUM_LAB/mass' );
+  var lengthString = require( 'string!PENDULUM_LAB/length' );
+  var massString = require( 'string!PENDULUM_LAB/mass' );
   var pattern_0lengthValue_lengthUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0lengthValue.lengthUnitsMetric' );
   var pattern_0massValue_massUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0massValue.massUnitsMetric' );
   var pattern_0propertyName_1pendulumNumber = require( 'string!PENDULUM_LAB/pattern.0propertyName.1pendulumNumber' );
@@ -71,7 +71,7 @@ define( function( require ) {
           new Node( {
             children: [
               // add length slider label
-              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, LengthString, (pendulumIndex + 1).toString() ), {
+              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, lengthString, (pendulumIndex + 1).toString() ), {
                 font: FONT_TITLE,
                 fill: pendulum.color
               } ),
@@ -83,7 +83,7 @@ define( function( require ) {
           new Node( {
             children: [
               // add mass slider label
-              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, MassString, (pendulumIndex + 1).toString() ), {
+              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, massString, (pendulumIndex + 1).toString() ), {
                 font: FONT_TITLE,
                 fill: pendulum.color
               } ),
