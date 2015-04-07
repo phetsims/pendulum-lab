@@ -123,6 +123,8 @@ define( function( require ) {
         buttonXMargin: 10,
         buttonYMargin: 6,
         titleNode: new Text( energyGraphString, { font: FONT } ),
+        titleAlignX: 'left',
+        titleXMargin: 10,
         contentXMargin: 5,
         contentYMargin: 5,
         contentYSpacing: 0
