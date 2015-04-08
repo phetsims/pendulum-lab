@@ -98,15 +98,25 @@ define( function( require ) {
 
     // add protractor path
     this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
+    this.firstPendulumTickLayer = new Node();
+    this.secondPendulumTickLayer = new Node();
+    this.addChild( this.secondPendulumTickLayer );
+    this.addChild( this.firstPendulumTickLayer );
 
     // add ticks for pendulum
-    pendulums.forEach( function( pendulum ) {
+    pendulums.forEach( function( pendulum, pendulumIndex ) {
       var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
       var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
 
       // to make blue ticks upper than red
-      self.insertChild( 1, tickNodeLeft );
-      self.insertChild( 1, tickNodeRight );
+      if ( pendulumIndex === 0 ) {
+        self.firstPendulumTickLayer.addChild( tickNodeLeft );
+        self.firstPendulumTickLayer.addChild( tickNodeRight );
+      }
+      else if ( pendulumIndex === 1 ) {
+        self.secondPendulumTickLayer.addChild( tickNodeLeft );
+        self.secondPendulumTickLayer.addChild( tickNodeRight );
+      }
 
       var updateTicksPosition = function() {
         if ( pendulum.isUserControlled ) {
