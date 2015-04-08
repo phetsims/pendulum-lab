@@ -41,7 +41,6 @@ define( function( require ) {
   function PendulumSlidersNode( pendulumLabModel, options ) {
     var self = this;
     var pendulumSlidersNodeStorage = [];
-    var currentNumberOfSliders = 0;
 
     this.optionSliders = [];
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
@@ -104,22 +103,14 @@ define( function( require ) {
     } );
 
     // add necessary pendulum sliders
+    content.addChild( pendulumSlidersNodeStorage[ 0 ] );
     pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
-      var numberDifference = currentNumberOfSliders - numberOfPendulums;
 
-      // remove extra sliders
-      if ( numberDifference > 0 ) {
-        for ( ; numberDifference--; ) {
-          content.removeChildWithIndex( pendulumSlidersNodeStorage[ currentNumberOfSliders - numberDifference - 1 ], currentNumberOfSliders - numberDifference - 1 );
-          currentNumberOfSliders--;
-        }
+      if ( numberOfPendulums === 1 && content.isChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
+        content.removeChildWithIndex( pendulumSlidersNodeStorage[ 1 ], content.indexOfChild( pendulumSlidersNodeStorage[ 1 ] ) );
       }
-      // add necessary sliders
-      else if ( numberDifference < 0 ) {
-        for ( ; numberDifference++; ) {
-          content.insertChild( currentNumberOfSliders - numberDifference, pendulumSlidersNodeStorage[ currentNumberOfSliders - numberDifference ] );
-          currentNumberOfSliders++;
-        }
+      else if ( numberOfPendulums === 2 && !content.isChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
+        content.addChild( pendulumSlidersNodeStorage[ 1 ] );
       }
     } );
 
