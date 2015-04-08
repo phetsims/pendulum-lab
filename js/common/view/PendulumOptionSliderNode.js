@@ -59,7 +59,6 @@ define( function( require ) {
     }, { scale: 0.5 } );
 
     var sliderProperty = new Property( trackProperty.value );
-    this._property = sliderProperty;
 
     VBox.call( this, _.extend( {
       spacing: 4,

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
@@ -30,6 +31,7 @@ define( function( require ) {
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
   var SPACING_CONTENT = 5;
+  var PANEL_X_MARGIN = 14;
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
@@ -43,6 +45,7 @@ define( function( require ) {
 
     this.optionSliders = [];
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
+    this._content = content;
 
     // create sliders for each pendulum and put then into storage for further adding
     pendulumLabModel.pendulums.forEach( function( pendulum, pendulumIndex ) {
@@ -66,7 +69,7 @@ define( function( require ) {
       );
       self.optionSliders.push( massSlider );
 
-      pendulumSlidersNodeStorage.push( new VBox( {
+      var vBoxSlidersNode = new VBox( {
         spacing: SPACING_CONTENT, align: 'left', children: [
           new Node( {
             children: [
@@ -93,7 +96,11 @@ define( function( require ) {
             ]
           } )
         ]
-      } ) );
+      } );
+      pendulumSlidersNodeStorage.push( vBoxSlidersNode );
+
+      lengthSlider.centerX = vBoxSlidersNode.bounds.width / 2;
+      massSlider.centerX = vBoxSlidersNode.bounds.width / 2;
     } );
 
     // add necessary pendulum sliders
@@ -116,8 +123,12 @@ define( function( require ) {
       }
     } );
 
-    PanelPendulumAbstract.call( this, content, _.extend( { xMargin: 14 }, options ) );
+    PanelPendulumAbstract.call( this, content, _.extend( { xMargin: PANEL_X_MARGIN }, options ) );
   }
 
-  return inherit( PanelPendulumAbstract, PendulumSlidersNode );
+  return inherit( PanelPendulumAbstract, PendulumSlidersNode, {
+    setContentWidth: function( width ) {
+      this._content.addChild( new HStrut( width - 2 * PANEL_X_MARGIN ) );
+    }
+  } );
 } );

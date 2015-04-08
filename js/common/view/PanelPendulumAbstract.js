@@ -14,9 +14,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
 
-  // constants
-  var MARGIN = 10;
-
   /**
    * @param {Node} content node
    * @param {Object} [options]
@@ -26,8 +23,8 @@ define( function( require ) {
     Panel.call( this, content, _.extend( {
       cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
       fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
-      xMargin: MARGIN,
-      yMargin: MARGIN
+      xMargin: PendulumLabConstants.PANEL_MARGIN,
+      yMargin: PendulumLabConstants.PANEL_MARGIN
     }, options ) );
   }
 

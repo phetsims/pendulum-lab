@@ -25,6 +25,7 @@ define( function( require ) {
     // panels
     PANEL_BACKGROUND_COLOR: 'rgb( 216, 251, 196 )',
     PANEL_CORNER_RADIUS: 5,
+    PANEL_MARGIN: 10,
 
     // sliders
     TRACK_SIZE: new Dimension2( 95, 0.5 ),

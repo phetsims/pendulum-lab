@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
   var GravitySliderWithListNode = require( 'PENDULUM_LAB/common/view/GravitySliderWithListNode' );
+  var HStrut = require( 'SUN/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
@@ -37,6 +38,7 @@ define( function( require ) {
    */
   function SystemSlidersNode( pendulumLabModel, bodiesListNode, options ) {
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
+    this._content = content;
 
     // add gravity slider with title and body list menu
     this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.gravityProperty,
@@ -65,5 +67,9 @@ define( function( require ) {
     PanelPendulumAbstract.call( this, content, options );
   }
 
-  return inherit( PanelPendulumAbstract, SystemSlidersNode );
+  return inherit( PanelPendulumAbstract, SystemSlidersNode, {
+    setContentWidth: function( width ) {
+      this._content.addChild( new HStrut( width - PendulumLabConstants.PANEL_MARGIN ) );
+    }
+  } );
 } );

@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -26,6 +25,7 @@ define( function( require ) {
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
   var SystemSlidersNode = require( 'PENDULUM_LAB/common/view/SystemSlidersNode' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -61,10 +61,21 @@ define( function( require ) {
 
     // add panel with sliders for pendulums
     var bodiesListNode = new Node();
+    var pendulumSlidersNode = new PendulumSlidersNode( pendulumLabModel );
     this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, bodiesListNode );
+
+    // adjust width of panels
+    var panelWidth = Math.max( pendulumSlidersNode.localBounds.width, this.systemSlidersNode.localBounds.width );
+    if ( pendulumSlidersNode.localBounds.width < panelWidth ) {
+      pendulumSlidersNode.setContentWidth( panelWidth );
+    }
+    if ( this.systemSlidersNode.localBounds.width < panelWidth ) {
+      this.systemSlidersNode.setContentWidth( panelWidth );
+    }
+
     var slidersPanelNode = new VBox( {
       spacing: 8, children: [
-        new PendulumSlidersNode( pendulumLabModel ),
+        pendulumSlidersNode,
         this.systemSlidersNode
       ]
     } );
