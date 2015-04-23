@@ -1,0 +1,128 @@
+{
+  "acceleration": {
+    "value": "Acceleration"
+  },
+  "both": {
+    "value": "Both"
+  },
+  "custom": {
+    "value": "Custom"
+  },
+  "earth": {
+    "value": "Earth"
+  },
+  "energyGraph": {
+    "value": "Energy Graph"
+  },
+  "friction": {
+    "value": "Friction"
+  },
+  "gravity": {
+    "value": "Gravity"
+  },
+  "jupiter": {
+    "value": "Jupiter"
+  },
+  "kinetic": {
+    "value": "Kinetic"
+  },
+  "length": {
+    "value": "Length"
+  },
+  "lots": {
+    "value": "Lots"
+  },
+  "mass": {
+    "value": "Mass"
+  },
+  "moon": {
+    "value": "Moon"
+  },
+  "none": {
+    "value": "None"
+  },
+  "normal": {
+    "value": "Normal"
+  },
+  "one": {
+    "value": "One"
+  },
+  "pattern.0gravityValue.gravityUnitsMetric": {
+    "value": "{0} m/s<sup>2</sup>"
+  },
+  "pattern.0lengthValue.lengthUnitsMetric": {
+    "value": "{0} m"
+  },
+  "pattern.0massValue.massUnitsMetric": {
+    "value": "{0} kg"
+  },
+  "pattern.0numberOfDegrees.degreeSymbol": {
+    "value": "{0}°"
+  },
+  "pattern.0propertyName.1pendulumNumber": {
+    "value": "{0} {1}"
+  },
+  "pattern.0timeValue.timeUnitsMetric": {
+    "value": "{0} s"
+  },
+  "pattern.energyOf.0pendulumNumber": {
+    "value": "Energy of {0}"
+  },
+  "pendulum-lab.name": {
+    "value": "Pendulum Lab"
+  },
+  "period": {
+    "value": "Period"
+  },
+  "periodTimer": {
+    "value": "Period Timer"
+  },
+  "periodTrace": {
+    "value": "Period Trace"
+  },
+  "planetX": {
+    "value": "Planet X"
+  },
+  "potential": {
+    "value": "Potential"
+  },
+  "return": {
+    "value": "Return"
+  },
+  "ruler": {
+    "value": "Ruler"
+  },
+  "rulerUnits": {
+    "value": "cm"
+  },
+  "slowMotion": {
+    "value": "Slow Motion"
+  },
+  "stopwatch": {
+    "value": "Stopwatch"
+  },
+  "tab.energy": {
+    "value": "Energy"
+  },
+  "tab.intro": {
+    "value": "Intro"
+  },
+  "tab.lab": {
+    "value": "Lab"
+  },
+  "thermal": {
+    "value": "Thermal"
+  },
+  "total": {
+    "value": "Total"
+  },
+  "two": {
+    "value": "Two"
+  },
+  "velocity": {
+    "value": "Velocity"
+  },
+  "whatIsTheValueOfGravity": {
+    "value": "What is the value of gravity?"
+  }
+}
