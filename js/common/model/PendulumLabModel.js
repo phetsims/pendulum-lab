@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -110,9 +109,6 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, PendulumLabModel, {
-
-    // 1 meter is equal to 175 pixels
-    metersToPixels: new LinearFunction( 0, 1, 0, 175 ),
 
     reset: function() {
       PropertySet.prototype.reset.call( this );

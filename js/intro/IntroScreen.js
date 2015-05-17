@@ -29,7 +29,7 @@ define( function( require ) {
   function IntroScreen() {
 
     // model coordinates are the same as view coordinates
-    var modelViewTransform = ModelViewTransform2.createIdentity();
+    var modelViewTransform = ModelViewTransform2.createRectangleMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
 
     Screen.call( this, introString, new Image( introImage ),
       function() { return new PendulumLabModel(); },

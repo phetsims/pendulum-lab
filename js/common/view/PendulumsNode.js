@@ -33,11 +33,11 @@ define( function( require ) {
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
-   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @constructor
    */
-  function PendulumsNode( pendulums, metersToPixels, options ) {
+  function PendulumsNode( pendulums, modelViewTransform, options ) {
     var self = this;
 
     Node.call( this, options );
@@ -47,7 +47,7 @@ define( function( require ) {
       var massToScale = new LinearFunction( pendulum.massRange.min, pendulum.massRange.max, 0.25, 1 );
 
       // create solid line
-      var solidLine = new Line( 0, 0, 0, metersToPixels( pendulum.length ), { stroke: 'black' } );
+      var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black' } );
 
       // create pendulum
       var pendulumRect = new Node( {
@@ -125,8 +125,8 @@ define( function( require ) {
       var clickXOffset;
       pendulumRect.addInputListener( new SimpleDragHandler( {
         start: function( e ) {
-          clickXOffset = self.globalToParentPoint( e.pointer.point ).x + metersToPixels( pendulum.length ) * Math.sin( pendulumNode.rotation );
-          clickYOffset = self.globalToParentPoint( e.pointer.point ).y - metersToPixels( pendulum.length ) * Math.cos( pendulumNode.rotation );
+          clickXOffset = self.globalToParentPoint( e.pointer.point ).x + modelViewTransform.modelToViewDeltaX( pendulum.length ) * Math.sin( pendulumNode.rotation );
+          clickYOffset = self.globalToParentPoint( e.pointer.point ).y - modelViewTransform.modelToViewDeltaX( pendulum.length ) * Math.cos( pendulumNode.rotation );
 
           pendulum.isUserControlled = true;
         },
@@ -148,7 +148,7 @@ define( function( require ) {
 
       // update pendulum components position
       pendulum.lengthProperty.link( function( length ) {
-        var lengthMeters = metersToPixels( length );
+        var lengthMeters = modelViewTransform.modelToViewDeltaX( length );
 
         pendulumRect.setY( lengthMeters );
         solidLine.setY2( lengthMeters );

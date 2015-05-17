@@ -41,12 +41,12 @@ define( function( require ) {
     var height = this.layoutBounds.height;
 
     // add protractor node
-    var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels );
+    var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, modelViewTransform );
     protractorNode.centerX = width / 2;
     protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP - 5;
 
     // add pendulums
-    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels, {
+    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, modelViewTransform, {
       isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
     } );
@@ -54,7 +54,7 @@ define( function( require ) {
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
 
     // add period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, pendulumLabModel.metersToPixels, {
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform, {
       x: width / 2,
       y: SCREEN_PADDING.TOP
     } );
@@ -105,7 +105,7 @@ define( function( require ) {
     resetAllButton.scale( 0.75 );
 
     // add ruler node
-    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, pendulumLabModel.metersToPixels, modelViewTransform, this.layoutBounds );
+    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, modelViewTransform, this.layoutBounds );
     this.rulerNode = rulerNode;
 
     // add timer node

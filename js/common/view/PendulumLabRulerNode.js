@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
@@ -28,12 +29,11 @@ define( function( require ) {
 
   /**
    * @param {PropertySet} ruler - Model for ruler.
-   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view
    * @constructor
    */
-  function PendulumLabRulerNode( ruler, metersToPixels, modelViewTransform, layoutBounds ) {
+  function PendulumLabRulerNode( ruler, modelViewTransform, layoutBounds ) {
     var self = this;
 
     // create tick labels
@@ -46,7 +46,7 @@ define( function( require ) {
     rulerTicks.push( '' );
 
     // define ruler params in pixels
-    var rulerWidth = metersToPixels( ruler.length );
+    var rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
     var tickWidth = rulerWidth / (rulerTicks.length - 1);
 
     RulerNode.call( this, rulerWidth, RULER_HEIGHT, tickWidth, rulerTicks, rulerUnitsString, {
@@ -69,7 +69,7 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( ruler.locationProperty, {
-      modelViewTransform: modelViewTransform,
+      modelViewTransform: ModelViewTransform2.createIdentity(),
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } ) );
 

@@ -21,11 +21,11 @@ define( function( require ) {
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
-   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options] for protractor node
    * @constructor
    */
-  function PeriodTraceNode( pendulums, metersToPixels, options ) {
+  function PeriodTraceNode( pendulums, modelViewTransform, options ) {
     var self = this;
     Node.call( this, _.extend( {
       rotation: Math.PI / 2
@@ -57,7 +57,7 @@ define( function( require ) {
 
         if ( numberOfPoints > 0 ) {
           shape = new Shape();
-          traceLength = metersToPixels( pendulum.length * 3 / 4 );
+          traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3 / 4 );
 
           // draw first arc
           if ( numberOfPoints > 1 ) {

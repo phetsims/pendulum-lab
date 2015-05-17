@@ -35,18 +35,18 @@ define( function( require ) {
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
-   * @param {LinearFunction} metersToPixels - Function to convert meters to pixels.
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options] for protractor node.
    * @constructor
    */
-  function ProtractorNode( pendulums, metersToPixels, options ) {
+  function ProtractorNode( pendulums, modelViewTransform, options ) {
     var self = this;
 
     Node.call( this, options );
 
     // create central dash line
     if ( pendulums[ 0 ] ) {
-      this.addChild( new Line( 0, 0, 0, metersToPixels( pendulums[ 0 ].lengthRange.max ), {
+      this.addChild( new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulums[ 0 ].lengthRange.max ), {
         stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
         lineDash: [ 4, 7 ]
       } ) );
