@@ -28,10 +28,11 @@ define( function( require ) {
 
   /**
    * @param {PropertySet} ruler - Model for ruler.
+   * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view
    * @constructor
    */
-  function PendulumLabRulerNode( ruler, layoutBounds ) {
+  function PendulumLabRulerNode( ruler, modelViewTransform, layoutBounds ) {
     var self = this;
 
     // create tick labels

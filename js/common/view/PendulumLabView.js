@@ -105,7 +105,7 @@ define( function( require ) {
     resetAllButton.scale( 0.75 );
 
     // add ruler node
-    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, this.layoutBounds );
+    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, modelViewTransform, this.layoutBounds );
     this.rulerNode = rulerNode;
 
     // add timer node
