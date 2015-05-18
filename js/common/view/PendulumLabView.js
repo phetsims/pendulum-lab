@@ -109,7 +109,7 @@ define( function( require ) {
     this.rulerNode = rulerNode;
 
     // add timer node
-    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, modelViewTransform, this.layoutBounds, toolsControlPanelNode.bounds );
+    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, this.layoutBounds, toolsControlPanelNode.bounds );
     this.stopwatchNode = stopwatchNode;
 
     var returnButtonNode = new ReturnButtonNode( {
