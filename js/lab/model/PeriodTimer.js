@@ -13,6 +13,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
+  // constants
+  var INIT_PENDULUM_NUMBER = 0;
+
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
@@ -28,18 +31,12 @@ define( function( require ) {
       isCalculate: false // flag to trace time calculating
     } );
 
-    this.activePendulum = pendulums[ 0 ];
+    this._pendulums = pendulums;
+    this.activePendulum = pendulums[ INIT_PENDULUM_NUMBER ];
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
-      self.stop();
       self.isVisible = isPeriodTraceVisible;
-
-      // hide all traces
-      pendulums.forEach( function( pendulum ) {
-        pendulum.periodTrace.removeVisibilityObservers();
-        pendulum.periodTrace.isVisible = false;
-      } );
     } );
 
     // clear timer before starting calculating
@@ -47,31 +44,36 @@ define( function( require ) {
       self.elapsedTime = 0;
     } );
 
+    var updateTimer = function() {
+      if ( self.isCalculate ) {
+        self.isCalculate = false;
+        self.elapsedTime = 0;
+      }
+    };
+
     this.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
         // clear time when timer revert to init state
         self.elapsedTime = 0;
 
         // reset and show trace path
-        self.activePendulum.periodTrace.resetPathPoints();
+        self.clear();
         self.activePendulum.periodTrace.isVisible = true;
       }
       else {
+        // clear path if it hasn't finished
+        if ( self.activePendulum.periodTrace.numberOfPoints < 4 && self.isCalculate ) {
+          self.clear();
+        }
         // stop calculating when timer stop
         self.isCalculate = false;
       }
     } );
 
-    var updateTimer = function() {
-      if ( self.isCalculate ) {
-        self.elapsedTime = 0;
-        self.isCalculate = false;
-      }
-    };
-
     // create listeners
     var pathListeners = [];
     pendulums.forEach( function( pendulum, pendulumIndex ) {
+      pendulum.periodTrace.removeVisibilityObservers();
       pendulum.periodTrace.isRepeat = false;
       pendulum.periodTrace.isVisible = false;
 
@@ -84,17 +86,25 @@ define( function( require ) {
         if ( pendulum.periodTrace.numberOfPoints === 1 && self.isRunning ) {
           self.isCalculate = true;
         }
-        else if ( (pendulum.periodTrace.numberOfPoints === 4 || pendulum.periodTrace.numberOfPoints === 0) && self.isRunning ) {
+        else if ( pendulum.periodTrace.numberOfPoints === 4 && self.isRunning ) {
           self.isRunning = false;
         }
       };
-
     } );
 
     // add path listeners
-    pendulums[ 0 ].periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
+    this.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
     this.isFirstProperty.lazyLink( function( isFirst ) {
-      self.activePendulum.periodTrace.resetPathPoints();
+      var visibleValue;
+
+      // previous visible value for next pendulum
+      // NOTE: inherit previous value (if path fading - set "false" value)
+      if ( self.activePendulum.periodTrace.isVisible && self.isCalculate ) {
+        visibleValue = true;
+      } else {
+        visibleValue = false;
+      }
+
       self.clear();
 
       if ( isFirst ) {
@@ -108,9 +118,7 @@ define( function( require ) {
         self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
       }
 
-      if ( self.isRunning ) {
-        self.activePendulum.periodTrace.isVisible = true;
-      }
+      self.activePendulum.periodTrace.isVisible = visibleValue;
     } );
   }
 
@@ -119,6 +127,10 @@ define( function( require ) {
       this.activePendulum.periodTrace.isVisible = false;
       this.isCalculate = false;
       this.elapsedTime = 0;
+
+      this._pendulums.forEach( function( pendulum ) {
+        pendulum.periodTrace.resetPathPoints();
+      } );
     },
     stop: function() {
       this.clear();

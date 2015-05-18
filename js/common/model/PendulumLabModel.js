@@ -157,6 +157,9 @@ define( function( require ) {
               currentPendulum.angle = 0;
               currentPendulum.alpha = 0;
               currentPendulum.omega = 0;
+              if ( this.periodTimer ) {
+                this.periodTimer.isRunning = false;
+              }
             }
 
             currentPendulum.updateVectors();

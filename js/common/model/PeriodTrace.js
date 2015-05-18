@@ -32,7 +32,6 @@ define( function( require ) {
     } );
 
     // save links to properties
-    this._isPeriodTraceVisibleProperty = isPeriodTraceVisibleProperty;
     this._pendulum = pendulum;
 
     // properties for drawing path shape
@@ -75,7 +74,7 @@ define( function( require ) {
     this.isVisibleProperty.onValue( false, resetPathPoints );
 
     // add visibility observer
-    this.addVisibilityObservers();
+    this.addVisibilityObservers( isPeriodTraceVisibleProperty );
   }
 
   return inherit( PropertySet, PeriodTrace, {
@@ -92,11 +91,12 @@ define( function( require ) {
       this.numberOfPoints = 0;
     },
 
-    addVisibilityObservers: function() {
+    addVisibilityObservers: function( checkBoxProperty ) {
       var self = this;
+      this._checkBoxProperty = checkBoxProperty;
 
       this.setPeriodTraceVisibility = function() {
-        if ( self._isPeriodTraceVisibleProperty.value && self._pendulum.isVisible ) {
+        if ( checkBoxProperty.value && self._pendulum.isVisible ) {
           self.isVisible = true;
         }
         else {
@@ -104,11 +104,11 @@ define( function( require ) {
         }
       };
 
-      self._isPeriodTraceVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
+      checkBoxProperty.lazyLink( this.setPeriodTraceVisibility );
       self._pendulum.isVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
     },
     removeVisibilityObservers: function() {
-      this._isPeriodTraceVisibleProperty.unlink( this.setPeriodTraceVisibility );
+      this._checkBoxProperty.unlink( this.setPeriodTraceVisibility );
       this._pendulum.isVisibleProperty.unlink( this.setPeriodTraceVisibility );
     }
   } );
