@@ -26,7 +26,7 @@ define( function( require ) {
     var self = this;
 
     Stopwatch.call( this, {
-      isVisible: false, // flag to control visibility of timer
+      isVisible: isPeriodTraceVisibleProperty.value, // flag to control visibility of timer
       isFirst: true, // flag to trace timer pendulum
       isCalculate: false // flag to trace time calculating
     } );
@@ -38,6 +38,8 @@ define( function( require ) {
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
       self.isVisible = isPeriodTraceVisible;
     } );
+
+    this.isVisibleProperty.onValue( false, self.stop.bind( this ) );
 
     // clear timer before starting calculating
     this.isCalculateProperty.onValue( true, function() {
@@ -101,7 +103,8 @@ define( function( require ) {
       // NOTE: inherit previous value (if path fading - set "false" value)
       if ( self.activePendulum.periodTrace.isVisible && self.isCalculate ) {
         visibleValue = true;
-      } else {
+      }
+      else {
         visibleValue = false;
       }
 

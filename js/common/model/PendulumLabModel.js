@@ -123,6 +123,10 @@ define( function( require ) {
       this.pendulums.forEach( function( pendulum ) {
         pendulum.reset();
       } );
+
+      if ( this.periodTimer ) {
+        this.periodTimer.reset();
+      }
     },
 
     // called by the animation loop. Optional, so if your model has no animation, you can omit this.
