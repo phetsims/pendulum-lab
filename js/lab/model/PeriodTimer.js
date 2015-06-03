@@ -63,9 +63,14 @@ define( function( require ) {
         self.activePendulum.periodTrace.isVisible = true;
       }
       else {
-        // clear path if it hasn't finished
-        if ( self.activePendulum.periodTrace.numberOfPoints < 4 && self.isCalculate ) {
+        // clear path if it wasn't finished
+        if ( (self.activePendulum.periodTrace.numberOfPoints < 4 && self.isCalculate) ) {
           self.clear();
+        }
+
+        // hide path if it wasn't started
+        if ( self.activePendulum.periodTrace.numberOfPoints === 0 ) {
+          self.activePendulum.periodTrace.isVisible = false;
         }
         // stop calculating when timer stop
         self.isCalculate = false;
