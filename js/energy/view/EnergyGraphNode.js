@@ -16,7 +16,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SUN/HStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
