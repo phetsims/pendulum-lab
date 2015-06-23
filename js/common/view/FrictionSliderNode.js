@@ -15,6 +15,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
+  var Util = require( 'DOT/Util' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
@@ -30,7 +31,7 @@ define( function( require ) {
   }
 
   function frictionToSliderValue( friction ) {
-    return Math.round( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
+    return Util.roundSymmetric( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
   }
 
   /**
@@ -68,12 +69,12 @@ define( function( require ) {
         frictionProperty.value = sliderValueToFriction( sliderValue );
       }
       else {
-        sliderValueProperty.value = Math.round( sliderValue );
+        sliderValueProperty.value = Util.roundSymmetric( sliderValue );
       }
     } );
 
     frictionProperty.lazyLink( function( frictionValue ) {
-      sliderValueProperty.value = Math.round( frictionToSliderValue( frictionValue ) );
+      sliderValueProperty.value = Util.roundSymmetric( frictionToSliderValue( frictionValue ) );
     } );
   }
 
