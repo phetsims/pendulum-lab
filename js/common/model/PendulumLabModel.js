@@ -124,17 +124,17 @@ define( function( require ) {
     step: function( dt ) {
       dt = Math.min( 0.05, dt * this.timeSpeed );
 
-      if ( (this.stopwatch.isRunning && this.play) || this.stepManualMode ) {
-        this.stopwatch.elapsedTime += dt;
-      }
-
-      if ( this.periodTimer && ((this.periodTimer.isCalculate && this.play) || this.stepManualMode) ) {
-        this.periodTimer.elapsedTime += dt;
-      }
-
       if ( this.play || this.stepManualMode ) {
         var currentPendulum;
         var oldAlpha;
+
+        if ( this.stopwatch.isRunning ) {
+          this.stopwatch.elapsedTime += dt;
+        }
+
+        if ( this.periodTimer && this.periodTimer.isCalculate ) {
+          this.periodTimer.elapsedTime += dt;
+        }
 
         for ( var i = 0; i < this.numberOfPendulums; i++ ) {
           currentPendulum = this.pendulums[ i ];
