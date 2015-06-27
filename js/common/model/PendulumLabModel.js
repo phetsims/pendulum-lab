@@ -84,18 +84,9 @@ define( function( require ) {
       }
     } );
 
-    // change body if gravity was changed
-    this.gravityProperty.lazyLink( function( gravity ) {
-      // determine body
-      var body = _.find( self.bodies, function( body ) {
-        return Math.abs( body.gravity - gravity ) < 0.1;
-      } );
-
-      // set new body
-      if ( body && body !== Body.PLANET_X ) {
-        self.body = body;
-      }
-      else {
+    // change body to custom if gravity was changed
+    this.gravityProperty.lazyLink( function() {
+      if ( self.body !== Body.CUSTOM ) {
         self.body = Body.CUSTOM;
       }
     } );
