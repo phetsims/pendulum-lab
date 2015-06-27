@@ -47,6 +47,7 @@ define( function( require ) {
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
       isVisible: isVisible, // flag: is pendulum visible
 
+      energyMultiplier: 10, // coefficient for drawing energy graph
       // energies are in Joules
       kineticEnergy: 0,
       potentialEnergy: 0,
@@ -97,6 +98,14 @@ define( function( require ) {
   }
 
   return inherit( Movable, Pendulum, {
+    reset: function() {
+      Movable.prototype.reset.call( this );
+
+      this.velocityVector.setXY( 0, 0 );
+      this.accelerationVector.setXY( 0, 0 );
+      this.velocityVectorProperty.notifyObserversStatic();
+      this.accelerationVectorProperty.notifyObserversStatic();
+    },
     getHeight: function() {
       return this.length * (1 - Math.cos( this.angle ));
     },

@@ -87,7 +87,6 @@ define( function( require ) {
     } );
 
     // create bars
-    this.energyMultiplier = 10; // @private
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC, rotation: Math.PI } );
     this.kineticEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC } );
     this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.POTENTIAL, rotation: Math.PI } );
@@ -115,6 +114,8 @@ define( function( require ) {
     } );
 
     // add energy observers
+    this.energyMultiplierProperty = pendulum.energyMultiplierProperty;
+    this.energyMultiplierProperty.link( this.updateAllEnergies.bind( this ) );
     this.kineticEnergyProperty = pendulum.kineticEnergyProperty;
     this.kineticEnergyProperty.link( this.updateKineticEnergy.bind( this ) );
     this.potentialEnergyProperty = pendulum.potentialEnergyProperty;
@@ -123,7 +124,7 @@ define( function( require ) {
     this.thermalEnergyProperty.link( this.updateThermalEnergy.bind( this ) );
 
     isEnergyGraphExpandedProperty.link( function( isEnergyGraphExpanded ) {
-      if ( isEnergyGraphExpanded ) {
+      if ( isEnergyGraphExpanded && self.visible ) {
         self.updateAllEnergies();
       }
     } );
@@ -135,10 +136,11 @@ define( function( require ) {
     },
     show: function() {
       this.visible = true;
+      this.updateAllEnergies();
     },
     updateEnergy: function( node, nodeClone, energy ) {
-      node.setRectHeight( energy * this.energyMultiplier );
-      nodeClone.setRectHeight( energy * this.energyMultiplier );
+      node.setRectHeight( energy * this.energyMultiplierProperty.value );
+      nodeClone.setRectHeight( energy * this.energyMultiplierProperty.value );
     },
     updateKineticEnergy: function() {
       if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
@@ -161,11 +163,11 @@ define( function( require ) {
       this.updateThermalEnergy();
     },
     zoomIn: function() {
-      this.energyMultiplier *= 1.05;
+      this.energyMultiplierProperty.value *= 1.05;
       this.updateAllEnergies();
     },
     zoomOut: function() {
-      this.energyMultiplier *= 0.95;
+      this.energyMultiplierProperty.value *= 0.95;
       this.updateAllEnergies();
     }
   } );
