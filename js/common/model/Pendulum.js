@@ -23,14 +23,16 @@ define( function( require ) {
    * @param {string} color of pendulum.
    * @param {boolean} isVisible - Initial visibility of pendulum.
    * @param {Property<number>} gravityProperty - Property with current gravity value.
+   * @param {Property<number>} frictionProperty - Property with current friction value.
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    * @constructor
    */
-  function Pendulum( mass, length, color, isVisible, gravityProperty, isPeriodTraceVisibleProperty ) {
+  function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty ) {
     var self = this;
 
-    // save link to gravity property
+    // save link to global properties
     this.gravityProperty = gravityProperty;
+    this.frictionProperty = frictionProperty;
 
     Movable.call( this, {
       // value of the angular displacement
@@ -94,7 +96,11 @@ define( function( require ) {
     } );
 
     this.massProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
-    gravityProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
+    gravityProperty.link( function() {
+      self.setAlpha();
+      self.updateAccelerationVector();
+      self.updateEnergiesWithThermalEnergyConstant();
+    } );
   }
 
   return inherit( Movable, Pendulum, {
@@ -115,6 +121,9 @@ define( function( require ) {
     getApproximatePeriod: function() {
       return 2 * Math.PI * Math.sqrt( this.length / this.gravityProperty.value );
     },
+    getFrictionContribution: function() {
+      return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.omega;
+    },
     resetMotion: function() {
       this.angleProperty.reset();
       this.alphaProperty.reset();
@@ -130,8 +139,8 @@ define( function( require ) {
       this.updateVectors();
       this.updateEnergiesWithTotalEnergyConstant();
     },
-    setAlpha: function( frictionContribution ) {
-      this.alpha = -this.gravityProperty.value / this.length * Math.sin( this.angle ) + frictionContribution;
+    setAlpha: function() {
+      this.alpha = -this.gravityProperty.value / this.length * Math.sin( this.angle ) + this.getFrictionContribution();
     },
     updateVectors: function() {
       this.updateVelocityVector();

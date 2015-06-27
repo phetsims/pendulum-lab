@@ -38,8 +38,8 @@ define( function( require ) {
     } );
 
     this.pendulums = [
-      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.isPeriodTraceVisibleProperty ),
-      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.isPeriodTraceVisibleProperty )
+      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty ),
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty )
     ];
 
     this.bodies = [
@@ -153,7 +153,7 @@ define( function( require ) {
             oldAlpha = currentPendulum.alpha;
 
             currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAlpha * dt * dt) % (Math.PI * 2);
-            currentPendulum.setAlpha( -this.friction / Math.pow( currentPendulum.mass, 1 / 3 ) * currentPendulum.omega );
+            currentPendulum.setAlpha();
             currentPendulum.omega += 0.5 * (currentPendulum.alpha + oldAlpha) * dt;
 
             // prevent infinite motion after friction
