@@ -69,7 +69,7 @@ define( function( require ) {
         // save value for further restoring
         gravityValueBeforePlanetX = self.gravity;
       }
-      else if ( bodyPrev === Body.PLANET_X ) {
+      else if ( bodyNew === Body.CUSTOM && bodyPrev === Body.PLANET_X ) {
         // restore previous value
         self.gravity = gravityValueBeforePlanetX;
       }
