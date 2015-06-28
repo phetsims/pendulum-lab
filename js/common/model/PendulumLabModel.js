@@ -152,7 +152,8 @@ define( function( require ) {
               currentPendulum.angle = 0;
               currentPendulum.alpha = 0;
               currentPendulum.omega = 0;
-              if ( this.periodTimer && this.periodTimer.isRunning && this.periodTimer.elapsedTime > 0 ) {
+              if ( this.periodTimer && this.periodTimer.isRunning && this.periodTimer.elapsedTime > 0
+                   && ((i === 0 && this.periodTimer.isFirst === true) || (i === 1 && this.periodTimer.isFirst === false)) ) {
                 this.periodTimer.isRunning = false;
               }
             }
