@@ -84,15 +84,15 @@ define( function( require ) {
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE
     } );
-    hSlider.addMajorTick( gravityPropertyRange.min, new Text( noneString, { font: FONT } ) );
-    hSlider.addMajorTick( gravityPropertyRange.max, new Text( lotsString, { font: FONT } ) );
+    hSlider.addMajorTick( gravityPropertyRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( gravityPropertyRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( hSlider );
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
     this.questionNodeText = new Text( whatIsTheValueOfGravity, { font: FONT } );
-    this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ] } );
+    this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ], pickable: false } );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );
 
@@ -120,7 +120,7 @@ define( function( require ) {
     // add arrow buttons and value panel
     addTweakers: function( gravityProperty, gravityPropertyRange ) {
       // create minus button
-      var arrowButtonMinus= new ArrowButton( 'left', function() {
+      var arrowButtonMinus = new ArrowButton( 'left', function() {
         gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
       }, { scale: 0.5 } );
 
@@ -140,6 +140,7 @@ define( function( require ) {
         spacing: VALUE_LABEL_SPACING, children: [
           arrowButtonMinus,
           new Node( {
+            pickable: false,
             children: [
               new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
                 centerY: -1,

@@ -54,9 +54,9 @@ define( function( require ) {
     }, options ) );
 
     // add ticks
-    this.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT } ) );
+    this.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
     this.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
-    this.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT } ) );
+    this.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
     var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {

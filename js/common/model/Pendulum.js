@@ -69,7 +69,7 @@ define( function( require ) {
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty );
 
     // make tick on protractor visible after first drag
-    this.isUserControlledProperty.link( function( isUserControlled ) {
+    this.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       if ( isUserControlled ) {
         self.isTickVisible = true;
         self.totalEnergy = self.mass * self.gravityProperty.value * self.getHeight();
@@ -80,7 +80,7 @@ define( function( require ) {
       }
     } );
 
-    this.angleProperty.link( function() {
+    this.angleProperty.lazyLink( function() {
       if ( self.isUserControlled ) {
         self.totalEnergy = self.mass * self.gravityProperty.value * self.getHeight();
         self.resetVectorParameters();
@@ -95,8 +95,8 @@ define( function( require ) {
       self.updateEnergiesWithThermalEnergyConstant();
     } );
 
-    this.massProperty.link( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
-    gravityProperty.link( function() {
+    this.massProperty.lazyLink( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
+    gravityProperty.lazyLink( function() {
       self.setAlpha();
       self.updateAccelerationVector();
       self.updateEnergiesWithThermalEnergyConstant();

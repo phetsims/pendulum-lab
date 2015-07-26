@@ -45,7 +45,7 @@ define( function( require ) {
       pendulumLabModel.gravityRange, pendulumLabModel.bodyTitleProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
-        new Text( gravityString, { font: FONT_TITLE } ),
+        new Text( gravityString, { font: FONT_TITLE, pickable: false } ),
         this.gravitySlider
       ]
     } ) );
@@ -53,7 +53,7 @@ define( function( require ) {
     // add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
       var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
-      var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2 } );
+      var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2, pickable: false } );
       frictionSliderLabel.centerY = -(frictionSliderNode.height + frictionSliderLabel.height) / 2 - 4;
 
       content.addChild( new Node( {

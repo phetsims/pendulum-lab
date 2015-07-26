@@ -34,7 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function OnePendulumIconNode( options ) {
-    Node.call( this, options );
+    Node.call( this, _.extend( { pickable: false }, options ) );
 
     this.addChild( new Rectangle( 0, 0, ICON_SIZE, ICON_SIZE ) );
 

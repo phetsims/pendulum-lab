@@ -69,6 +69,7 @@ define( function( require ) {
           spacing: VALUE_LABEL_SPACING, children: [
             arrowButtonMinus,
             new Node( {
+              pickable: false,
               children: [
                 new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
                   centerY: -1,

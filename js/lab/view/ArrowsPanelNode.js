@@ -54,11 +54,12 @@ define( function( require ) {
       new Node( {
         children: [
           // necessary to expand panel
-          new HStrut( PANEL_WIDTH ),
+          new HStrut( PANEL_WIDTH, { pickable: false } ),
 
           new VerticalCheckBoxGroup( [
             {
               content: new Node( {
+                pickable: false,
                 children: [
                   textStrings[ 0 ],
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
@@ -73,6 +74,7 @@ define( function( require ) {
             },
             {
               content: new Node( {
+                pickable: false,
                 children: [
                   textStrings[ 1 ],
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {

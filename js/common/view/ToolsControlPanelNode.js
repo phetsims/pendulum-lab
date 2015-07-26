@@ -37,9 +37,9 @@ define( function( require ) {
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
     this._labels = [
-      new Text( rulerString, { font: FONT } ),
-      new Text( stopwatchString, { font: FONT } ),
-      new Text( periodTraceString, { font: FONT } )
+      new Text( rulerString, { font: FONT, pickable: false } ),
+      new Text( stopwatchString, { font: FONT, pickable: false } ),
+      new Text( periodTraceString, { font: FONT, pickable: false } )
     ];
 
     PanelPendulumAbstract.call( this,

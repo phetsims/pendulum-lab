@@ -74,6 +74,7 @@ define( function( require ) {
             children: [
               // add length slider label
               new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, lengthString, (pendulumIndex + 1).toString() ), {
+                pickable: false,
                 font: FONT_TITLE,
                 fill: pendulum.color
               } ),
@@ -86,6 +87,7 @@ define( function( require ) {
             children: [
               // add mass slider label
               new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, massString, (pendulumIndex + 1).toString() ), {
+                pickable: false,
                 font: FONT_TITLE,
                 fill: pendulum.color
               } ),

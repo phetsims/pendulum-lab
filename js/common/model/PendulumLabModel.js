@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
+  var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -144,7 +145,7 @@ define( function( require ) {
           currentPendulum = this.pendulums[ i ];
 
           // update position when pendulum is not selected
-          if ( !currentPendulum.isUserControlled ) {
+          if ( !currentPendulum.isUserControlled && (currentPendulum.angle !== 0 || currentPendulum.alpha !== 0 || currentPendulum.omega !== 0) ) {
             oldAlpha = currentPendulum.alpha;
 
             currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAlpha * dt * dt) % (Math.PI * 2);
@@ -162,8 +163,18 @@ define( function( require ) {
               }
             }
 
-            currentPendulum.updateVectors();
-            currentPendulum.updateEnergiesWithTotalEnergyConstant();
+            if ( this.isVelocityVisible ) {
+              currentPendulum.updateVelocityVector();
+            }
+
+            if ( this.isAccelerationVisible ) {
+              currentPendulum.updateAccelerationVector();
+            }
+
+            if ( this.isEnergyGraphExpanded && ((i === 0 && this.energyGraphMode === EnergyGraphMode.ONE) ||
+                                                (i === 1 && this.energyGraphMode === EnergyGraphMode.TWO)) ) {
+              currentPendulum.updateEnergiesWithTotalEnergyConstant();
+            }
           }
         }
       }

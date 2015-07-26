@@ -28,6 +28,7 @@ define( function( require ) {
   function PeriodTraceNode( pendulums, modelViewTransform, options ) {
     var self = this;
     Node.call( this, _.extend( {
+      pickable: false,
       rotation: Math.PI / 2
     }, options ) );
 

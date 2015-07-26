@@ -42,7 +42,7 @@ define( function( require ) {
   function ProtractorNode( pendulums, modelViewTransform, options ) {
     var self = this;
 
-    Node.call( this, options );
+    Node.call( this, _.extend( { pickable: false }, options ) );
 
     // create central dash line
     if ( pendulums[ 0 ] ) {
