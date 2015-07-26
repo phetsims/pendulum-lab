@@ -43,13 +43,13 @@ define( function( require ) {
    *
    * @param {Property<number>} gravityProperty - Property to update by slider.
    * @param {Range} gravityPropertyRange - Range of gravity property.
-   * @param {Property<object>} bodyProperty - Property to update by combo box.
+   * @param {Property<object>} bodyTitleProperty - Property to update by combo box.
    * @param {Array.<Body>} bodies - Models of all bodies.
    * @param {Node} bodiesListNode - Node for displaying body list. Should be above all other nodes.
    * @param {Object} [options]
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, bodyProperty, bodies, bodiesListNode, options ) {
+  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, bodyTitleProperty, bodies, bodiesListNode, options ) {
     var self = this;
     var container = new Node();
 
@@ -64,13 +64,13 @@ define( function( require ) {
 
       bodyListItems.push( {
         node: bodyLabel,
-        value: body
+        value: body.title
       } );
     } );
 
     // add body menu combo box
     bodiesListNode.scale( 1.2 );
-    this.addChild( new ComboBox( bodyListItems, bodyProperty, bodiesListNode, {
+    this.addChild( new ComboBox( bodyListItems, bodyTitleProperty, bodiesListNode, {
       listPosition: 'above',
       buttonCornerRadius: 3,
       buttonYMargin: 0,
@@ -97,8 +97,8 @@ define( function( require ) {
     container.addChild( this.questionNode );
 
     // if planet X was chosen then replace slider to question
-    bodyProperty.link( function( body ) {
-      if ( body === Body.PLANET_X ) {
+    bodyTitleProperty.link( function( body ) {
+      if ( body === Body.PLANET_X.title ) {
         self.gravityAdjustmentNode.visible = false;
         self.questionNode.visible = true;
       }

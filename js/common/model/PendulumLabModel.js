@@ -27,7 +27,7 @@ define( function( require ) {
 
     PropertySet.call( this, {
       gravity: Body.EARTH.gravity, // gravitational acceleration
-      body: Body.EARTH, // current body name
+      bodyTitle: Body.EARTH.title, // current body title
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
@@ -64,30 +64,34 @@ define( function( require ) {
 
     // change gravity if body was changed
     var gravityValueBeforePlanetX = this.gravity;
-    this.bodyProperty.lazyLink( function( bodyNew, bodyPrev ) {
-      if ( bodyNew === Body.PLANET_X ) {
+    this.bodyTitleProperty.lazyLink( function( bodyTitleNew, bodyTitlePrev ) {
+      var body;
+
+      if ( bodyTitleNew === Body.PLANET_X.title ) {
         // save value for further restoring
         gravityValueBeforePlanetX = self.gravity;
       }
-      else if ( bodyNew === Body.CUSTOM && bodyPrev === Body.PLANET_X ) {
+
+      if ( bodyTitleNew !== Body.CUSTOM.title ) {
+        body = _.find( self.bodies, { title: bodyTitleNew } );
+        self.gravity = body.gravity;
+      }
+      else if ( bodyTitlePrev === Body.PLANET_X.title ) {
         // restore previous value
         self.gravity = gravityValueBeforePlanetX;
-      }
-      else {
-        // determine body
-        var body = _.find( self.bodies, bodyNew );
-
-        // set new gravity
-        if ( body && body !== Body.CUSTOM ) {
-          self.gravity = body.gravity;
-        }
       }
     } );
 
     // change body to custom if gravity was changed
-    this.gravityProperty.lazyLink( function() {
-      if ( self.body !== Body.CUSTOM ) {
-        self.body = Body.CUSTOM;
+    this.gravityProperty.lazyLink( function( gravityValue ) {
+      var body;
+
+      if ( self.bodyTitle !== Body.CUSTOM.title ) {
+        body = _.find( self.bodies, { gravity: gravityValue } );
+
+        if ( !body ) {
+          self.bodyTitle = Body.CUSTOM.title;
+        }
       }
     } );
 
