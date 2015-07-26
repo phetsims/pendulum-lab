@@ -102,17 +102,6 @@ define( function( require ) {
     // add path listeners
     this.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
     this.isFirstProperty.lazyLink( function( isFirst ) {
-      var visibleValue;
-
-      // previous visible value for next pendulum
-      // NOTE: inherit previous value (if path fading - set "false" value)
-      if ( self.activePendulum.periodTrace.isVisible && self.isCalculate ) {
-        visibleValue = true;
-      }
-      else {
-        visibleValue = false;
-      }
-
       self.clear();
 
       if ( isFirst ) {
@@ -126,7 +115,7 @@ define( function( require ) {
         self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
       }
 
-      self.activePendulum.periodTrace.isVisible = visibleValue;
+      self.activePendulum.periodTrace.isVisible = self.isRunning;
     } );
   }
 
