@@ -79,8 +79,9 @@ define( function( require ) {
       .close().getOffsetShape( -playOffset );
 
     var playPauseButton = new BooleanRectangularToggleButton(
-      new Path( uArrowShape, { fill: options.iconColor, centerX: 0, centerY: 0 } ),
+      new Path( uArrowShape, { fill: options.iconColor, centerX: 0, centerY: 0, pickable: false } ),
       new Path( playShape, {
+        pickable: false,
         stroke: options.iconColor,
         fill: '#eef',
         lineWidth: halfPlayStroke * 2,
@@ -127,8 +128,8 @@ define( function( require ) {
       left: PANEL_PAD,
       top: PANEL_PAD,
       children: [
-        new Text( periodString, { font: FONT_TEXT } ),
-        new Node( { children: [ textBackground, readoutText ] } ),
+        new Text( periodString, { font: FONT_TEXT, pickable: false } ),
+        new Node( { children: [ textBackground, readoutText ], pickable: false } ),
         new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } )
       ]
     } );
@@ -138,6 +139,7 @@ define( function( require ) {
 
     // highlight
     this.addChild( new Node( {
+      pickable: false,
       children: [
         new Rectangle( 20, -PANEL_PAD, backgroundDimension.width - 30, PANEL_PAD, {
           fill: new LinearGradient( 0, -PANEL_PAD, 0, 0 )
@@ -154,7 +156,10 @@ define( function( require ) {
       ]
     } ) );
 
-    this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, { fill: BACKGROUND_IN_COLOR } ) );
+    this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, {
+      fill: BACKGROUND_IN_COLOR,
+      pickable: false
+    } ) );
     this.addChild( vBox );
 
     periodTrace.elapsedTimeProperty.link( function updateTime( value ) {

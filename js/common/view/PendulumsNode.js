@@ -47,15 +47,14 @@ define( function( require ) {
       var massToScale = new LinearFunction( pendulum.massRange.min, pendulum.massRange.max, 0.25, 1 );
 
       // create solid line
-      var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black' } );
+      var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickabe: false } );
 
       // create pendulum
       var pendulumRect = new Node( {
-        cursor: 'pointer',
+        pickabe: false,
         children: [
           new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
             fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
-              addColorStop( 0, pendulum.color ).
               addColorStop( 0.3, pendulum.color ).
               addColorStop( 0.8, 'white' ).
               addColorStop( 1, pendulum.color )
@@ -65,11 +64,12 @@ define( function( require ) {
         ]
       } );
 
-      var pendulumNode = new Node( { children: [ solidLine, pendulumRect ] } );
+      var pendulumNode = new Node( { cursor: 'pointer', children: [ solidLine, pendulumRect ] } );
 
       // add velocity arrows if necessary
       if ( options.isVelocityVisibleProperty ) {
         var velocityArrow = new ArrowNode( 0, 0, 0, 0, {
+          pickabe: false,
           fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
           tailWidth: ARROW_TAIL_WIDTH,
           headWidth: ARROW_HEAD_WIDTH
@@ -95,6 +95,7 @@ define( function( require ) {
       if ( options.isAccelerationVisibleProperty ) {
         // create acceleration arrow
         var accelerationArrow = new ArrowNode( 0, 0, 0, 0, {
+          pickabe: false,
           fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
           tailWidth: ARROW_TAIL_WIDTH,
           headWidth: ARROW_HEAD_WIDTH

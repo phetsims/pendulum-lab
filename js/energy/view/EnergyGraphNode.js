@@ -112,7 +112,7 @@ define( function( require ) {
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
           new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ] } ),
-          new Panel( this._content, { resize: false } ),
+          new Panel( this._content, { resize: false, pickable: false } ),
           new HBox( { spacing: 20, children: [ zoomOutButton, zoomInButton ] } )
         ]
       } ),
