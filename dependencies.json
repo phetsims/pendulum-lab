@@ -1,59 +1,59 @@
 {
-  "comment": "# pendulum-lab 1.0.0-dev.4 Thu Jun 04 2015 11:46:00 GMT-0600 (MDT)",
+  "comment": "# pendulum-lab 1.0.0-dev.5 Fri Aug 14 2015 16:16:13 GMT-0600 (Mountain Daylight Time)",
   "assert": {
-    "sha": "903564a25a0f26acdbd334d3e104039864b405ef",
+    "sha": "858e65ac477bf1861883ce06eed56d9fdefa5027",
     "branch": "master"
   },
   "axon": {
-    "sha": "7de4a27be4b322b71c5f5046df193a03ccf0f161",
+    "sha": "5be7fe049bbc0963a28c0125dc90039f04fb651c",
     "branch": "master"
   },
   "brand": {
-    "sha": "b3362651f1d7eddb7f8697d02400472f97f9d140",
+    "sha": "0329ea5aa0359d811c15ec6619141ea1e9edcec2",
     "branch": "master"
   },
   "chipper": {
-    "sha": "c7d6ea5f9bef6e3882309af56ad409908dd28878",
+    "sha": "2dae274914347ba379874e91e4f0735f49abfdb5",
     "branch": "master"
   },
   "dot": {
-    "sha": "a6a50c92c4cda5f8a3371d8c357ea565b7e7bd6c",
+    "sha": "e34c6b2c53b83ea1f8d2a5091cadfdc6353a501d",
     "branch": "master"
   },
   "joist": {
-    "sha": "55fd6884039c5ef2f2145093c8530beab5490233",
+    "sha": "0f8e76c71d3d825dd3cb0bf2cd6426921154d76c",
     "branch": "master"
   },
   "kite": {
-    "sha": "b915f3b160744e4833d177dc38e74e4cbc912883",
+    "sha": "2497814682e359a8500fcb2a6dca2e276a00b6f9",
     "branch": "master"
   },
   "pendulum-lab": {
-    "sha": "2b4cf70e4a8a88b37882b1643d44155a806508ab",
+    "sha": "78560e67a2644f2c4f20b183c3f61f947fbde947",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "23834d107dc1cb368c00901c76927b712b9caa10",
+    "sha": "8e31808c67a23066b43fbbd2080784daa44433c2",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "bb92c52cd90fdaa0c2a746fea82594afd439b4db",
+    "sha": "89a44d2cefd4b66f031f7f3fc30c0578a3130b5e",
     "branch": "master"
   },
   "scenery": {
-    "sha": "f09eddb7393946fcbedb63ebf6b88d1785c91bfc",
+    "sha": "be4fc88f1d1e8ddec3ec29b03f45cc5db08287d1",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7ffc5a1a36e0afe36d035d0367078b3558fd157f",
+    "sha": "78082cb37084beac1bb3188f616eee901ccffaa5",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "ae2168a85ceb4094c23cd47ba5fe8145375448eb",
+    "sha": "1759eadefb4f6d680f85aef394ea7727df1928e6",
     "branch": "master"
   },
   "sun": {
-    "sha": "c9087fbb0cdd83f79452330fec3b83f809e2c0d8",
+    "sha": "1320a557747cdae948b731a9398ec3670b139334",
     "branch": "master"
   }
 }
