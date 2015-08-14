@@ -1,6 +1,6 @@
 {
   "name": "pendulum-lab",
-  "version": "1.0.0-dev.4",
+  "version": "1.0.0-dev.5",
   "license": "GPLv3",
   "requirejsNamespace": "PENDULUM_LAB",
   "simTitleStringKey": "PENDULUM_LAB/pendulum-lab.name",
