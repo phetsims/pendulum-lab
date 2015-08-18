@@ -15,9 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "PENDULUM_LAB",
-    "simTitleStringKey": "PENDULUM_LAB/pendulum-lab.name",
-    "phetLibs": [
-      "pendulum-lab"
-    ]
+    "simTitleStringKey": "PENDULUM_LAB/pendulum-lab.name"
   }
 }
