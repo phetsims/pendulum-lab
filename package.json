@@ -2,11 +2,6 @@
   "name": "pendulum-lab",
   "version": "1.0.0-dev.5",
   "license": "GPLv3",
-  "requirejsNamespace": "PENDULUM_LAB",
-  "simTitleStringKey": "PENDULUM_LAB/pendulum-lab.name",
-  "phetLibs": [
-    "pendulum-lab"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/pendulum-lab.git"
@@ -17,5 +12,12 @@
     "grunt-contrib-jshint": "~0.6.4",
     "uglify-js": "~2.4.0",
     "requirejs": "~2.1.8"
+  },
+  "phet": {
+    "requirejsNamespace": "PENDULUM_LAB",
+    "simTitleStringKey": "PENDULUM_LAB/pendulum-lab.name",
+    "phetLibs": [
+      "pendulum-lab"
+    ]
   }
 }
