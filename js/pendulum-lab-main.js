@@ -16,7 +16,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!PENDULUM_LAB/pendulum-lab.name' );
+  var simTitle = require( 'string!PENDULUM_LAB/pendulum-lab.title' );
 
   var simOptions = {
     credits: {

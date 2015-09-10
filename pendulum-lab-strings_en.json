@@ -68,7 +68,7 @@
   "pattern.energyOf.0pendulumNumber": {
     "value": "Energy of {0}"
   },
-  "pendulum-lab.name": {
+  "pendulum-lab.title": {
     "value": "Pendulum Lab"
   },
   "period": {
