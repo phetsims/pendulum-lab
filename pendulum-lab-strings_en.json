@@ -101,13 +101,13 @@
   "stopwatch": {
     "value": "Stopwatch"
   },
-  "tab.energy": {
+  "screen.energy": {
     "value": "Energy"
   },
-  "tab.intro": {
+  "screen.intro": {
     "value": "Intro"
   },
-  "tab.lab": {
+  "screen.lab": {
     "value": "Lab"
   },
   "thermal": {

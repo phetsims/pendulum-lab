@@ -18,7 +18,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var energyString = require( 'string!PENDULUM_LAB/tab.energy' );
+  var energyString = require( 'string!PENDULUM_LAB/screen.energy' );
 
   // images
   var energyImage = require( 'mipmap!PENDULUM_LAB/energy-screen-icon.png' );

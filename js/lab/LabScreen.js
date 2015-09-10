@@ -18,7 +18,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var labString = require( 'string!PENDULUM_LAB/tab.lab' );
+  var labString = require( 'string!PENDULUM_LAB/screen.lab' );
 
   // images
   var labImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
