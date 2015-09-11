@@ -5,6 +5,7 @@
  * Semantics of units are determined by the client.
  *
  * @author Andrey Zelenkov (MLearner)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -27,8 +28,14 @@ define( function( require ) {
 
   return inherit( PropertySet, Movable, {
     setInitialLocationValue: function( initialLocation ) {
-      this.locationProperty.storeInitialValue( initialLocation.copy() );
-      this.locationProperty.storeValue( initialLocation.copy() );
+
+      // position to use for resetting
+      this.initialLocation = initialLocation.copy();
+      this.reset();
+    },
+
+    reset: function() {
+      this.location = this.initialLocation ? this.initialLocation.copy() : null;
     }
   } );
 } );
