@@ -21,7 +21,6 @@ define( function( require ) {
     PendulumLabModel.call( this );
 
     // hide ruler by default
-    this.ruler.isVisibleProperty.storeInitialValue( false );
     this.ruler.isVisible = false;
 
     // add energy mode property
@@ -29,5 +28,10 @@ define( function( require ) {
     this.addProperty( 'energyGraphMode', EnergyGraphMode.ONE );
   }
 
-  return inherit( PendulumLabModel, EnergyModel );
+  return inherit( PendulumLabModel, EnergyModel, {
+    reset: function() {
+      PendulumLabModel.prototype.reset.call( this );
+      this.ruler.isVisible = false;
+    }
+  } );
 } );
