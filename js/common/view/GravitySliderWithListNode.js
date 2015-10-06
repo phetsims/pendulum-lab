@@ -157,7 +157,7 @@ define( function( require ) {
       } ) );
 
       gravityProperty.link( function( value ) {
-        var valueString = value + "";
+        var valueString = value + '';
         var dotPosition = valueString.indexOf( '.' ) + 1;
         var valuePrecision;
 
