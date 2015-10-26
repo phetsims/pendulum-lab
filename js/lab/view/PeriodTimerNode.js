@@ -62,11 +62,11 @@ define( function( require ) {
 
     Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
 
-    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME } ),
-      textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
-        fill: '#fff',
-        stroke: 'rgba(0,0,0,0.5)'
-      } );
+    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME } );
+    var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
+      fill: '#fff',
+      stroke: 'rgba(0,0,0,0.5)'
+    } );
 
     var uArrowShape = new UTurnArrowShape( 10 );
     var playPauseHeight = uArrowShape.computeBounds().height;
@@ -96,10 +96,10 @@ define( function( require ) {
       children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
         stroke: 'black',
         fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
-          addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
-          addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
-          addColorStop( 0.8, 'white' ).
-          addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
+        addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
+        addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
+        addColorStop( 0.8, 'white' ).
+        addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
       } ),
         new Text( '1', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
@@ -107,10 +107,10 @@ define( function( require ) {
       children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
         stroke: 'black',
         fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
-          addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-          addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-          addColorStop( 0.8, 'white' ).
-          addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
+        addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
+        addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
+        addColorStop( 0.8, 'white' ).
+        addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
       } ),
         new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
