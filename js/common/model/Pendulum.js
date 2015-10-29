@@ -10,10 +10,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  var scratchVector = new Vector2();
 
   /**
    * Constructor for single pendulum model.
@@ -34,28 +36,31 @@ define( function( require ) {
     this.gravityProperty = gravityProperty;
     this.frictionProperty = frictionProperty;
 
-    Movable.call( this, {
-      // value of the angular displacement
-      // acceptable range for angle is [ -2 * pi ; 2 * pi ], it is rounded in PendulumLabModel.step function.
-      angle: 0,
-
+    PropertySet.call( this, {
+      // Primary variables
       length: length, // length of pendulum
       mass: mass, // mass of pendulum
-      alpha: 0, // angular acceleration of pendulum
-      omega: 0, // angular velocity
-      accelerationVector: new Vector2( 0, 0 ), // acceleration vector of pendulum
-      velocityVector: new Vector2( 0, 0 ), // velocity vector of pendulum
+      angle: 0, // radians, 0 indicates straight down, pi/2 is to the right
+      angularVelocity: 0, // angular velocity
+
+      // Derived variables
+      angularAcceleration: 0, // angular acceleration
+      position: new Vector2( 0, 0 ), // from the rotation point
+      velocity: new Vector2( 0, 0 ),
+      acceleration: new Vector2( 0, 0 ),
+      kineticEnergy: 0, // Joules
+      potentialEnergy: 0, // Joules
+      thermalEnergy: 0, // Joules
+      totalEnergy: 0, // Joules
+
+      // UI??
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
       isVisible: isVisible, // flag: is pendulum visible
-
-      energyMultiplier: 10, // coefficient for drawing energy graph
-      // energies are in Joules
-      kineticEnergy: 0,
-      potentialEnergy: 0,
-      thermalEnergy: 0,
-      totalEnergy: 0
+      energyMultiplier: 10 // coefficient for drawing energy graph
     } );
+
+    this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
 
     // default color for this pendulum
     this.color = color;
@@ -68,109 +73,137 @@ define( function( require ) {
 
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty );
 
+
+
     // make tick on protractor visible after first drag
     this.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       if ( isUserControlled ) {
-        self.isTickVisible = true;
-        self.totalEnergy = self.mass * self.gravityProperty.value * self.getHeight();
-        self.resetVectorParameters();
+        self.isTickVisible = true; // Seems like an UI-specific issue, not model
 
-        self.updateVectors();
-        self.updateEnergiesWithTotalEnergyConstant();
+        self.angularVelocity = 0;
+        self.updateDerivedVariables( false );
       }
     } );
 
     this.angleProperty.lazyLink( function() {
       if ( self.isUserControlled ) {
-        self.totalEnergy = self.mass * self.gravityProperty.value * self.getHeight();
-        self.resetVectorParameters();
-        self.updateVectors();
-        self.updateEnergiesWithTotalEnergyConstant();
+        self.angularVelocity = 0; // angular velocity shouldn't be needed?
+        self.updateDerivedVariables( false );
       }
     } );
 
     this.lengthProperty.lazyLink( function( newLength, oldLength ) {
-      self.omega = self.omega * oldLength / newLength;
-      self.updateVectors();
-      self.updateEnergiesWithThermalEnergyConstant();
+      self.angularVelocity = self.angularVelocity * oldLength / newLength;
+      self.updateDerivedVariables( false ); // preserve thermal energy
     } );
 
-    this.massProperty.lazyLink( this.updateEnergiesWithThermalEnergyConstant.bind( this ) );
-    gravityProperty.lazyLink( function() {
-      self.setAlpha();
-      self.updateAccelerationVector();
-      self.updateEnergiesWithThermalEnergyConstant();
-    } );
+    this.updateListener = this.updateDerivedVariables.bind( this, false ); // don't add thermal energy on these callbacks
+    this.massProperty.lazyLink( this.updateListener );
+    gravityProperty.lazyLink( this.updateListener );
   }
 
-  return inherit( Movable, Pendulum, {
-    reset: function() {
-      Movable.prototype.reset.call( this );
+  return inherit( PropertySet, Pendulum, {
+    // 2x2 differential system, derived from: t'' + ( c / m ) * t' + ( g / L ) * sin( t ) = 0, with c:coefficient of
+    thetaDerivative: function( theta, omega ) {
+      return omega;
+    },
+    omegaDerivative: function( theta, omega ) {
+      return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
+    },
 
-      this.velocityVector.setXY( 0, 0 );
-      this.accelerationVector.setXY( 0, 0 );
-      this.velocityVectorProperty.notifyObserversStatic();
-      this.accelerationVectorProperty.notifyObserversStatic();
+    frictionTerm: function( omega ) {
+      var speed = Math.abs( omega ) * this.length;
+      var frictionCoefficient = speed * speed * Math.pow( this.mass, 2 / 3 ) * this.frictionProperty.value;
+      return ( frictionCoefficient / this.mass ) * omega;
     },
-    getHeight: function() {
-      return this.length * (1 - Math.cos( this.angle ));
+
+    step: function( dt ) {
+      var theta = this.angle;
+      var omega = this.angularVelocity;
+
+      var numSteps = 10;
+
+      // 10 iterations typically maintains about ~11 digits of precision for total energy
+      for ( var i = 0; i < numSteps; i++ ) {
+        var step = dt / numSteps;
+
+        // Runge Kutta (order 4)
+        var k1 = this.thetaDerivative( theta, omega ) * step;
+        var l1 = this.omegaDerivative( theta, omega ) * step;
+        var k2 = this.thetaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * step;
+        var l2 = this.omegaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * step;
+        var k3 = this.thetaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
+        var l3 = this.omegaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
+        var k4 = this.thetaDerivative( theta + k3, omega + l3 ) * step;
+        var l4 = this.omegaDerivative( theta + k3, omega + l3 ) * step;
+        theta += ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6;
+        omega += ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
+      }
+
+      this.angle = theta;
+      this.angularVelocity = omega;
+
+      this.updateDerivedVariables( this.frictionProperty.value > 0 );
     },
-    getVelocity: function() {
-      return this.length * this.omega;
+
+    updateDerivedVariables: function( energyChangeToThermal ) {
+      var speed = Math.abs( this.angularVelocity ) * this.length;
+
+      this.angularAcceleration = this.omegaDerivative( this.angle, this.angularVelocity );
+      this.height = this.length * ( 1 - Math.cos( this.angle ) );
+
+      var oldKineticEnergy = this.kineticEnergy;
+      this.kineticEnergy = 0.5 * this.mass * speed * speed;
+
+      var oldPotentialEnergy = this.potentialEnergy;
+      this.potentialEnergy = this.mass * this.gravityProperty.value * this.height;
+
+      if ( energyChangeToThermal ) {
+        this.thermalEnergy += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergy + this.potentialEnergy );
+      }
+      this.totalEnergy = this.kineticEnergy + this.potentialEnergy + this.thermalEnergy;
+
+      this.position.setPolar( this.length, this.angle - Math.PI / 2 );
+      this.velocity.setPolar( this.angularVelocity * this.length, this.angle ); // coordinate frame -pi/2, but perpendicular +pi/2
+
+      // add up net forces for the acceleration
+
+      // tangential friction
+      this.acceleration.setPolar( -this.frictionTerm( this.angularVelocity ) / this.mass, this.angle );
+      // tangential gravity
+      this.acceleration.add( scratchVector.setPolar( -this.gravityProperty.value * Math.sin( this.angle ), this.angle ) );
+      // radial (centripetal acceleration)
+      this.acceleration.add( scratchVector.setPolar( this.length * this.angularVelocity * this.angularVelocity, this.angle + Math.PI / 2 ) );
+
+      this.velocityProperty.notifyObserversStatic();
+      this.accelerationProperty.notifyObserversStatic();
+      this.positionProperty.notifyObserversStatic();
     },
+
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+
+      this.updateDerivedVariables( false );
+    },
+
+    isStationary: function() {
+      return this.isUserControlled || ( this.angle === 0 && this.angularVelocity === 0 && this.angularAcceleration === 0 );
+    },
+
     getApproximatePeriod: function() {
       return 2 * Math.PI * Math.sqrt( this.length / this.gravityProperty.value );
     },
     getFrictionContribution: function() {
-      return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.omega;
+      return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.angularVelocity;
     },
     resetMotion: function() {
       this.angleProperty.reset();
-      this.alphaProperty.reset();
-      this.omegaProperty.reset();
-      this.kineticEnergyProperty.reset();
-      this.potentialEnergyProperty.reset();
-      this.thermalEnergyProperty.reset();
-      this.totalEnergyProperty.reset();
-      this.isTickVisibleProperty.reset();
+      this.angularVelocityProperty.reset();
+      this.isTickVisibleProperty.reset(); // TODO: why?
 
       this.periodTrace.resetPathPoints();
 
-      this.updateVectors();
-      this.updateEnergiesWithTotalEnergyConstant();
-    },
-    setAlpha: function() {
-      this.alpha = -this.gravityProperty.value / this.length * Math.sin( this.angle ) + this.getFrictionContribution();
-    },
-    updateVectors: function() {
-      this.updateVelocityVector();
-      this.updateAccelerationVector();
-    },
-    updateVelocityVector: function() {
-      this.velocityVector.setXY( -this.getVelocity(), 0 );
-      this.velocityVectorProperty.notifyObserversStatic();
-    },
-    updateAccelerationVector: function() {
-      var omegaSq = this.omega * this.omega;
-      var accelerationMagnitude = this.length * Math.sqrt( this.alpha * this.alpha + omegaSq * omegaSq );
-      var accelerationAngle = Math.atan2( omegaSq, this.alpha );
-
-      this.accelerationVector.setPolar( -accelerationMagnitude, accelerationAngle );
-      this.accelerationVectorProperty.notifyObserversStatic();
-    },
-    updateEnergiesWithTotalEnergyConstant: function() {
-      this.potentialEnergy = this.mass * this.gravityProperty.value * this.getHeight();
-      this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
-      this.thermalEnergy = Math.max( 0, this.totalEnergy - (this.kineticEnergy + this.potentialEnergy) );
-    },
-    updateEnergiesWithThermalEnergyConstant: function() {
-      this.potentialEnergy = this.mass * this.gravityProperty.value * this.getHeight();
-      this.kineticEnergy = 0.5 * this.mass * this.getVelocity() * this.getVelocity();
-      this.totalEnergy = this.kineticEnergy + this.potentialEnergy + this.thermalEnergy;
-    },
-    resetVectorParameters: function() {
-      this.omega = 0;
-      this.alpha = -this.gravityProperty.value / this.length * Math.sin( this.angle );
+      this.updateDerivedVariables();
     }
   } );
 } );

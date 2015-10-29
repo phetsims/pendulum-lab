@@ -28,8 +28,7 @@ define( function( require ) {
    */
   function EnergyScreen() {
 
-    // model coordinates are the same as view coordinates
-    var modelViewTransform = ModelViewTransform2.createRectangleMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
+    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
 
     Screen.call( this, energyString, new Image( energyImage ),
       function() { return new EnergyModel(); },

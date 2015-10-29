@@ -62,30 +62,30 @@ define( function( require ) {
 
           // draw first arc
           if ( numberOfPoints > 1 ) {
-            shape.arc( 0, 0, traceLength, 0, periodTrace.firstAngle, periodTrace.anticlockwise );
-            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( periodTrace.firstAngle ), (traceLength - TRACE_STEP) * Math.sin( periodTrace.firstAngle ) );
+            shape.arc( 0, 0, traceLength, 0, -periodTrace.firstAngle, !periodTrace.anticlockwise );
+            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( -periodTrace.firstAngle ), (traceLength - TRACE_STEP) * Math.sin( -periodTrace.firstAngle ) );
 
             // draw second arc
             if ( numberOfPoints > 2 ) {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, periodTrace.firstAngle, periodTrace.secondAngle, !periodTrace.anticlockwise );
-              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( periodTrace.secondAngle ), (traceLength - 2 * TRACE_STEP) * Math.sin( periodTrace.secondAngle ) );
+              shape.arc( 0, 0, traceLength - TRACE_STEP, -periodTrace.firstAngle, -periodTrace.secondAngle, periodTrace.anticlockwise );
+              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * TRACE_STEP) * Math.sin( -periodTrace.secondAngle ) );
 
               // draw third arc
               if ( numberOfPoints > 3 ) {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, periodTrace.secondAngle, 0, periodTrace.anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, -periodTrace.secondAngle, 0, !periodTrace.anticlockwise );
                 isCompleted = true;
                 fadeOutPath( 3 * pendulum.getApproximatePeriod() / 2 * 10 );
               }
               else {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, periodTrace.secondAngle, pendulum.angle, periodTrace.anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, -periodTrace.secondAngle, -pendulum.angle, !periodTrace.anticlockwise );
               }
             }
             else {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, periodTrace.firstAngle, pendulum.angle, !periodTrace.anticlockwise );
+              shape.arc( 0, 0, traceLength - TRACE_STEP, -periodTrace.firstAngle, -pendulum.angle, periodTrace.anticlockwise );
             }
           }
           else {
-            shape.arc( 0, 0, traceLength, 0, pendulum.angle, periodTrace.anticlockwise );
+            shape.arc( 0, 0, traceLength, 0, -pendulum.angle, !periodTrace.anticlockwise );
           }
           pathNode.setShape( shape );
         }

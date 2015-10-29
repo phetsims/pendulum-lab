@@ -42,6 +42,10 @@ define( function( require ) {
 
     Node.call( this, options );
 
+    var pendulumNodes = [];
+    var velocityArrows = [];
+    var accelerationArrows = [];
+
     // add pendulums
     pendulums.forEach( function( pendulum, pendulumIndex ) {
       var massToScale = new LinearFunction( pendulum.massRange.min, pendulum.massRange.max, 0.25, 1 );
@@ -74,19 +78,21 @@ define( function( require ) {
           tailWidth: ARROW_TAIL_WIDTH,
           headWidth: ARROW_HEAD_WIDTH
         } );
-        pendulumNode.addChild( velocityArrow );
+        velocityArrows.push( velocityArrow );
         options.isVelocityVisibleProperty.linkAttribute( velocityArrow, 'visible' );
 
-        // updateVelocityVector call necessary to update view when turning on vector while pause
         options.isVelocityVisibleProperty.lazyLink( function( isVelocityVisible ) {
           velocityArrow.visible = isVelocityVisible;
-          pendulum.updateVelocityVector();
         } );
 
         // add arrow size observer
-        pendulum.velocityVectorProperty.link( function( velocityVector ) {
+        pendulum.velocityProperty.link( function( velocity ) {
           if ( velocityArrow.visible ) {
-            velocityArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * velocityVector.x, ARROW_SIZE_DEFAULT * velocityVector.y );
+            var position = modelViewTransform.modelToViewPosition( pendulum.position );
+            velocityArrow.setTailAndTip( position.x,
+                                         position.y,
+                                         position.x + ARROW_SIZE_DEFAULT * velocity.x,
+                                         position.y - ARROW_SIZE_DEFAULT * velocity.y );
           }
         } );
       }
@@ -100,26 +106,27 @@ define( function( require ) {
           tailWidth: ARROW_TAIL_WIDTH,
           headWidth: ARROW_HEAD_WIDTH
         } );
-        pendulumNode.addChild( accelerationArrow );
+        accelerationArrows.push( accelerationArrow );
         options.isAccelerationVisibleProperty.linkAttribute( accelerationArrow, 'visible' );
 
         // add visibility observer
-        // updateAccelerationVector call necessary to update view when turning on vector while pause
         options.isAccelerationVisibleProperty.lazyLink( function( isAccelerationVisible ) {
           accelerationArrow.visible = isAccelerationVisible;
-          pendulum.updateAccelerationVector();
         } );
 
         // add arrow size observer
-        pendulum.accelerationVectorProperty.link( function( accelerationVector ) {
+        pendulum.accelerationProperty.link( function( acceleration ) {
           if ( accelerationArrow.visible ) {
-            accelerationArrow.setTailAndTip( 0, 0, ARROW_SIZE_DEFAULT * accelerationVector.x, ARROW_SIZE_DEFAULT * accelerationVector.y );
+            var position = modelViewTransform.modelToViewPosition( pendulum.position );
+            accelerationArrow.setTailAndTip( position.x,
+                                             position.y,
+                                             position.x + ARROW_SIZE_DEFAULT * acceleration.x,
+                                             position.y - ARROW_SIZE_DEFAULT * acceleration.y );
           }
         } );
       }
 
-      // join components into one node
-      self.addChild( pendulumNode );
+      pendulumNodes.push( pendulumNode );
 
       // add drag events
       var clickYOffset;
@@ -135,7 +142,7 @@ define( function( require ) {
           var x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
           var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
 
-          pendulum.angle = -Math.atan2( x, y ) % (Math.PI * 2);
+          pendulum.angle = Math.atan2( x, y ) % (Math.PI * 2);
         },
         end: function() {
           pendulum.isUserControlled = false;
@@ -144,7 +151,7 @@ define( function( require ) {
 
       // update pendulum rotation
       pendulum.angleProperty.link( function( angle ) {
-        pendulumNode.rotation = angle;
+        pendulumNode.rotation = -angle;
       } );
 
       // update pendulum components position
@@ -153,14 +160,6 @@ define( function( require ) {
 
         pendulumRect.setY( lengthMeters );
         solidLine.setY2( lengthMeters );
-
-        if ( velocityArrow ) {
-          velocityArrow.setY( lengthMeters );
-        }
-
-        if ( accelerationArrow ) {
-          accelerationArrow.setY( lengthMeters );
-        }
       } );
 
       // update rectangle size
@@ -171,6 +170,8 @@ define( function( require ) {
       // update visibility
       pendulum.isVisibleProperty.linkAttribute( pendulumNode, 'visible' );
     } );
+
+    this.children = pendulumNodes.concat( velocityArrows ).concat( accelerationArrows );
   }
 
   return inherit( Node, PendulumsNode );

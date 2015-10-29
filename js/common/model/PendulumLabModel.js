@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
-  var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -125,66 +124,46 @@ define( function( require ) {
       }
     },
 
-    // called by the animation loop. Optional, so if your model has no animation, you can omit this.
     step: function( dt ) {
-      dt = Math.min( 0.05, dt * this.timeSpeed );
+      if ( this.play ) {
+        this.modelStep( Math.min( 0.5, dt * this.timeSpeed ) );
+      }
+    },
 
-      if ( this.play || this.stepManualMode ) {
-        var currentPendulum;
-        var oldAlpha;
+    modelStep: function( dt ) {
+      if ( this.stopwatch.isRunning ) {
+        this.stopwatch.elapsedTime += dt;
+      }
 
-        if ( this.stopwatch.isRunning ) {
-          this.stopwatch.elapsedTime += dt;
-        }
+      if ( this.periodTimer && this.periodTimer.isCalculate ) {
+        this.periodTimer.elapsedTime += dt;
+      }
 
-        if ( this.periodTimer && this.periodTimer.isCalculate ) {
-          this.periodTimer.elapsedTime += dt;
-        }
+      for ( var i = 0; i < this.numberOfPendulums; i++ ) {
+        var pendulum = this.pendulums[ i ];
 
-        for ( var i = 0; i < this.numberOfPendulums; i++ ) {
-          currentPendulum = this.pendulums[ i ];
+        if ( !pendulum.isStationary() ) {
 
-          // update position when pendulum is not selected
-          if ( !currentPendulum.isUserControlled && (currentPendulum.angle !== 0 || currentPendulum.alpha !== 0 || currentPendulum.omega !== 0) ) {
-            oldAlpha = currentPendulum.alpha;
-
-            currentPendulum.angle = (currentPendulum.angle + currentPendulum.omega * dt + 0.5 * oldAlpha * dt * dt) % (Math.PI * 2);
-            currentPendulum.setAlpha();
-            currentPendulum.omega += 0.5 * (currentPendulum.alpha + oldAlpha) * dt;
-
-            // prevent infinite motion after friction
-            if ( Math.abs( currentPendulum.angle ) < 1e-3 && Math.abs( currentPendulum.alpha ) < 1e-3 && Math.abs( currentPendulum.omega ) < 1e-3 ) {
-              currentPendulum.angle = 0;
-              currentPendulum.alpha = 0;
-              currentPendulum.omega = 0;
-              if ( this.periodTimer && this.periodTimer.isRunning && this.periodTimer.elapsedTime > 0 &&
-                   ((i === 0 && this.periodTimer.isFirst === true) || (i === 1 && this.periodTimer.isFirst === false)) ) {
-                this.periodTimer.isRunning = false;
-              }
-            }
-
-            if ( this.isVelocityVisible ) {
-              currentPendulum.updateVelocityVector();
-            }
-
-            if ( this.isAccelerationVisible ) {
-              currentPendulum.updateAccelerationVector();
-            }
-
-            if ( this.isEnergyGraphExpanded && ((i === 0 && this.energyGraphMode === EnergyGraphMode.ONE) ||
-                                                (i === 1 && this.energyGraphMode === EnergyGraphMode.TWO)) ) {
-              currentPendulum.updateEnergiesWithTotalEnergyConstant();
+          // prevent infinite motion after friction. TODO: could use some cleanup!
+          if ( Math.abs( pendulum.angle ) < 1e-3 &&
+               Math.abs( pendulum.angularAcceleration ) < 1e-3 &&
+               Math.abs( pendulum.angularVelocity ) < 1e-3 ) {
+            pendulum.angle = 0;
+            pendulum.angularVelocity = 0;
+            if ( this.periodTimer && this.periodTimer.isRunning && this.periodTimer.elapsedTime > 0 &&
+                 ((i === 0 && this.periodTimer.isFirst === true) || (i === 1 && this.periodTimer.isFirst === false)) ) {
+              this.periodTimer.isRunning = false;
             }
           }
+
+          pendulum.step( dt );
         }
       }
     },
 
     // handler for step button
     stepManual: function() {
-      this.stepManualMode = true;
-      this.step( 1 );
-      this.stepManualMode = false;
+      this.modelStep( 0.25 );
     },
 
     returnHandler: function() {
