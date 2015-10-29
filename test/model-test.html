@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+  <title>Model Testing</title>
+
+  <!-- jQuery and LoDash are dependencies -->
+  <script src="../../sherpa/lib/jquery-2.1.0.min.js"></script>
+  <script src="../../sherpa/lib/lodash-2.4.1.min.js"></script>
+
+  <script src="../../scenery/build/production/scenery.min.js"></script>
+
+  <script>
+    $( document ).ready( function() {
+      var line = new scenery.Line( 0, 0, 0, 200, { stroke: 'black' } );
+      var scene = new scenery.Node( { children: [
+        new scenery.Node( { x: 256, y: 256, children: [ line ] } )
+      ] } );
+
+      var display = new scenery.Display( scene, {
+        width: 512,
+        height: 512,
+        backgroundColor: '#eee'
+      } );
+      document.body.appendChild( display.domElement );
+
+      // constants
+      var G = 9.8;
+
+      // non-derived variables
+      var theta = Math.PI / 2;
+      var omega = -3;
+      var length = 5;
+      var mass = 50;
+
+      // derived variables
+      var speed = Math.abs( omega * length );
+      var kineticEnergy = 0.5 * mass * speed * speed;
+      var potentialEnergy = mass * G * length * ( 1 - Math.cos( theta ) );
+
+      function step( dt ) {
+        // 2x2 differential system, derived from: t'' + ( c / m ) * t' + ( g / L ) * sin( t ) = 0, with c:coefficient of
+        // friction, derived from tangential net force balance
+        function thetaDerivative( theta, omega ) {
+          return omega;
+        }
+        function omegaDerivative( theta, omega ) {
+          var speed = Math.abs( omega ) * length;
+          var frictionMagicNumber = 0.01;
+          var frictionCoefficient = speed * speed * Math.pow( mass, 2 / 3 ) * frictionMagicNumber;
+          return ( -frictionCoefficient / mass ) * omega - ( G / length ) * Math.sin( theta );
+        }
+
+        // Runge Kutta (order 4)
+        var k1 = thetaDerivative( theta, omega ) * dt;
+        var l1 = omegaDerivative( theta, omega ) * dt;
+        var k2 = thetaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * dt;
+        var l2 = omegaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * dt;
+        var k3 = thetaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * dt;
+        var l3 = omegaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * dt;
+        var k4 = thetaDerivative( theta + k3, omega + l3 ) * dt;
+        var l4 = omegaDerivative( theta + k3, omega + l3 ) * dt;
+        var newTheta = theta + ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6;
+        var newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
+
+        var newSpeed = Math.abs( newOmega ) * length;
+        var newKineticEnergy = 0.5 * mass * newSpeed * newSpeed;
+        var newPotentialEnergy = mass * G * length * ( 1 - Math.cos( newTheta ) );
+
+        theta = newTheta;
+        omega = newOmega;
+        speed = newSpeed;
+        kineticEnergy = newKineticEnergy;
+        potentialEnergy = newPotentialEnergy;
+      }
+
+      display.updateOnRequestAnimationFrame( function( dt ) {
+        if ( dt > 1 ) {
+          dt = 1;
+        }
+
+        // Splitting into 10 steps seems to maintain ~11 correct decimal digits of total energy
+        for ( var i = 0; i < 10; i++ ) {
+          step( dt / 10 );
+        }
+
+        // console.log( kineticEnergy + potentialEnergy );
+
+        line.rotation = theta;
+      } );
+    } );
+  </script>
+</head>
+<body>
+</body>
+</html>
