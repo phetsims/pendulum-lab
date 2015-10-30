@@ -31,6 +31,7 @@ define( function( require ) {
   return inherit( PendulumLabModel, EnergyModel, {
     reset: function() {
       PendulumLabModel.prototype.reset.call( this );
+
       this.ruler.isVisible = false;
     }
   } );

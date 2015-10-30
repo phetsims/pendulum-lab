@@ -181,7 +181,10 @@ define( function( require ) {
 
     // add update of node location
     periodTrace.locationProperty.lazyLink( function( location ) {
-      self.center = location;
+      // Because location is initialized to be null
+      if ( location ) {
+        self.center = location;
+      }
     } );
 
     // set visibility observer

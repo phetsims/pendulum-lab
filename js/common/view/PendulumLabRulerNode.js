@@ -73,7 +73,10 @@ define( function( require ) {
 
     // add update of node location
     ruler.locationProperty.lazyLink( function( location ) {
-      self.center = location;
+      // because it's initially null, and will be null on a reset
+      if ( location ) {
+        self.center = location;
+      }
     } );
 
     // set visibility observer

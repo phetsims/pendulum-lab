@@ -31,10 +31,12 @@ define( function( require ) {
 
       // position to use for resetting
       this.initialLocation = initialLocation.copy();
-      this.reset();
+      this.location = this.initialLocation.copy();
     },
 
     reset: function() {
+      PropertySet.prototype.reset.call( this );
+
       this.location = this.initialLocation ? this.initialLocation.copy() : null;
     }
   } );
