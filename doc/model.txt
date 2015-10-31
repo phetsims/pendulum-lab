@@ -1,38 +1,41 @@
----
+Pendulum Lab Model
+==================
 
-Description of the model used in "Pendulum Lab"
+Gravitational Acceleration Constants:
+- Gravity of Moon = 1.62 m/s^2
+- Gravity of Earth = 9.81 m/s^2
+- Gravity of Jupiter = 24.79 m/s^2
+- Gravity of Planet X = 14.2 m/s^2
 
-This simulation contains models of 2 pendulums and 4 planets:
- - Moon
- - Earth
- - Jupiter
- - Planet X
+Notation:
+θ: Angle of the pendulum from the resting position, in radians.
+ω: Angular velocity of the pendulum, ω = θ'
+v: Velocity of the pendulum, v = ω * L = θ' * L
+m: Mass of the pendulum, in kg.
+g: Acceleration due to gravity.
+L: Length of the pendulum.
+c: Drag coefficient
 
-Constants:
-  gravity of Moon = 1.62 m/s^2
-  gravity of Earth = 9.81 m/s^2
-  gravity of Jupiter = 24.79 m/s^2
-  gravity of Planet X = 14.2 m/s^2
+Given θ (the angle of the pendulum from the resting position, in radians), there are three forces that we consider:
+- Gravity (mg)
+- Tension (centripetal force, mv^2/L)
+- Drag (c * v^2 * m^(2/3))
+      http://fy.chalmers.se/~f7xiz/TIF081C/pendulum.pdf notes squared velocity due to Reynolds number
+      surface area increases by m^(2/3), and 'c' is the drag coefficient
 
-Variables:
-  angle - rotation angle of pendulum
-  alpha - angular acceleration of pendulum
-  omega - angular velocity of pendulum
-  length - length of pendulum
-  g - gravitational acceleration
-  A - friction coefficient
+The net tangential force = -m * g * sin( θ ) - c * v^2 * m^(2/3)
+                         = -m * g * sin( θ ) - c * L^2 * (θ')^2 * m^(2/3)   -- expansion of v = θ' * L
+                         = m * (tangential acceleration)
+                         = m * L * θ''
 
-Motion formulas:
-  angle_1 = angle_0 + omega * dt + 0.5 * alpha_0 * dt * dt
-  alpha_1 = g * length * Math.sin( angle_1 ) - A / mass^(1/3)
-  omega_1 = omega_0 + 0.5 * (alpha_1 + alpha_0) * dt
+Rearranging results in the differential equation:
+θ'' + ( c * L / m^(1/3) ) * (θ')^2 + (G/L) * sin( θ ) = 0
 
-Approximate period formula:
-  T = 2 * Math.PI * Math.sqrt( length / g )
+Which is then transformed into a system of differential equations and integrated with 4th order Runge Kutta.
 
-Energy formulas:
-  potentialEnergy = mass * g * length * (1 - Math.cos( angle ))
-  kineticEnergy = 0.5 * mass * (length * omega)^2
-  thermalEnergy = totalEnergy - (this.kineticEnergy + this.potentialEnergy)
+Kinetic energy: (1/2) * m * v^2 = 0.5 * m * (L * ω)^2
+Potential energy: Relative to the resting point of the mass, so our 'height' is L * (1 - cos(θ)), with a resulting
+energy of m * g * L * (1 - cos(θ)).
+Thermal energy: total - kinetic - potential.
 
----
+The 'step' button will move forward a quarter of a second (0.25s).

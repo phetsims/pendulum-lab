@@ -1,15 +1,6 @@
-Implementation notes for "Pendulum Lab" (pendulum-lab)
+Implementation notes for Pendulum Lab
 
-This is a port of the Flash version of pendulum-lab. It differs greatly from the Java implementation.
-
+A heavily modified port from https://phet.colorado.edu/sims/pendulum-lab/pendulum-lab_en.html.
 For a description of the model, see model.txt.
 
-"Return" button stop motion and return pendulums into initial state.
-Trace is disappear immediately.
-
-Gravity equal to some planet gravity if delta less 0.1 m/s^2.
-
-Meters transform to pixels throw the liner function. Necessary for correct constructing of ruler.
-
-Custom time step is equal to 1 second.
-
+Fairly simple, single pendulum logic is in Pendulum.js, with PendulumLabModel.js containing the whole model.

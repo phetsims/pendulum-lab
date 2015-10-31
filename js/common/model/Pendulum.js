@@ -112,9 +112,7 @@ define( function( require ) {
     },
 
     frictionTerm: function( omega ) {
-      var speed = Math.abs( omega ) * this.length;
-      var frictionCoefficient = speed * speed * Math.pow( this.mass, 2 / 3 ) * this.frictionProperty.value;
-      return ( frictionCoefficient / this.mass ) * omega;
+      return this.frictionProperty.value * this.length / Math.pow( this.mass, 1 / 3 ) * omega * Math.abs( omega );
     },
 
     step: function( dt ) {
