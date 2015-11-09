@@ -25,7 +25,7 @@ define( function( require ) {
 
   // strings
   var kineticString = require( 'string!PENDULUM_LAB/kinetic' );
-  var pattern_energyOf_0pendulumNumber = require( 'string!PENDULUM_LAB/pattern.energyOf.0pendulumNumber' );
+  var patternEnergyOf0PendulumNumberString = require( 'string!PENDULUM_LAB/pattern.energyOf.0pendulumNumber' );
   var potentialString = require( 'string!PENDULUM_LAB/potential' );
   var thermalString = require( 'string!PENDULUM_LAB/thermal' );
   var totalString = require( 'string!PENDULUM_LAB/total' );
@@ -56,7 +56,7 @@ define( function( require ) {
     this._isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
 
     // create header of graph
-    var header = new Text( StringUtils.format( pattern_energyOf_0pendulumNumber, pendulumNumber ), {
+    var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
       font: FONT,
       fill: pendulum.color
     } );

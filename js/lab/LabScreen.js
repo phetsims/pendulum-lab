@@ -18,7 +18,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var labString = require( 'string!PENDULUM_LAB/screen.lab' );
+  var screenLabString = require( 'string!PENDULUM_LAB/screen.lab' );
 
   // images
   var labImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
@@ -31,7 +31,7 @@ define( function( require ) {
     // model coordinates are the same as view coordinates
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
 
-    Screen.call( this, labString, new Image( labImage ),
+    Screen.call( this, screenLabString, new Image( labImage ),
       function() { return new LabModel(); },
       function( model ) { return new LabView( model, modelViewTransform ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }

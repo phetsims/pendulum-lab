@@ -24,9 +24,9 @@ define( function( require ) {
   // strings
   var lengthString = require( 'string!PENDULUM_LAB/length' );
   var massString = require( 'string!PENDULUM_LAB/mass' );
-  var pattern_0lengthValue_lengthUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0lengthValue.lengthUnitsMetric' );
-  var pattern_0massValue_massUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0massValue.massUnitsMetric' );
-  var pattern_0propertyName_1pendulumNumber = require( 'string!PENDULUM_LAB/pattern.0propertyName.1pendulumNumber' );
+  var pattern0LengthValueLengthUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0lengthValue.lengthUnitsMetric' );
+  var pattern0MassValueMassUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0massValue.massUnitsMetric' );
+  var pattern0PropertyName1PendulumNumberString = require( 'string!PENDULUM_LAB/pattern.0propertyName.1pendulumNumber' );
 
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
@@ -52,7 +52,7 @@ define( function( require ) {
       var lengthSlider = new PendulumOptionSliderNode(
         pendulum.lengthProperty,
         pendulum.lengthRange,
-        pattern_0lengthValue_lengthUnitsMetric,
+        pattern0LengthValueLengthUnitsMetricString,
         pendulum.color,
         { y: SPACING_CONTENT }
       );
@@ -62,7 +62,7 @@ define( function( require ) {
       var massSlider = new PendulumOptionSliderNode(
         pendulum.massProperty,
         pendulum.massRange,
-        pattern_0massValue_massUnitsMetric,
+        pattern0MassValueMassUnitsMetricString,
         pendulum.color,
         { y: SPACING_CONTENT }
       );
@@ -73,7 +73,7 @@ define( function( require ) {
           new Node( {
             children: [
               // add length slider label
-              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, lengthString, (pendulumIndex + 1).toString() ), {
+              new Text( StringUtils.format( pattern0PropertyName1PendulumNumberString, lengthString, (pendulumIndex + 1).toString() ), {
                 pickable: false,
                 font: FONT_TITLE,
                 fill: pendulum.color
@@ -86,7 +86,7 @@ define( function( require ) {
           new Node( {
             children: [
               // add mass slider label
-              new Text( StringUtils.format( pattern_0propertyName_1pendulumNumber, massString, (pendulumIndex + 1).toString() ), {
+              new Text( StringUtils.format( pattern0PropertyName1PendulumNumberString, massString, (pendulumIndex + 1).toString() ), {
                 pickable: false,
                 font: FONT_TITLE,
                 fill: pendulum.color

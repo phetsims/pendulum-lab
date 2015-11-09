@@ -29,8 +29,8 @@ define( function( require ) {
   // strings
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
   var noneString = require( 'string!PENDULUM_LAB/none' );
-  var pattern_0gravityValue_gravityUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0gravityValue.gravityUnitsMetric' );
-  var whatIsTheValueOfGravity = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
+  var pattern0GravityValueGravityUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0gravityValue.gravityUnitsMetric' );
+  var whatIsTheValueOfGravityString = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   // constants
   var FONT = new PhetFont( 9 );
@@ -91,7 +91,7 @@ define( function( require ) {
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
-    this.questionNodeText = new Text( whatIsTheValueOfGravity, { font: FONT } );
+    this.questionNodeText = new Text( whatIsTheValueOfGravityString, { font: FONT } );
     this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ], pickable: false } );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );
@@ -125,7 +125,7 @@ define( function( require ) {
       }, { scale: 0.5 } );
 
       // create value label
-      var valueLabel = new SubSupText( StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
+      var valueLabel = new SubSupText( StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
         centerX: 0,
         centerY: -1,
         font: FONT
@@ -169,7 +169,7 @@ define( function( require ) {
           valuePrecision = 0;
         }
 
-        valueLabel.text = StringUtils.format( pattern_0gravityValue_gravityUnitsMetric, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
+        valueLabel.text = StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
         arrowButtonMinus.enabled = ( value > gravityPropertyRange.min );
         arrowButtonPlus.enabled = ( value < gravityPropertyRange.max );
 

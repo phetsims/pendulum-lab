@@ -23,7 +23,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // strings
-  var pattern_0numberOfDegrees_degreeSymbol = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
+  var pattern0NumberOfDegreesDegreeSymbolString = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
 
   // constants
   var FONT = new PhetFont( { size: 14, weight: 'bold' } );
@@ -137,7 +137,7 @@ define( function( require ) {
             angle -= 360;
           }
 
-          degreesText.setText( StringUtils.format( pattern_0numberOfDegrees_degreeSymbol, Util.toFixed( angle, 0 ) ) );
+          degreesText.setText( StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) ) );
         }
       };
 

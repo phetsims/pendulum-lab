@@ -31,7 +31,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var pattern_0timeValue_timeUnitsMetric = require( 'string!PENDULUM_LAB/pattern.0timeValue.timeUnitsMetric' );
+  var pattern0TimeValueTimeUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0timeValue.timeUnitsMetric' );
   var periodString = require( 'string!PENDULUM_LAB/period' );
 
   // constants
@@ -197,7 +197,7 @@ define( function( require ) {
   };
 
   var getTextTime = function( value ) {
-    return StringUtils.format( pattern_0timeValue_timeUnitsMetric, Util.toFixed( value, 4 ) );
+    return StringUtils.format( pattern0TimeValueTimeUnitsMetricString, Util.toFixed( value, 4 ) );
   };
 
   return inherit( Node, PeriodTimerNode );

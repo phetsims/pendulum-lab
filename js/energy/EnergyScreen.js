@@ -18,7 +18,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var energyString = require( 'string!PENDULUM_LAB/screen.energy' );
+  var screenEnergyString = require( 'string!PENDULUM_LAB/screen.energy' );
 
   // images
   var energyImage = require( 'mipmap!PENDULUM_LAB/energy-screen-icon.png' );
@@ -30,7 +30,7 @@ define( function( require ) {
 
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
 
-    Screen.call( this, energyString, new Image( energyImage ),
+    Screen.call( this, screenEnergyString, new Image( energyImage ),
       function() { return new EnergyModel(); },
       function( model ) { return new EnergyView( model, modelViewTransform ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
