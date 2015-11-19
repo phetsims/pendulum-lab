@@ -69,7 +69,7 @@ define( function( require ) {
     } );
 
     var uArrowShape = new UTurnArrowShape( 10 );
-    var playPauseHeight = uArrowShape.computeBounds().height;
+    var playPauseHeight = uArrowShape.bounds.height;
     var playPauseWidth = playPauseHeight;
     var halfPlayStroke = 0.05 * playPauseWidth;
     var playOffset = 0.15 * playPauseWidth;
