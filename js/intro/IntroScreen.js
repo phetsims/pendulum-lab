@@ -32,7 +32,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
 
     Screen.call( this, screenIntroString, new Image( introImage ),
-      function() { return new PendulumLabModel(); },
+      function() { return new PendulumLabModel( true ); },
       function( model ) { return new PendulumLabView( model, modelViewTransform ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );

@@ -46,13 +46,13 @@ define( function( require ) {
   var TOUCH_AREA_EXPAND_Y = 3;
 
   /**
-   * @param {PropertySet} periodTrace - Period trace model.
+   * @param {PeriodTimer} periodTimer - Period timer
    * @param {PropertySet} secondPendulumIsVisibleProperty - Second pendulum visibility property.
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Object} [options]
    * @constructor
    */
-  function PeriodTimerNode( periodTrace, secondPendulumIsVisibleProperty, layoutBounds, options ) {
+  function PeriodTimerNode( periodTimer, secondPendulumIsVisibleProperty, layoutBounds, options ) {
     var self = this;
 
     options = _.extend( {
@@ -87,7 +87,7 @@ define( function( require ) {
         lineWidth: halfPlayStroke * 2,
         centerX: 0,
         centerY: 0
-      } ), periodTrace.isRunningProperty, {
+      } ), periodTimer.isRunningProperty, {
         baseColor: options.buttonBaseColor,
         minWidth: BUTTON_WIDTH
       } );
@@ -114,7 +114,7 @@ define( function( require ) {
       } ),
         new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
-    var graphUnitsSwitch = new ABSwitch( periodTrace.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
+    var graphUnitsSwitch = new ABSwitch( periodTimer.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
       setEnabled: function() {}
@@ -162,7 +162,7 @@ define( function( require ) {
     } ) );
     this.addChild( vBox );
 
-    periodTrace.elapsedTimeProperty.link( function updateTime( value ) {
+    periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
       readoutText.text = getTextTime( value );
     } );
 
@@ -170,17 +170,17 @@ define( function( require ) {
     secondPendulumIsVisibleProperty.link( function( isVisible ) {
       graphUnitsSwitch.pickable = isVisible;
       if ( !isVisible ) {
-        periodTrace.isFirst = true;
+        periodTimer.isFirst = true;
       }
     } );
 
     // add drag and drop events
-    this.addInputListener( new MovableDragHandler( periodTrace.locationProperty, {
+    this.addInputListener( new MovableDragHandler( periodTimer.locationProperty, {
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } ) );
 
     // add update of node location
-    periodTrace.locationProperty.lazyLink( function( location ) {
+    periodTimer.locationProperty.lazyLink( function( location ) {
       // Because location is initialized to be null
       if ( location ) {
         self.center = location;
@@ -188,7 +188,7 @@ define( function( require ) {
     } );
 
     // set visibility observer
-    periodTrace.isVisibleProperty.linkAttribute( this, 'visible' );
+    periodTimer.isVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   // uniformly expands touch area for controls

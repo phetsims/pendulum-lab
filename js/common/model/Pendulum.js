@@ -14,8 +14,11 @@ define( function( require ) {
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   var scratchVector = new Vector2();
+
+  var TWO_PI = Math.PI * 2;
 
   /**
    * Constructor for single pendulum model.
@@ -29,7 +32,7 @@ define( function( require ) {
    * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    * @constructor
    */
-  function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty ) {
+  function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ) {
     var self = this;
 
     // save link to global properties
@@ -71,7 +74,7 @@ define( function( require ) {
     // possible mass range
     this.massRange = new Range( 0.1, 2.1, mass );
 
-    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty );
+    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
 
 
 
@@ -116,7 +119,7 @@ define( function( require ) {
     },
 
     step: function( dt ) {
-      var theta = this.angle;
+      var theta = Pendulum.modAngle( this.angle );
       var omega = this.angularVelocity;
 
       var numSteps = 10;
@@ -134,14 +137,46 @@ define( function( require ) {
         var l3 = this.omegaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
         var k4 = this.thetaDerivative( theta + k3, omega + l3 ) * step;
         var l4 = this.omegaDerivative( theta + k3, omega + l3 ) * step;
-        theta += ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6;
-        omega += ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
+        var newTheta = Pendulum.modAngle( theta + ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6 );
+        var newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
+
+        if ( newTheta * theta < 0 ) {
+          this.cross( i * step, ( i + 1 ) * step, newTheta > 0, theta, newTheta );
+        }
+        else if ( newTheta === 0 && theta !== 0 ) {
+          this.cross( i * step, ( i + 1 ) * step, theta < 0, theta, newTheta );
+        }
+
+        if ( newOmega * omega < 0 ) {
+          this.peak( theta, newTheta );
+        }
+        else if ( newOmega === 0 && omega !== 0 ) {
+          this.peak( theta, newTheta );
+        }
+
+        theta = newTheta;
+        omega = newOmega;
       }
 
       this.angle = theta;
       this.angularVelocity = omega;
 
       this.updateDerivedVariables( this.frictionProperty.value > 0 );
+
+      this.trigger1( 'step', dt );
+    },
+
+    cross: function( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
+      // If we crossed near oldTheta, our crossing DT is near oldDT. If we crossed near newTheta, our crossing DT is close
+      // to newDT.
+      var crossingDT = Util.linear( oldTheta, newTheta, oldDT, newDT, 0 );
+
+      this.trigger2( 'crossing', crossingDT, isPositiveDirection );
+    },
+
+    peak: function( oldTheta, newTheta ) {
+      // TODO: we could get a much better theta estimate.
+      this.trigger1( 'peak', ( oldTheta + newTheta ) / 2 );
     },
 
     updateDerivedVariables: function( energyChangeToThermal ) {
@@ -202,6 +237,26 @@ define( function( require ) {
       this.periodTrace.resetPathPoints();
 
       this.updateDerivedVariables();
+    }
+  }, {
+    /**
+     * Takes our angle modulo 2pi between -pi and pi.
+     * @public
+     *
+     * @param {number} angle
+     * @returns {number}
+     */
+    modAngle: function( angle ) {
+      angle = angle % TWO_PI;
+
+      if ( angle < -Math.PI ) {
+        angle += TWO_PI;
+      }
+      if ( angle > Math.PI ) {
+        angle += TWO_PI;
+      }
+
+      return angle;
     }
   } );
 } );

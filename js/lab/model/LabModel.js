@@ -18,7 +18,7 @@ define( function( require ) {
    * @constructor
    */
   function LabModel() {
-    EnergyModel.call( this );
+    EnergyModel.call( this, false );
 
     // add properties to control visibility of arrows
     this.addProperty( 'isVelocityVisible', false );

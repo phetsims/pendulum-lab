@@ -28,30 +28,17 @@ define( function( require ) {
     Stopwatch.call( this, {
       isVisible: isPeriodTraceVisibleProperty.value, // flag to control visibility of timer
       isFirst: true, // flag to trace timer pendulum
-      isCalculate: false // flag to trace time calculating
+      activePendulum: pendulums[ INIT_PENDULUM_NUMBER ]
     } );
 
     this._pendulums = pendulums;
-    this.activePendulum = pendulums[ INIT_PENDULUM_NUMBER ];
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
       self.isVisible = isPeriodTraceVisible;
     } );
 
-    this.isVisibleProperty.onValue( false, self.stop.bind( this ) );
-
-    // clear timer before starting calculating
-    this.isCalculateProperty.onValue( true, function() {
-      self.elapsedTime = 0;
-    } );
-
-    var updateTimer = function() {
-      if ( self.isCalculate ) {
-        self.isCalculate = false;
-        self.elapsedTime = 0;
-      }
-    };
+    this.isVisibleProperty.onValue( false, this.stop.bind( this ) );
 
     this.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
@@ -64,7 +51,7 @@ define( function( require ) {
       }
       else {
         // clear path if it wasn't finished
-        if ( (self.activePendulum.periodTrace.numberOfPoints < 4 && self.isCalculate) ) {
+        if ( (self.activePendulum.periodTrace.numberOfPoints < 4) ) {
           self.clear();
         }
 
@@ -72,28 +59,30 @@ define( function( require ) {
         if ( self.activePendulum.periodTrace.numberOfPoints === 0 ) {
           self.activePendulum.periodTrace.isVisible = false;
         }
-        // stop calculating when timer stop
-        self.isCalculate = false;
       }
     } );
+
+    var clearCallback = this.clear.bind( this );
 
     // create listeners
     var pathListeners = [];
     pendulums.forEach( function( pendulum, pendulumIndex ) {
       pendulum.periodTrace.removeVisibilityObservers();
-      pendulum.periodTrace.isRepeat = false;
       pendulum.periodTrace.isVisible = false;
 
-      pendulum.lengthProperty.lazyLink( updateTimer );
-      pendulum.gravityProperty.lazyLink( updateTimer );
-      pendulum.isUserControlledProperty.lazyLink( updateTimer );
-      self.isVisibleProperty.onValue( false, updateTimer );
+      pendulum.lengthProperty.lazyLink( clearCallback );
+      pendulum.gravityProperty.lazyLink( clearCallback );
+      pendulum.isUserControlledProperty.lazyLink( clearCallback );
+      self.isVisibleProperty.onValue( false, clearCallback ); // TODO: is this better not done, or does it matter for perf?
+
+      pendulum.periodTrace.elapsedTimeProperty.lazyLink( function( time ) {
+        if ( pendulum === self.activePendulum && self.isRunning ) {
+          self.elapsedTime = time;
+        }
+      } );
 
       pathListeners[ pendulumIndex ] = function() {
-        if ( pendulum.periodTrace.numberOfPoints === 1 && self.isRunning ) {
-          self.isCalculate = true;
-        }
-        else if ( pendulum.periodTrace.numberOfPoints === 4 && self.isRunning ) {
+        if ( pendulum.periodTrace.numberOfPoints === 4 && self.isRunning ) {
           self.isRunning = false;
         }
       };
@@ -103,6 +92,8 @@ define( function( require ) {
     this.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
     this.isFirstProperty.lazyLink( function( isFirst ) {
       self.clear();
+
+      self.activePendulum.periodTrace.isVisible = false;
 
       if ( isFirst ) {
         self.activePendulum.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
@@ -121,17 +112,19 @@ define( function( require ) {
 
   return inherit( Stopwatch, PeriodTimer, {
     clear: function() {
-      this.activePendulum.periodTrace.isVisible = false;
-      this.isCalculate = false;
+      if ( !this.isRunning ) {
+        this.activePendulum.periodTrace.isVisible = false;
+      }
       this.elapsedTime = 0;
 
       this._pendulums.forEach( function( pendulum ) {
         pendulum.periodTrace.resetPathPoints();
       } );
     },
+
     stop: function() {
-      this.clear();
       this.isRunning = false;
+      this.clear();
     }
   } );
 } );

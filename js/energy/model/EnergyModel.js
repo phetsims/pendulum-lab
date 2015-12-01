@@ -17,8 +17,8 @@ define( function( require ) {
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
    * @constructor
    */
-  function EnergyModel() {
-    PendulumLabModel.call( this );
+  function EnergyModel( isPeriodTraceRepeating ) {
+    PendulumLabModel.call( this, isPeriodTraceRepeating );
 
     // hide ruler by default
     this.ruler.isVisible = false;

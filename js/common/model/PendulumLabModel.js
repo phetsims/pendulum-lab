@@ -22,7 +22,7 @@ define( function( require ) {
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
    * @constructor
    */
-  function PendulumLabModel() {
+  function PendulumLabModel( isPeriodTraceRepeating ) {
     var self = this;
 
     PropertySet.call( this, {
@@ -38,8 +38,10 @@ define( function( require ) {
     } );
 
     this.pendulums = [
-      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty ),
-      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty )
+      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
+        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating ),
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
+        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating )
     ];
 
     this.bodies = [
@@ -135,10 +137,6 @@ define( function( require ) {
         this.stopwatch.elapsedTime += dt;
       }
 
-      if ( this.periodTimer && this.periodTimer.isCalculate ) {
-        this.periodTimer.elapsedTime += dt;
-      }
-
       for ( var i = 0; i < this.numberOfPendulums; i++ ) {
         var pendulum = this.pendulums[ i ];
 
@@ -150,10 +148,6 @@ define( function( require ) {
                Math.abs( pendulum.angularVelocity ) < 1e-3 ) {
             pendulum.angle = 0;
             pendulum.angularVelocity = 0;
-            if ( this.periodTimer && this.periodTimer.isRunning && this.periodTimer.elapsedTime > 0 &&
-                 ((i === 0 && this.periodTimer.isFirst === true) || (i === 1 && this.periodTimer.isFirst === false)) ) {
-              this.periodTimer.isRunning = false;
-            }
           }
 
           pendulum.step( dt );
