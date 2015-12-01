@@ -17,7 +17,7 @@ define( function( require ) {
   var Timer = require( 'JOIST/Timer' );
 
   // constants
-  var TRACE_STEP = 10; // in pixels
+  var DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
@@ -53,35 +53,38 @@ define( function( require ) {
       var updateShape = function() {
         var periodTrace = pendulum.periodTrace;
         var numberOfPoints = periodTrace.numberOfPoints;
-        var shape;
-        var traceLength;
 
         if ( numberOfPoints > 0 ) {
-          shape = new Shape();
-          traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3 / 4 );
+          var shape = new Shape();
+          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3 / 4 );
+
+          var traceStep = DEFAULT_TRACE_STEP;
+          if ( traceStep * 3 > traceLength ) {
+            traceStep = traceLength / 3;
+          }
 
           // draw first arc
           if ( numberOfPoints > 1 ) {
             shape.arc( 0, 0, traceLength, 0, -periodTrace.firstAngle, !periodTrace.anticlockwise );
-            shape.lineTo( (traceLength - TRACE_STEP) * Math.cos( -periodTrace.firstAngle ), (traceLength - TRACE_STEP) * Math.sin( -periodTrace.firstAngle ) );
+            shape.lineTo( (traceLength - traceStep) * Math.cos( -periodTrace.firstAngle ), (traceLength - traceStep) * Math.sin( -periodTrace.firstAngle ) );
 
             // draw second arc
             if ( numberOfPoints > 2 ) {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, -periodTrace.firstAngle, -periodTrace.secondAngle, periodTrace.anticlockwise );
-              shape.lineTo( (traceLength - 2 * TRACE_STEP) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * TRACE_STEP) * Math.sin( -periodTrace.secondAngle ) );
+              shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -periodTrace.secondAngle, periodTrace.anticlockwise );
+              shape.lineTo( (traceLength - 2 * traceStep) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * traceStep) * Math.sin( -periodTrace.secondAngle ) );
 
               // draw third arc
               if ( numberOfPoints > 3 ) {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, -periodTrace.secondAngle, 0, !periodTrace.anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, 0, !periodTrace.anticlockwise );
                 isCompleted = true;
                 fadeOutPath( 3 * pendulum.getApproximatePeriod() / 2 * 10 );
               }
               else {
-                shape.arc( 0, 0, traceLength - 2 * TRACE_STEP, -periodTrace.secondAngle, -pendulum.angle, !periodTrace.anticlockwise );
+                shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, -pendulum.angle, !periodTrace.anticlockwise );
               }
             }
             else {
-              shape.arc( 0, 0, traceLength - TRACE_STEP, -periodTrace.firstAngle, -pendulum.angle, periodTrace.anticlockwise );
+              shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -pendulum.angle, periodTrace.anticlockwise );
             }
           }
           else {
