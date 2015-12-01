@@ -122,16 +122,25 @@ define( function( require ) {
     this.energyGraphLayer = new Node();
     this.periodTimerLayer = new Node();
 
+    var leftFloatingLayer = new Node( { children: [
+      this.energyGraphLayer, this.arrowsPanelLayer, toolsControlPanelNode
+    ] });
+    var rightFloatingLayer = new Node( { children: [
+      slidersPanelNode, bodiesListNode, resetAllButton, returnButtonNode
+    ] } );
+
+    // Layout for https://github.com/phetsims/pendulum-lab/issues/98
+    this.events.on( 'layoutFinished', function( dx, dy, width, height ) {
+      dx = Math.min( 200, dx );
+      leftFloatingLayer.x = -dx;
+      rightFloatingLayer.x = dx;
+    } );
+
     // render order
     this.addChild( protractorNode );
-    this.addChild( slidersPanelNode );
-    this.addChild( this.energyGraphLayer );
-    this.addChild( this.arrowsPanelLayer );
-    this.addChild( bodiesListNode );
-    this.addChild( toolsControlPanelNode );
+    this.addChild( leftFloatingLayer );
+    this.addChild( rightFloatingLayer );
     this.addChild( pendulumSystemControlPanelNode );
-    this.addChild( resetAllButton );
-    this.addChild( returnButtonNode );
     this.addChild( periodTraceNode );
     this.addChild( pendulumsNode );
     this.addChild( rulerNode );
