@@ -26,7 +26,6 @@ define( function( require ) {
   var massString = require( 'string!PENDULUM_LAB/mass' );
   var pattern0LengthValueLengthUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0lengthValue.lengthUnitsMetric' );
   var pattern0MassValueMassUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0massValue.massUnitsMetric' );
-  var pattern0PropertyName1PendulumNumberString = require( 'string!PENDULUM_LAB/pattern.0propertyName.1pendulumNumber' );
 
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
@@ -73,7 +72,7 @@ define( function( require ) {
           new Node( {
             children: [
               // add length slider label
-              new Text( StringUtils.format( pattern0PropertyName1PendulumNumberString, lengthString, (pendulumIndex + 1).toString() ), {
+              new Text( StringUtils.format( lengthString, (pendulumIndex + 1).toString() ), {
                 pickable: false,
                 font: FONT_TITLE,
                 fill: pendulum.color
@@ -86,7 +85,7 @@ define( function( require ) {
           new Node( {
             children: [
               // add mass slider label
-              new Text( StringUtils.format( pattern0PropertyName1PendulumNumberString, massString, (pendulumIndex + 1).toString() ), {
+              new Text( StringUtils.format( massString, (pendulumIndex + 1).toString() ), {
                 pickable: false,
                 font: FONT_TITLE,
                 fill: pendulum.color

@@ -27,13 +27,13 @@
     "value": "Kinetic"
   },
   "length": {
-    "value": "Length"
+    "value": "Length {0}"
   },
   "lots": {
     "value": "Lots"
   },
   "mass": {
-    "value": "Mass"
+    "value": "Mass {0}"
   },
   "moon": {
     "value": "Moon"
@@ -58,9 +58,6 @@
   },
   "pattern.0numberOfDegrees.degreeSymbol": {
     "value": "{0}°"
-  },
-  "pattern.0propertyName.1pendulumNumber": {
-    "value": "{0} {1}"
   },
   "pattern.0timeValue.timeUnitsMetric": {
     "value": "{0} s"
