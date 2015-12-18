@@ -120,6 +120,7 @@ define( function( require ) {
       this.setPeriodTraceVisibility = function() {
         if ( checkBoxProperty.value && self._pendulum.isVisible ) {
           self.isVisible = true;
+          self.resetPathPoints();
         }
         else {
           self.isVisible = false;
