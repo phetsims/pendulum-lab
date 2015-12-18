@@ -60,7 +60,7 @@ define( function( require ) {
       isUserControlled: false, // flag: is pendulum currently dragging
       isTickVisible: false,  // flag: is pendulum tick visible on protractor
       isVisible: isVisible, // flag: is pendulum visible
-      energyMultiplier: 10 // coefficient for drawing energy graph
+      energyMultiplier: 40 // coefficient for drawing energy graph
     } );
 
     this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
@@ -69,7 +69,7 @@ define( function( require ) {
     this.color = color;
 
     // possible length range
-    this.lengthRange = new Range( 0.3, 2.0, length );
+    this.lengthRange = new Range( 0.15, 1.0, length );
 
     // possible mass range
     this.massRange = new Range( 0.1, 1.5, mass );

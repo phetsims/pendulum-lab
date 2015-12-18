@@ -21,7 +21,7 @@ define( function( require ) {
     } );
 
     // length of ruler in meters
-    this.length = 2;
+    this.length = 1;
   }
 
   return inherit( Movable, Ruler );
