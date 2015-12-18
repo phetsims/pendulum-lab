@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Color = require( 'SCENERY/util/Color' );
   var Shape = require( 'KITE/Shape' );
   var Timer = require( 'JOIST/Timer' );
 
@@ -37,8 +38,12 @@ define( function( require ) {
       var intervalId = null; // interval id for fading timer
       var isCompleted = false; // flag to control completing of trace view
 
+      var baseColor = new Color( pendulum.color );
+      var currentColor = baseColor.copy();
+      var opacity = 1;
+
       // create trace path path
-      var pathNode = new Path( null, { stroke: pendulum.color, lineWidth: 2 } );
+      var pathNode = new Path( null, { stroke: currentColor, lineWidth: 2 } );
       self.addChild( pathNode );
 
       var resetPath = function() {
@@ -48,7 +53,8 @@ define( function( require ) {
           Timer.clearInterval( intervalId );
           intervalId = null;
         }
-        pathNode.opacity = 1;
+        opacity = 1;
+        currentColor.set( baseColor );
       };
 
       var updateShape = function() {
@@ -97,8 +103,9 @@ define( function( require ) {
 
       var fadeOutPath = function( tickTime ) {
         intervalId = Timer.setInterval( function() {
-          pathNode.opacity -= 0.01;
-          if ( pathNode.opacity <= 0 ) {
+          opacity -= 0.01;
+          currentColor.alpha = Math.max( opacity, 0 );
+          if ( opacity <= 0 ) {
             pendulum.periodTrace.isVisible = false;
 
             // show track continuously
