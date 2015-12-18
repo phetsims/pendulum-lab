@@ -130,7 +130,7 @@ define( function( require ) {
     ] } );
 
     // Layout for https://github.com/phetsims/pendulum-lab/issues/98
-    this.events.on( 'layoutFinished', function( dx, dy, width, height ) {
+    this.events.onStatic( 'layoutFinished', function( dx, dy, width, height ) {
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;

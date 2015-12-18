@@ -140,8 +140,8 @@ define( function( require ) {
     } );
 
     var updateListener = this.update.bind( this );
-    pendulum.on( 'step', updateListener );
-    pendulum.on( 'userMoved', updateListener );
+    pendulum.onStatic( 'step', updateListener );
+    pendulum.onStatic( 'userMoved', updateListener );
     pendulum.energyMultiplierProperty.lazyLink( updateListener );
     isEnergyGraphExpandedProperty.link( updateListener );
   }

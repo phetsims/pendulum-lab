@@ -47,7 +47,7 @@ define( function( require ) {
     this.firstAngle = null;
     this.secondAngle = null;
 
-    pendulum.on( 'crossing', function( dt, isPositive ) {
+    pendulum.onStatic( 'crossing', function( dt, isPositive ) {
       // On the first zero-crossing, detect anticlockwise (direction) and increment
       if ( self.numberOfPoints === 0 ) {
 
@@ -69,7 +69,7 @@ define( function( require ) {
         self.numberOfPoints = 4;
       }
     } );
-    pendulum.on( 'peak', function( theta ) {
+    pendulum.onStatic( 'peak', function( theta ) {
       if ( self.numberOfPoints === 1 ) {
         self.firstAngle = theta;
         self.numberOfPoints = 2;
@@ -79,7 +79,7 @@ define( function( require ) {
         self.numberOfPoints = 3;
       }
     } );
-    pendulum.on( 'step', function( dt ) {
+    pendulum.onStatic( 'step', function( dt ) {
       if ( self.numberOfPoints > 0 && self.numberOfPoints < 4 ) {
         self.elapsedTime += dt;
       }
