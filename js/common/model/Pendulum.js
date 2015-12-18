@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Emitter = require( 'AXON/Emitter' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -63,6 +64,11 @@ define( function( require ) {
       energyMultiplier: 40 // coefficient for drawing energy graph
     } );
 
+    this.stepEmitter = new Emitter();
+    this.userMovedEmitter = new Emitter();
+    this.crossingEmitter = new Emitter();
+    this.peakEmitter = new Emitter();
+
     this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
 
     // default color for this pendulum
@@ -92,7 +98,7 @@ define( function( require ) {
       if ( self.isUserControlled ) {
         self.angularVelocity = 0; // angular velocity shouldn't be needed?
         self.updateDerivedVariables( false );
-        self.trigger0( 'userMoved' );
+        self.userMovedEmitter.emit();
       }
     } );
 
@@ -164,7 +170,7 @@ define( function( require ) {
 
       this.updateDerivedVariables( this.frictionProperty.value > 0 );
 
-      this.trigger1( 'step', dt );
+      this.stepEmitter.emit1( dt );
     },
 
     cross: function( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
@@ -172,12 +178,12 @@ define( function( require ) {
       // to newDT.
       var crossingDT = Util.linear( oldTheta, newTheta, oldDT, newDT, 0 );
 
-      this.trigger2( 'crossing', crossingDT, isPositiveDirection );
+      this.crossingEmitter.emit2( crossingDT, isPositiveDirection );
     },
 
     peak: function( oldTheta, newTheta ) {
       // TODO: we could get a much better theta estimate.
-      this.trigger1( 'peak', ( oldTheta + newTheta ) / 2 );
+      this.peakEmitter.emit1( ( oldTheta + newTheta ) / 2 );
     },
 
     updateDerivedVariables: function( energyChangeToThermal ) {
