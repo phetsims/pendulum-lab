@@ -47,10 +47,14 @@ define( function( require ) {
     var sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
 
     HSlider.call( this, sliderValueProperty, sliderValueRange, _.extend( {
-      majorTickLength: 10,
       minorTickLength: 5,
+      majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
-      thumbSize: PendulumLabConstants.THUMB_SIZE
+      thumbNode: new HSlider.ThumbNode( new Property( true ), {
+        thumbSize: PendulumLabConstants.THUMB_SIZE,
+        thumbFillEnabled: '#888',
+        thumbFillHighlighted: '#ccc'
+      } )
     }, options ) );
 
     // add ticks

@@ -35,7 +35,8 @@ define( function( require ) {
   var MAGNIFYING_GLASS_RADIUS = 7;
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
-    xSpacing: 3
+    xSpacing: 3,
+    scale: 0.7
   };
 
   /**
@@ -70,19 +71,19 @@ define( function( require ) {
     var radioButtonOne = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.ONE,
-      new Text( '1', { font: FONT } ),
+      new Text( '1', { font: new PhetFont( 16 ) } ),
       RADIO_BUTTON_OPTIONS );
 
     var radioButtonTwo = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.TWO,
-      new Text( '2', { font: FONT } ),
+      new Text( '2', { font: new PhetFont( 16 ) } ),
       RADIO_BUTTON_OPTIONS );
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
 
     // create zoom buttons
     var zoomOutButton = new ZoomButton( {
-      baseColor: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
+      baseColor: '#eee',
       in: false,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
@@ -96,7 +97,7 @@ define( function( require ) {
     } );
 
     var zoomInButton = new ZoomButton( {
-      baseColor: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
+      baseColor: '#eee',
       in: true,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {

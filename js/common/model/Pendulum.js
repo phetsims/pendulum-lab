@@ -75,7 +75,7 @@ define( function( require ) {
     this.color = color;
 
     // possible length range
-    this.lengthRange = new Range( 0.15, 1.0, length );
+    this.lengthRange = new Range( 0.1, 1.0, length );
 
     // possible mass range
     this.massRange = new Range( 0.1, 1.5, mass );

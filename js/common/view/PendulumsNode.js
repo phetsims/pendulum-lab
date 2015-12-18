@@ -50,7 +50,7 @@ define( function( require ) {
     pendulums.forEach( function( pendulum, pendulumIndex ) {
       var massToScale = function( mass ) {
         // height/width/depth of mass scale by cube-root to maintain density
-        return 0.65 * Math.pow( mass, 1 / 3 );
+        return 0.3 + 0.4 * Math.sqrt( mass / 1.5 );
       };
 
       // create solid line

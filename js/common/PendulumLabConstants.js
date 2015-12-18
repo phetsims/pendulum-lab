@@ -35,7 +35,7 @@ define( function( require ) {
     TWEAKERS_PRECISION: 2,
 
     // common
-    MODEL_BOUNDS: new Bounds2( 0, -2.88/2, 4.389/2, 0 ),
+    MODEL_BOUNDS: new Bounds2( 0, -2.88/2 * 0.93, 4.389/2 * 0.93, 0 ),
     SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: {

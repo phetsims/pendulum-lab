@@ -57,7 +57,7 @@ define( function( require ) {
 
         if ( numberOfPoints > 0 ) {
           var shape = new Shape();
-          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.13/2 );
+          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.1/2 );
 
           var traceStep = DEFAULT_TRACE_STEP;
           if ( traceStep * 4 > traceLength ) {

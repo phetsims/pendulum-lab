@@ -13,6 +13,7 @@ define( function( require ) {
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -82,7 +83,11 @@ define( function( require ) {
     var hSlider = new HSlider( gravityProperty, gravityPropertyRange, {
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
-      thumbSize: PendulumLabConstants.THUMB_SIZE
+      thumbNode: new HSlider.ThumbNode( new Property( true ), {
+        thumbSize: PendulumLabConstants.THUMB_SIZE,
+        thumbFillEnabled: '#888',
+        thumbFillHighlighted: '#ccc'
+      } )
     } );
     hSlider.addMajorTick( gravityPropertyRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
     hSlider.addMajorTick( gravityPropertyRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
