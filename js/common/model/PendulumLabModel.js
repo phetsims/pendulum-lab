@@ -128,7 +128,11 @@ define( function( require ) {
 
     step: function( dt ) {
       if ( this.play ) {
-        this.modelStep( Math.min( 0.5, dt * this.timeSpeed ) );
+        // For our accuracy guarantees, we cap our DT fairly low. Otherwise the fixed-step model may become inaccurate
+        // enough for getting an accurate period timer or speed loss on Jupiter with the shortest length.
+        // We apply this BEFORE speed is applied, so that even if we're on a slow device, slow-motion WILL be guaranteed
+        // to slow the sim speed down.
+        this.modelStep( Math.min( 0.05, dt ) * this.timeSpeed );
       }
     },
 

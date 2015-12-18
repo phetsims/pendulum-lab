@@ -113,10 +113,6 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Pendulum, {
-    // 2x2 differential system, derived from: t'' + ( c / m ) * t' + ( g / L ) * sin( t ) = 0, with c:coefficient of
-    thetaDerivative: function( theta, omega ) {
-      return omega;
-    },
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
     },
@@ -129,20 +125,22 @@ define( function( require ) {
       var theta = Pendulum.modAngle( this.angle );
       var omega = this.angularVelocity;
 
-      var numSteps = 10;
+      var numSteps = Math.max( 7, dt * 120 );
 
       // 10 iterations typically maintains about ~11 digits of precision for total energy
       for ( var i = 0; i < numSteps; i++ ) {
         var step = dt / numSteps;
 
-        // Runge Kutta (order 4)
-        var k1 = this.thetaDerivative( theta, omega ) * step;
+        // 2x2 differential system, derived from: t'' + ( c / m ) * t' + ( g / L ) * sin( t ) = 0, with c:coefficient of
+
+        // Runge Kutta (order 4), where the derivative of theta is omega.
+        var k1 = omega * step;
         var l1 = this.omegaDerivative( theta, omega ) * step;
-        var k2 = this.thetaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * step;
+        var k2 = ( omega + 0.5 * l1 ) * step;
         var l2 = this.omegaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * step;
-        var k3 = this.thetaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
+        var k3 = ( omega + 0.5 * l2 ) * step;
         var l3 = this.omegaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
-        var k4 = this.thetaDerivative( theta + k3, omega + l3 ) * step;
+        var k4 = ( omega + l3 ) * step;
         var l4 = this.omegaDerivative( theta + k3, omega + l3 ) * step;
         var newTheta = Pendulum.modAngle( theta + ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6 );
         var newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
