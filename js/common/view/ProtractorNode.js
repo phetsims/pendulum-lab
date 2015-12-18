@@ -56,14 +56,8 @@ define( function( require ) {
     this.addChild( new Circle( 2, { fill: 'black' } ) );
     this.addChild( new Circle( 5, { stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR } ) );
 
-    // add number of degrees text
-    var degreesText = new Text( '0', {
-      centerX: -20,
-      centerY: 15,
-      font: FONT,
-      fill: PendulumLabConstants.FIRST_PENDULUM_COLOR
-    } );
-    this.addChild( degreesText );
+    var degreesLayer = new Node();
+    this.addChild( degreesLayer );
 
     // create background ticks
     var protractorShape = new Shape();
@@ -125,6 +119,14 @@ define( function( require ) {
         }
       };
 
+      // add number of degrees text
+      var degreesText = new Text( '0', {
+        centerY: 15,
+        font: FONT,
+        fill: pendulum.color
+      } );
+      degreesLayer.addChild( degreesText );
+
       var updateDegreesText = function() {
         if ( pendulum.isUserControlled ) {
           var angle = ( pendulum.angle * 180 / Math.PI ) % 360;
@@ -137,7 +139,13 @@ define( function( require ) {
             angle -= 360;
           }
 
-          degreesText.setText( StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) ) );
+          degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );
+          if ( pendulumIndex === 0 ) {
+            degreesText.right = -10;
+          }
+          else {
+            degreesText.left = 10;
+          }
         }
       };
 
