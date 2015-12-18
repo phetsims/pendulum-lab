@@ -33,7 +33,7 @@ define( function( require ) {
 
     Screen.call( this, screenLabString, new Image( labImage ),
       function() { return new LabModel(); },
-      function( model ) { return new LabView( model, modelViewTransform ); },
+      function( model ) { return new LabView( model, modelViewTransform, 225 ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

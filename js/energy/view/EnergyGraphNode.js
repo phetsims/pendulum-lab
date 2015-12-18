@@ -33,7 +33,6 @@ define( function( require ) {
   var FONT = new PhetFont( 11 );
   var GRAPH_WIDTH = 120;
   var MAGNIFYING_GLASS_RADIUS = 7;
-  var SINGLE_GRAPH_SIZE = new Dimension2( 80, 225 );
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
     xSpacing: 3
@@ -44,17 +43,18 @@ define( function( require ) {
    * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
    * @param {Property<string>} energyGraphModeProperty - Property to select mode of energy graph representation
    * @param {Property<string>} numberOfPendulumsProperty - Property to control number of pendulums.
+   * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @param {Object} [options]
    * @constructor
    */
-  function EnergyGraphNode( pendulums, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, options ) {
+  function EnergyGraphNode( pendulums, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, energyGraphHeight, options ) {
     var self = this;
     var graphStorage = [];
 
     // create energy graphs for each pendulum
     this._content = new VBox( { align: 'center', resize: false } );
     pendulums.forEach( function( pendulum, pendulumIndex ) {
-      var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, SINGLE_GRAPH_SIZE );
+      var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
       self._content.addChild( new HBox( {
         children: [
           new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ),
