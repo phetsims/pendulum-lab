@@ -92,6 +92,7 @@ define( function( require ) {
       if ( self.isUserControlled ) {
         self.angularVelocity = 0; // angular velocity shouldn't be needed?
         self.updateDerivedVariables( false );
+        self.trigger0( 'userMoved' );
       }
     } );
 

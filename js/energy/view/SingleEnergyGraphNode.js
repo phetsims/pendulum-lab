@@ -12,16 +12,14 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var kineticString = require( 'string!PENDULUM_LAB/kinetic' );
@@ -31,16 +29,19 @@ define( function( require ) {
   var totalString = require( 'string!PENDULUM_LAB/total' );
 
   // constants
+  var ZOOM_MULTIPLIER = 1.3;
+  var BAR_WIDTH = 8;
+  var BAR_OFFSET = 4;
+
   var ARROW_HEAD_WIDTH = 6;
   var ARROW_HEAD_HEIGHT = 7;
-  var BAR_WIDTH = 6;
   var COLOR = {
     KINETIC: 'rgb( 31, 202, 46 )',
     POTENTIAL: 'rgb( 55, 132, 213 )',
     THERMAL: 'rgb( 253, 87, 31 )',
     TOTAL: 'rgb( 0, 0, 0 )'
   };
-  var FONT = new PhetFont( { size: 10, weight: 'bold' } );
+  var FONT = new PhetFont( { size: 11, weight: 'bold' } );
   var SPACING = 4;
 
   /**
@@ -51,125 +52,142 @@ define( function( require ) {
    * @constructor
    */
   function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
-    var self = this;
+    this.pendulum = pendulum;
 
-    this._isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
+    var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
-    // create header of graph
+    var kineticCenterX = BAR_OFFSET + 0.5 * BAR_SPACING + 0 * BAR_WIDTH;
+    var potentialCenterX = BAR_OFFSET + 1.5 * BAR_SPACING + 1 * BAR_WIDTH;
+    var thermalCenterX = BAR_OFFSET + 2.5 * BAR_SPACING + 2 * BAR_WIDTH;
+    var totalCenterX = BAR_OFFSET + 3.5 * BAR_SPACING + 3 * BAR_WIDTH;
+
+    this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
+
+    // header of graph
     var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
       font: FONT,
-      fill: pendulum.color
+      fill: pendulum.color,
+      centerX: dimension.width / 2
     } );
 
-    // create labels for bars
-    var kineticText = new Text( kineticString, { font: FONT, fill: COLOR.KINETIC, rotation: -Math.PI / 2 } );
-    var barLabels = new HBox( {
-      resize: false,
-      spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - kineticText.width,
-      align: 'top',
-      children: [
-        kineticText,
-        new Text( potentialString, { font: FONT, fill: COLOR.POTENTIAL, rotation: -Math.PI / 2 } ),
-        new Text( thermalString, { font: FONT, fill: COLOR.THERMAL, rotation: -Math.PI / 2 } ),
-        new Text( totalString, { font: FONT, fill: COLOR.TOTAL, rotation: -Math.PI / 2 } )
-      ]
-    } );
+    // labels for bars
+    var barLabelOptions = {
+      font: FONT,
+      rotation: -Math.PI / 2,
+      top: +SPACING
+    };
+    var kineticLabel = new Text( kineticString, _.extend( { fill: COLOR.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
+    var potentialLabel = new Text( potentialString, _.extend( { fill: COLOR.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
+    var thermalLabel = new Text( thermalString, _.extend( { fill: COLOR.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
+    var totalLabel = new Text( totalString, _.extend( { fill: COLOR.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
+    var maxLabelHeight = Math.max( Math.max( kineticLabel.height, potentialLabel.height ), Math.max( thermalLabel.height, totalLabel.height ) );
 
     // rest of space will be used for graph and bars
-    var graphHeight = dimension.height - header.height - barLabels.height - SPACING * 3;
+    this.graphHeight = dimension.height - header.height - maxLabelHeight - SPACING * 2;
+    header.bottom = -this.graphHeight - SPACING;
 
     // create 'x' and 'y' axis
-    var axisX = new Line( 0, graphHeight, dimension.width - ARROW_HEAD_WIDTH / 2, graphHeight, { stroke: 'black' } );
-    var axisY = new ArrowNode( 0, graphHeight, 0, 0, {
+    var axisX = new Line( 0, 0, dimension.width, 0, { stroke: 'black' } );
+    var axisY = new ArrowNode( 0, 0, 0, this.graphHeight, {
       tailWidth: 2,
       headHeight: ARROW_HEAD_HEIGHT,
       headWidth: ARROW_HEAD_WIDTH
     } );
 
-    // create bars
-    this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC, rotation: Math.PI } );
-    this.kineticEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.KINETIC } );
-    this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.POTENTIAL, rotation: Math.PI } );
-    this.potentialEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.POTENTIAL } );
-    this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.THERMAL, rotation: Math.PI } );
-    this.thermalEnergyBarClone = new Rectangle( 0, 0, BAR_WIDTH, 0, { fill: COLOR.THERMAL } );
-
-    var bars = new HBox( {
-      resize: false,
-      x: axisY.bounds.maxX,
-      y: graphHeight,
-      spacing: (dimension.width - ARROW_HEAD_WIDTH) / 4 - BAR_WIDTH,
-      align: 'bottom',
-      clipArea: Shape.rect( -axisY.width / 2, -graphHeight, dimension.width + axisY.width / 2, graphHeight ),
-      children: [ this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
-        resize: false,
-        rotation: Math.PI,
-        children: [ this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone ]
-      } ) ]
+    // individual bars
+    this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      fill: COLOR.KINETIC,
+      centerX: kineticCenterX
+    } );
+    this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      fill: COLOR.POTENTIAL,
+      centerX: potentialCenterX
+    } );
+    this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      fill: COLOR.THERMAL,
+      centerX: thermalCenterX
     } );
 
-    VBox.call( this, {
-      resize: false,
-      spacing: SPACING,
-      children: [ header, new Node( { children: [ bars, axisX, axisY ] } ), barLabels ]
+    // combined 'total' bar
+    this.totalKineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      fill: COLOR.KINETIC,
+      centerX: totalCenterX
+    } );
+    this.totalPotentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      fill: COLOR.POTENTIAL,
+      centerX: totalCenterX
+    } );
+    this.totalThermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      fill: COLOR.THERMAL,
+      centerX: totalCenterX
     } );
 
-    // add energy observers
-    this.energyMultiplierProperty = pendulum.energyMultiplierProperty;
-    this.energyMultiplierProperty.link( this.updateAllEnergies.bind( this ) );
-    this.kineticEnergyProperty = pendulum.kineticEnergyProperty;
-    this.kineticEnergyProperty.link( this.updateKineticEnergy.bind( this ) );
-    this.potentialEnergyProperty = pendulum.potentialEnergyProperty;
-    this.potentialEnergyProperty.link( this.updatePotentialEnergy.bind( this ) );
-    this.thermalEnergyProperty = pendulum.thermalEnergyProperty;
-    this.thermalEnergyProperty.link( this.updateThermalEnergy.bind( this ) );
-
-    isEnergyGraphExpandedProperty.link( function( isEnergyGraphExpanded ) {
-      if ( isEnergyGraphExpanded && self.visible ) {
-        self.updateAllEnergies();
-      }
+    Node.call( this, {
+      preventFit: true,
+      children: [
+        header,
+        kineticLabel, potentialLabel, thermalLabel, totalLabel,
+        new Node( {
+          // flip the coordinate frame for easier positioning
+          matrix: Matrix3.scale( 1, -1 ),
+          children: [
+            this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar,
+            this.totalKineticEnergyBar, this.totalPotentialEnergyBar, this.totalThermalEnergyBar,
+            axisX, axisY
+          ]
+        } )
+      ]
     } );
+
+    var updateListener = this.update.bind( this );
+    pendulum.on( 'step', updateListener );
+    pendulum.on( 'userMoved', updateListener );
+    pendulum.energyMultiplierProperty.lazyLink( updateListener );
+    isEnergyGraphExpandedProperty.link( updateListener );
   }
 
-  return inherit( VBox, SingleEnergyGraphNode, {
+  return inherit( Node, SingleEnergyGraphNode, {
     hide: function() {
       this.visible = false;
     },
     show: function() {
       this.visible = true;
-      this.updateAllEnergies();
+      this.update();
     },
-    updateEnergy: function( node, nodeClone, energy ) {
-      node.setRectHeight( energy * this.energyMultiplierProperty.value );
-      nodeClone.setRectHeight( energy * this.energyMultiplierProperty.value );
-    },
-    updateKineticEnergy: function() {
-      if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
-        this.updateEnergy( this.kineticEnergyBar, this.kineticEnergyBarClone, this.kineticEnergyProperty.value );
+
+    update: function() {
+      if ( this.isEnergyGraphExpandedProperty.value && this.visible ) {
+        var energyMultiplier = this.pendulum.energyMultiplier;
+        var maxHeight = this.graphHeight;
+
+        var kineticEnergy = this.pendulum.kineticEnergy * energyMultiplier;
+        var potentialEnergy = this.pendulum.potentialEnergy * energyMultiplier;
+        var thermalEnergy = this.pendulum.thermalEnergy * energyMultiplier;
+
+        // individual bars
+        this.kineticEnergyBar.rectHeight = Math.min( maxHeight, kineticEnergy );
+        this.potentialEnergyBar.rectHeight = Math.min( maxHeight, potentialEnergy );
+        this.thermalEnergyBar.rectHeight = Math.min( maxHeight, thermalEnergy );
+
+        // combined bar, thermal on bottom, then potential, then kinetic
+        var thermalHeight = Math.min( maxHeight, thermalEnergy );
+        var potentialAndThermalHeight = Math.min( maxHeight, thermalEnergy + potentialEnergy );
+        var totalHeight = Math.min( maxHeight, potentialAndThermalHeight + kineticEnergy );
+        this.totalThermalEnergyBar.rectHeight = thermalHeight;
+        this.totalPotentialEnergyBar.rectY = thermalHeight;
+        this.totalPotentialEnergyBar.rectHeight = potentialAndThermalHeight - thermalHeight;
+        this.totalKineticEnergyBar.rectY = potentialAndThermalHeight;
+        this.totalKineticEnergyBar.rectHeight = totalHeight - potentialAndThermalHeight;
       }
     },
-    updatePotentialEnergy: function() {
-      if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
-        this.updateEnergy( this.potentialEnergyBar, this.potentialEnergyBarClone, this.potentialEnergyProperty.value );
-      }
-    },
-    updateThermalEnergy: function() {
-      if ( this._isEnergyGraphExpandedProperty.value && this.visible ) {
-        this.updateEnergy( this.thermalEnergyBar, this.thermalEnergyBarClone, this.thermalEnergyProperty.value );
-      }
-    },
-    updateAllEnergies: function() {
-      this.updateKineticEnergy();
-      this.updatePotentialEnergy();
-      this.updateThermalEnergy();
-    },
+
     zoomIn: function() {
-      this.energyMultiplierProperty.value *= 1.05;
-      this.updateAllEnergies();
+      this.pendulum.energyMultiplier *= ZOOM_MULTIPLIER;
+      this.update();
     },
     zoomOut: function() {
-      this.energyMultiplierProperty.value *= 0.95;
-      this.updateAllEnergies();
+      this.pendulum.energyMultiplier /= ZOOM_MULTIPLIER;
+      this.update();
     }
   } );
 } );
