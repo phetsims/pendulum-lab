@@ -15,7 +15,6 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -49,7 +48,10 @@ define( function( require ) {
 
     // add pendulums
     pendulums.forEach( function( pendulum, pendulumIndex ) {
-      var massToScale = new LinearFunction( pendulum.massRange.min, pendulum.massRange.max, 0.25, 1 );
+      var massToScale = function( mass ) {
+        // height/width/depth of mass scale by cube-root to maintain density
+        return 0.65 * Math.pow( mass, 1 / 3 );
+      };
 
       // create solid line
       var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickabe: false } );

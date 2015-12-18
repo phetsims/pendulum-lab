@@ -57,11 +57,11 @@ define( function( require ) {
 
         if ( numberOfPoints > 0 ) {
           var shape = new Shape();
-          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3 / 4 );
+          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.13 );
 
           var traceStep = DEFAULT_TRACE_STEP;
-          if ( traceStep * 3 > traceLength ) {
-            traceStep = traceLength / 3;
+          if ( traceStep * 4 > traceLength ) {
+            traceStep = traceLength / 4;
           }
 
           // draw first arc
