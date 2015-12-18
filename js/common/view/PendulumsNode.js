@@ -41,6 +41,7 @@ define( function( require ) {
     var self = this;
 
     Node.call( this, options );
+    this.preventFit = true;
 
     var pendulumNodes = [];
     var velocityArrows = [];
@@ -55,7 +56,6 @@ define( function( require ) {
 
       // create pendulum
       var pendulumRect = new Node( {
-        pickabe: false,
         children: [
           new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
             fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
@@ -63,12 +63,25 @@ define( function( require ) {
               addColorStop( 0.8, 'white' ).
               addColorStop( 1, pendulum.color )
           } ),
-          new Text( (pendulumIndex + 1).toString(), { font: FONT, fill: 'white', centerY: RECT_SIZE.height / 4, centerX: 0 } ),
-          new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, { stroke: 'black', lineCap: 'butt' } )
+          new Text( (pendulumIndex + 1).toString(), {
+            font: FONT,
+            fill: 'white',
+            centerY: RECT_SIZE.height / 4,
+            centerX: 0,
+            pickable: false
+          } ),
+          new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, {
+            stroke: 'black',
+            lineCap: 'butt',
+            pickable: false
+          } )
         ]
       } );
 
-      var pendulumNode = new Node( { cursor: 'pointer', children: [ solidLine, pendulumRect ] } );
+      var pendulumNode = new Node( { cursor: 'pointer', children: [
+        solidLine,
+        pendulumRect
+      ] } );
 
       // add velocity arrows if necessary
       if ( options.isVelocityVisibleProperty ) {

@@ -102,6 +102,7 @@ define( function( require ) {
       align: 'bottom',
       clipArea: Shape.rect( -axisY.width / 2, -graphHeight, dimension.width + axisY.width / 2, graphHeight ),
       children: [ this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar, new VBox( {
+        resize: false,
         rotation: Math.PI,
         children: [ this.thermalEnergyBarClone, this.potentialEnergyBarClone, this.kineticEnergyBarClone ]
       } ) ]

@@ -60,7 +60,8 @@ define( function( require ) {
           new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ),
           graphNode,
           new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 )
-        ]
+        ],
+        resize: false
       } ) );
       graphStorage[ pendulumIndex ] = graphNode;
     } );
@@ -111,9 +112,9 @@ define( function( require ) {
     // add accordion box
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
-          new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ] } ),
+          new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ], resize: false } ),
           new Panel( this._content, { resize: false, pickable: false } ),
-          new HBox( { spacing: 20, children: [ zoomOutButton, zoomInButton ] } )
+          new HBox( { spacing: 20, children: [ zoomOutButton, zoomInButton ], resize: false } )
         ]
       } ),
       _.extend( {

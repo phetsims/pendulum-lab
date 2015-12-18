@@ -29,7 +29,8 @@ define( function( require ) {
     var self = this;
     Node.call( this, _.extend( {
       pickable: false,
-      rotation: Math.PI / 2
+      rotation: Math.PI / 2,
+      preventFit: true
     }, options ) );
 
     pendulums.forEach( function( pendulum ) {
