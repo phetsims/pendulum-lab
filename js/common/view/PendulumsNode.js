@@ -80,10 +80,14 @@ define( function( require ) {
         ]
       } );
 
-      var pendulumNode = new Node( { cursor: 'pointer', children: [
-        solidLine,
-        pendulumRect
-      ] } );
+      var pendulumNode = new Node( {
+        cursor: 'pointer',
+        children: [
+          solidLine,
+          pendulumRect
+        ],
+        cssTransform: true
+      } );
 
       // add velocity arrows if necessary
       if ( options.isVelocityVisibleProperty ) {
