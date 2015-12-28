@@ -107,10 +107,10 @@ define( function( require ) {
     content.addChild( pendulumSlidersNodeStorage[ 0 ] );
     pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
 
-      if ( numberOfPendulums === 1 && content.isChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
+      if ( numberOfPendulums === 1 && content.hasChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
         content.removeChildWithIndex( pendulumSlidersNodeStorage[ 1 ], content.indexOfChild( pendulumSlidersNodeStorage[ 1 ] ) );
       }
-      else if ( numberOfPendulums === 2 && !content.isChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
+      else if ( numberOfPendulums === 2 && !content.hasChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
         content.addChild( pendulumSlidersNodeStorage[ 1 ] );
       }
     } );
