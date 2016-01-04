@@ -161,7 +161,7 @@ define( function( require ) {
 
     // handler for step button
     stepManual: function() {
-      this.modelStep( 0.25 );
+      this.modelStep( 0.05 );
     },
 
     returnHandler: function() {
