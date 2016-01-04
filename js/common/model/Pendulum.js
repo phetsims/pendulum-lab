@@ -68,6 +68,7 @@ define( function( require ) {
     this.userMovedEmitter = new Emitter();
     this.crossingEmitter = new Emitter();
     this.peakEmitter = new Emitter();
+    this.resetEmitter = new Emitter();
 
     this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
 
@@ -242,6 +243,8 @@ define( function( require ) {
       this.periodTrace.resetPathPoints();
 
       this.updateDerivedVariables();
+
+      this.resetEmitter.emit();
     }
   }, {
     /**

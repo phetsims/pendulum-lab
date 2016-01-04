@@ -141,6 +141,7 @@ define( function( require ) {
 
     var updateListener = this.update.bind( this );
     pendulum.stepEmitter.addListener( updateListener );
+    pendulum.resetEmitter.addListener( updateListener );
     pendulum.userMovedEmitter.addListener( updateListener );
     pendulum.energyMultiplierProperty.lazyLink( updateListener );
     isEnergyGraphExpandedProperty.link( updateListener );
