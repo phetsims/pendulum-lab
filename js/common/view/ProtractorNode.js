@@ -156,9 +156,10 @@ define( function( require ) {
       } );
 
       // set ticks visibility observer
-      pendulum.isTickVisibleProperty.link( function( isTickVisible ) {
-        tickNodeLeft.visible = isTickVisible;
-        tickNodeRight.visible = isTickVisible;
+      pendulum.multilink( [ 'isTickVisible', 'isVisible' ], function() {
+        var isVisible = pendulum.isTickVisible && pendulum.isVisible;
+        tickNodeLeft.visible = isVisible;
+        tickNodeRight.visible = isVisible;
         updateTicksPosition();
       } );
 
