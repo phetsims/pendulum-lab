@@ -141,10 +141,10 @@ define( function( require ) {
 
           degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );
           if ( pendulumIndex === 0 ) {
-            degreesText.right = -10;
+            degreesText.right = -25;
           }
           else {
-            degreesText.left = 10;
+            degreesText.left = 35;
           }
         }
       };
