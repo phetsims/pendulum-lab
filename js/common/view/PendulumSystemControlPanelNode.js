@@ -73,7 +73,12 @@ define( function( require ) {
           value: 1 / 8,
           node: new Text( slowMotionString, { font: FONT } )
         }
-        ], { radius: 6, spacing: 9, radioButtonOptions: { xSpacing: 5 } } )
+        ], {
+          radius: 6,
+          spacing: 9,
+          touchXPadding: 5,
+          radioButtonOptions: { xSpacing: 5 }
+        } )
       ]
     }, options ) );
   }
