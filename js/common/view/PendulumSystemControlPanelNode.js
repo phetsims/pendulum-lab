@@ -76,7 +76,7 @@ define( function( require ) {
         ], {
           radius: 6,
           spacing: 9,
-          touchXPadding: 5,
+          touchAreaXDilation: 5,
           radioButtonOptions: { xSpacing: 5 }
         } )
       ]
