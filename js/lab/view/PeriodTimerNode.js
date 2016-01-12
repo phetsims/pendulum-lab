@@ -42,8 +42,8 @@ define( function( require ) {
   var FONT_TIME = new PhetFont( 20 );
   var PANEL_PAD = 8;
   var RECT_SIZE = new Dimension2( 15, 20 );
-  var TOUCH_AREA_EXPAND_X = 10;
-  var TOUCH_AREA_EXPAND_Y = 3;
+  var TOUCH_AREA_X_DILATION = 10;
+  var TOUCH_AREA_Y_DILATION = 3;
 
   /**
    * @param {PeriodTimer} periodTimer - Period timer
@@ -119,8 +119,8 @@ define( function( require ) {
       switchSize: new Dimension2( 25, 12.5 ),
       setEnabled: function() {}
     } );
-    expandTouchArea( firstPendulumIcon );
-    expandTouchArea( secondPendulumIcon );
+    dilateTouchArea( firstPendulumIcon );
+    dilateTouchArea( secondPendulumIcon );
 
     var vBox = new VBox( {
       spacing: 5,
@@ -192,8 +192,8 @@ define( function( require ) {
   }
 
   // uniformly expands touch area for controls
-  var expandTouchArea = function( node ) {
-    node.touchArea = node.localBounds.dilatedXY( TOUCH_AREA_EXPAND_X, TOUCH_AREA_EXPAND_Y );
+  var dilateTouchArea = function( node ) {
+    node.touchArea = node.localBounds.dilatedXY( TOUCH_AREA_X_DILATION, TOUCH_AREA_Y_DILATION );
   };
 
   var getTextTime = function( value ) {
