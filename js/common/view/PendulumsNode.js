@@ -13,11 +13,14 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -41,6 +44,8 @@ define( function( require ) {
 
     Node.call( this, options );
     this.preventFit = true;
+
+    this.draggableItems = [];
 
     var pendulumNodes = [];
     var velocityArrows = [];
@@ -148,25 +153,40 @@ define( function( require ) {
       pendulumNodes.push( pendulumNode );
 
       // add drag events
-      var clickYOffset;
-      var clickXOffset;
-      pendulumRect.addInputListener( new SimpleDragHandler( {
-        start: function( e ) {
-          clickXOffset = self.globalToParentPoint( e.pointer.point ).x + modelViewTransform.modelToViewDeltaX( pendulum.length ) * Math.sin( pendulumNode.rotation );
-          clickYOffset = self.globalToParentPoint( e.pointer.point ).y - modelViewTransform.modelToViewDeltaX( pendulum.length ) * Math.cos( pendulumNode.rotation );
+      var angleOffset;
+      var dragListener = new SimpleDragHandler( {
+        start: function( event ) {
+          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
+          angleOffset = pendulum.angle - dragAngle;
 
           pendulum.isUserControlled = true;
         },
-        drag: function( e ) {
-          var x = self.globalToParentPoint( e.pointer.point ).x - clickXOffset;
-          var y = self.globalToParentPoint( e.pointer.point ).y - clickYOffset;
+        drag: function( event ) {
+          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
 
-          pendulum.angle = Math.atan2( x, y ) % (Math.PI * 2);
+          pendulum.angle = Pendulum.modAngle( angleOffset + dragAngle );
         },
         end: function() {
           pendulum.isUserControlled = false;
         }
-      } ) );
+      } );
+      pendulumRect.addInputListener( dragListener );
+      self.draggableItems.push( {
+        startDrag: dragListener.startDrag.bind( dragListener ),
+        computeDistance: function( globalPoint ) {
+          if ( pendulum.isUserControlled || !pendulum.isVisible ) {
+            return Number.POSITIVE_INFINITY;
+          }
+          else {
+            var cursorModelPosition = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( globalPoint ) );
+            cursorModelPosition.rotate( -pendulum.angle ).add( new Vector2( 0, pendulum.length ) ); // rotate/length so (0,0) would be mass center
+            var massViewWidth = modelViewTransform.viewToModelDeltaX( RECT_SIZE.width * massToScale( pendulum.mass ) );
+            var massViewHeight = modelViewTransform.viewToModelDeltaX( RECT_SIZE.height * massToScale( pendulum.mass ) );
+            var massBounds = new Bounds2( -massViewWidth / 2, -massViewHeight / 2, massViewWidth / 2, massViewHeight / 2 );
+            return Math.sqrt( massBounds.minimumDistanceToPointSquared( cursorModelPosition ) );
+          }
+        }
+      } );
 
       // update pendulum rotation
       pendulum.angleProperty.link( function( angle ) {

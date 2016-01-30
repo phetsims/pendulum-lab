@@ -12,6 +12,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Plane = require( 'SCENERY/nodes/Plane' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
@@ -26,6 +27,7 @@ define( function( require ) {
   var SystemSlidersNode = require( 'PENDULUM_LAB/common/view/SystemSlidersNode' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var ClosestDragListener = require( 'SUN/ClosestDragListener' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -52,6 +54,11 @@ define( function( require ) {
     } );
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
+
+    var backgroundDragNode = new Plane();
+    var dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
+    pendulumsNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
+    backgroundDragNode.addInputListener( dragListener );
 
     // add period trace node
     var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform, {
@@ -137,6 +144,7 @@ define( function( require ) {
     } );
 
     // render order
+    this.addChild( backgroundDragNode );
     this.addChild( protractorNode );
     this.addChild( leftFloatingLayer );
     this.addChild( rightFloatingLayer );
