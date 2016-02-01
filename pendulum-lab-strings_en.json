@@ -63,7 +63,7 @@
     "value": "{0} s"
   },
   "pattern.energyOf.0pendulumNumber": {
-    "value": "Energy of {0}"
+    "value": "Mass {0}"
   },
   "pendulum-lab.title": {
     "value": "Pendulum Lab"
