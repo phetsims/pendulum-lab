@@ -166,6 +166,7 @@ define( function( require ) {
 
     returnHandler: function() {
       this.pendulums.forEach( function( pendulum ) {
+        pendulum.resetThermalEnergy();
         pendulum.resetMotion();
       } );
 

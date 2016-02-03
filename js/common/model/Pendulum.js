@@ -245,6 +245,9 @@ define( function( require ) {
       this.updateDerivedVariables();
 
       this.resetEmitter.emit();
+    },
+    resetThermalEnergy: function() {
+      this.thermalEnergyProperty.reset();
     }
   }, {
     /**
