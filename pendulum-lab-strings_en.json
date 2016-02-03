@@ -2,9 +2,6 @@
   "acceleration": {
     "value": "Acceleration"
   },
-  "both": {
-    "value": "Both"
-  },
   "custom": {
     "value": "Custom"
   },
@@ -43,9 +40,6 @@
   },
   "normal": {
     "value": "Normal"
-  },
-  "one": {
-    "value": "One"
   },
   "pattern.0gravityValue.gravityUnitsMetric": {
     "value": "{0} m/s<sup>2</sup>"
@@ -112,9 +106,6 @@
   },
   "total": {
     "value": "Total"
-  },
-  "two": {
-    "value": "Two"
   },
   "velocity": {
     "value": "Velocity"
