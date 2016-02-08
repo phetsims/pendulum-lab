@@ -68,6 +68,10 @@ define( function( require ) {
 
         self.numberOfPoints = 4;
       }
+      // Check to see if we looped! Should have peaked before second crossing.
+      else if ( self.numberOfPoints === 1 ) {
+        self.resetPathPoints();
+      }
     } );
     pendulum.peakEmitter.addListener( function( theta ) {
       if ( self.numberOfPoints === 1 ) {

@@ -147,10 +147,10 @@ define( function( require ) {
         var newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
 
         if ( newTheta * theta < 0 ) {
-          this.cross( i * step, ( i + 1 ) * step, newTheta > 0, theta, newTheta );
+          this.cross( i * step, ( i + 1 ) * step, newOmega > 0, theta, newTheta );
         }
         else if ( newTheta === 0 && theta !== 0 ) {
-          this.cross( i * step, ( i + 1 ) * step, theta < 0, theta, newTheta );
+          this.cross( i * step, ( i + 1 ) * step, newOmega > 0, theta, newTheta );
         }
 
         if ( newOmega * omega < 0 ) {
