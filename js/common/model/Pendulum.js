@@ -264,7 +264,7 @@ define( function( require ) {
         angle += TWO_PI;
       }
       if ( angle > Math.PI ) {
-        angle += TWO_PI;
+        angle -= TWO_PI;
       }
 
       return angle;

@@ -129,15 +129,8 @@ define( function( require ) {
 
       var updateDegreesText = function() {
         if ( pendulum.isUserControlled ) {
-          var angle = ( pendulum.angle * 180 / Math.PI ) % 360;
-
-          // angle belongs to an interval from -90 to 270 degrees
-          if ( angle < -90 ) {
-            angle += 360;
-          }
-          else if ( angle > 270 ) {
-            angle -= 360;
-          }
+          var angle = pendulum.angle * 180 / Math.PI;
+          assert && assert( angle <= 180 && angle >= -180, 'Out of range angle' );
 
           degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );
           if ( pendulumIndex === 0 ) {
