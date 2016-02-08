@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Property = require( 'AXON/Property' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var Vector2 = require( 'DOT/Vector2' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -105,8 +106,8 @@ define( function( require ) {
         velocityArrows.push( velocityArrow );
         options.isVelocityVisibleProperty.linkAttribute( velocityArrow, 'visible' );
 
-        options.isVelocityVisibleProperty.lazyLink( function( isVelocityVisible ) {
-          velocityArrow.visible = isVelocityVisible;
+        Property.multilink( [ pendulum.isVisibleProperty, options.isVelocityVisibleProperty ], function( pendulumVisible, velocityVisible ) {
+          velocityArrow.visible = pendulumVisible && velocityVisible;
         } );
 
         // add arrow size observer
@@ -131,7 +132,9 @@ define( function( require ) {
           headWidth: ARROW_HEAD_WIDTH
         } );
         accelerationArrows.push( accelerationArrow );
-        options.isAccelerationVisibleProperty.linkAttribute( accelerationArrow, 'visible' );
+        Property.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty ], function( pendulumVisible, accelerationVisible ) {
+          accelerationArrow.visible = pendulumVisible && accelerationVisible;
+        } );
 
         // add visibility observer
         options.isAccelerationVisibleProperty.lazyLink( function( isAccelerationVisible ) {
