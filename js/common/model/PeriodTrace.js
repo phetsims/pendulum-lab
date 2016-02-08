@@ -48,8 +48,9 @@ define( function( require ) {
     this.secondAngle = null;
 
     pendulum.crossingEmitter.addListener( function( dt, isPositive ) {
-      // On the first zero-crossing, detect anticlockwise (direction) and increment
-      if ( self.numberOfPoints === 0 ) {
+      // On the first zero-crossing, detect anticlockwise (direction) and increment. Don't trigger if our pendulum's angle
+      // is likely to have been crossing at the top (angle~pi).
+      if ( self.numberOfPoints === 0 && Math.abs( pendulum.angle ) < 0.5 ) {
 
         // modify numberOfPoints before elapsedTime, so anything waiting for elapsedTime changes while running works
         self.numberOfPoints = 1;
