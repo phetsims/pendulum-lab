@@ -38,6 +38,8 @@ define( function( require ) {
     xSpacing: 3,
     scale: 0.7
   };
+  var SELECT_TOUCH_X_PADDING = 15;
+  var SELECT_TOUCH_Y_PADDING = 5;
   var ZOOM_TOUCH_X_PADDING = 10;
   var ZOOM_TOUCH_Y_PADDING = 5;
 
@@ -75,6 +77,7 @@ define( function( require ) {
       EnergyGraphMode.ONE,
       new Text( '1', { font: new PhetFont( 16 ) } ),
       RADIO_BUTTON_OPTIONS );
+    radioButtonOne.touchArea = radioButtonOne.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
     var radioButtonTwo = new AquaRadioButton(
       energyGraphModeProperty,
@@ -82,6 +85,7 @@ define( function( require ) {
       new Text( '2', { font: new PhetFont( 16 ) } ),
       RADIO_BUTTON_OPTIONS );
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
+    radioButtonTwo.touchArea = radioButtonTwo.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
     // create zoom buttons
     var zoomOutButton = new ZoomButton( {

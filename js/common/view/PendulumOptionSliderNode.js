@@ -29,6 +29,10 @@ define( function( require ) {
   var FONT_LABEL = new PhetFont( 9 );
   var VALUE_LABEL_SPACING = 4;
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
+  var ARROW_TOUCH_PADDING_TOP = 15;
+  var ARROW_TOUCH_PADDING_OUT = 18;
+  var ARROW_TOUCH_PADDING_IN = 7;
+  var ARROW_TOUCH_PADDING_BOTTOM = 10;
 
   /**
    * Constructor for the sliders control.
@@ -45,11 +49,19 @@ define( function( require ) {
     var arrowButtonMinus = new ArrowButton( 'left', function() {
       trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
+    arrowButtonMinus.touchArea = arrowButtonMinus.localBounds.withOffsets( ARROW_TOUCH_PADDING_OUT,
+                                                                           ARROW_TOUCH_PADDING_TOP,
+                                                                           ARROW_TOUCH_PADDING_IN,
+                                                                           ARROW_TOUCH_PADDING_BOTTOM );
 
     // create plus button
     var arrowButtonPlus = new ArrowButton( 'right', function() {
       trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
+    arrowButtonPlus.touchArea = arrowButtonPlus.localBounds.withOffsets( ARROW_TOUCH_PADDING_IN,
+                                                                         ARROW_TOUCH_PADDING_TOP,
+                                                                         ARROW_TOUCH_PADDING_OUT,
+                                                                         ARROW_TOUCH_PADDING_BOTTOM );
 
     var sliderProperty = new Property( trackProperty.value );
 
