@@ -46,19 +46,22 @@ define( function( require ) {
       trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
 
-    // create value label
-    var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
-      centerX: 0,
-      centerY: -1,
-      font: FONT_LABEL
-    } );
-
     // create plus button
     var arrowButtonPlus = new ArrowButton( 'right', function() {
       trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
 
     var sliderProperty = new Property( trackProperty.value );
+
+    var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
+
+    // create value label
+    var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
+      centerX: 0,
+      centerY: -1,
+      font: FONT_LABEL,
+      maxWidth: labelBackgroundWidth - 6
+    } );
 
     VBox.call( this, _.extend( {
       spacing: 4,
@@ -71,7 +74,7 @@ define( function( require ) {
             new Node( {
               pickable: false,
               children: [
-                new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
+                new Rectangle( 0, 0, labelBackgroundWidth, arrowButtonMinus.height, 3, 3, {
                   centerY: -1,
                   centerX: 0,
                   fill: '#FFF',
