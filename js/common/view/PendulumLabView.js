@@ -79,6 +79,8 @@ define( function( require ) {
     if ( this.systemSlidersNode.localBounds.width < panelWidth ) {
       this.systemSlidersNode.setContentWidth( panelWidth );
     }
+    pendulumSlidersNode.maxWidth = 180;
+    this.systemSlidersNode.maxWidth = 180;
 
     var slidersPanelNode = new VBox( {
       spacing: 8, children: [
@@ -93,6 +95,7 @@ define( function( require ) {
     // add tools control panel
     var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.isVisibleProperty,
       pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty );
+    toolsControlPanelNode.maxWidth = 180;
     toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
     toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
     this.toolsControlPanelNode = toolsControlPanelNode;
@@ -122,7 +125,8 @@ define( function( require ) {
     var returnButtonNode = new ReturnButtonNode( {
       listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
       centerX: resetAllButton.bounds.minX - 75,
-      centerY: height - SCREEN_PADDING.BOTTOM - 5
+      centerY: height - SCREEN_PADDING.BOTTOM - 5,
+      maxWidth: 120
     } );
 
     this.arrowsPanelLayer = new Node();

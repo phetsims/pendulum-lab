@@ -32,6 +32,7 @@ define( function( require ) {
   var FONT = new PhetFont( 11 );
   var TEXT_MARGIN_RIGHT = 5;
   var PANEL_WIDTH = 122;
+  var MAX_TEXT_WIDTH = 150;
 
   /**
    * @param {Property<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.
@@ -41,8 +42,8 @@ define( function( require ) {
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     var textStrings = [
-      new Text( velocityString, { font: FONT, centerY: 0 } ),
-      new Text( accelerationString, { font: FONT, centerY: 0 } )
+      new Text( velocityString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } ),
+      new Text( accelerationString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
     ];
 
     var maxStringWidth = 0;

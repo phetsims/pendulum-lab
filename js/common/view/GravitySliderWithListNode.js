@@ -96,7 +96,7 @@ define( function( require ) {
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
-    this.questionNodeText = new Text( whatIsTheValueOfGravityString, { font: FONT } );
+    this.questionNodeText = new Text( whatIsTheValueOfGravityString, { font: FONT, maxWidth: 150 } );
     this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ], pickable: false } );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );

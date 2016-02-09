@@ -62,7 +62,7 @@ define( function( require ) {
 
     Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
 
-    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME } );
+    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME, maxWidth: 200 } );
     var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
       fill: '#fff',
       stroke: 'rgba(0,0,0,0.5)'
@@ -128,7 +128,7 @@ define( function( require ) {
       left: PANEL_PAD,
       top: PANEL_PAD,
       children: [
-        new Text( periodString, { font: FONT_TEXT, pickable: false } ),
+        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: 200 } ),
         new Node( { children: [ textBackground, readoutText ], pickable: false } ),
         new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } )
       ]

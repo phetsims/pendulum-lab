@@ -124,7 +124,7 @@ define( function( require ) {
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        titleNode: new Text( energyGraphString, { font: FONT } ),
+        titleNode: new Text( energyGraphString, { font: FONT, maxWidth: 180 } ),
         titleAlignX: 'left',
         titleXMargin: 10,
         contentXMargin: 5,

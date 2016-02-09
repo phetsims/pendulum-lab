@@ -77,7 +77,8 @@ define( function( require ) {
           radius: 6,
           spacing: 9,
           touchAreaXDilation: 5,
-          radioButtonOptions: { xSpacing: 5 }
+          radioButtonOptions: { xSpacing: 5 },
+          maxWidth: 150
         } )
       ]
     }, options ) );

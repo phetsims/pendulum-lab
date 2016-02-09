@@ -67,14 +67,16 @@ define( function( require ) {
     var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
       font: FONT,
       fill: pendulum.color,
-      centerX: dimension.width / 2
+      centerX: dimension.width / 2,
+      maxWidth: 180
     } );
 
     // labels for bars
     var barLabelOptions = {
       font: FONT,
       rotation: -Math.PI / 2,
-      top: +SPACING
+      top: +SPACING,
+      maxWidth: 70
     };
     var kineticLabel = new Text( kineticString, _.extend( { fill: COLOR.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
     var potentialLabel = new Text( potentialString, _.extend( { fill: COLOR.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
