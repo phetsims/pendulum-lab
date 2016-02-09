@@ -52,14 +52,22 @@ define( function( require ) {
           baseColor: RECTANGULAR_BUTTON_BASE_COLOR,
           disabledBaseColor: RECTANGULAR_BUTTON_BASE_COLOR,
           buttonContentXMargin: 3,
-          buttonContentYMargin: 3
+          buttonContentYMargin: 3,
+          touchAreaXDilation: 5,
+          touchAreaYDilation: 8
         } ),
 
         // play/pause and step buttons
         new HBox( {
           spacing: 10, children: [
-            new PlayPauseButton( playProperty, { radius: 16 } ),
-            new StepButton( stepFunction, playProperty, { radius: 12 } )
+            new PlayPauseButton( playProperty, {
+              radius: 16,
+              touchAreaDilation: 5
+            } ),
+            new StepButton( stepFunction, playProperty, {
+              radius: 12,
+              touchAreaDilation: 5
+            } )
           ]
         } ),
 
@@ -76,7 +84,7 @@ define( function( require ) {
         ], {
           radius: 6,
           spacing: 9,
-          touchAreaXDilation: 5,
+          touchAreaXDilation: 10,
           radioButtonOptions: { xSpacing: 5 },
           maxWidth: 150
         } )

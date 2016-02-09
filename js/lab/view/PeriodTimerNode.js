@@ -13,6 +13,7 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -42,8 +43,9 @@ define( function( require ) {
   var FONT_TIME = new PhetFont( 20 );
   var PANEL_PAD = 8;
   var RECT_SIZE = new Dimension2( 15, 20 );
-  var TOUCH_AREA_X_DILATION = 10;
-  var TOUCH_AREA_Y_DILATION = 3;
+  var TOUCH_PADDING_HORIZONTAL = 5;
+  var TOUCH_PADDING_TOP = 5;
+  var TOUCH_PADDING_BOTTOM = 7;
 
   /**
    * @param {PeriodTimer} periodTimer - Period timer
@@ -91,6 +93,11 @@ define( function( require ) {
         baseColor: options.buttonBaseColor,
         minWidth: BUTTON_WIDTH
       } );
+    var buttonBounds = playPauseButton.localBounds;
+    playPauseButton.touchArea = new Bounds2( buttonBounds.minX - TOUCH_PADDING_HORIZONTAL,
+                                             buttonBounds.minY - TOUCH_PADDING_TOP,
+                                             buttonBounds.maxX + TOUCH_PADDING_HORIZONTAL,
+                                             buttonBounds.maxY + TOUCH_PADDING_BOTTOM );
 
     var firstPendulumIcon = new Node( {
       children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
@@ -119,8 +126,16 @@ define( function( require ) {
       switchSize: new Dimension2( 25, 12.5 ),
       setEnabled: null // Do not highlight the selected mass more than the other
     } );
-    dilateTouchArea( firstPendulumIcon );
-    dilateTouchArea( secondPendulumIcon );
+    var firstBounds = firstPendulumIcon.localBounds;
+    var secondBounds = secondPendulumIcon.localBounds;
+    firstPendulumIcon.touchArea = new Bounds2( firstBounds.minX - TOUCH_PADDING_HORIZONTAL,
+                                               firstBounds.minY - TOUCH_PADDING_TOP,
+                                               firstBounds.maxX,
+                                               firstBounds.maxY + TOUCH_PADDING_BOTTOM );
+    secondPendulumIcon.touchArea = new Bounds2( secondBounds.minX,
+                                                secondBounds.minY - TOUCH_PADDING_TOP,
+                                                secondBounds.maxX + TOUCH_PADDING_HORIZONTAL,
+                                                secondBounds.maxY + TOUCH_PADDING_BOTTOM );
 
     var vBox = new VBox( {
       spacing: 5,
@@ -200,11 +215,6 @@ define( function( require ) {
     // set visibility observer
     periodTimer.isVisibleProperty.linkAttribute( this, 'visible' );
   }
-
-  // uniformly expands touch area for controls
-  var dilateTouchArea = function( node ) {
-    node.touchArea = node.localBounds.dilatedXY( TOUCH_AREA_X_DILATION, TOUCH_AREA_Y_DILATION );
-  };
 
   var getTextTime = function( value ) {
     return StringUtils.format( pattern0TimeValueTimeUnitsMetricString, Util.toFixed( value, 4 ) );

@@ -38,6 +38,8 @@ define( function( require ) {
     xSpacing: 3,
     scale: 0.7
   };
+  var ZOOM_TOUCH_X_PADDING = 10;
+  var ZOOM_TOUCH_Y_PADDING = 5;
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
@@ -93,7 +95,9 @@ define( function( require ) {
           graphStorage[ 1 ].zoomOut();
         }
       },
-      radius: MAGNIFYING_GLASS_RADIUS
+      radius: MAGNIFYING_GLASS_RADIUS,
+      touchAreaXDilation: ZOOM_TOUCH_X_PADDING,
+      touchAreaYDilation: ZOOM_TOUCH_Y_PADDING
     } );
 
     var zoomInButton = new ZoomButton( {
@@ -107,7 +111,9 @@ define( function( require ) {
           graphStorage[ 1 ].zoomIn();
         }
       },
-      radius: MAGNIFYING_GLASS_RADIUS
+      radius: MAGNIFYING_GLASS_RADIUS,
+      touchAreaXDilation: ZOOM_TOUCH_X_PADDING,
+      touchAreaYDilation: ZOOM_TOUCH_Y_PADDING
     } );
 
     // add accordion box

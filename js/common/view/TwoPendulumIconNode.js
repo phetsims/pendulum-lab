@@ -34,6 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function TwoPendulumIconNode( options ) {
+    // TODO: EEK, why do we extend this? Could use composition nicely.
     OnePendulumIconNode.call( this, options );
 
     var line = new Line( 0, 0, 0, LINE_LENGTH, { stroke: 'black', strokeWidth: 1 } );

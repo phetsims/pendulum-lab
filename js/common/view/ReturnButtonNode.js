@@ -26,7 +26,12 @@ define( function( require ) {
    * @constructor
    */
   function ReturnButtonNode( options ) {
-    TextPushButton.call( this, returnString, _.extend( { font: FONT, baseColor: 'rgb( 231, 232, 233 )' }, options ) );
+    TextPushButton.call( this, returnString, _.extend( {
+      font: FONT,
+      baseColor: 'rgb( 231, 232, 233 )',
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 10
+    }, options ) );
   }
 
   return inherit( TextPushButton, ReturnButtonNode );
