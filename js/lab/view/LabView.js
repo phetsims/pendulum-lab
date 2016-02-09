@@ -12,11 +12,7 @@ define( function( require ) {
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
-
-  // strings
-  var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -41,17 +37,6 @@ define( function( require ) {
 
     // add tweakers for gravity slider slider
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
-
-    // add period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, this.layoutBounds );
-    periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
-    periodTimerNode.centerY = this.stopwatchNode.centerY;
-    this.periodTimerLayer.addChild( periodTimerNode );
-
-    // change label for period timer
-    this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
-
-    pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
   }
 
   return inherit( EnergyView, LabView );

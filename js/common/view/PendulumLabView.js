@@ -28,6 +28,10 @@ define( function( require ) {
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
+  var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
+
+  // strings
+  var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -163,6 +167,17 @@ define( function( require ) {
     // set initial value for ruler and stopwatch 'location' property
     pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );
     pendulumLabModel.stopwatch.setInitialLocationValue( stopwatchNode.center );
+
+    // add period timer node
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, this.layoutBounds );
+    periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
+    periodTimerNode.centerY = this.stopwatchNode.centerY;
+    this.periodTimerLayer.addChild( periodTimerNode );
+
+    // change label for period timer
+    this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
+
+    pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
   }
 
   return inherit( ScreenView, PendulumLabView );

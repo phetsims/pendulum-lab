@@ -17,6 +17,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
+  var PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
@@ -103,6 +104,9 @@ define( function( require ) {
         pendulum.isVisible = (numberOfPendulums > pendulumIndex);
       } );
     } );
+
+    // model for period trace
+    this.periodTimer = new PeriodTimer( this.pendulums, this.isPeriodTraceVisibleProperty );
   }
 
   return inherit( PropertySet, PendulumLabModel, {
