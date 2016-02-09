@@ -1,0 +1,63 @@
+{
+  "comment": "# pendulum-lab 1.0.0-dev.9 Tue Feb 09 2016 15:54:21 GMT-0700 (MST)",
+  "assert": {
+    "sha": "d4909677d27ed571d5d859d709a0612bf7811db8",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "a669ea6a848da3f28adc7dbc57020c740d885fd5",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "8c6f9c0402d8d445e61b8692c25b78b0ef09f279",
+    "branch": "master"
+  },
+  "chipper": {
+    "sha": "75703f39a49f6e45e9e1d7d0b4d944c12d4c9454",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "0cb241dadd06554555000adb7414edf3c4dba23a",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "439bf5a885871e0139a0944b1e1ee14e94e12128",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "4a947119f6e57cb6a6d9d1bf4596502ca721464c",
+    "branch": "master"
+  },
+  "pendulum-lab": {
+    "sha": "69e6f1d8a12f8c77e82b1850ce6e24d7f918bcef",
+    "branch": "period-timers"
+  },
+  "phet-core": {
+    "sha": "874a703dc94ace52f052a7339ea8b26cfefce482",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "3db92af30d53b7d6bb3ce3c47c632f622f17986c",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "8a58e6f400dfb5e8768100bd24bcf35b347a339d",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "b029ebc0cbd935d2c97ebb02c099935ebb20f80c",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "e75c37565d50ae862c2141cb6ff665b85b45c1b1",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "ddc2051e64b3a76f99b29ec48d48d8a61b149820",
+    "branch": "master"
+  },
+  "tandem": {
+    "sha": "a283486846aa4800464e1b36d8fcf56a1c2423a8",
+    "branch": "master"
+  }
+}
