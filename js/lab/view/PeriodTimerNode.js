@@ -168,7 +168,6 @@ define( function( require ) {
 
     // switch to second pendulum when it visible only
     secondPendulumIsVisibleProperty.link( function( isVisible ) {
-      console.log( 'switch', isVisible );
       graphUnitsSwitch.pickable = isVisible;
       graphUnitsSwitch.opacity = isVisible ? 1 : 0.5;
       if ( !isVisible ) {
