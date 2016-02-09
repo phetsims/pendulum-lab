@@ -117,7 +117,7 @@ define( function( require ) {
     var graphUnitsSwitch = new ABSwitch( periodTimer.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
-      setEnabled: function() {}
+      setEnabled: null // Do not highlight the selected mass more than the other
     } );
     dilateTouchArea( firstPendulumIcon );
     dilateTouchArea( secondPendulumIcon );
@@ -168,7 +168,9 @@ define( function( require ) {
 
     // switch to second pendulum when it visible only
     secondPendulumIsVisibleProperty.link( function( isVisible ) {
+      console.log( 'switch', isVisible );
       graphUnitsSwitch.pickable = isVisible;
+      graphUnitsSwitch.opacity = isVisible ? 1 : 0.5;
       if ( !isVisible ) {
         periodTimer.isFirst = true;
       }
@@ -176,8 +178,17 @@ define( function( require ) {
 
     // add drag and drop events
     this.addInputListener( new MovableDragHandler( periodTimer.locationProperty, {
-      dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
+      dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 ),
+      allowTouchSnag: false
     } ) );
+
+    var doNotStartDragListener = {
+      down: function( event ) {
+        event.handle();
+      }
+    };
+    playPauseButton.addInputListener( doNotStartDragListener );
+    graphUnitsSwitch.addInputListener( doNotStartDragListener );
 
     // add update of node location
     periodTimer.locationProperty.lazyLink( function( location ) {
