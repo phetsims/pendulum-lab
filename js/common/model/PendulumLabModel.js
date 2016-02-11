@@ -26,8 +26,12 @@ define( function( require ) {
     var self = this;
 
     PropertySet.call( this, {
+      body: Body.EARTH,
       gravity: Body.EARTH.gravity, // gravitational acceleration
-      bodyTitle: Body.EARTH.title, // current body title
+
+      // tracked for the "Custom" body, so that we can revert to this when the user changes from "Planet X" to "Custom"
+      customGravity: Body.EARTH.gravity,
+
       timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
@@ -65,35 +69,31 @@ define( function( require ) {
     this.stopwatch = new Stopwatch();
 
     // change gravity if body was changed
-    var gravityValueBeforePlanetX = this.gravity;
-    this.bodyTitleProperty.lazyLink( function( bodyTitleNew, bodyTitlePrev ) {
-      var body;
-
-      if ( bodyTitleNew === Body.PLANET_X.title ) {
-        // save value for further restoring
-        gravityValueBeforePlanetX = self.gravity;
-      }
-
-      if ( bodyTitleNew !== Body.CUSTOM.title ) {
-        body = _.find( self.bodies, { title: bodyTitleNew } );
+    this.bodyProperty.lazyLink( function( body, oldBody ) {
+      // If it's not custom, set it to its value
+      if ( body !== Body.CUSTOM ) {
         self.gravity = body.gravity;
       }
-      else if ( bodyTitlePrev === Body.PLANET_X.title ) {
-        // restore previous value
-        self.gravity = gravityValueBeforePlanetX;
+      else {
+        // If we are switching from Planet X to Custom, don't let them cheat (go back to last custom value)
+        if ( oldBody === Body.PLANET_X ) {
+          self.gravity = self.customGravity;
+        }
+        // For non-Planet X, update our internal custom gravity
+        else {
+          self.customGravity = self.gravity;
+        }
       }
     } );
 
     // change body to custom if gravity was changed
-    this.gravityProperty.lazyLink( function( gravityValue ) {
-      var body;
+    this.gravityProperty.lazyLink( function( gravity ) {
+      if ( !_.some( Body.bodies, function( body ) { return body.gravity === gravity; } ) ) {
+        self.body = Body.CUSTOM;
+      }
 
-      if ( self.bodyTitle !== Body.CUSTOM.title ) {
-        body = _.find( self.bodies, { gravity: gravityValue } );
-
-        if ( !body ) {
-          self.bodyTitle = Body.CUSTOM.title;
-        }
+      if ( self.body === Body.CUSTOM ) {
+        self.customGravity = gravity;
       }
     } );
 

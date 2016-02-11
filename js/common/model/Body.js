@@ -16,23 +16,30 @@ define( function( require ) {
   var planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
-   * @param {string} title of body.
-   * @param {number} gravity acceleration of body.
    * @constructor
+   *
+   * @param {string} Title of body.
+   * @param {number|null} Gravity acceleration of body (m/s^2) if defined.
    */
   function Body( title, gravity ) {
-    // set title
+    // @public [read-only]
     this.title = title;
-
-    // set gravity acceleration
     this.gravity = gravity;
   }
 
-  return {
-    MOON: new Body( moonString, 1.62 ),
-    EARTH: new Body( earthString, 9.81 ),
-    JUPITER: new Body( jupiterString, 24.79 ),
-    PLANET_X: new Body( planetXString, 14.2 ),
-    CUSTOM: new Body( customString )
-  };
+  Body.MOON = new Body( moonString, 1.62 );
+  Body.EARTH = new Body( earthString, 9.81 );
+  Body.JUPITER = new Body( jupiterString, 24.79 );
+  Body.PLANET_X = new Body( planetXString, 14.2 );
+  Body.CUSTOM = new Body( customString, null );
+
+  Body.bodies = [
+    Body.MOON,
+    Body.EARTH,
+    Body.JUPITER,
+    Body.PLANET_X,
+    Body.CUSTOM
+  ];
+
+  return Body;
 } );

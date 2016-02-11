@@ -42,7 +42,7 @@ define( function( require ) {
 
     // add gravity slider with title and body list menu
     this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.gravityProperty,
-      pendulumLabModel.gravityRange, pendulumLabModel.bodyTitleProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
+      pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
     content.addChild( new Node( {
       children: [
         new Text( gravityString, { font: FONT_TITLE, pickable: false } ),
