@@ -17,7 +17,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var TwoPendulumIconNode = require( 'PENDULUM_LAB/common/view/TwoPendulumIconNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
@@ -64,7 +64,7 @@ define( function( require ) {
               radius: 16,
               touchAreaDilation: 5
             } ),
-            new StepButton( stepFunction, playProperty, {
+            new StepForwardButton( stepFunction, playProperty, {
               radius: 12,
               touchAreaDilation: 5
             } )
