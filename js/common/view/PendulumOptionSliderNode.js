@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
@@ -151,6 +152,8 @@ define( function( require ) {
       arrowButtonPlus.enabled = ( sliderProperty.value < trackPropertyRange.max );
     } );
   }
+
+  pendulumLab.register( 'PendulumOptionSliderNode', PendulumOptionSliderNode );
 
   return inherit( VBox, PendulumOptionSliderNode );
 } );

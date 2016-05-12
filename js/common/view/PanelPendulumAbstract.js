@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -27,6 +28,8 @@ define( function( require ) {
       yMargin: PendulumLabConstants.PANEL_MARGIN
     }, options ) );
   }
+
+  pendulumLab.register( 'PanelPendulumAbstract', PanelPendulumAbstract );
 
   return inherit( Panel, PanelPendulumAbstract );
 } );

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
   var GravitySliderWithListNode = require( 'PENDULUM_LAB/common/view/GravitySliderWithListNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -66,6 +67,8 @@ define( function( require ) {
 
     PanelPendulumAbstract.call( this, content, options );
   }
+
+  pendulumLab.register( 'SystemSlidersNode', SystemSlidersNode );
 
   return inherit( PanelPendulumAbstract, SystemSlidersNode, {
     setContentWidth: function( width ) {

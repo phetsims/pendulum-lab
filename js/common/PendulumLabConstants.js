@@ -10,10 +10,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
-  return {
+  var PendulumLabConstants = {
     // pendulums
     FIRST_PENDULUM_COLOR: 'rgb( 0, 0, 255 )',
     ICON_PENDULUM_MODE_SIZE: 29,
@@ -45,4 +46,8 @@ define( function( require ) {
       LEFT: 15
     }
   };
+
+  pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );
+
+  return PendulumLabConstants;
 } );

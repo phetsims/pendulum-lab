@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Property = require( 'AXON/Property' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -215,6 +216,8 @@ define( function( require ) {
 
     this.children = pendulumNodes.concat( velocityArrows ).concat( accelerationArrows );
   }
+
+  pendulumLab.register( 'PendulumsNode', PendulumsNode );
 
   return inherit( Node, PendulumsNode );
 } );

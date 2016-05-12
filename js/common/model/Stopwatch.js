@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
 
@@ -23,6 +24,8 @@ define( function( require ) {
       elapsedTime: 0 // passed time
     }, properties ) );
   }
+
+  pendulumLab.register( 'Stopwatch', Stopwatch );
 
   return inherit( Movable, Stopwatch );
 } );

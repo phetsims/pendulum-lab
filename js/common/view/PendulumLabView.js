@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -165,6 +166,8 @@ define( function( require ) {
     pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );
     pendulumLabModel.stopwatch.setInitialLocationValue( stopwatchNode.center );
   }
+
+  pendulumLab.register( 'PendulumLabView', PendulumLabView );
 
   return inherit( ScreenView, PendulumLabView );
 } );

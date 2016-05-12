@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var EnergyGraphNode = require( 'PENDULUM_LAB/energy/view/EnergyGraphNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -40,6 +41,8 @@ define( function( require ) {
     this.stopwatchNode.centerX = this.rulerNode.bounds.maxX + this.stopwatchNode.width / 2 + 10;
     pendulumLabModel.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
   }
+
+  pendulumLab.register( 'EnergyView', EnergyView );
 
   return inherit( PendulumLabView, EnergyView );
 } );

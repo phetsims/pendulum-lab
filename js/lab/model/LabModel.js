@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
@@ -27,6 +28,8 @@ define( function( require ) {
     // model for period trace
     this.periodTimer = new PeriodTimer( this.pendulums, this.isPeriodTraceVisibleProperty );
   }
+
+  pendulumLab.register( 'LabModel', LabModel );
 
   return inherit( EnergyModel, LabModel, {
     reset: function() {

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var OnePendulumIconNode = require( 'PENDULUM_LAB/common/view/OnePendulumIconNode' );
@@ -91,6 +92,8 @@ define( function( require ) {
       ]
     }, options ) );
   }
+
+  pendulumLab.register( 'PendulumSystemControlPanelNode', PendulumSystemControlPanelNode );
 
   return inherit( HBox, PendulumSystemControlPanelNode );
 } );

@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -148,6 +149,8 @@ define( function( require ) {
     pendulum.energyMultiplierProperty.lazyLink( updateListener );
     isEnergyGraphExpandedProperty.link( updateListener );
   }
+
+  pendulumLab.register( 'SingleEnergyGraphNode', SingleEnergyGraphNode );
 
   return inherit( Node, SingleEnergyGraphNode, {
     hide: function() {

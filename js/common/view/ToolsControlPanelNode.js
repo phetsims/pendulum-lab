@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -62,6 +63,8 @@ define( function( require ) {
         ]
       } ), options );
   }
+
+  pendulumLab.register( 'ToolsControlPanelNode', ToolsControlPanelNode );
 
   return inherit( PanelPendulumAbstract, ToolsControlPanelNode, {
     /**

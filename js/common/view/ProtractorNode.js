@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -164,6 +165,8 @@ define( function( require ) {
       } );
     } );
   }
+
+  pendulumLab.register( 'ProtractorNode', ProtractorNode );
 
   return inherit( Node, ProtractorNode );
 } );

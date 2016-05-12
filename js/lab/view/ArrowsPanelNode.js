@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -94,6 +95,8 @@ define( function( require ) {
       _.extend( { yMargin: 7 }, options )
     );
   }
+
+  pendulumLab.register( 'ArrowsPanelNode', ArrowsPanelNode );
 
   return inherit( PanelPendulumAbstract, ArrowsPanelNode );
 } );

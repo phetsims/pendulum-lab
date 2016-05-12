@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
@@ -104,6 +105,8 @@ define( function( require ) {
       } );
     } );
   }
+
+  pendulumLab.register( 'PendulumLabModel', PendulumLabModel );
 
   return inherit( PropertySet, PendulumLabModel, {
 

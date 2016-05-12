@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
@@ -27,6 +28,8 @@ define( function( require ) {
     this.addProperty( 'isEnergyGraphExpanded', false );
     this.addProperty( 'energyGraphMode', EnergyGraphMode.ONE );
   }
+
+  pendulumLab.register( 'EnergyModel', EnergyModel );
 
   return inherit( PendulumLabModel, EnergyModel, {
     reset: function() {

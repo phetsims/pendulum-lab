@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -53,6 +54,8 @@ define( function( require ) {
 
     pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
   }
+
+  pendulumLab.register( 'LabView', LabView );
 
   return inherit( EnergyView, LabView );
 } );

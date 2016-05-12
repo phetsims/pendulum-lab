@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Emitter = require( 'AXON/Emitter' );
@@ -112,6 +113,8 @@ define( function( require ) {
     this.massProperty.lazyLink( this.updateListener );
     gravityProperty.lazyLink( this.updateListener );
   }
+
+  pendulumLab.register( 'Pendulum', Pendulum );
 
   return inherit( PropertySet, Pendulum, {
     omegaDerivative: function( theta, omega ) {

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
@@ -109,6 +110,8 @@ define( function( require ) {
       self.activePendulum.periodTrace.isVisible = self.isRunning;
     } );
   }
+
+  pendulumLab.register( 'PeriodTimer', PeriodTimer );
 
   return inherit( Stopwatch, PeriodTimer, {
     clear: function() {

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -47,6 +48,8 @@ define( function( require ) {
 
     this.centerAndScale( ICON_SIZE );
   }
+
+  pendulumLab.register( 'TwoPendulumIconNode', TwoPendulumIconNode );
 
   return inherit( OnePendulumIconNode, TwoPendulumIconNode );
 } );

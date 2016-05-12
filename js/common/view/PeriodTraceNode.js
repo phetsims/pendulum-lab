@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -127,6 +128,8 @@ define( function( require ) {
       } );
     } );
   }
+
+  pendulumLab.register( 'PeriodTraceNode', PeriodTraceNode );
 
   return inherit( Node, PeriodTraceNode );
 } );

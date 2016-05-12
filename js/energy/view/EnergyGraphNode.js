@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -163,6 +164,8 @@ define( function( require ) {
       }
     } );
   }
+
+  pendulumLab.register( 'EnergyGraphNode', EnergyGraphNode );
 
   var setEnabledRadioButton = function( enabled ) {
     if ( enabled ) {

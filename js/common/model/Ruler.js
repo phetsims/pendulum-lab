@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
 
@@ -23,6 +24,8 @@ define( function( require ) {
     // length of ruler in meters
     this.length = 1;
   }
+
+  pendulumLab.register( 'Ruler', Ruler );
 
   return inherit( Movable, Ruler );
 } );

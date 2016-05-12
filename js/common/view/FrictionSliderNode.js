@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -81,6 +82,8 @@ define( function( require ) {
       sliderValueProperty.value = Util.roundSymmetric( frictionToSliderValue( frictionValue ) );
     } );
   }
+
+  pendulumLab.register( 'FrictionSliderNode', FrictionSliderNode );
 
   return inherit( HSlider, FrictionSliderNode );
 } );

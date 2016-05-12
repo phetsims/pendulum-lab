@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -82,6 +83,8 @@ define( function( require ) {
     // set visibility observer
     ruler.isVisibleProperty.linkAttribute( this, 'visible' );
   }
+
+  pendulumLab.register( 'PendulumLabRulerNode', PendulumLabRulerNode );
 
   return inherit( RulerNode, PendulumLabRulerNode );
 } );

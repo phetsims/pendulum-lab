@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
@@ -102,6 +103,8 @@ define( function( require ) {
     // add visibility observer
     this.addVisibilityObservers( isPeriodTraceVisibleProperty );
   }
+
+  pendulumLab.register( 'PeriodTrace', PeriodTrace );
 
   return inherit( PropertySet, PeriodTrace, {
     reset: function() {

@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
@@ -115,6 +116,8 @@ define( function( require ) {
 
     this.addChild( container );
   }
+
+  pendulumLab.register( 'GravitySliderWithListNode', GravitySliderWithListNode );
 
   var updateQuestionTextPosition = function( questionNodeText, gravityAdjustmentNode ) {
     questionNodeText.centerX = gravityAdjustmentNode.bounds.minX + gravityAdjustmentNode.width / 2;

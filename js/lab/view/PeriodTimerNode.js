@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -215,6 +216,8 @@ define( function( require ) {
     // set visibility observer
     periodTimer.isVisibleProperty.linkAttribute( this, 'visible' );
   }
+
+  pendulumLab.register( 'PeriodTimerNode', PeriodTimerNode );
 
   var getTextTime = function( value ) {
     return StringUtils.format( pattern0TimeValueTimeUnitsMetricString, Util.toFixed( value, 4 ) );

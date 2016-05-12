@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Timer = require( 'SCENERY_PHET/Timer' );
@@ -43,6 +44,8 @@ define( function( require ) {
     // set visibility observer
     stopwatch.isVisibleProperty.linkAttribute( this, 'visible' );
   }
+
+  pendulumLab.register( 'StopwatchNode', StopwatchNode );
 
   return inherit( Timer, StopwatchNode );
 } );

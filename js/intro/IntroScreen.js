@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
@@ -37,6 +38,8 @@ define( function( require ) {
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }
+
+  pendulumLab.register( 'IntroScreen', IntroScreen );
 
   return inherit( Screen, IntroScreen );
 } );

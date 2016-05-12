@@ -5,11 +5,18 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function() {
+define( function( require ) {
   'use strict';
 
-  return Object.freeze( {
+  // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+
+  var EnergyGraphMode = Object.freeze( {
     ONE: 'One',
     TWO: 'Two'
   } );
+
+  pendulumLab.register( 'EnergyGraphMode', EnergyGraphMode );
+
+  return EnergyGraphMode;
 } );

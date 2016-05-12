@@ -8,6 +8,9 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+
   // strings
   var customString = require( 'string!PENDULUM_LAB/custom' );
   var earthString = require( 'string!PENDULUM_LAB/earth' );
@@ -18,14 +21,16 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {string} Title of body.
-   * @param {number|null} Gravity acceleration of body (m/s^2) if defined.
+   * @param {string} title of body.
+   * @param {number|null} gravity acceleration of body (m/s^2) if defined.
    */
   function Body( title, gravity ) {
     // @public [read-only]
     this.title = title;
     this.gravity = gravity;
   }
+
+  pendulumLab.register( 'Body', Body );
 
   Body.MOON = new Body( moonString, 1.62 );
   Body.EARTH = new Body( earthString, 9.81 );
