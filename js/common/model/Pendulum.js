@@ -199,6 +199,7 @@ define( function( require ) {
       this.angle = theta;
       this.angularVelocity = omega;
 
+      // update the derived variables, taking into account the transfer to thermal energy if friction is present
       this.updateDerivedVariables( this.frictionProperty.value > 0 );
 
       this.stepEmitter.emit1( dt );
@@ -231,8 +232,9 @@ define( function( require ) {
      */
     peak: function( oldTheta, newTheta ) {
       // TODO: we could get a much better theta estimate.
-      // a better estimate for the peak theta= [oldTheta (-newOmega) + newTheta*(oldOmega)- dt newOmega*oldOmega]/(oldOmega-newOmega)
-      this.peakEmitter.emit1( ( oldTheta + newTheta ) / 2 );
+      // a better estimate is theta =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
+      var peakAngle = (oldTheta + newTheta > 0) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
+      this.peakEmitter.emit1( peakAngle );
     },
 
     /**
@@ -297,7 +299,7 @@ define( function( require ) {
     /**
      * Functions returns an approximate period of the pendulum
      * The so-called small angle approximation is a lower bound to the true period in absence of friction
-     * Function is currently used to fade out the path
+     * This function is currently used to fade out the path of the period trace
      * @public
      * @returns {number}
      */
@@ -320,7 +322,8 @@ define( function( require ) {
       this.resetEmitter.emit();
     },
     /**
-     *
+     * Resets the thermal energy to zero
+     * @public
      */
     resetThermalEnergy: function() {
       this.thermalEnergyProperty.reset();
@@ -329,6 +332,7 @@ define( function( require ) {
     /**
      * Takes our angle modulo 2pi between -pi and pi.
      * @public
+     *
      * @param {number} angle
      * @returns {number}
      */
