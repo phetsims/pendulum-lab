@@ -34,7 +34,7 @@ define( function( require ) {
       // tracked for the "Custom" body, so that we can revert to this when the user changes from "Planet X" to "Custom"
       customGravity: Body.EARTH.gravity,
 
-      timeSpeed: 1, // speed of time ticking
+      timeSpeed: 1.012345, // speed of time ticking- pick a number as irrational (in the mathematical sense) as possible so that the last digits on the stop watch do get stuck to a number
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
       friction: 0, // friction coefficient
