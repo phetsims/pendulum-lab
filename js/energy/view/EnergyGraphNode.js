@@ -143,6 +143,7 @@ define( function( require ) {
         contentYSpacing: 0
       }, options ) );
 
+    // no need to unlink, present for the lifetime of the sim
     numberOfPendulumsProperty.link( function( numberOfPendulums ) {
       if ( numberOfPendulums === 1 ) {
         energyGraphModeProperty.value = EnergyGraphMode.ONE;
@@ -153,6 +154,7 @@ define( function( require ) {
       }
     } );
 
+    // no need to unlink, present for the lifetime of the sim
     energyGraphModeProperty.link( function( energyGraphMode ) {
       if ( energyGraphMode === EnergyGraphMode.ONE ) {
         graphStorage[ 0 ].show();

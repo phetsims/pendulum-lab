@@ -2,6 +2,7 @@
 
 /**
  * Protractor node in 'Pendulum Lab' simulation.
+ * The protracter node is responsible for displaying ticks 
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -57,6 +58,7 @@ define( function( require ) {
     this.addChild( new Circle( 2, { fill: 'black' } ) );
     this.addChild( new Circle( 5, { stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR } ) );
 
+    // create a separate layer to add
     var degreesLayer = new Node();
     this.addChild( degreesLayer );
 
@@ -93,6 +95,8 @@ define( function( require ) {
 
     // add protractor path
     this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
+    
+    // create and add a layer for the ticks (angle of release) associated with each pendulum
     this.firstPendulumTickLayer = new Node();
     this.secondPendulumTickLayer = new Node();
     this.addChild( this.secondPendulumTickLayer );
@@ -115,7 +119,7 @@ define( function( require ) {
 
       var updateTicksPosition = function() {
         if ( pendulum.isUserControlled ) {
-          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle );
+          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle ); 
           tickNodeRight.setRotation( Math.PI / 2 + pendulum.angle );
         }
       };
@@ -130,7 +134,8 @@ define( function( require ) {
 
       var updateDegreesText = function() {
         if ( pendulum.isUserControlled ) {
-          var angle = pendulum.angle * 180 / Math.PI;
+          // pendulum.angle is in radians, convert to degrees
+          var angle = pendulum.angle * 180 / Math.PI; 
           assert && assert( angle <= 180 && angle >= -180, 'Out of range angle' );
 
           degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );
@@ -138,18 +143,21 @@ define( function( require ) {
             degreesText.right = -25;
           }
           else {
+            // must be pendulumIndex===1
             degreesText.left = 35;
           }
         }
       };
 
       // update tick position
+      // present for the lifetime of the sim
       pendulum.angleProperty.link( function() {
         updateTicksPosition();
         updateDegreesText();
       } );
 
       // set ticks visibility observer
+      // present for the lifetime of the sime
       pendulum.multilink( [ 'isTickVisible', 'isVisible' ], function() {
         var isVisible = pendulum.isTickVisible && pendulum.isVisible;
         tickNodeLeft.visible = isVisible;
@@ -158,6 +166,7 @@ define( function( require ) {
       } );
 
       // set degrees text visibility observer
+      // present for the lifetime of the sim
       pendulum.isUserControlledProperty.link( function( isUserControlled ) {
         degreesText.visible = isUserControlled;
         updateDegreesText();

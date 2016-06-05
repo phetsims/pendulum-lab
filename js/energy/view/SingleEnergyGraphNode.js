@@ -34,7 +34,7 @@ define( function( require ) {
   var BAR_WIDTH = 8;
   var BAR_OFFSET = 4;
 
-  var ARROW_HEAD_WIDTH = 6;
+  var ARROW_HEAD_WIDTH = 6; // for the arrows on the x and y axis
   var ARROW_HEAD_HEIGHT = 7;
   var COLOR = {
     KINETIC: 'rgb( 31, 202, 46 )',
@@ -142,6 +142,7 @@ define( function( require ) {
       ]
     } );
 
+    // add listeners to pendulum
     var updateListener = this.update.bind( this );
     pendulum.stepEmitter.addListener( updateListener );
     pendulum.resetEmitter.addListener( updateListener );
@@ -153,14 +154,25 @@ define( function( require ) {
   pendulumLab.register( 'SingleEnergyGraphNode', SingleEnergyGraphNode );
 
   return inherit( Node, SingleEnergyGraphNode, {
+    /**
+     * Hide the bar graph
+     * @public
+     */
     hide: function() {
       this.visible = false;
     },
+    /**
+     * Show the bar graph and update its status
+     * @public
+     */
     show: function() {
       this.visible = true;
       this.update();
     },
-
+    /**
+     * Update the heights of the bar graph
+     * @private
+     */
     update: function() {
       if ( this.isEnergyGraphExpandedProperty.value && this.visible ) {
         var energyMultiplier = this.pendulum.energyMultiplier;
@@ -186,11 +198,20 @@ define( function( require ) {
         this.totalKineticEnergyBar.rectHeight = totalHeight - potentialAndThermalHeight;
       }
     },
-
+    /**
+     * Updates the length of the bar graphs by multiplying each of them by a common factor
+     * Mimics the actions of zooming in.
+     * @public
+     */
     zoomIn: function() {
       this.pendulum.energyMultiplier *= ZOOM_MULTIPLIER;
       this.update();
     },
+    /**
+     * Updates the length of the bar graphs by dividing each of them by a common factor
+     * Mimics the actions of zooming out.
+     * @public
+     */
     zoomOut: function() {
       this.pendulum.energyMultiplier /= ZOOM_MULTIPLIER;
       this.update();

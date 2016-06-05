@@ -24,7 +24,7 @@ define( function( require ) {
   // constants
   var FONT = new PhetFont( 10 );
   var RULER_HEIGHT = 34;
-  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
+  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING; // {Object} 
   var TICK_INTERVAL = 5; // tick interval in cm
 
   /**

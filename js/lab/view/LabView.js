@@ -20,7 +20,7 @@ define( function( require ) {
   var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
 
   // constants
-  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
+  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING; // {Object}
 
   /**
    * @param {PendulumLabModel} pendulumLabModel

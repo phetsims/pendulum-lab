@@ -37,12 +37,13 @@ define( function( require ) {
    * @constructor
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
+    // @private
     this._labels = [
       new Text( rulerString, { font: FONT, pickable: false } ),
       new Text( stopwatchString, { font: FONT, pickable: false } ),
       new Text( periodTraceString, { font: FONT, pickable: false } )
     ];
-
+    
     PanelPendulumAbstract.call( this,
       new Node( {
         children: [
@@ -72,6 +73,7 @@ define( function( require ) {
      *
      * @param {number} index - Index of label.
      * @param {string} text - New text for label.
+     * @public
      */
     setLabelText: function( index, text ) {
       this._labels[ index ].setText( text );

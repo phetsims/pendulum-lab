@@ -33,6 +33,10 @@ define( function( require ) {
   pendulumLab.register( 'EnergyModel', EnergyModel );
 
   return inherit( PendulumLabModel, EnergyModel, {
+    /**
+     * Function that resets all the property associated with the energy model
+     * @public
+     */
     reset: function() {
       PendulumLabModel.prototype.reset.call( this );
 
