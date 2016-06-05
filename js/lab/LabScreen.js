@@ -34,6 +34,7 @@ define( function( require ) {
 
     Screen.call( this, screenLabString, new Image( labImage ),
       function() { return new LabModel(); },
+      //TODO magic number 2
       function( model ) { return new LabView( model, modelViewTransform, 225 ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
