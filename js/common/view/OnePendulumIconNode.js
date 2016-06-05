@@ -42,10 +42,14 @@ define( function( require ) {
     this.content = new Node();
     this.addChild( this.content );
 
+    // create a vertical line
     var line = new Line( 0, 0, 0, LINE_LENGTH, { stroke: 'black', strokeWidth: 1 } );
+    // rotate it by some angle
     line.rotate( -ANGLE );
+    // add the line to the content node
     this.content.addChild( line );
 
+    // create and add the bob of the pendulum
     var rect = new Rectangle( -RECT_WIDTH / 2, LINE_LENGTH, RECT_WIDTH, RECT_HEIGHT, { stroke: 'black', strokeWidth: 1, fill: RECT_GRADIENT } );
     rect.rotate( -ANGLE );
     this.content.addChild( rect );
@@ -56,6 +60,11 @@ define( function( require ) {
   pendulumLab.register( 'OnePendulumIconNode', OnePendulumIconNode );
 
   return inherit( Node, OnePendulumIconNode, {
+    /**
+     * function that center and scale the content Node within the icon Node
+     * @public
+     * @param {number} iconSize - in view coordinates
+     */
     centerAndScale: function( iconSize ) {
       var content = this.content;
 
