@@ -30,6 +30,11 @@ define( function( require ) {
   pendulumLab.register( 'Movable', Movable );
 
   return inherit( PropertySet, Movable, {
+    /**
+     * Function that sets the initial location of a movable object and keep an internal copy of it.
+     * @public
+     * @param {Vector2} initialLocation
+     */
     setInitialLocationValue: function( initialLocation ) {
 
       // position to use for resetting
@@ -37,6 +42,10 @@ define( function( require ) {
       this.location = this.initialLocation.copy();
     },
 
+    /**
+     * Reset function
+     * @public
+     */
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
