@@ -128,15 +128,7 @@ define( function( require ) {
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
     },
-
-    /**
-     * Unused function
-     * @private
-     * @returns {number}
-     */
-    getFrictionContribution: function() {
-      return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.angularVelocity;
-    },
+    
     /**
      * Function that returns the magnitude of the tangential drag force on the pendulum per unit mass per unit length
      * The friction term has units of angular acceleration
