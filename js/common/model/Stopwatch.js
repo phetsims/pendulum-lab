@@ -14,7 +14,7 @@ define( function( require ) {
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
 
   /**
-   * @param [properties] for extending by this constructor.
+   * @param {Object} [properties] for extending by this constructor.
    * @constructor
    */
   function Stopwatch( properties ) {
