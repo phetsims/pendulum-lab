@@ -39,16 +39,16 @@ define( function( require ) {
    * Constructor for the sliders control.
    *
    * @param {Property.<number>} trackProperty - Property to update by slider.
-   * @param {Object} trackPropertyRange - Range of track property.
+   * @param {Range} trackRange - Range of track property.
    * @param {string} valuePatternString - String pattern for representation current property value in label.
    * @param {string} color - Base color for thumb and label text in rgb format.
    * @param {Object} [options]
    * @constructor
    */
-  function PendulumOptionSliderNode( trackProperty, trackPropertyRange, valuePatternString, color, options ) {
+  function PendulumOptionSliderNode( trackProperty, trackRange, valuePatternString, color, options ) {
     // create minus button
     var arrowButtonMinus = new ArrowButton( 'left', function() {
-      trackProperty.value = Util.toFixedNumber( Math.max( trackPropertyRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+      trackProperty.value = Util.toFixedNumber( Math.max( trackRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
     arrowButtonMinus.touchArea = arrowButtonMinus.localBounds.withOffsets( ARROW_TOUCH_PADDING_OUT,
                                                                            ARROW_TOUCH_PADDING_TOP,
@@ -57,7 +57,7 @@ define( function( require ) {
 
     // create plus button
     var arrowButtonPlus = new ArrowButton( 'right', function() {
-      trackProperty.value = Util.toFixedNumber( Math.min( trackPropertyRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+      trackProperty.value = Util.toFixedNumber( Math.min( trackRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
     arrowButtonPlus.touchArea = arrowButtonPlus.localBounds.withOffsets( ARROW_TOUCH_PADDING_IN,
                                                                          ARROW_TOUCH_PADDING_TOP,
@@ -108,7 +108,7 @@ define( function( require ) {
             new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
 
             // slider for property
-            new HSlider( sliderProperty, trackPropertyRange, {
+            new HSlider( sliderProperty, trackRange, {
               trackSize: PendulumLabConstants.TRACK_SIZE,
               thumbSize: PendulumLabConstants.THUMB_SIZE,
               thumbFillEnabled: color
@@ -148,8 +148,8 @@ define( function( require ) {
 
       // update label and tweakers
       valueLabel.text = StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) );
-      arrowButtonMinus.enabled = ( sliderProperty.value > trackPropertyRange.min );
-      arrowButtonPlus.enabled = ( sliderProperty.value < trackPropertyRange.max );
+      arrowButtonMinus.enabled = ( sliderProperty.value > trackRange.min );
+      arrowButtonPlus.enabled = ( sliderProperty.value < trackRange.max );
     } );
   }
 
