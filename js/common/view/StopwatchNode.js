@@ -16,7 +16,7 @@ define( function( require ) {
   var Timer = require( 'SCENERY_PHET/Timer' );
 
   /**
-   * @param {PropertySet} stopwatch - Model of stopwatch.
+   * @param {Stopwatch} stopwatch - Model of stopwatch.
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Bounds2} toolsControlPanelNodeBounds - Bounds of tool control panel. Necessary to set relative position of stopwatch.
    * @constructor
