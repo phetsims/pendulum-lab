@@ -50,7 +50,7 @@ define( function( require ) {
 
   /**
    * @param {PeriodTimer} periodTimer - Period timer
-   * @param {PropertySet} secondPendulumIsVisibleProperty - Second pendulum visibility property.
+   * @param {Property.<boolean>} secondPendulumIsVisibleProperty - Second pendulum visibility property.
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Object} [options]
    * @constructor
