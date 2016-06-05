@@ -38,7 +38,7 @@ define( function( require ) {
   /**
    * Constructor for the gravity slider control.
    *
-   * @param {Property<number>} frictionProperty - Property to update by slider.
+   * @param {Property.<number>} frictionProperty - Property to update by slider.
    * @param {Range} frictionPropertyRange - Possible range of frictionProperty value.
    * @param {Object} [options]
    * @constructor

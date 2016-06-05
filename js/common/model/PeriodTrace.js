@@ -15,7 +15,7 @@ define( function( require ) {
 
   /**
    * @param {Pendulum} pendulum - Pendulum model.
-   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
+   * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    * @param {boolean} isPeriodTraceRepeating - Seems to be whether the period trace will automatically start up again after it finishes.
    *
    * @constructor
