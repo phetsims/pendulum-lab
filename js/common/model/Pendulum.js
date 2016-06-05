@@ -67,6 +67,7 @@ define( function( require ) {
       energyMultiplier: 40 // coefficient for drawing energy graph
     } );
 
+    // @public
     this.stepEmitter = new Emitter();
     this.userMovedEmitter = new Emitter();
     this.crossingEmitter = new Emitter();
@@ -222,12 +223,15 @@ define( function( require ) {
     },
 
     /**
+     * Sends a signal that the peak angle (turning angle) has been reached
+     * It sends the value of the peak angle
      * @private
      * @param {number} oldTheta
      * @param {number} newTheta
      */
     peak: function( oldTheta, newTheta ) {
       // TODO: we could get a much better theta estimate.
+      // a better estimate for the peak theta= [oldTheta (-newOmega) + newTheta*(oldOmega)- dt newOmega*oldOmega]/(oldOmega-newOmega)
       this.peakEmitter.emit1( ( oldTheta + newTheta ) / 2 );
     },
 
@@ -325,7 +329,6 @@ define( function( require ) {
     /**
      * Takes our angle modulo 2pi between -pi and pi.
      * @public
-     *
      * @param {number} angle
      * @returns {number}
      */
