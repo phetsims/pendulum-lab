@@ -107,12 +107,19 @@ define( function( require ) {
   pendulumLab.register( 'PeriodTrace', PeriodTrace );
 
   return inherit( PropertySet, PeriodTrace, {
+    /**
+     * Resets the property set and the path points
+     * @public
+     */
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
       this.resetPathPoints();
     },
-
+    /**
+     * Resets the path points that are used to draw the period path trace
+     * @public
+     */
     resetPathPoints: function() {
       this.anticlockwise = null;
       this.firstAngle = null;
@@ -122,7 +129,7 @@ define( function( require ) {
     },
 
     /**
-     *
+     * Adds visibility observers to the trace
      * @private
      * @param {Property.<boolean>} checkBoxProperty
      */
@@ -143,6 +150,10 @@ define( function( require ) {
       checkBoxProperty.lazyLink( this.setPeriodTraceVisibility );
       self._pendulum.isVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
     },
+    /**
+     * Disposes of the visibility observers
+     * @public
+     */
     removeVisibilityObservers: function() {
       this._checkBoxProperty.unlink( this.setPeriodTraceVisibility );
       this._pendulum.isVisibleProperty.unlink( this.setPeriodTraceVisibility );
