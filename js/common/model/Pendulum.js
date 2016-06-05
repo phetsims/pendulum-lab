@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Emitter = require( 'AXON/Emitter' );
@@ -87,7 +87,6 @@ define( function( require ) {
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
 
 
-
     // make tick on protractor visible after first drag
     this.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       if ( isUserControlled ) {
@@ -123,7 +122,7 @@ define( function( require ) {
      * Function that return the instantaneous angular acceleration
      * @param {number} theta - angular position
      * @param {number} omega - angular velocity
-     * @returns {number} 
+     * @returns {number}
      */
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
@@ -131,7 +130,7 @@ define( function( require ) {
 
     // TODO need more conventional names for this function
     /**
-     * 
+     *
      * @param omega
      * @returns {number}
      */
@@ -193,10 +192,10 @@ define( function( require ) {
 
       this.stepEmitter.emit1( dt );
     },
-    
+
     /**
      * Function that emits when the pendulum is crossing the equilibrium point (theta=0)
-     * Given that the time step is finite, we attempt to do a linear interpolation, to find the 
+     * Given that the time step is finite, we attempt to do a linear interpolation, to find the
      * precise time at which the pendulum cross the vertical.
      * @param {number} oldDT
      * @param {number} newDT
@@ -223,8 +222,8 @@ define( function( require ) {
     },
 
     /**
-     * Given the angular position and velocity, this function updates derived variables : 
-     * namely the various energies( kinetic , thermal, potential and total energy)  
+     * Given the angular position and velocity, this function updates derived variables :
+     * namely the various energies( kinetic , thermal, potential and total energy)
      * and the linear variable (position, velocity, acceleration) of the pendulum
      * @private
      * @param {boolean} energyChangeToThermal
@@ -282,9 +281,9 @@ define( function( require ) {
     },
 
     /**
-     * Functions returns an approximate period of the pendulum 
+     * Functions returns an approximate period of the pendulum
      * The so-called small angle approximation is a lower bound to the true period in absence of friction
-     * Function is currently used to fade out the path 
+     * Function is currently used to fade out the path
      * @public
      * @returns {number}
      */
@@ -293,14 +292,14 @@ define( function( require ) {
     },
     // TODO: it this function used anywhere??
     /**
-     * 
+     *
      * @returns {number}
      */
     getFrictionContribution: function() {
       return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.angularVelocity;
     },
     /**
-     * 
+     *
      */
     resetMotion: function() {
       this.angleProperty.reset();
@@ -309,12 +308,12 @@ define( function( require ) {
 
       this.periodTrace.resetPathPoints();
 
-      this.updateDerivedVariables();
+      this.updateDerivedVariables( false );
 
       this.resetEmitter.emit();
     },
     /**
-     * 
+     *
      */
     resetThermalEnergy: function() {
       this.thermalEnergyProperty.reset();
