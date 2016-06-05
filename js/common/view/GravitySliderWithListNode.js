@@ -14,13 +14,13 @@ define( function( require ) {
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
-  var Property = require( 'AXON/Property' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
