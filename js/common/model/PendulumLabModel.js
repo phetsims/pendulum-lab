@@ -21,6 +21,7 @@ define( function( require ) {
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
+   * @param {boolean} isPeriodTraceRepeating
    * @constructor
    */
   function PendulumLabModel( isPeriodTraceRepeating ) {
