@@ -28,7 +28,7 @@ define( function( require ) {
   var TICK_INTERVAL = 5; // tick interval in cm
 
   /**
-   * @param {PropertySet} ruler - Model for ruler.
+   * @param {Ruler} ruler - Model for ruler.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view
    * @constructor
