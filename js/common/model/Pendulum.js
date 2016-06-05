@@ -76,7 +76,7 @@ define( function( require ) {
     this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
 
     // default color for this pendulum
-    this.color = color;
+    this.color = color; // {string}
 
     // possible length range in meters
     this.lengthRange = new Range( 0.1, 1.0, length );
@@ -119,7 +119,7 @@ define( function( require ) {
 
   return inherit( PropertySet, Pendulum, {
     /**
-     * Function that return the instantaneous angular acceleration
+     * Function that returns the instantaneous angular acceleration
      * @param {number} theta - angular position
      * @param {number} omega - angular velocity
      * @returns {number}
@@ -136,9 +136,10 @@ define( function( require ) {
     getFrictionContribution: function() {
       return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.angularVelocity;
     },
-    // TODO need more conventional names for this function
     /**
-     *
+     * Function that returns the magnitude of the tangnetial drag force on the pendulum per unit mass per unit length
+     * The friction term has units of angular acceleration
+     * @private
      * @param {number} omega - the angular velocity of the pendulum
      * @returns {number}
      */
@@ -149,6 +150,7 @@ define( function( require ) {
     /**
      * Stepper function for the pendulum model.
      * It uses a Runge-Kutta approach to solve the angular differential equation
+     * @public
      * @param {number} dt
      */
     step: function( dt ) {
@@ -298,7 +300,7 @@ define( function( require ) {
     getApproximatePeriod: function() {
       return 2 * Math.PI * Math.sqrt( this.length / this.gravityProperty.value );
     },
-    
+
     /**
      *
      */
