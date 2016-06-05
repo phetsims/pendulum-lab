@@ -42,6 +42,8 @@ define( function( require ) {
       isPeriodTraceVisible: false
     } );
 
+    // @public
+    // an array of pendulum, apologies to all english majors
     this.pendulums = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating ),
