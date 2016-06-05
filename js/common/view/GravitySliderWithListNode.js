@@ -44,14 +44,14 @@ define( function( require ) {
    * Constructor for the gravity slider control.
    *
    * @param {Property.<number>} gravityProperty - Property to update by slider.
-   * @param {Range} gravityPropertyRange - Range of gravity property.
+   * @param {Range} gravityRange - Range of gravity property.
    * @param {Property.<Body>} bodyProperty - Property to update by combo box.
    * @param {Array.<Body>} bodies - Models of all bodies.
    * @param {Node} bodiesListNode - Node for displaying body list. Should be above all other nodes.
    * @param {Object} [options]
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityPropertyRange, bodyProperty, bodies, bodiesListNode, options ) {
+  function GravitySliderWithListNode( gravityProperty, gravityRange, bodyProperty, bodies, bodiesListNode, options ) {
     var self = this;
     var container = new Node();
 
@@ -81,7 +81,7 @@ define( function( require ) {
     } ) );
 
     // create slider for gravity property
-    var hSlider = new HSlider( gravityProperty, gravityPropertyRange, {
+    var hSlider = new HSlider( gravityProperty, gravityRange, {
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbNode: new HSlider.ThumbNode( new Property( true ), {
@@ -90,8 +90,8 @@ define( function( require ) {
         thumbFillHighlighted: '#ccc'
       } )
     } );
-    hSlider.addMajorTick( gravityPropertyRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
-    hSlider.addMajorTick( gravityPropertyRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( gravityRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( gravityRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( hSlider );
 
@@ -126,10 +126,10 @@ define( function( require ) {
 
   return inherit( VBox, GravitySliderWithListNode, {
     // add arrow buttons and value panel
-    addTweakers: function( gravityProperty, gravityPropertyRange ) {
+    addTweakers: function( gravityProperty, gravityRange ) {
       // create minus button
       var arrowButtonMinus = new ArrowButton( 'left', function() {
-        gravityProperty.value = Util.toFixedNumber( Math.max( gravityPropertyRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+        gravityProperty.value = Util.toFixedNumber( Math.max( gravityRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
       }, { scale: 0.5 } );
 
       // create value label
@@ -141,7 +141,7 @@ define( function( require ) {
 
       // create plus button
       var arrowButtonPlus = new ArrowButton( 'right', function() {
-        gravityProperty.value = Util.toFixedNumber( Math.min( gravityPropertyRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
+        gravityProperty.value = Util.toFixedNumber( Math.min( gravityRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
       }, { scale: 0.5 } );
 
       this.gravityAdjustmentNode.insertChild( 0, new HBox( {
@@ -178,8 +178,8 @@ define( function( require ) {
         }
 
         valueLabel.text = StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
-        arrowButtonMinus.enabled = ( value > gravityPropertyRange.min );
-        arrowButtonPlus.enabled = ( value < gravityPropertyRange.max );
+        arrowButtonMinus.enabled = ( value > gravityRange.min );
+        arrowButtonPlus.enabled = ( value < gravityRange.max );
 
         // set slider value
         if ( valuePrecision > 2 ) {
