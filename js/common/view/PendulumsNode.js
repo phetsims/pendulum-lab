@@ -61,7 +61,7 @@ define( function( require ) {
       };
 
       // create solid line
-      var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickabe: false } );
+      var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickable: false } );
 
       // create pendulum
       var pendulumRect = new Node( {
@@ -99,7 +99,7 @@ define( function( require ) {
       // add velocity arrows if necessary
       if ( options.isVelocityVisibleProperty ) {
         var velocityArrow = new ArrowNode( 0, 0, 0, 0, {
-          pickabe: false,
+          pickable: false,
           fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
           tailWidth: ARROW_TAIL_WIDTH,
           headWidth: ARROW_HEAD_WIDTH
@@ -127,7 +127,7 @@ define( function( require ) {
       if ( options.isAccelerationVisibleProperty ) {
         // create acceleration arrow
         var accelerationArrow = new ArrowNode( 0, 0, 0, 0, {
-          pickabe: false,
+          pickable: false,
           fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
           tailWidth: ARROW_TAIL_WIDTH,
           headWidth: ARROW_HEAD_WIDTH
