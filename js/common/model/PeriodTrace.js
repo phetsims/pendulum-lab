@@ -43,18 +43,18 @@ define( function( require ) {
     this._pendulum = pendulum;
 
     // properties for drawing path shape
-    this.anticlockwise = null;
+    this.counterClockwise = null;
     this.firstAngle = null;
     this.secondAngle = null;
 
     pendulum.crossingEmitter.addListener( function( dt, isPositive ) {
-      // On the first zero-crossing, detect anticlockwise (direction) and increment. Don't trigger if our pendulum's angle
+      // On the first zero-crossing, detect counterClockwise (direction) and increment. Don't trigger if our pendulum's angle
       // is likely to have been crossing at the top (angle~pi).
       if ( self.numberOfPoints === 0 && Math.abs( pendulum.angle ) < 0.5 ) {
 
         // modify numberOfPoints before elapsedTime, so anything waiting for elapsedTime changes while running works
         self.numberOfPoints = 1;
-        self.anticlockwise = !isPositive;
+        self.counterClockwise = !isPositive;
 
         // Set our elapsed time to the negative, as this was the elapsed time UNTIL we started. When the next step
         // callback happens, it will increment our elapsedTime to the correct (current) amount.
@@ -120,7 +120,7 @@ define( function( require ) {
      * @public
      */
     resetPathPoints: function() {
-      this.anticlockwise = null;
+      this.counterClockwise = null;
       this.firstAngle = null;
       this.secondAngle = null;
       this.numberOfPoints = 0;
