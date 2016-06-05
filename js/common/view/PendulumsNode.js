@@ -110,7 +110,7 @@ define( function( require ) {
         Property.multilink( [ pendulum.isVisibleProperty, options.isVelocityVisibleProperty ], function( pendulumVisible, velocityVisible ) {
           velocityArrow.visible = pendulumVisible && velocityVisible;
         } );
-
+  
         // add arrow size observer
         pendulum.velocityProperty.link( function( velocity ) {
           if ( velocityArrow.visible ) {
@@ -192,17 +192,18 @@ define( function( require ) {
         }
       } );
 
-      // update pendulum rotation
+      // update pendulum rotation, pendulum.angle is radians
+      // we are using an inverted modelViewTransform, hence we multiply angle by minus one 
       pendulum.angleProperty.link( function( angle ) {
         pendulumNode.rotation = -angle;
       } );
 
       // update pendulum components position
       pendulum.lengthProperty.link( function( length ) {
-        var lengthMeters = modelViewTransform.modelToViewDeltaX( length );
+        var viewPendulumLength = modelViewTransform.modelToViewDeltaX( length );
 
-        pendulumRect.setY( lengthMeters );
-        solidLine.setY2( lengthMeters );
+        pendulumRect.setY( viewPendulumLength );
+        solidLine.setY2( viewPendulumLength );
       } );
 
       // update rectangle size
