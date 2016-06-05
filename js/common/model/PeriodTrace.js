@@ -121,6 +121,11 @@ define( function( require ) {
       this.elapsedTime = 0;
     },
 
+    /**
+     *
+     * @private
+     * @param {Property.<boolean>} checkBoxProperty
+     */
     addVisibilityObservers: function( checkBoxProperty ) {
       var self = this;
       this._checkBoxProperty = checkBoxProperty;

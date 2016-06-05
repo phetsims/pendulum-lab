@@ -269,7 +269,7 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
-      // let's prevent an unecessary update of the derivatives
+      // let's prevent an unnecessary update of the derivatives
       this.updateDerivedVariables( false );
     },
 

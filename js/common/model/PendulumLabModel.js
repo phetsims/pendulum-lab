@@ -162,11 +162,20 @@ define( function( require ) {
       }
     },
 
-    // handler for step button
+    /**
+     * Handler for the step button
+     * Called by PendulumLabView
+     * @public
+     */
     stepManual: function() {
       this.modelStep( 0.05 );
     },
 
+    /**
+     * Handler for return button
+     * Called by PendulumLabView
+     * @public
+     */
     returnHandler: function() {
       this.pendulums.forEach( function( pendulum ) {
         pendulum.resetThermalEnergy();
