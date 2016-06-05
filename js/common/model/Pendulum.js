@@ -33,6 +33,7 @@ define( function( require ) {
    * @param {Property.<number>} gravityProperty - Property with current gravity value.
    * @param {Property.<number>} frictionProperty - Property with current friction value.
    * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
+   * @param {boolean} isPeriodTraceRepeating
    * @constructor
    */
   function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ) {
