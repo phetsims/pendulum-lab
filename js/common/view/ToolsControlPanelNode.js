@@ -12,10 +12,10 @@ define( function( require ) {
 
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
-  var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );

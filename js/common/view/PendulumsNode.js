@@ -13,20 +13,20 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Property = require( 'AXON/Property' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ARROW_HEAD_WIDTH = 12;

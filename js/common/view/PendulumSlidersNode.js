@@ -12,8 +12,8 @@ define( function( require ) {
 
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
   var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/PendulumOptionSliderNode' );

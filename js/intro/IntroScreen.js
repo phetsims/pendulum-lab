@@ -11,11 +11,11 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings

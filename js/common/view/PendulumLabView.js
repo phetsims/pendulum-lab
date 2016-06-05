@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var Bounds2 = require( 'DOT/Bounds2' );
+  var ClosestDragListener = require( 'SUN/ClosestDragListener' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Plane = require( 'SCENERY/nodes/Plane' );
@@ -28,7 +29,6 @@ define( function( require ) {
   var SystemSlidersNode = require( 'PENDULUM_LAB/common/view/SystemSlidersNode' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var ClosestDragListener = require( 'SUN/ClosestDragListener' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;

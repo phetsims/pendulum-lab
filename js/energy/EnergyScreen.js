@@ -13,9 +13,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings

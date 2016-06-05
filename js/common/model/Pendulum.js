@@ -10,13 +10,13 @@ define( function( require ) {
 
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Emitter = require( 'AXON/Emitter' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var Range = require( 'DOT/Range' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var scratchVector = new Vector2();
 
@@ -128,10 +128,18 @@ define( function( require ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
     },
 
+    /**
+     * Unused function
+     * @private
+     * @returns {number}
+     */
+    getFrictionContribution: function() {
+      return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.angularVelocity;
+    },
     // TODO need more conventional names for this function
     /**
      *
-     * @param omega
+     * @param {number} omega - the angular velocity of the pendulum
      * @returns {number}
      */
     frictionTerm: function( omega ) {
@@ -290,14 +298,7 @@ define( function( require ) {
     getApproximatePeriod: function() {
       return 2 * Math.PI * Math.sqrt( this.length / this.gravityProperty.value );
     },
-    // TODO: it this function used anywhere??
-    /**
-     *
-     * @returns {number}
-     */
-    getFrictionContribution: function() {
-      return -this.frictionProperty.value / Math.pow( this.mass, 1 / 3 ) * this.angularVelocity;
-    },
+    
     /**
      *
      */

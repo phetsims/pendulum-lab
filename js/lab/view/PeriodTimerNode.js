@@ -13,8 +13,8 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );

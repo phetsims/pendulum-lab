@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
+  var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
-  var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
 
   // strings
   var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
