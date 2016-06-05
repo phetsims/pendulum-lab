@@ -25,6 +25,7 @@ define( function( require ) {
   /**
    * @param {PendulumLabModel} pendulumLabModel
    * @param {ModelViewTransform2} modelViewTransform
+   * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @constructor
    */
   function LabView( pendulumLabModel, modelViewTransform, energyGraphHeight ) {
