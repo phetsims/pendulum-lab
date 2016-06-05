@@ -36,8 +36,8 @@ define( function( require ) {
   var MAX_TEXT_WIDTH = 150;
 
   /**
-   * @param {Property<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.
-   * @param {Property<boolean>} isAccelerationVisibleProperty - Property to control visibility of acceleration arrows.
+   * @param {Property.<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.
+   * @param {Property.<boolean>} isAccelerationVisibleProperty - Property to control visibility of acceleration arrows.
    * @param {Object} [options] for tools control panel node
    * @constructor
    */

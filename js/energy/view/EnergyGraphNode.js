@@ -46,9 +46,9 @@ define( function( require ) {
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
-   * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
-   * @param {Property<string>} energyGraphModeProperty - Property to select mode of energy graph representation
-   * @param {Property<string>} numberOfPendulumsProperty - Property to control number of pendulums.
+   * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
+   * @param {Property.<string>} energyGraphModeProperty - Property to select mode of energy graph representation
+   * @param {Property.<string>} numberOfPendulumsProperty - Property to control number of pendulums.
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @param {Object} [options]
    * @constructor

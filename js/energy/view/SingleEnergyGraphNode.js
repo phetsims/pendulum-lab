@@ -47,7 +47,7 @@ define( function( require ) {
 
   /**
    * @param {Pendulum} pendulum - Property with selected pendulum for energy graph representation.
-   * @param {Property<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
+   * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
    * @param {dimension} dimension of graph.
    * @constructor

@@ -30,9 +30,9 @@ define( function( require ) {
   var PANEL_WIDTH = 122;
 
   /**
-   * @param {Property<boolean>} isRulerProperty - property to control visibility of ruler.
-   * @param {Property<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
-   * @param {Property<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
+   * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
+   * @param {Property.<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
+   * @param {Property.<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
    * @param {Object} [options] for tools control panel node.
    * @constructor
    */

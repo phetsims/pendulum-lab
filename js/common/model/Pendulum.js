@@ -30,9 +30,9 @@ define( function( require ) {
    * @param {number} length - length of pendulum, m.
    * @param {string} color - color of pendulum.
    * @param {boolean} isVisible - Initial visibility of pendulum.
-   * @param {Property<number>} gravityProperty - Property with current gravity value.
-   * @param {Property<number>} frictionProperty - Property with current friction value.
-   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
+   * @param {Property.<number>} gravityProperty - Property with current gravity value.
+   * @param {Property.<number>} frictionProperty - Property with current friction value.
+   * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    * @constructor
    */
   function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ) {

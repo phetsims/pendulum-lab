@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
-   * @param {Property<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
+   * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    *
    * @constructor
    */
