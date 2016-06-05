@@ -39,13 +39,13 @@ define( function( require ) {
    * Constructor for the gravity slider control.
    *
    * @param {Property.<number>} frictionProperty - Property to update by slider.
-   * @param {Range} frictionPropertyRange - Possible range of frictionProperty value.
+   * @param {Range} frictionRange - Possible range of frictionProperty value.
    * @param {Object} [options]
    * @constructor
    */
-  function FrictionSliderNode( frictionProperty, frictionPropertyRange, options ) {
+  function FrictionSliderNode( frictionProperty, frictionRange, options ) {
     var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
-    var sliderValueRange = new Range( frictionToSliderValue( frictionPropertyRange.min ), frictionToSliderValue( frictionPropertyRange.max ), sliderValueProperty.value );
+    var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
 
     HSlider.call( this, sliderValueProperty, sliderValueRange, _.extend( {
       minorTickLength: 5,
