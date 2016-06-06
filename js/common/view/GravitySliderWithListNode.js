@@ -102,7 +102,7 @@ define( function( require ) {
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );
 
-    // if planet X was chosen then replace slider to question
+    // if planet X is chosen then replace the slider with a question
     bodyProperty.link( function( body ) {
       if ( body === Body.PLANET_X ) {
         self.gravityAdjustmentNode.visible = false;

@@ -106,6 +106,8 @@ define( function( require ) {
 
     // add necessary pendulum sliders
     content.addChild( pendulumSlidersNodeStorage[ 0 ] );
+    
+    // present for the lifetime of the sim
     pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
 
       if ( numberOfPendulums === 1 && content.hasChild( pendulumSlidersNodeStorage[ 1 ] ) ) {

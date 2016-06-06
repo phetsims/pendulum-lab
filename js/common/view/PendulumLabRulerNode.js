@@ -40,12 +40,13 @@ define( function( require ) {
     var tickLabel;
     var rulerTicks = [ '' ]; // zero tick is not labeled
     for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
+      // todo TRY TO DECIPHER THIS, 
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
-    rulerTicks.push( '' );
+    rulerTicks.push( '' ); // last tick is not labeled
 
-    // define ruler params in pixels
+    // define ruler params in view coordinates
     var rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
     var tickWidth = rulerWidth / (rulerTicks.length - 1);
 

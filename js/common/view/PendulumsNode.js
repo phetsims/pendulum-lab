@@ -60,10 +60,11 @@ define( function( require ) {
         return 0.3 + 0.4 * Math.sqrt( mass / 1.5 );
       };
 
-      // create solid line
+      // create the visual representation of a rod that joins the fulcrum point to the bob
+      // initially set to be vertical
       var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickable: false } );
 
-      // create pendulum
+      // create the visual representation of a pendulum bob (a rectangle with a string and a line across the rectangle)
       var pendulumRect = new Node( {
         children: [
           new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
@@ -87,6 +88,7 @@ define( function( require ) {
         ]
       } );
 
+      // create a the visual representation of a pendulum (bob + rod)
       var pendulumNode = new Node( {
         cursor: 'pointer',
         children: [
@@ -193,7 +195,7 @@ define( function( require ) {
       } );
 
       // update pendulum rotation, pendulum.angle is radians
-      // we are using an inverted modelViewTransform, hence we multiply angle by minus one 
+      // we are using an inverted modelViewTransform, hence we multiply the view angle by minus one
       pendulum.angleProperty.link( function( angle ) {
         pendulumNode.rotation = -angle;
       } );
@@ -221,4 +223,6 @@ define( function( require ) {
   pendulumLab.register( 'PendulumsNode', PendulumsNode );
 
   return inherit( Node, PendulumsNode );
+
+  // TODO we need a reset function for the arrows
 } );

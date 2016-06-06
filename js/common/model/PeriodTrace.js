@@ -134,8 +134,11 @@ define( function( require ) {
      */
     addVisibilityObservers: function( checkBoxProperty ) {
       var self = this;
+      
+      // @private
       this._checkBoxProperty = checkBoxProperty;
 
+      // listener
       this.setPeriodTraceVisibility = function() {
         if ( checkBoxProperty.value && self._pendulum.isVisible ) {
           self.isVisible = true;
