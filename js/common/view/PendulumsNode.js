@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -27,6 +27,8 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  var scratchVector = new Vector2( 0, 0 );
 
   // constants
   var ARROW_HEAD_WIDTH = 12;
@@ -55,167 +57,157 @@ define( function( require ) {
 
     // add pendulums
     pendulums.forEach( function( pendulum, pendulumIndex ) {
-      var massToScale = function( mass ) {
-        // height/width/depth of mass scale by cube-root to maintain density
-        return 0.3 + 0.4 * Math.sqrt( mass / 1.5 );
-      };
+        var massToScale = function( mass ) {
+          // height/width/depth of mass scale by cube-root to maintain density
+          return 0.3 + 0.4 * Math.sqrt( mass / 1.5 );
+        };
 
-      // create the visual representation of a rod that joins the fulcrum point to the bob
-      // initially set to be vertical
-      var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickable: false } );
+        // create the visual representation of a rod that joins the fulcrum point to the bob
+        // initially set to be vertical
+        var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickable: false } );
 
-      // create the visual representation of a pendulum bob (a rectangle with a string and a line across the rectangle)
-      var pendulumRect = new Node( {
-        children: [
-          new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
-            fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).
-              addColorStop( 0.3, pendulum.color ).
-              addColorStop( 0.8, 'white' ).
-              addColorStop( 1, pendulum.color )
-          } ),
-          new Text( (pendulumIndex + 1).toString(), {
-            font: FONT,
-            fill: 'white',
-            centerY: RECT_SIZE.height / 4,
-            centerX: 0,
-            pickable: false
-          } ),
-          new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, {
-            stroke: 'black',
-            lineCap: 'butt',
-            pickable: false
-          } )
-        ]
-      } );
-
-      // create a the visual representation of a pendulum (bob + rod)
-      var pendulumNode = new Node( {
-        cursor: 'pointer',
-        children: [
-          solidLine,
-          pendulumRect
-        ],
-        cssTransform: true
-      } );
-
-      // add velocity arrows if necessary
-      if ( options.isVelocityVisibleProperty ) {
-        var velocityArrow = new ArrowNode( 0, 0, 0, 0, {
-          pickable: false,
-          fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
-          tailWidth: ARROW_TAIL_WIDTH,
-          headWidth: ARROW_HEAD_WIDTH
-        } );
-        velocityArrows.push( velocityArrow );
-        options.isVelocityVisibleProperty.linkAttribute( velocityArrow, 'visible' );
-
-        Property.multilink( [ pendulum.isVisibleProperty, options.isVelocityVisibleProperty ], function( pendulumVisible, velocityVisible ) {
-          velocityArrow.visible = pendulumVisible && velocityVisible;
-        } );
-  
-        // add arrow size observer
-        pendulum.velocityProperty.link( function( velocity ) {
-          if ( velocityArrow.visible ) {
-            var position = modelViewTransform.modelToViewPosition( pendulum.position );
-            velocityArrow.setTailAndTip( position.x,
-                                         position.y,
-                                         position.x + ARROW_SIZE_DEFAULT * velocity.x,
-                                         position.y - ARROW_SIZE_DEFAULT * velocity.y );
-          }
-        } );
-      }
-
-      // add acceleration arrows if necessary
-      if ( options.isAccelerationVisibleProperty ) {
-        // create acceleration arrow
-        var accelerationArrow = new ArrowNode( 0, 0, 0, 0, {
-          pickable: false,
-          fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
-          tailWidth: ARROW_TAIL_WIDTH,
-          headWidth: ARROW_HEAD_WIDTH
-        } );
-        accelerationArrows.push( accelerationArrow );
-        Property.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty ], function( pendulumVisible, accelerationVisible ) {
-          accelerationArrow.visible = pendulumVisible && accelerationVisible;
+        // create the visual representation of a pendulum bob (a rectangle with a string and a line across the rectangle)
+        var pendulumRect = new Node( {
+          children: [
+            new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
+              fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).addColorStop( 0.3, pendulum.color ).addColorStop( 0.8, 'white' ).addColorStop( 1, pendulum.color )
+            } ),
+            new Text( (pendulumIndex + 1).toString(), {
+              font: FONT,
+              fill: 'white',
+              centerY: RECT_SIZE.height / 4,
+              centerX: 0,
+              pickable: false
+            } ),
+            new Line( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0, {
+              stroke: 'black',
+              lineCap: 'butt',
+              pickable: false
+            } )
+          ]
         } );
 
-        // add visibility observer
-        options.isAccelerationVisibleProperty.lazyLink( function( isAccelerationVisible ) {
-          accelerationArrow.visible = isAccelerationVisible;
+        // create the visual representation of a pendulum (bob + rod)
+        var pendulumNode = new Node( {
+          cursor: 'pointer',
+          children: [
+            solidLine,
+            pendulumRect
+          ],
+          cssTransform: true
         } );
 
-        // add arrow size observer
-        pendulum.accelerationProperty.link( function( acceleration ) {
-          if ( accelerationArrow.visible ) {
-            var position = modelViewTransform.modelToViewPosition( pendulum.position );
-            accelerationArrow.setTailAndTip( position.x,
-                                             position.y,
-                                             position.x + ARROW_SIZE_DEFAULT * acceleration.x,
-                                             position.y - ARROW_SIZE_DEFAULT * acceleration.y );
-          }
-        } );
-      }
 
-      pendulumNodes.push( pendulumNode );
+        // add velocity arrows if necessary
+        if ( options.isVelocityVisibleProperty ) {
+          var velocityArrow = new ArrowNode( 0, 0, 0, 0, {
+            pickable: false,
+            fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
+            tailWidth: ARROW_TAIL_WIDTH,
+            headWidth: ARROW_HEAD_WIDTH
+          } );
+          velocityArrows.push( velocityArrow );
 
-      // add drag events
-      var angleOffset;
-      var dragListener = new SimpleDragHandler( {
-        start: function( event ) {
-          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
-          angleOffset = pendulum.angle - dragAngle;
-
-          pendulum.isUserControlled = true;
-        },
-        drag: function( event ) {
-          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
-
-          pendulum.angle = Pendulum.modAngle( angleOffset + dragAngle );
-        },
-        end: function() {
-          pendulum.isUserControlled = false;
+          // no need to unlink, present for the lifetime of the sim
+          Property.multilink( [ pendulum.isVisibleProperty, options.isVelocityVisibleProperty, pendulum.velocityProperty ], function( pendulumVisible, velocityVisible, velocity ) {
+            velocityArrow.visible = pendulumVisible && velocityVisible;
+            // update the size of the arrow
+            if ( velocityArrow.visible ) {
+              var position = scratchVector.set( modelViewTransform.modelToViewPosition( pendulum.position ) );
+              velocityArrow.setTailAndTip( position.x,
+                position.y,
+                position.x + ARROW_SIZE_DEFAULT * velocity.x,
+                position.y - ARROW_SIZE_DEFAULT * velocity.y );
+            }
+          } );
         }
-      } );
-      pendulumRect.addInputListener( dragListener );
-      self.draggableItems.push( {
-        startDrag: dragListener.startDrag.bind( dragListener ),
-        computeDistance: function( globalPoint ) {
-          if ( pendulum.isUserControlled || !pendulum.isVisible ) {
-            return Number.POSITIVE_INFINITY;
-          }
-          else {
-            var cursorModelPosition = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( globalPoint ) );
-            cursorModelPosition.rotate( -pendulum.angle ).add( new Vector2( 0, pendulum.length ) ); // rotate/length so (0,0) would be mass center
-            var massViewWidth = modelViewTransform.viewToModelDeltaX( RECT_SIZE.width * massToScale( pendulum.mass ) );
-            var massViewHeight = modelViewTransform.viewToModelDeltaX( RECT_SIZE.height * massToScale( pendulum.mass ) );
-            var massBounds = new Bounds2( -massViewWidth / 2, -massViewHeight / 2, massViewWidth / 2, massViewHeight / 2 );
-            return Math.sqrt( massBounds.minimumDistanceToPointSquared( cursorModelPosition ) );
-          }
+
+
+        // add acceleration arrows if necessary
+        if ( options.isAccelerationVisibleProperty ) {
+          // create acceleration arrow
+          var accelerationArrow = new ArrowNode( 0, 0, 0, 0, {
+            pickable: false,
+            fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
+            tailWidth: ARROW_TAIL_WIDTH,
+            headWidth: ARROW_HEAD_WIDTH
+          } );
+          accelerationArrows.push( accelerationArrow );
+
+          // no need to unlink, present for the lifetime of the sim
+          Property.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty, pendulum.accelerationProperty ], function( pendulumVisible, accelerationVisible, acceleration ) {
+            accelerationArrow.visible = pendulumVisible && accelerationVisible;
+            if ( accelerationArrow.visible ) {
+              var position = scratchVector.set( modelViewTransform.modelToViewPosition( pendulum.position ) );
+              accelerationArrow.setTailAndTip( position.x,
+                position.y,
+                position.x + ARROW_SIZE_DEFAULT * acceleration.x,
+                position.y - ARROW_SIZE_DEFAULT * acceleration.y );
+            }
+          } );
         }
-      } );
 
-      // update pendulum rotation, pendulum.angle is radians
-      // we are using an inverted modelViewTransform, hence we multiply the view angle by minus one
-      pendulum.angleProperty.link( function( angle ) {
-        pendulumNode.rotation = -angle;
-      } );
+        pendulumNodes.push( pendulumNode );
 
-      // update pendulum components position
-      pendulum.lengthProperty.link( function( length ) {
-        var viewPendulumLength = modelViewTransform.modelToViewDeltaX( length );
+        // add drag events
+        var angleOffset;
+        var dragListener = new SimpleDragHandler( {
+          start: function( event ) {
+            var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
+            angleOffset = pendulum.angle - dragAngle;
 
-        pendulumRect.setY( viewPendulumLength );
-        solidLine.setY2( viewPendulumLength );
-      } );
+            pendulum.isUserControlled = true;
+          },
+          drag: function( event ) {
+            var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
 
-      // update rectangle size
-      pendulum.massProperty.link( function( mass ) {
-        pendulumRect.setScaleMagnitude( massToScale( mass ) );
-      } );
+            pendulum.angle = Pendulum.modAngle( angleOffset + dragAngle );
+          },
+          end: function() {
+            pendulum.isUserControlled = false;
+          }
+        } );
+        pendulumRect.addInputListener( dragListener );
+        self.draggableItems.push( {
+          startDrag: dragListener.startDrag.bind( dragListener ),
+          computeDistance: function( globalPoint ) {
+            if ( pendulum.isUserControlled || !pendulum.isVisible ) {
+              return Number.POSITIVE_INFINITY;
+            }
+            else {
+              var cursorModelPosition = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( globalPoint ) );
+              cursorModelPosition.rotate( -pendulum.angle ).add( new Vector2( 0, pendulum.length ) ); // rotate/length so (0,0) would be mass center
+              var massViewWidth = modelViewTransform.viewToModelDeltaX( RECT_SIZE.width * massToScale( pendulum.mass ) );
+              var massViewHeight = modelViewTransform.viewToModelDeltaX( RECT_SIZE.height * massToScale( pendulum.mass ) );
+              var massBounds = new Bounds2( -massViewWidth / 2, -massViewHeight / 2, massViewWidth / 2, massViewHeight / 2 );
+              return Math.sqrt( massBounds.minimumDistanceToPointSquared( cursorModelPosition ) );
+            }
+          }
+        } );
 
-      // update visibility
-      pendulum.isVisibleProperty.linkAttribute( pendulumNode, 'visible' );
-    } );
+        // update pendulum rotation, pendulum.angle is radians
+        // we are using an inverted modelViewTransform, hence we multiply the view angle by minus one
+        pendulum.angleProperty.link( function( angle ) {
+          pendulumNode.rotation = -angle;
+        } );
+
+        // update pendulum components position
+        pendulum.lengthProperty.link( function( length ) {
+          var viewPendulumLength = modelViewTransform.modelToViewDeltaX( length );
+
+          pendulumRect.setY( viewPendulumLength );
+          solidLine.setY2( viewPendulumLength );
+        } );
+
+        // update rectangle size
+        pendulum.massProperty.link( function( mass ) {
+          pendulumRect.setScaleMagnitude( massToScale( mass ) );
+        } );
+
+        // update visibility
+        pendulum.isVisibleProperty.linkAttribute( pendulumNode, 'visible' );
+      }
+    );
 
     this.children = pendulumNodes.concat( velocityArrows ).concat( accelerationArrows );
   }
