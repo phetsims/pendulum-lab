@@ -147,6 +147,7 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
+
       var theta = Pendulum.modAngle( this.angle );
       var omega = this.angularVelocity;
 
