@@ -128,7 +128,7 @@ define( function( require ) {
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
     },
-    
+
     /**
      * Function that returns the magnitude of the tangential drag force on the pendulum per unit mass per unit length
      * The friction term has units of angular acceleration
@@ -156,8 +156,6 @@ define( function( require ) {
       for ( var i = 0; i < numSteps; i++ ) {
         var step = dt / numSteps;
 
-        // 2x2 differential system, derived from: t'' + ( c / m ) * t' + ( g / L ) * sin( t ) = 0, with c:coefficient of
-
         // Runge Kutta (order 4), where the derivative of theta is omega.
         var k1 = omega * step;
         var l1 = this.omegaDerivative( theta, omega ) * step;
@@ -170,17 +168,15 @@ define( function( require ) {
         var newTheta = Pendulum.modAngle( theta + ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6 );
         var newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
 
-        if ( newTheta * theta < 0 ) {
-          this.cross( i * step, ( i + 1 ) * step, newOmega > 0, theta, newTheta );
-        }
-        else if ( newTheta === 0 && theta !== 0 ) {
+        // did the pendulum crossed the vertical axis (from below)
+        // is the pendulum going from left to right or vice versa, or (is the pendulum on the vertical axis and changed position )
+        if ( (newTheta * theta < 0) || (newTheta === 0 && theta !== 0 ) ) {
           this.cross( i * step, ( i + 1 ) * step, newOmega > 0, theta, newTheta );
         }
 
-        if ( newOmega * omega < 0 ) {
-          this.peak( theta, newTheta );
-        }
-        else if ( newOmega === 0 && omega !== 0 ) {
+        // did the pendulum reach a turning point
+        // is the pendulum changing is speed from left to right or is the angular speed zero but wasn't zero on the last update
+        if ( (newOmega * omega < 0) || (newOmega === 0 && omega !== 0 ) ) {
           this.peak( theta, newTheta );
         }
 
@@ -188,6 +184,7 @@ define( function( require ) {
         omega = newOmega;
       }
 
+      // update the angular variables
       this.angle = theta;
       this.angularVelocity = omega;
 
@@ -225,16 +222,16 @@ define( function( require ) {
     peak: function( oldTheta, newTheta ) {
       // TODO: we could get a much better theta estimate.
       // a better estimate is theta =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
-      var peakAngle = (oldTheta + newTheta > 0) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
-      this.peakEmitter.emit1( peakAngle );
+      var turningAngle = (oldTheta + newTheta > 0) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
+      this.peakEmitter.emit1( turningAngle );
     },
 
     /**
      * Given the angular position and velocity, this function updates derived variables :
-     * namely the various energies( kinetic , thermal, potential and total energy)
-     * and the linear variable (position, velocity, acceleration) of the pendulum
+     * namely the various energies( kinetic, thermal, potential and total energy)
+     * and the linear variables (position, velocity, acceleration) of the pendulum
      * @private
-     * @param {boolean} energyChangeToThermal
+     * @param {boolean} energyChangeToThermal - is Friction present in the model
      */
     updateDerivedVariables: function( energyChangeToThermal ) {
       var speed = Math.abs( this.angularVelocity ) * this.length;
