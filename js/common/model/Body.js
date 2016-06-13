@@ -19,15 +19,16 @@ define( function( require ) {
   var planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
-   * @constructor
+   * Constructor for bodies
    *
    * @param {string} title of body.
-   * @param {number|null} gravity acceleration of body (m/s^2) if defined.
+   * @param {number|null} gravity acceleration on body (m/s^2) if defined.
+   * @constructor
    */
   function Body( title, gravity ) {
-    // @public [read-only]
-    this.title = title;
-    this.gravity = gravity;
+    // @public (read-only)
+    this.title = title; // {string} name of the body
+    this.gravity = gravity; // {number} gravitational acceleration in meter/second^2
   }
 
   pendulumLab.register( 'Body', Body );
@@ -38,6 +39,7 @@ define( function( require ) {
   Body.PLANET_X = new Body( planetXString, 14.2 );
   Body.CUSTOM = new Body( customString, null );
 
+  // array of all the bodies used in the simulation.
   Body.bodies = [
     Body.MOON,
     Body.EARTH,

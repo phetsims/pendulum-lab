@@ -168,7 +168,7 @@ define( function( require ) {
      * @public
      */
     stepManual: function() {
-      this.modelStep( 0.05 );
+      this.modelStep( 0.05 ); // advances by 50 ms
     },
 
     /**
