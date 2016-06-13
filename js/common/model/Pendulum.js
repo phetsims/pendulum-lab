@@ -130,14 +130,16 @@ define( function( require ) {
     },
 
     /**
-     * Function that returns the magnitude of the tangential drag force on the pendulum per unit mass per unit length
-     * The friction term has units of angular acceleration
+     * Function that returns the tangential drag force on the pendulum per unit mass per unit length
+     * The friction term has units of angular acceleration.
+     * The friction has a linear and quadratic component (with speed)
      * @private
      * @param {number} omega - the angular velocity of the pendulum
      * @returns {number}
      */
     frictionTerm: function( omega ) {
-      return this.frictionProperty.value * this.length / Math.pow( this.mass, 1 / 3 ) * omega * Math.abs( omega );
+      return this.frictionProperty.value * this.length / Math.pow( this.mass, 1 / 3 ) * omega * Math.abs( omega ) +
+             this.frictionProperty.value / Math.pow( this.mass, 2 / 3 ) * omega;
     },
 
     /**
