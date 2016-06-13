@@ -28,8 +28,6 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var scratchVector = new Vector2( 0, 0 );
-
   // constants
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
@@ -113,7 +111,7 @@ define( function( require ) {
             velocityArrow.visible = pendulumVisible && velocityVisible;
             // update the size of the arrow
             if ( velocityArrow.visible ) {
-              var position = scratchVector.set( modelViewTransform.modelToViewPosition( pendulum.position ) );
+              var position = modelViewTransform.modelToViewPosition( pendulum.position );
               velocityArrow.setTailAndTip( position.x,
                 position.y,
                 position.x + ARROW_SIZE_DEFAULT * velocity.x,
@@ -138,7 +136,7 @@ define( function( require ) {
           Property.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty, pendulum.accelerationProperty ], function( pendulumVisible, accelerationVisible, acceleration ) {
             accelerationArrow.visible = pendulumVisible && accelerationVisible;
             if ( accelerationArrow.visible ) {
-              var position = scratchVector.set( modelViewTransform.modelToViewPosition( pendulum.position ) );
+              var position = modelViewTransform.modelToViewPosition( pendulum.position );
               accelerationArrow.setTailAndTip( position.x,
                 position.y,
                 position.x + ARROW_SIZE_DEFAULT * acceleration.x,
