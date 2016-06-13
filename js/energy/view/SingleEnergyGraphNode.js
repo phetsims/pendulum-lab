@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -53,6 +53,7 @@ define( function( require ) {
    * @constructor
    */
   function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+    var thisModel = this;
     this.pendulum = pendulum;
 
     var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
@@ -123,6 +124,14 @@ define( function( require ) {
     this.totalThermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: COLOR.THERMAL,
       centerX: totalCenterX
+    } );
+
+    this.pendulum.lengthProperty.link( function() {
+      thisModel.update();
+    } );
+
+    this.pendulum.massProperty.link( function() {
+      thisModel.update();
     } );
 
     Node.call( this, {
