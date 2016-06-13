@@ -271,12 +271,10 @@ define( function( require ) {
     },
 
     /**
-     * Reset all the property of this model.
+     * Reset all the properties of this model.
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
-
-      // let's prevent an unnecessary update of the derivatives
       this.updateDerivedVariables( false );
     },
 
