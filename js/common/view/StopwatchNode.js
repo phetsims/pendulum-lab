@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Timer = require( 'SCENERY_PHET/Timer' );
@@ -28,10 +28,13 @@ define( function( require ) {
     this.centerX = toolsControlPanelNodeBounds.maxX - this.width / 2;
     this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
 
-    // add drag and drop events
-    this.addInputListener( new MovableDragHandler( stopwatch.locationProperty, {
+    // @public 
+    this.movableDragHandler = new MovableDragHandler( stopwatch.locationProperty, {
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
-    } ) );
+    } );
+
+    // add drag and drop events
+    this.addInputListener( this.movableDragHandler );
 
     // add update of node location
     stopwatch.locationProperty.lazyLink( function( location ) {

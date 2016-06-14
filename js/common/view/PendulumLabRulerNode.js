@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -40,7 +40,7 @@ define( function( require ) {
     var tickLabel;
     var rulerTicks = [ '' ]; // zero tick is not labeled
     for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
-      // todo TRY TO DECIPHER THIS, 
+      // todo TRY TO DECIPHER THIS,
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
@@ -67,11 +67,14 @@ define( function( require ) {
 
     this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
     this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
+    
+    // @public 
+    this.movableDragHandler = new MovableDragHandler( ruler.locationProperty, {
+      dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
+    } );
 
     // add drag and drop events
-    this.addInputListener( new MovableDragHandler( ruler.locationProperty, {
-      dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
-    } ) );
+    this.addInputListener( this.movableDragHandler );
 
     // add update of node location
     ruler.locationProperty.lazyLink( function( location ) {
