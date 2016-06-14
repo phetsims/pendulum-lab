@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
@@ -148,15 +148,12 @@ define( function( require ) {
         var pendulum = this.pendulums[ i ];
 
         if ( !pendulum.isStationary() ) {
-
           // prevent infinite motion after friction. TODO: could use some cleanup!
-          if ( Math.abs( pendulum.angle ) < 1e-3 &&
-               Math.abs( pendulum.angularAcceleration ) < 1e-3 &&
-               Math.abs( pendulum.angularVelocity ) < 1e-3 ) {
+          var dampMotion = (Math.abs( pendulum.angle ) < 1e-3) && (Math.abs( pendulum.angularAcceleration ) < 1e-3) && (Math.abs( pendulum.angularVelocity ) < 1e-3);
+          if ( dampMotion ) {
             pendulum.angle = 0;
             pendulum.angularVelocity = 0;
           }
-
           pendulum.step( dt );
         }
       }
