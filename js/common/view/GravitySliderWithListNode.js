@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
@@ -132,12 +132,17 @@ define( function( require ) {
         gravityProperty.value = Util.toFixedNumber( Math.max( gravityRange.min, gravityProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
       }, { scale: 0.5 } );
 
+      // width of the background box
+      var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
+
       // create value label
       var valueLabel = new SubSupText( StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
-        centerX: 0,
-        centerY: -1,
-        font: FONT
-      } );
+          centerX: 0,
+          centerY: -1,
+          font: FONT,
+          maxWidth: labelBackgroundWidth - 6 // the label has to be smaller than the box
+        } )
+        ;
 
       // create plus button
       var arrowButtonPlus = new ArrowButton( 'right', function() {
