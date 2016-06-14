@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -113,7 +113,7 @@ define( function( require ) {
       touchAreaDilation: 15
     } );
     resetAllButton.centerX = width - resetAllButton.width / 2 - SCREEN_PADDING.RIGHT;
-    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 5;
+    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 8;
     resetAllButton.scale( 0.75 );
 
     // add ruler node
@@ -127,7 +127,7 @@ define( function( require ) {
     var returnButtonNode = new ReturnButtonNode( {
       listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
       centerX: resetAllButton.bounds.minX - 75,
-      centerY: height - SCREEN_PADDING.BOTTOM - 5,
+      centerY: height - SCREEN_PADDING.BOTTOM - 8,
       maxWidth: 120
     } );
 
@@ -135,12 +135,16 @@ define( function( require ) {
     this.energyGraphLayer = new Node();
     this.periodTimerLayer = new Node();
 
-    var leftFloatingLayer = new Node( { children: [
-      this.energyGraphLayer, this.arrowsPanelLayer, toolsControlPanelNode
-    ] });
-    var rightFloatingLayer = new Node( { children: [
-      slidersPanelNode, bodiesListNode, resetAllButton, returnButtonNode
-    ] } );
+    var leftFloatingLayer = new Node( {
+      children: [
+        this.energyGraphLayer, this.arrowsPanelLayer, toolsControlPanelNode
+      ]
+    } );
+    var rightFloatingLayer = new Node( {
+      children: [
+        slidersPanelNode, bodiesListNode, resetAllButton, returnButtonNode
+      ]
+    } );
 
     // Layout for https://github.com/phetsims/pendulum-lab/issues/98
     this.visibleBoundsProperty.lazyLink( function( visibleBounds ) {
@@ -148,8 +152,8 @@ define( function( require ) {
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
-      rulerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ));
-      stopwatchNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ));
+      rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
+      stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
     } );
 
     // render order

@@ -33,7 +33,7 @@ define( function( require ) {
   var ARROW_TOUCH_PADDING_TOP = 15;
   var ARROW_TOUCH_PADDING_OUT = 18;
   var ARROW_TOUCH_PADDING_IN = 7;
-  var ARROW_TOUCH_PADDING_BOTTOM = 7;
+  var ARROW_TOUCH_PADDING_BOTTOM = 5;
 
   /**
    * Constructor for the sliders control.
@@ -77,7 +77,7 @@ define( function( require ) {
     } );
 
     VBox.call( this, _.extend( {
-      spacing: 8,
+      spacing: 6,
       resize: false,
       children: [
         // arrow buttons and value panel
