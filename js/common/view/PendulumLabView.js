@@ -142,16 +142,6 @@ define( function( require ) {
       slidersPanelNode, bodiesListNode, resetAllButton, returnButtonNode
     ] } );
 
-    // Layout for https://github.com/phetsims/pendulum-lab/issues/98
-    this.visibleBoundsProperty.lazyLink( function( visibleBounds ) {
-      var dx = -visibleBounds.x;
-      dx = Math.min( 200, dx );
-      leftFloatingLayer.x = -dx;
-      rightFloatingLayer.x = dx;
-      rulerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ));
-      stopwatchNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ));
-    } );
-
     // render order
     this.addChild( backgroundDragNode );
     this.addChild( protractorNode );
@@ -167,6 +157,16 @@ define( function( require ) {
     // set initial value for ruler and stopwatch 'location' property
     pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );
     pendulumLabModel.stopwatch.setInitialLocationValue( stopwatchNode.center );
+
+    // Layout for https://github.com/phetsims/pendulum-lab/issues/98
+    this.visibleBoundsProperty.link( function( visibleBounds ) {
+      var dx = -visibleBounds.x;
+      dx = Math.min( 200, dx );
+      leftFloatingLayer.x = -dx;
+      rightFloatingLayer.x = dx;
+      rulerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ));
+      stopwatchNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ));
+    } );
   }
 
   pendulumLab.register( 'PendulumLabView', PendulumLabView );
