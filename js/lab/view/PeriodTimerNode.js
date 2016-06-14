@@ -191,11 +191,12 @@ define( function( require ) {
       }
     } );
 
-    // add drag and drop events
-    this.addInputListener( new MovableDragHandler( periodTimer.locationProperty, {
+    this.movableDragHandler = new MovableDragHandler( periodTimer.locationProperty, {
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 ),
       allowTouchSnag: false
-    } ) );
+    } );
+    // add drag and drop events
+    this.addInputListener( this.movableDragHandler );
 
     var doNotStartDragListener = {
       down: function( event ) {
