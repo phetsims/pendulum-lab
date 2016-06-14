@@ -54,6 +54,11 @@ define( function( require ) {
     this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
 
     pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
+
+    // set dynamical dragBounds to keep the periodTimer within the visibleBounds
+    this.visibleBoundsProperty.link( function( visibleBounds ) {
+      periodTimerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 ));
+    } );
   }
 
   pendulumLab.register( 'LabView', LabView );
