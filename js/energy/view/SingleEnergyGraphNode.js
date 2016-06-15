@@ -53,7 +53,6 @@ define( function( require ) {
    * @constructor
    */
   function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
-    var thisModel = this;
     this.pendulum = pendulum;
 
     var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
@@ -126,14 +125,6 @@ define( function( require ) {
       centerX: totalCenterX
     } );
 
-    this.pendulum.lengthProperty.link( function() {
-      thisModel.update();
-    } );
-
-    this.pendulum.massProperty.link( function() {
-      thisModel.update();
-    } );
-
     Node.call( this, {
       preventFit: true,
       children: [
@@ -156,6 +147,8 @@ define( function( require ) {
     pendulum.stepEmitter.addListener( updateListener );
     pendulum.resetEmitter.addListener( updateListener );
     pendulum.userMovedEmitter.addListener( updateListener );
+    pendulum.lengthProperty.link( updateListener );
+    pendulum.massProperty.link( updateListener );
     pendulum.energyMultiplierProperty.lazyLink( updateListener );
     isEnergyGraphExpandedProperty.link( updateListener );
   }
