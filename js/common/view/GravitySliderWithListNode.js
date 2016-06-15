@@ -16,6 +16,7 @@ define( function( require ) {
   var ComboBox = require( 'SUN/ComboBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -79,7 +80,6 @@ define( function( require ) {
       itemYMargin: 3,
       listYMargin: 8
     } ) );
-
     // create slider for gravity property
     var hSlider = new HSlider( gravityProperty, gravityRange, {
       majorTickLength: 10,
@@ -90,10 +90,23 @@ define( function( require ) {
         thumbFillHighlighted: '#ccc'
       } )
     } );
+    var hBox = new HBox( {
+      resize: false,
+      children: [
+        // needed to prevent wiggle of the slider
+        new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
+
+        hSlider,
+
+        // needed to prevent wiggle of the slider
+        new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 )
+      ]
+    } );
+
     hSlider.addMajorTick( gravityRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
     hSlider.addMajorTick( gravityRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
     container.addChild( this.gravityAdjustmentNode );
-    this.gravityAdjustmentNode.addChild( hSlider );
+    this.gravityAdjustmentNode.addChild( hBox );
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );

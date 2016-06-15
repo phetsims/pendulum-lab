@@ -9,8 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -18,6 +20,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
@@ -46,8 +49,7 @@ define( function( require ) {
   function FrictionSliderNode( frictionProperty, frictionRange, options ) {
     var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
     var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
-
-    HSlider.call( this, sliderValueProperty, sliderValueRange, _.extend( {
+    var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
       minorTickLength: 5,
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
@@ -56,16 +58,36 @@ define( function( require ) {
         thumbFillEnabled: '#888',
         thumbFillHighlighted: '#ccc'
       } )
+    } );
+
+    VBox.call( this, _.extend( {
+      spacing: 6,
+      resize: false,
+      children: [
+        new HBox( {
+          resize: false,
+          children: [
+            //needed to stop the slider from wiggling
+            new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
+
+            hSlider,
+
+            // needed to stop the slider from wiggling
+            new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 )
+          ]
+        } )
+      ]
+
     }, options ) );
 
     // add ticks
-    this.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
-    this.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
-    this.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
+    hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
     var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
-      this.addMinorTick( i );
+      hSlider.addMinorTick( i );
     }
 
     sliderValueProperty.link( function( sliderValue ) {
@@ -85,5 +107,5 @@ define( function( require ) {
 
   pendulumLab.register( 'FrictionSliderNode', FrictionSliderNode );
 
-  return inherit( HSlider, FrictionSliderNode );
+  return inherit( VBox, FrictionSliderNode );
 } );
