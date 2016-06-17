@@ -41,7 +41,6 @@ define( function( require ) {
 
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
-    console.log( this.energyGraphNode.width );
     // add tweakers for gravity slider slider
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
 

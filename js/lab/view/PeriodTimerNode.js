@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -39,11 +39,11 @@ define( function( require ) {
   // constants
   var BACKGROUND_IN_COLOR = 'rgb( 245, 217, 73 )';
   var BACKGROUND_OUT_COLOR = 'rgb( 64, 64, 65 )';
-  var BUTTON_WIDTH = 40;
+  var BUTTON_WIDTH = 40;    // play button width on period timer tool
   var FONT_TEXT = new PhetFont( 14 );
   var FONT_TIME = new PhetFont( 20 );
   var PANEL_PAD = 8;
-  var RECT_SIZE = new Dimension2( 15, 20 );
+  var RECT_SIZE = new Dimension2( 15, 20 );  // pendulum icon dimensions
   var TOUCH_PADDING_HORIZONTAL = 5;
   var TOUCH_PADDING_TOP = 5;
   var TOUCH_PADDING_BOTTOM = 7;
@@ -65,22 +65,22 @@ define( function( require ) {
 
     Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
 
-    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME, maxWidth: 200 } );
-    var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
-      fill: '#fff',
-      stroke: 'rgba(0,0,0,0.5)'
-    } );
-
+    // creates Uturn arrow on the period timer tool
     var uArrowShape = new UTurnArrowShape( 10 );
+
+    // convenience variables for play shape
     var playPauseHeight = uArrowShape.bounds.height;
     var playPauseWidth = playPauseHeight;
     var halfPlayStroke = 0.05 * playPauseWidth;
     var playOffset = 0.15 * playPauseWidth;
+
+    // creates triangle shape on play button by creating three lines at x,y coordinates.
     var playShape = new Shape().moveTo( playPauseWidth - halfPlayStroke * 0.5 - playOffset, 0 )
       .lineTo( halfPlayStroke * 1.5 + playOffset, playPauseHeight / 2 - halfPlayStroke - playOffset )
       .lineTo( halfPlayStroke * 1.5 + playOffset, -playPauseHeight / 2 + halfPlayStroke + playOffset )
       .close().getOffsetShape( -playOffset );
 
+    // creates playPauseButton
     var playPauseButton = new BooleanRectangularToggleButton(
       new Path( uArrowShape, { fill: options.iconColor, centerX: 0, centerY: 0, pickable: false } ),
       new Path( playShape, {
@@ -94,75 +94,94 @@ define( function( require ) {
         baseColor: options.buttonBaseColor,
         minWidth: BUTTON_WIDTH
       } );
+
+    // increase touch area of playPauseButton
     var buttonBounds = playPauseButton.localBounds;
     playPauseButton.touchArea = new Bounds2( buttonBounds.minX - TOUCH_PADDING_HORIZONTAL,
-                                             buttonBounds.minY - TOUCH_PADDING_TOP,
-                                             buttonBounds.maxX + TOUCH_PADDING_HORIZONTAL,
-                                             buttonBounds.maxY + TOUCH_PADDING_BOTTOM );
+      buttonBounds.minY - TOUCH_PADDING_TOP,
+      buttonBounds.maxX + TOUCH_PADDING_HORIZONTAL,
+      buttonBounds.maxY + TOUCH_PADDING_BOTTOM );
 
+    // creates pendulum icon for first pendulum
     var firstPendulumIcon = new Node( {
       children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
         stroke: 'black',
-        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
-        addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
-        addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).
-        addColorStop( 0.8, 'white' ).
-        addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
+        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
       } ),
         new Text( '1', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
+
+    // creates pendulum icon for second pendulum
     var secondPendulumIcon = new Node( {
       children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
         stroke: 'black',
-        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).
-        addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-        addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-        addColorStop( 0.8, 'white' ).
-        addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
+        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
       } ),
         new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
+
+    // creates switch icon for chosing the first or second pendulum
     var graphUnitsSwitch = new ABSwitch( periodTimer.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
       setEnabled: null // Do not highlight the selected mass more than the other
     } );
+
+    // indicates touch areas for pendulum icons 
     var firstBounds = firstPendulumIcon.localBounds;
     var secondBounds = secondPendulumIcon.localBounds;
     firstPendulumIcon.touchArea = new Bounds2( firstBounds.minX - TOUCH_PADDING_HORIZONTAL,
-                                               firstBounds.minY - TOUCH_PADDING_TOP,
-                                               firstBounds.maxX,
-                                               firstBounds.maxY + TOUCH_PADDING_BOTTOM );
+      firstBounds.minY - TOUCH_PADDING_TOP,
+      firstBounds.maxX,
+      firstBounds.maxY + TOUCH_PADDING_BOTTOM );
     secondPendulumIcon.touchArea = new Bounds2( secondBounds.minX,
-                                                secondBounds.minY - TOUCH_PADDING_TOP,
-                                                secondBounds.maxX + TOUCH_PADDING_HORIZONTAL,
-                                                secondBounds.maxY + TOUCH_PADDING_BOTTOM );
+      secondBounds.minY - TOUCH_PADDING_TOP,
+      secondBounds.maxX + TOUCH_PADDING_HORIZONTAL,
+      secondBounds.maxY + TOUCH_PADDING_BOTTOM );
 
+    // Switch,Play button, and pendulum icon buttons at the bottom of the period timer tool.
+    var periodTimerPendulumsSelector = new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } );
+
+    // Creates time text inside period timer tool.
+    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME, maxWidth: periodTimerPendulumsSelector.width * 0.80 } );
+
+    // Creates white background behind the time readout text in period timer tool.
+    var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
+      fill: '#fff',
+      stroke: 'rgba(0,0,0,0.5)'
+    } );
+
+    // Creates the title, time readout, and period timer pendulum selector as one box in period timer tool.
     var vBox = new VBox( {
       spacing: 5,
       align: 'center',
       left: PANEL_PAD,
       top: PANEL_PAD,
+
       children: [
-        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: 200 } ),
+        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: periodTimerPendulumsSelector.width * 0.80 } ),
         new Node( { children: [ textBackground, readoutText ], pickable: false } ),
-        new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } )
+        periodTimerPendulumsSelector
       ]
     } );
 
     var backgroundDimension = vBox.bounds.dilated( PANEL_PAD );
+
+    // creates the grey border around the period timer tool.
     this.addChild( new Rectangle( -PANEL_PAD, -PANEL_PAD, backgroundDimension.width + 2 * PANEL_PAD, backgroundDimension.height + 2 * PANEL_PAD, 20, 20, { fill: BACKGROUND_OUT_COLOR } ) );
 
-    // highlight
+    // Creates the grey glare on the upper portion of the period timer tool.
     this.addChild( new Node( {
       pickable: false,
       children: [
+        // creates top part of the glare
         new Rectangle( 20, -PANEL_PAD, backgroundDimension.width - 30, PANEL_PAD, {
           fill: new LinearGradient( 0, -PANEL_PAD, 0, 0 )
             .addColorStop( 0, 'rgba(0,0,0,0)' )
             .addColorStop( 0.5, 'rgba(255,255,255,0.5)' )
             .addColorStop( 1, 'rgba(0,0,0,0)' )
         } ),
+        // creates the curved part of the glare.
         new Path( Shape.ellipse( 9.1, 2, 7, 14, Math.PI / 4 ), {
           fill: new RadialGradient( 20, 28, 28, 20, 28, 36 )
             .addColorStop( 0, 'rgba(0,0,0,0)' )
@@ -172,10 +191,13 @@ define( function( require ) {
       ]
     } ) );
 
+    // creates and adds the yellow background of the period timer.
     this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, {
       fill: BACKGROUND_IN_COLOR,
       pickable: false
     } ) );
+
+    // adds period timer contents on top of yellow background.
     this.addChild( vBox );
 
     periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
