@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -32,8 +32,8 @@ define( function( require ) {
   var ARROW_TAIL_WIDTH = 6;
   var FONT = new PhetFont( 11 );
   var TEXT_MARGIN_RIGHT = 5;
-  var PANEL_WIDTH = 122;
-  var MAX_TEXT_WIDTH = 150;
+  var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
+  var MAX_TEXT_WIDTH = PANEL_WIDTH * .60;  // allows for 60% of the horizontal space in the panel for text.
 
   /**
    * @param {Property.<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.

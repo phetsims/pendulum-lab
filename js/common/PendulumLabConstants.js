@@ -25,6 +25,7 @@ define( function( require ) {
     VELOCITY_ARROW_COLOR: 'rgb( 41, 253, 46 )',
 
     // panels
+    LEFT_PANELS_MIN_WIDTH: 122,
     PANEL_BACKGROUND_COLOR: 'rgb( 216, 251, 196 )',
     PANEL_CORNER_RADIUS: 5,
     PANEL_MARGIN: 10,

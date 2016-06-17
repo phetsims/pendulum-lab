@@ -11,11 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
@@ -27,7 +28,7 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 11 );
-  var PANEL_WIDTH = 122;
+  var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
 
   /**
    * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
@@ -39,11 +40,11 @@ define( function( require ) {
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
     // @private
     this._labels = [
-      new Text( rulerString, { font: FONT, pickable: false } ),
-      new Text( stopwatchString, { font: FONT, pickable: false } ),
-      new Text( periodTraceString, { font: FONT, pickable: false } )
+      new Text( rulerString, { font: FONT, pickable: false, maxWidth: PANEL_WIDTH * .80 } ),
+      new Text( stopwatchString, { font: FONT, pickable: false, maxWidth: PANEL_WIDTH * .80 } ),
+      new Text( periodTraceString, { font: FONT, pickable: false, maxWidth: PANEL_WIDTH * .80 } )
     ];
-    
+
     PanelPendulumAbstract.call( this,
       new Node( {
         children: [

@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -32,7 +32,7 @@ define( function( require ) {
 
   // constants
   var FONT = new PhetFont( 11 );
-  var GRAPH_WIDTH = 120;
+  var GRAPH_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
   var MAGNIFYING_GLASS_RADIUS = 7;
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
@@ -135,7 +135,7 @@ define( function( require ) {
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        titleNode: new Text( energyGraphString, { font: FONT, maxWidth: 180 } ),
+        titleNode: new Text( energyGraphString, { font: FONT, maxWidth: GRAPH_WIDTH * .90 } ),
         titleAlignX: 'left',
         titleXMargin: 10,
         contentXMargin: 5,

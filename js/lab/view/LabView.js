@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -38,9 +38,10 @@ define( function( require ) {
     arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
     this.arrowsPanelLayer.addChild( arrowsPanelNode );
 
+
     // move energyGraphNode on the bottom
     this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
-
+    console.log( this.energyGraphNode.width );
     // add tweakers for gravity slider slider
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
 
@@ -57,7 +58,7 @@ define( function( require ) {
 
     // set dynamical dragBounds to keep the periodTimer within the visibleBounds
     this.visibleBoundsProperty.link( function( visibleBounds ) {
-      periodTimerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 ));
+      periodTimerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 ) );
     } );
   }
 
