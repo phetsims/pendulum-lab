@@ -46,9 +46,9 @@ define( function( require ) {
     // @public
     // an array of pendulum, apologies to all english majors
     this.pendulums = [
-      new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
+      new Pendulum( 1, 1.5, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating ),
-      new Pendulum( 0.5, 0.5, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
+      new Pendulum( 0.5, 1, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating )
     ];
 

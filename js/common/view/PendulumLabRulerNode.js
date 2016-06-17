@@ -25,7 +25,7 @@ define( function( require ) {
   var FONT = new PhetFont( 10 );
   var RULER_HEIGHT = 34;
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING; // {Object} 
-  var TICK_INTERVAL = 5; // tick interval in cm
+  var TICK_INTERVAL = 10; // tick interval in cm
 
   /**
    * @param {Ruler} ruler - Model for ruler.
@@ -67,7 +67,7 @@ define( function( require ) {
 
     this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
     this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
-    
+
     // @public 
     this.movableDragHandler = new MovableDragHandler( ruler.locationProperty, {
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )

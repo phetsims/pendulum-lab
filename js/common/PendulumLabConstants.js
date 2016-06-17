@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
 
@@ -36,8 +36,8 @@ define( function( require ) {
     TWEAKERS_PRECISION: 2,
 
     // common
-    MODEL_BOUNDS: new Bounds2( 0, -2.88/2 * 0.93, 4.389/2 * 0.93, 0 ),
-    SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
+    MODEL_BOUNDS: new Bounds2( 0, -3, 3 * (768 / 504), 0 ), // Maintains aspect ratio UI   Bounds2( minX, minY, maxX, maxY )
+    SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),          // Determines bounds for sim   Bounds2( minX, minY, maxX, maxY ) 
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: {
       TOP: 15,
