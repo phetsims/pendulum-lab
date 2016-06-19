@@ -31,20 +31,23 @@ define( function( require ) {
   var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
 
   // constants
-  var FONT = new PhetFont( 11 );
   var GRAPH_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
-  var MAGNIFYING_GLASS_RADIUS = 7;
-  var ZOOM_BUTTON_BASE_COLOR = '#eee';
+  // radio button options
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
     xSpacing: 3,
     scale: 0.7
   };
-  var RADIO_BUTTON_TEXT_OPTION = { font: new PhetFont( 16 ) };
+  var TITLE_NODE_TEXT_OPTIONS = { font: new PhetFont( 11 ), maxWidth: GRAPH_WIDTH * 0.90 };
+  var RADIO_BUTTON_TEXT_OPTIONS = { font: new PhetFont( 16 ) };
   var SELECT_TOUCH_X_PADDING = 15;
   var SELECT_TOUCH_Y_PADDING = 5;
+  // zoom button options
+  var MAGNIFYING_GLASS_RADIUS = 7;
+  var ZOOM_BUTTON_BASE_COLOR = '#eee';
   var ZOOM_TOUCH_X_PADDING = 10;
   var ZOOM_TOUCH_Y_PADDING = 5;
+
 
   /**
    * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
@@ -56,14 +59,13 @@ define( function( require ) {
    * @constructor
    */
   function EnergyGraphNode( pendulums, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, energyGraphHeight, options ) {
-    var self = this;
     var graphStorage = [];
 
-    // create energy graphs for each pendulum
-    this._content = new VBox( { align: 'center', resize: false } );
+    // create the energy graphs for each pendulum
+    var content = new VBox( { align: 'center', resize: false } );
     pendulums.forEach( function( pendulum, pendulumIndex ) {
       var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
-      self._content.addChild( new HBox( {
+      content.addChild( new HBox( {
         children: [
           new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ),
           graphNode,
@@ -74,25 +76,24 @@ define( function( require ) {
       graphStorage[ pendulumIndex ] = graphNode;
     } );
 
-    // create radio buttons for switching energy graph mode
+    // create the radio buttons for switching energy graph mode
     var radioButtonOne = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.ONE,
-      new Text( '1', RADIO_BUTTON_TEXT_OPTION ),
+      new Text( '1', RADIO_BUTTON_TEXT_OPTIONS ),
       RADIO_BUTTON_OPTIONS );
     radioButtonOne.touchArea = radioButtonOne.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
     var radioButtonTwo = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.TWO,
-      new Text( '2', RADIO_BUTTON_TEXT_OPTION ),
+      new Text( '2', RADIO_BUTTON_TEXT_OPTIONS ),
       RADIO_BUTTON_OPTIONS );
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
     radioButtonTwo.touchArea = radioButtonTwo.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
 // create zoom buttons
     var zoomOutButton = new ZoomButton( {
-      baseColor: ZOOM_BUTTON_BASE_COLOR,
       in: false,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
@@ -102,13 +103,13 @@ define( function( require ) {
           graphStorage[ 1 ].zoomOut();
         }
       },
+      baseColor: ZOOM_BUTTON_BASE_COLOR,
       radius: MAGNIFYING_GLASS_RADIUS,
       touchAreaXDilation: ZOOM_TOUCH_X_PADDING,
       touchAreaYDilation: ZOOM_TOUCH_Y_PADDING
     } );
 
     var zoomInButton = new ZoomButton( {
-      baseColor: ZOOM_BUTTON_BASE_COLOR,
       in: true,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
@@ -118,16 +119,17 @@ define( function( require ) {
           graphStorage[ 1 ].zoomIn();
         }
       },
+      baseColor: ZOOM_BUTTON_BASE_COLOR,
       radius: MAGNIFYING_GLASS_RADIUS,
       touchAreaXDilation: ZOOM_TOUCH_X_PADDING,
       touchAreaYDilation: ZOOM_TOUCH_Y_PADDING
     } );
 
-// add accordion box
+    // add accordion box
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
           new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ], resize: false } ),
-          new Panel( this._content, { resize: false, pickable: false } ),
+          new Panel( content, { resize: false, pickable: false } ),
           new HBox( { spacing: 20, children: [ zoomOutButton, zoomInButton ], resize: false } )
         ]
       } ),
@@ -137,7 +139,7 @@ define( function( require ) {
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        titleNode: new Text( energyGraphString, { font: FONT, maxWidth: GRAPH_WIDTH * 0.90 } ),
+        titleNode: new Text( energyGraphString, TITLE_NODE_TEXT_OPTIONS ),
         titleAlignX: 'left',
         titleXMargin: 10,
         contentXMargin: 5,
