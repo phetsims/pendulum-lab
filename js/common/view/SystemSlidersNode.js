@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
   var GravitySliderWithListNode = require( 'PENDULUM_LAB/common/view/GravitySliderWithListNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -38,25 +38,27 @@ define( function( require ) {
    * @constructor
    */
   function SystemSlidersNode( pendulumLabModel, bodiesListNode, options ) {
+
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
+    // @private
     this._content = content;
 
-    // add gravity slider with title and body list menu
+    // create and add gravity slider with title and body list menu
     this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.gravityProperty,
       pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
+    var gravitySliderLabel = new Text( gravityString, { font: FONT_TITLE, pickable: false } );
     content.addChild( new Node( {
       children: [
-        new Text( gravityString, { font: FONT_TITLE, pickable: false } ),
+        gravitySliderLabel,
         this.gravitySlider
       ]
     } ) );
 
-    // add friction slider with title when necessary
+    // create and add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
       var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
       var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2, pickable: false } );
       frictionSliderLabel.centerY = -(frictionSliderNode.height + frictionSliderLabel.height) / 2 - 4;
-
       content.addChild( new Node( {
         children: [
           frictionSliderLabel,
@@ -71,6 +73,10 @@ define( function( require ) {
   pendulumLab.register( 'SystemSlidersNode', SystemSlidersNode );
 
   return inherit( PanelPendulumAbstract, SystemSlidersNode, {
+    /**
+     * Sets the width of the content
+     * @param {number} width
+     */
     setContentWidth: function( width ) {
       this._content.addChild( new HStrut( width - PendulumLabConstants.PANEL_MARGIN ) );
     }
