@@ -34,11 +34,13 @@ define( function( require ) {
   var FONT = new PhetFont( 11 );
   var GRAPH_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
   var MAGNIFYING_GLASS_RADIUS = 7;
+  var ZOOM_BUTTON_BASE_COLOR = '#eee';
   var RADIO_BUTTON_OPTIONS = {
     radius: 9,
     xSpacing: 3,
     scale: 0.7
   };
+  var RADIO_BUTTON_TEXT_OPTION = { font: new PhetFont( 16 ) };
   var SELECT_TOUCH_X_PADDING = 15;
   var SELECT_TOUCH_Y_PADDING = 5;
   var ZOOM_TOUCH_X_PADDING = 10;
@@ -76,21 +78,21 @@ define( function( require ) {
     var radioButtonOne = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.ONE,
-      new Text( '1', { font: new PhetFont( 16 ) } ),
+      new Text( '1', RADIO_BUTTON_TEXT_OPTION ),
       RADIO_BUTTON_OPTIONS );
     radioButtonOne.touchArea = radioButtonOne.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
     var radioButtonTwo = new AquaRadioButton(
       energyGraphModeProperty,
       EnergyGraphMode.TWO,
-      new Text( '2', { font: new PhetFont( 16 ) } ),
+      new Text( '2', RADIO_BUTTON_TEXT_OPTION ),
       RADIO_BUTTON_OPTIONS );
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
     radioButtonTwo.touchArea = radioButtonTwo.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
-    // create zoom buttons
+// create zoom buttons
     var zoomOutButton = new ZoomButton( {
-      baseColor: '#eee',
+      baseColor: ZOOM_BUTTON_BASE_COLOR,
       in: false,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
@@ -106,7 +108,7 @@ define( function( require ) {
     } );
 
     var zoomInButton = new ZoomButton( {
-      baseColor: '#eee',
+      baseColor: ZOOM_BUTTON_BASE_COLOR,
       in: true,
       listener: function() {
         if ( energyGraphModeProperty.value === EnergyGraphMode.ONE ) {
@@ -121,7 +123,7 @@ define( function( require ) {
       touchAreaYDilation: ZOOM_TOUCH_Y_PADDING
     } );
 
-    // add accordion box
+// add accordion box
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
           new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ], resize: false } ),
@@ -135,7 +137,7 @@ define( function( require ) {
         fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
         buttonXMargin: 10,
         buttonYMargin: 6,
-        titleNode: new Text( energyGraphString, { font: FONT, maxWidth: GRAPH_WIDTH * .90 } ),
+        titleNode: new Text( energyGraphString, { font: FONT, maxWidth: GRAPH_WIDTH * 0.90 } ),
         titleAlignX: 'left',
         titleXMargin: 10,
         contentXMargin: 5,
@@ -143,7 +145,7 @@ define( function( require ) {
         contentYSpacing: 0
       }, options ) );
 
-    // no need to unlink, present for the lifetime of the sim
+// no need to unlink, present for the lifetime of the sim
     numberOfPendulumsProperty.link( function( numberOfPendulums ) {
       if ( numberOfPendulums === 1 ) {
         energyGraphModeProperty.value = EnergyGraphMode.ONE;
@@ -154,7 +156,7 @@ define( function( require ) {
       }
     } );
 
-    // no need to unlink, present for the lifetime of the sim
+// no need to unlink, present for the lifetime of the sim
     energyGraphModeProperty.link( function( energyGraphMode ) {
       if ( energyGraphMode === EnergyGraphMode.ONE ) {
         graphStorage[ 0 ].show();
@@ -169,6 +171,11 @@ define( function( require ) {
 
   pendulumLab.register( 'EnergyGraphNode', EnergyGraphNode );
 
+  /**
+   * Sets the radio button to enable/disable
+   * @private
+   * @param {boolean} enabled
+   */
   var setEnabledRadioButton = function( enabled ) {
     if ( enabled ) {
       this.opacity = 1;
@@ -181,4 +188,5 @@ define( function( require ) {
   };
 
   return inherit( AccordionBox, EnergyGraphNode );
-} );
+} )
+;

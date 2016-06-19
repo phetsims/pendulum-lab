@@ -25,15 +25,17 @@ define( function( require ) {
    * @constructor
    */
   function EnergyView( pendulumLabModel, modelViewTransform, energyGraphHeight ) {
+
     PendulumLabView.call( this, pendulumLabModel, modelViewTransform );
 
-    // add energy graph node to the bottom layer
+    // create and add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulums, pendulumLabModel.isEnergyGraphExpandedProperty,
       pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulumsProperty, energyGraphHeight );
     energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
     energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
-    this.energyGraphNode = energyGraphNode;
     this.energyGraphLayer.addChild( energyGraphNode );
+
+    this.energyGraphNode = energyGraphNode; // @public
 
     // move ruler and stopwatch to the right side
     this.rulerNode.centerX += (energyGraphNode.width + 10);
