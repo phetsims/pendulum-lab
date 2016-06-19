@@ -26,12 +26,17 @@ define( function( require ) {
   function PeriodTimer( pendulums, isPeriodTraceVisibleProperty ) {
     var self = this;
 
+
+    //TODO: we need more documentation here
+    // make sure that we are not creating memory leaks.
+
     Stopwatch.call( this, {
       isVisible: isPeriodTraceVisibleProperty.value, // flag to control visibility of timer
       isFirst: true, // flag to trace timer pendulum
       activePendulum: pendulums[ INIT_PENDULUM_NUMBER ]
     } );
 
+    // @private
     this._pendulums = pendulums;
 
     // add visibility observer
@@ -114,6 +119,10 @@ define( function( require ) {
   pendulumLab.register( 'PeriodTimer', PeriodTimer );
 
   return inherit( Stopwatch, PeriodTimer, {
+    /**
+     *
+     * @private
+     */
     clear: function() {
       if ( !this.isRunning ) {
         this.activePendulum.periodTrace.isVisible = false;
@@ -124,7 +133,10 @@ define( function( require ) {
         pendulum.periodTrace.resetPathPoints();
       } );
     },
-
+    /**
+     * Stops the period timer and clear the trace
+     * @public
+     */
     stop: function() {
       this.isRunning = false;
       this.clear();
