@@ -27,8 +27,12 @@ define( function( require ) {
   var periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
 
   // constants
-  var FONT = new PhetFont( 11 );
   var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
+  var TEXT_OPTIONS = {
+    font: new PhetFont( 11 ),
+    pickable: false,
+    maxWidth: PANEL_WIDTH * 0.80 // the maximum width of the text is 80% of the panel width
+  };
 
   /**
    * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
@@ -38,11 +42,12 @@ define( function( require ) {
    * @constructor
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
+
     // @private
     this._labels = [
-      new Text( rulerString, { font: FONT, pickable: false, maxWidth: PANEL_WIDTH * .80 } ),
-      new Text( stopwatchString, { font: FONT, pickable: false, maxWidth: PANEL_WIDTH * .80 } ),
-      new Text( periodTraceString, { font: FONT, pickable: false, maxWidth: PANEL_WIDTH * .80 } )
+      new Text( rulerString, TEXT_OPTIONS ),
+      new Text( stopwatchString, TEXT_OPTIONS ),
+      new Text( periodTraceString, TEXT_OPTIONS )
     ];
 
     PanelPendulumAbstract.call( this,
