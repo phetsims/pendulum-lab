@@ -33,7 +33,7 @@ define( function( require ) {
   var FONT = new PhetFont( 11 );
   var TEXT_MARGIN_RIGHT = 5;
   var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
-  var MAX_TEXT_WIDTH = PANEL_WIDTH * .60;  // allows for 60% of the horizontal space in the panel for text.
+  var MAX_TEXT_WIDTH = PANEL_WIDTH * 0.60;  // allows for 60% of the horizontal space in the panel for text.
 
   /**
    * @param {Property.<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.

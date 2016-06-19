@@ -120,7 +120,7 @@ define( function( require ) {
         new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
 
-    // creates switch icon for chosing the first or second pendulum
+    // creates switch icon for choosing the first or second pendulum
     var graphUnitsSwitch = new ABSwitch( periodTimer.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
