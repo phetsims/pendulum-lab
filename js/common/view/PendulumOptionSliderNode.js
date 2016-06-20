@@ -30,7 +30,7 @@ define( function( require ) {
   var FONT_LABEL = new PhetFont( 9 );
   var VALUE_LABEL_SPACING = 4;
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
-  var ARROW_TOUCH_PADDING_TOP = 15;   // Padding constants used for touch areas around arrows
+  var ARROW_TOUCH_PADDING_TOP = 15;
   var ARROW_TOUCH_PADDING_OUT = 18;
   var ARROW_TOUCH_PADDING_IN = 7;
   var ARROW_TOUCH_PADDING_BOTTOM = 5;
@@ -50,6 +50,7 @@ define( function( require ) {
     var arrowButtonMinus = new ArrowButton( 'left', function() {
       trackProperty.value = Util.toFixedNumber( Math.max( trackRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
+    // adds a touch area around the minus arrow
     arrowButtonMinus.touchArea = arrowButtonMinus.localBounds.withOffsets( ARROW_TOUCH_PADDING_OUT,
       ARROW_TOUCH_PADDING_TOP,
       ARROW_TOUCH_PADDING_IN,
@@ -59,11 +60,13 @@ define( function( require ) {
     var arrowButtonPlus = new ArrowButton( 'right', function() {
       trackProperty.value = Util.toFixedNumber( Math.min( trackRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
+    // add a touch aread to the plus arrow
     arrowButtonPlus.touchArea = arrowButtonPlus.localBounds.withOffsets( ARROW_TOUCH_PADDING_IN,
       ARROW_TOUCH_PADDING_TOP,
       ARROW_TOUCH_PADDING_OUT,
       ARROW_TOUCH_PADDING_BOTTOM );
 
+    // create a property to take care of the slider value
     var sliderProperty = new Property( trackProperty.value );
 
     // sets width for white box containing pendulum length and width

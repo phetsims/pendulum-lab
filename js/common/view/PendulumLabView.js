@@ -53,6 +53,8 @@ define( function( require ) {
       isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
     } );
+
+    // place pendulums
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
 

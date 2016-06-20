@@ -80,6 +80,7 @@ define( function( require ) {
       itemYMargin: 3,
       listYMargin: 8
     } ) );
+
     // create slider for gravity property
     var hSlider = new HSlider( gravityProperty, gravityRange, {
       majorTickLength: 10,
@@ -90,6 +91,7 @@ define( function( require ) {
         thumbFillHighlighted: '#ccc'
       } )
     } );
+
     var hBox = new HBox( {
       resize: false,
       children: [
@@ -103,6 +105,7 @@ define( function( require ) {
       ]
     } );
 
+    // we want two major ticks one at the beginning and the other at the end
     hSlider.addMajorTick( gravityRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
     hSlider.addMajorTick( gravityRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
     container.addChild( this.gravityAdjustmentNode );
@@ -138,7 +141,11 @@ define( function( require ) {
   };
 
   return inherit( VBox, GravitySliderWithListNode, {
-    // add arrow buttons and value panel
+    /**
+     * function that will add the value panel and the buttons to change the gravity one tick at a time
+     * @param {Property} gravityProperty - the gravity value
+     * @param {Range} gravityRange - the range gravity can change
+     */
     addTweakers: function( gravityProperty, gravityRange ) {
       // create minus button
       var arrowButtonMinus = new ArrowButton( 'left', function() {

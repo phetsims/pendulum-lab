@@ -110,6 +110,7 @@ define( function( require ) {
     // present for the lifetime of the sim
     pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
 
+      // if the number of pendulums is one the delete the second pendulum otherwise add it
       if ( numberOfPendulums === 1 && content.hasChild( pendulumSlidersNodeStorage[ 1 ] ) ) {
         content.removeChildWithIndex( pendulumSlidersNodeStorage[ 1 ], content.indexOfChild( pendulumSlidersNodeStorage[ 1 ] ) );
       }
@@ -124,6 +125,10 @@ define( function( require ) {
   pendulumLab.register( 'PendulumSlidersNode', PendulumSlidersNode );
 
   return inherit( PanelPendulumAbstract, PendulumSlidersNode, {
+    /**
+     * sets the content width by adding a strut to make up the difference
+     * @param {number} width - the width desired
+     */
     setContentWidth: function( width ) {
       this._content.addChild( new HStrut( width - 2 * PANEL_X_MARGIN ) );
     }

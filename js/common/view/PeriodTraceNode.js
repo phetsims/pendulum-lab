@@ -42,6 +42,7 @@ define( function( require ) {
       var pathNode = new Path( null, { stroke: pendulum.color, lineWidth: 2 } );
       self.addChild( pathNode );
 
+      // reset the path
       var resetPath = function() {
         pathNode.setShape( null );
         isCompleted = false;
@@ -52,14 +53,18 @@ define( function( require ) {
         pathNode.opacity = 1;
       };
 
+      // draw the path based on the state of the pendulum
       var updateShape = function() {
         var periodTrace = pendulum.periodTrace;
         var numberOfPoints = periodTrace.numberOfPoints;
 
-        if ( numberOfPoints > 0 ) {
-          var shape = new Shape();
+        if ( numberOfPoints > 0 ) { // 0 means we just started the trace
+          var shape = new Shape(); // create the new shape
+
+          // trace length is how far away from the pivot the trace will show up.
           var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.1 / 2 );
 
+          // traceStep is how the distance between two line of the trace
           var traceStep = DEFAULT_TRACE_STEP;
           if ( traceStep * 4 > traceLength ) {
             traceStep = traceLength / 4;

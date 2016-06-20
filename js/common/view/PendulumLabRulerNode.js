@@ -41,6 +41,7 @@ define( function( require ) {
     var rulerTicks = [ '' ]; // zero tick is not labeled
     for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
       // todo TRY TO DECIPHER THIS,
+      // if the current tick is a multiple of 20 then label it as such otherwise it is not labeled.
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
@@ -63,6 +64,7 @@ define( function( require ) {
       tickMarksOnBottom: false
     } );
 
+    // make it a vertical ruler
     this.rotate( Math.PI / 2 );
 
     this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
