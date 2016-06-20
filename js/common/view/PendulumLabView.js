@@ -178,8 +178,8 @@ define( function( require ) {
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
-      rulerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ));
-      stopwatchNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ));
+      rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
+      stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
     } );
   }
 

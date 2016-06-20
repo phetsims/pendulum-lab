@@ -2,7 +2,7 @@
 
 /**
  * Protractor node in 'Pendulum Lab' simulation.
- * The protracter node is responsible for displaying ticks 
+ * The protracter node is responsible for displaying ticks
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -95,7 +95,7 @@ define( function( require ) {
 
     // add protractor path
     this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
-    
+
     // create and add a layer for the ticks (angle of release) associated with each pendulum
     this.firstPendulumTickLayer = new Node();
     this.secondPendulumTickLayer = new Node();
@@ -119,7 +119,7 @@ define( function( require ) {
 
       var updateTicksPosition = function() {
         if ( pendulum.isUserControlled ) {
-          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle ); 
+          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle );
           tickNodeRight.setRotation( Math.PI / 2 + pendulum.angle );
         }
       };
@@ -135,7 +135,7 @@ define( function( require ) {
       var updateDegreesText = function() {
         if ( pendulum.isUserControlled ) {
           // pendulum.angle is in radians, convert to degrees
-          var angle = pendulum.angle * 180 / Math.PI; 
+          var angle = pendulum.angle * 180 / Math.PI;
           assert && assert( angle <= 180 && angle >= -180, 'Out of range angle' );
 
           degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );

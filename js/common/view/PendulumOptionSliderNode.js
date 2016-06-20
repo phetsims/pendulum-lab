@@ -30,7 +30,7 @@ define( function( require ) {
   var FONT_LABEL = new PhetFont( 9 );
   var VALUE_LABEL_SPACING = 4;
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
-  var ARROW_TOUCH_PADDING_TOP = 15;
+  var ARROW_TOUCH_PADDING_TOP = 15;   // Padding constants used for touch areas around arrows
   var ARROW_TOUCH_PADDING_OUT = 18;
   var ARROW_TOUCH_PADDING_IN = 7;
   var ARROW_TOUCH_PADDING_BOTTOM = 5;
@@ -66,6 +66,7 @@ define( function( require ) {
 
     var sliderProperty = new Property( trackProperty.value );
 
+    // sets width for white box containing pendulum length and width
     var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
     // create value label
@@ -76,6 +77,7 @@ define( function( require ) {
       maxWidth: labelBackgroundWidth - 6
     } );
 
+    // describes panel box for pendulum mass and length
     VBox.call( this, _.extend( {
       spacing: 6,
       resize: false,
@@ -101,6 +103,7 @@ define( function( require ) {
           ]
         } ),
 
+        // describes the slider bars for the mass and length
         new HBox( {
           resize: false,
           children: [

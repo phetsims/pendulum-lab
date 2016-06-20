@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -58,7 +58,7 @@ define( function( require ) {
 
         if ( numberOfPoints > 0 ) {
           var shape = new Shape();
-          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.1/2 );
+          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.1 / 2 );
 
           var traceStep = DEFAULT_TRACE_STEP;
           if ( traceStep * 4 > traceLength ) {

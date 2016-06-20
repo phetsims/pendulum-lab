@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -106,7 +106,7 @@ define( function( require ) {
 
     // add necessary pendulum sliders
     content.addChild( pendulumSlidersNodeStorage[ 0 ] );
-    
+
     // present for the lifetime of the sim
     pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
 
