@@ -33,7 +33,8 @@ define( function( require ) {
 
       // tracked for the "Custom" body, so that we can revert to this when the user changes from "Planet X" to "Custom"
       customGravity: Body.EARTH.gravity,
-
+      
+      //TODO: Need to find a less hackish means of dealing with the period timer rounding last place digit
       timeSpeed: 1.001234, // speed of time ticking- pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time

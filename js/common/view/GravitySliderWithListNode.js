@@ -56,7 +56,7 @@ define( function( require ) {
     var self = this;
     var container = new Node();
 
-    VBox.call( this, _.extend( { spacing: 4 }, options ) );
+    VBox.call( this, _.extend( { spacing: 2 }, options ) );
     this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
 
     // create body list menu
