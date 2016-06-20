@@ -70,8 +70,8 @@ define( function( require ) {
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbNode: new HSlider.ThumbNode( new Property( true ), {
         thumbSize: PendulumLabConstants.THUMB_SIZE,
-        thumbFillEnabled: '#888',
-        thumbFillHighlighted: '#ccc'
+        thumbFillEnabled: '#00C4DF',
+        thumbFillHighlighted: '#71EDFF'
       } )
     } );
     // describes the panel box containing the friction and gravity sliders
