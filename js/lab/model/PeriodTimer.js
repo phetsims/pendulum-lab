@@ -138,7 +138,7 @@ define( function( require ) {
      * @public
      */
     stop: function() {
-      if ( this.isRunning == true ) {
+      if ( this.isRunning === true ) {
         this.clear();
       }
     }
