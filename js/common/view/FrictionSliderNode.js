@@ -30,10 +30,20 @@ define( function( require ) {
   var FONT = new PhetFont( 9 );
   var TICK_NUMBER = 10;
 
+  /**
+   * converts the numerical value of the slider to friction, does not assign to friction property
+   * @param {number} sliderValue
+   * @returns {number}
+   */
   function sliderValueToFriction( sliderValue ) {
     return 0.0005 * ( Math.pow( 2, sliderValue ) - 1 );
   }
 
+  /**
+   * converts the numerical value of the friction to a slider value, does not assign to slider property
+   * @param {number}friction
+   * @returns {*|number}
+   */
   function frictionToSliderValue( friction ) {
     return Util.roundSymmetric( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
   }
@@ -59,7 +69,7 @@ define( function( require ) {
         thumbFillHighlighted: '#ccc'
       } )
     } );
-
+    // describes the panel box containing the friction and gravity sliders
     VBox.call( this, _.extend( {
       spacing: 6,
       resize: false,
@@ -85,6 +95,7 @@ define( function( require ) {
     hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
     hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
+    // interval for ticks
     var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );
