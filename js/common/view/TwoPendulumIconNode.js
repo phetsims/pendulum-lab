@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -25,10 +25,7 @@ define( function( require ) {
   var LINE_LENGTH = ICON_SIZE * 0.5;
   var RECT_HEIGHT = ICON_SIZE * 0.25;
   var RECT_WIDTH = RECT_HEIGHT * 0.8;
-  var RECT_GRADIENT = new LinearGradient( 0, 0, RECT_WIDTH, 0 ).
-    addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).
-    addColorStop( 0.8, 'white' ).
-    addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR );
+  var RECT_GRADIENT = new LinearGradient( 0, 0, RECT_WIDTH, 0 ).addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR );
 
   /**
    * @param {Object} [options]

@@ -69,7 +69,7 @@ define( function( require ) {
     // create a property to take care of the slider value
     var sliderProperty = new Property( trackProperty.value );
 
-    // width of the label
+    // sets width for white box containing pendulum length and width
     var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
     // create value label
@@ -80,6 +80,7 @@ define( function( require ) {
       maxWidth: labelBackgroundWidth - 6
     } );
 
+    // describes panel box for pendulum mass and length
     VBox.call( this, _.extend( {
       spacing: 6,
       resize: false,
@@ -105,6 +106,7 @@ define( function( require ) {
           ]
         } ),
 
+        // describes the slider bars for the mass and length
         new HBox( {
           resize: false,
           children: [

@@ -56,7 +56,7 @@ define( function( require ) {
       // draw the path based on the state of the pendulum
       var updateShape = function() {
         var periodTrace = pendulum.periodTrace;
-        var numberOfPoints = periodTrace.numberOfPoints; // state of the pendulum
+        var numberOfPoints = periodTrace.numberOfPoints;
 
         if ( numberOfPoints > 0 ) { // 0 means we just started the trace
           var shape = new Shape(); // create the new shape
