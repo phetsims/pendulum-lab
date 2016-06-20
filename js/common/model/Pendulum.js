@@ -18,10 +18,11 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var scratchVector = new Vector2();
-
   // constants
   var TWO_PI = Math.PI * 2;
+
+  // scratch vector for convenience
+  var scratchVector = new Vector2();
 
   /**
    * Constructor for single pendulum model.
@@ -98,9 +99,9 @@ define( function( require ) {
       }
     } );
 
+    // make the angle value visible after the first drag
     this.angleProperty.lazyLink( function() {
       if ( self.isUserControlled ) {
-        self.angularVelocity = 0; // angular velocity shouldn't be needed?
         self.updateDerivedVariables( false );
         self.userMovedEmitter.emit();
       }

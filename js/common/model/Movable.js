@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
 
@@ -31,14 +31,17 @@ define( function( require ) {
 
   return inherit( PropertySet, Movable, {
     /**
-     * Function that sets the initial location of a movable object and keep an internal copy of it.
+     * Function that sets the initial location of a movable object and keeps an internal copy of it.
      * @public
      * @param {Vector2} initialLocation
      */
     setInitialLocationValue: function( initialLocation ) {
 
       // position to use for resetting
+      // make a copy of the initial location vector
       this.initialLocation = initialLocation.copy();
+
+      // set the location to the initial location
       this.location = this.initialLocation.copy();
     },
 
@@ -49,6 +52,7 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
+      // Reset the location to the initial location
       this.location = this.initialLocation ? this.initialLocation.copy() : null;
     }
   } );

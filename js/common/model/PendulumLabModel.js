@@ -28,7 +28,7 @@ define( function( require ) {
     var self = this;
 
     PropertySet.call( this, {
-      body: Body.EARTH,
+      body: Body.EARTH, // we want the default body to be earth
       gravity: Body.EARTH.gravity, // gravitational acceleration
 
       // tracked for the "Custom" body, so that we can revert to this when the user changes from "Planet X" to "Custom"
@@ -52,6 +52,7 @@ define( function( require ) {
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating )
     ];
 
+    // all of the bodies that are possible
     this.bodies = [
       Body.MOON,
       Body.EARTH,
@@ -112,7 +113,9 @@ define( function( require ) {
   pendulumLab.register( 'PendulumLabModel', PendulumLabModel );
 
   return inherit( PropertySet, PendulumLabModel, {
-
+    /**
+     * function that resets the elements of the simulation, ruler, stopwatch, and pedulums
+     */
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
@@ -128,7 +131,10 @@ define( function( require ) {
       } );
 
     },
-
+    /**
+     * function that is stepped over in every frame takes care of stepping through the simulation.
+     * @param {float} dt - change in time measured in seconds.
+     */
     step: function( dt ) {
       if ( this.play ) {
         // For our accuracy guarantees, we cap our DT fairly low. Otherwise the fixed-step model may become inaccurate
@@ -138,15 +144,21 @@ define( function( require ) {
         this.modelStep( Math.min( 0.05, dt ) * this.timeSpeed );
       }
     },
-
+    /**
+     * function that is stepped through every frame. Takes care of stepping through the pendulum motions.
+     * @param {float} dt - change in time measured in  seconds
+     */
     modelStep: function( dt ) {
+      // add time to the stopwatch if it is running
       if ( this.stopwatch.isRunning ) {
         this.stopwatch.elapsedTime += dt;
       }
 
+      // loop over the pendula
       for ( var i = 0; i < this.numberOfPendulums; i++ ) {
-        var pendulum = this.pendulums[ i ];
+        var pendulum = this.pendulums[ i ]; // get the pendulum from the array
 
+        // if the pendulum is moving
         if ( !pendulum.isStationary() ) {
           // prevent infinite motion after friction. TODO: could use some cleanup!
           var dampMotion = (Math.abs( pendulum.angle ) < 1e-3) && (Math.abs( pendulum.angularAcceleration ) < 1e-3) && (Math.abs( pendulum.angularVelocity ) < 1e-3);
@@ -154,6 +166,7 @@ define( function( require ) {
             pendulum.angle = 0;
             pendulum.angularVelocity = 0;
           }
+          // step through the pendulum model
           pendulum.step( dt );
         }
       }
@@ -174,11 +187,13 @@ define( function( require ) {
      * @public
      */
     returnHandler: function() {
+      //reset the pendula
       this.pendulums.forEach( function( pendulum ) {
         pendulum.resetThermalEnergy();
         pendulum.resetMotion();
       } );
 
+      // stop the timer
       if ( this.periodTimer ) {
         this.periodTimer.stop();
       }
