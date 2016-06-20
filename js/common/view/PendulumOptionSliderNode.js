@@ -50,6 +50,7 @@ define( function( require ) {
     var arrowButtonMinus = new ArrowButton( 'left', function() {
       trackProperty.value = Util.toFixedNumber( Math.max( trackRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
+    // adds a touch area around the minus arrow
     arrowButtonMinus.touchArea = arrowButtonMinus.localBounds.withOffsets( ARROW_TOUCH_PADDING_OUT,
       ARROW_TOUCH_PADDING_TOP,
       ARROW_TOUCH_PADDING_IN,
@@ -59,13 +60,16 @@ define( function( require ) {
     var arrowButtonPlus = new ArrowButton( 'right', function() {
       trackProperty.value = Util.toFixedNumber( Math.min( trackRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
+    // add a touch aread to the plus arrow
     arrowButtonPlus.touchArea = arrowButtonPlus.localBounds.withOffsets( ARROW_TOUCH_PADDING_IN,
       ARROW_TOUCH_PADDING_TOP,
       ARROW_TOUCH_PADDING_OUT,
       ARROW_TOUCH_PADDING_BOTTOM );
 
+    // create a property to take care of the slider value
     var sliderProperty = new Property( trackProperty.value );
 
+    // width of the label
     var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
     // create value label

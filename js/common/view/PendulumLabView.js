@@ -53,6 +53,8 @@ define( function( require ) {
       isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
     } );
+
+    // place pendulums
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
 
@@ -178,8 +180,8 @@ define( function( require ) {
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
-      rulerNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ));
-      stopwatchNode.movableDragHandler.setDragBounds(visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ));
+      rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
+      stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
     } );
   }
 

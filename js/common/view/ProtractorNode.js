@@ -2,7 +2,7 @@
 
 /**
  * Protractor node in 'Pendulum Lab' simulation.
- * The protracter node is responsible for displaying ticks 
+ * The protracter node is responsible for displaying ticks
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -70,32 +70,37 @@ define( function( require ) {
     var y1;
     var x2;
     var y2;
+    // loop for 180 degrees
     for ( var currentAngleDeg = 0; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
+      // calculate the angle in radians
       currentAngleRad = currentAngleDeg * Math.PI / 180;
 
+      // if the angle is a mutiple of 10 then make the tick the longest length
       if ( currentAngleDeg % 10 === 0 ) {
         lineLength = TICK_10_LENGTH;
       }
-      else if ( currentAngleDeg % 5 === 0 ) {
+      else if ( currentAngleDeg % 5 === 0 ) { // if the angle is 5 the give it medium length
         lineLength = TICK_5_LENGTH;
       }
-      else {
+      else { // otherwise make the length short
         lineLength = LINE_LENGTH_DEFAULT;
       }
-
+      // calculate the position of the tick
       x1 = RADIUS * Math.cos( currentAngleRad );
       y1 = RADIUS * Math.sin( currentAngleRad );
 
+      // calculate the end of the tick
       x2 = (RADIUS + lineLength) * Math.cos( currentAngleRad );
       y2 = (RADIUS + lineLength) * Math.sin( currentAngleRad );
 
+      // draw the tick first by finding the two postions then by drawing a line between them
       protractorShape.moveTo( x1, y1 );
       protractorShape.lineTo( x2, y2 );
     }
 
     // add protractor path
     this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
-    
+
     // create and add a layer for the ticks (angle of release) associated with each pendulum
     this.firstPendulumTickLayer = new Node();
     this.secondPendulumTickLayer = new Node();
@@ -117,9 +122,12 @@ define( function( require ) {
         self.secondPendulumTickLayer.addChild( tickNodeRight );
       }
 
+      /**
+       * function that updates the position of the tick associated with a pendulum
+       */
       var updateTicksPosition = function() {
         if ( pendulum.isUserControlled ) {
-          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle ); 
+          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle );
           tickNodeRight.setRotation( Math.PI / 2 + pendulum.angle );
         }
       };
@@ -132,10 +140,13 @@ define( function( require ) {
       } );
       degreesLayer.addChild( degreesText );
 
+      /**
+       * function that updates the text of the degrees associated with a pendulum
+       */
       var updateDegreesText = function() {
         if ( pendulum.isUserControlled ) {
           // pendulum.angle is in radians, convert to degrees
-          var angle = pendulum.angle * 180 / Math.PI; 
+          var angle = pendulum.angle * 180 / Math.PI;
           assert && assert( angle <= 180 && angle >= -180, 'Out of range angle' );
 
           degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );

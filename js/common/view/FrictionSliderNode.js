@@ -47,8 +47,13 @@ define( function( require ) {
    * @constructor
    */
   function FrictionSliderNode( frictionProperty, frictionRange, options ) {
+    // property for the slider value
     var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
+
+    // range the slider can have
     var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
+
+    // the slider itself
     var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
       minorTickLength: 5,
       majorTickLength: 10,
@@ -60,6 +65,7 @@ define( function( require ) {
       } )
     } );
 
+    // we will want this to be in a VBox so that it does not wiggle
     VBox.call( this, _.extend( {
       spacing: 6,
       resize: false,
@@ -80,11 +86,12 @@ define( function( require ) {
 
     }, options ) );
 
-    // add ticks
+    // add ticks we want three major ticks
     hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
     hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
     hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
+    // add the minor ticks
     var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );

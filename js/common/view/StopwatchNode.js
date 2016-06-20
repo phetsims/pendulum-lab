@@ -25,6 +25,8 @@ define( function( require ) {
     var self = this;
     Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty );
 
+    // place the stopwatch on the screen
+    // @private
     this.centerX = toolsControlPanelNodeBounds.maxX - this.width / 2;
     this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
 
