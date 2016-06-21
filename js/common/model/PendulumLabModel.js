@@ -137,7 +137,7 @@ define( function( require ) {
     step: function( dt ) {
       if ( this.play ) {
         // pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
-        var periodTimerOffsetFactor = 1.001234;
+        var periodTimerOffsetFactor = 1.007;
 
         // For our accuracy guarantees, we cap our DT fairly low. Otherwise the fixed-step model may become inaccurate
         // enough for getting an accurate period timer or speed loss on Jupiter with the shortest length.
