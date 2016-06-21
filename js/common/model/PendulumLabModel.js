@@ -33,9 +33,7 @@ define( function( require ) {
 
       // tracked for the "Custom" body, so that we can revert to this when the user changes from "Planet X" to "Custom"
       customGravity: Body.EARTH.gravity,
-      
-      //TODO: Need to find a less hackish means of dealing with the period timer rounding last place digit
-      timeSpeed: 1.001234, // speed of time ticking- pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
+      timeSpeed: 1, // speed of time ticking
       numberOfPendulums: 1, // number of visible pendulums,
       play: true, // flag: controls running of time
       friction: 0, // friction coefficient
@@ -138,11 +136,14 @@ define( function( require ) {
      */
     step: function( dt ) {
       if ( this.play ) {
+        // pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
+        var periodTimerOffsetFactor = 1.001234;
+
         // For our accuracy guarantees, we cap our DT fairly low. Otherwise the fixed-step model may become inaccurate
         // enough for getting an accurate period timer or speed loss on Jupiter with the shortest length.
         // We apply this BEFORE speed is applied, so that even if we're on a slow device, slow-motion WILL be guaranteed
         // to slow the sim speed down.
-        this.modelStep( Math.min( 0.05, dt ) * this.timeSpeed );
+        this.modelStep( Math.min( 0.05, dt ) * (this.timeSpeed * periodTimerOffsetFactor) );
       }
     },
     /**
