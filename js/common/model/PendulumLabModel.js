@@ -114,6 +114,7 @@ define( function( require ) {
   return inherit( PropertySet, PendulumLabModel, {
     /**
      * function that resets the elements of the simulation, ruler, stopwatch, and pedulums
+     *  @public
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -133,6 +134,7 @@ define( function( require ) {
     /**
      * function that is stepped over in every frame takes care of stepping through the simulation.
      * @param {float} dt - change in time measured in seconds.
+     * @private
      */
     step: function( dt ) {
       if ( this.play ) {
@@ -149,6 +151,7 @@ define( function( require ) {
     /**
      * function that is stepped through every frame. Takes care of stepping through the pendulum motions.
      * @param {float} dt - change in time measured in  seconds
+     * @private
      */
     modelStep: function( dt ) {
       // add time to the stopwatch if it is running
@@ -162,7 +165,7 @@ define( function( require ) {
 
         // if the pendulum is moving
         if ( !pendulum.isStationary() ) {
-          // prevent infinite motion after friction. TODO: could use some cleanup!
+          // prevent infinite motion after friction.
           var dampMotion = (Math.abs( pendulum.angle ) < 1e-3) && (Math.abs( pendulum.angularAcceleration ) < 1e-3) && (Math.abs( pendulum.angularVelocity ) < 1e-3);
           if ( dampMotion ) {
             pendulum.angle = 0;

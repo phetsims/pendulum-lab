@@ -299,7 +299,8 @@ define( function( require ) {
     },
 
     /**
-     *
+     * Resets the motion of the Pendulum
+     * @public
      */
     resetMotion: function() {
       this.angleProperty.reset();
