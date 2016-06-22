@@ -68,11 +68,9 @@ define( function( require ) {
       minorTickLength: 5,
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
-      thumbNode: new HSlider.ThumbNode( new Property( true ), {
-        thumbSize: PendulumLabConstants.THUMB_SIZE,
-        thumbFillEnabled: '#00C4DF',
-        thumbFillHighlighted: '#71EDFF'
-      } )
+      thumbSize: PendulumLabConstants.THUMB_SIZE,
+      thumbFillEnabled: '#00C4DF',
+      thumbFillHighlighted: '#71EDFF'
     } );
     // describes the panel box containing the friction and gravity sliders
     // we will want this to be in a VBox so that it does not wiggle

@@ -21,7 +21,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -85,11 +84,9 @@ define( function( require ) {
     var hSlider = new HSlider( gravityProperty, gravityRange, {
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
-      thumbNode: new HSlider.ThumbNode( new Property( true ), {
-        thumbSize: PendulumLabConstants.THUMB_SIZE,
-        thumbFillEnabled: '#00C4DF',
-        thumbFillHighlighted: '#71EDFF'
-      } )
+      thumbSize: PendulumLabConstants.THUMB_SIZE,
+      thumbFillEnabled: '#00C4DF',
+      thumbFillHighlighted: '#71EDFF'
     } );
 
     var hBox = new HBox( {
