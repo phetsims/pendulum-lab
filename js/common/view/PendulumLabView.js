@@ -112,7 +112,7 @@ define( function( require ) {
     // add reset all button
     var resetAllButton = new ResetAllButton( {
       listener: pendulumLabModel.reset.bind( pendulumLabModel ),
-      touchAreaDilation: 15
+      touchAreaDilation: 6
     } );
     resetAllButton.centerX = width - resetAllButton.width / 2 - SCREEN_PADDING.RIGHT;
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 8;

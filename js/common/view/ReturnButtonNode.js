@@ -31,7 +31,7 @@ define( function( require ) {
       font: FONT,
       baseColor: 'rgb( 231, 232, 233 )',
       touchAreaXDilation: 10,
-      touchAreaYDilation: 10
+      touchAreaYDilation: 6
     }, options ) );
   }
 
