@@ -30,7 +30,7 @@ define( function( require ) {
 
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
-  var SPACING_CONTENT = 5;
+  var SPACING_CONTENT = 5; // spacing in between slider elements
   var PANEL_X_MARGIN = 14;
 
   /**
@@ -68,6 +68,7 @@ define( function( require ) {
       );
       self.optionSliders.push( massSlider );
 
+      // create vertical box for length and mass sliders
       var vBoxSlidersNode = new VBox( {
         spacing: SPACING_CONTENT, align: 'left', children: [
           new Node( {
@@ -91,7 +92,6 @@ define( function( require ) {
                 font: FONT_TITLE,
                 fill: pendulum.color
               } ),
-
               // add mass slider
               massSlider
             ]

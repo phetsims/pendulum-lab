@@ -58,6 +58,7 @@ define( function( require ) {
     pendulumsNode.centerX = width / 2;
     pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
 
+    // create drag listener
     var backgroundDragNode = new Plane();
     var dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
     pendulumsNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
