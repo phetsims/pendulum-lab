@@ -38,4 +38,13 @@ Potential energy: Relative to the resting point of the mass, so our 'height' is 
 energy of m * g * L * (1 - cos(θ)).
 Thermal energy: total - kinetic - potential.
 
-The 'step' button will move forward a quarter of a second (0.25s).
+The 'step' button will move forward a twentieth of a second (0.05s).
+
+The Period Timer will time one period trace for a selected pendulum.
+
+The Return button will reset the position of the pendulum, but will not change any settings.
+
+Maximum Pendulum values:
+    -Length ( 0.10m < L < 2.00m )
+    -Mass   ( 0.10kg < M < 2.10kg )
+    -Gravity ( 0.00m/s*s < G < 25.00m/s*s)

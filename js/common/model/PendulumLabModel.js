@@ -114,7 +114,7 @@ define( function( require ) {
   return inherit( PropertySet, PendulumLabModel, {
     /**
      * function that resets the elements of the simulation, ruler, stopwatch, and pedulums
-     *  @public
+     * @public
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
