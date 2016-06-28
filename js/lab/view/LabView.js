@@ -31,24 +31,26 @@ define( function( require ) {
   function LabView( pendulumLabModel, modelViewTransform, energyGraphHeight ) {
     EnergyView.call( this, pendulumLabModel, modelViewTransform, energyGraphHeight );
 
-    // create and add arrow panel node to the bottom layer
+    // create arrow panel node to the bottom layer
     var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.isVelocityVisibleProperty,
       pendulumLabModel.isAccelerationVisibleProperty );
-    arrowsPanelNode.centerX = arrowsPanelNode.width / 2 + SCREEN_PADDING.LEFT;
-    arrowsPanelNode.centerY = arrowsPanelNode.height / 2 + SCREEN_PADDING.TOP;
-    this.arrowsPanelLayer.addChild( arrowsPanelNode );
 
+    // create period timer node
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, this.layoutBounds );
 
-    // move energyGraphNode to the bottom
-    this.energyGraphNode.centerY += (arrowsPanelNode.height + 8);
     // add tweakers for gravity slider slider
     this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
 
-    // create and add period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, this.layoutBounds );
-    periodTimerNode.centerX = this.slidersPanelNode.bounds.minX - periodTimerNode.width / 2 - 10;
-    periodTimerNode.centerY = this.stopwatchNode.centerY;
+    // add the various nodes
+    this.arrowsPanelLayer.addChild( arrowsPanelNode );
     this.periodTimerLayer.addChild( periodTimerNode );
+
+    // layout the nodes
+    periodTimerNode.right = this.slidersPanelNode.bounds.minX - 10;
+    periodTimerNode.centerY = this.stopwatchNode.centerY;
+    arrowsPanelNode.left = SCREEN_PADDING.LEFT;
+    arrowsPanelNode.top = SCREEN_PADDING.TOP;
+    this.energyGraphNode.centerY += (arrowsPanelNode.height + 8); // move energyGraphNode to the bottom
 
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
