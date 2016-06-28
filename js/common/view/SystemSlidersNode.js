@@ -29,7 +29,7 @@ define( function( require ) {
 
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
-  var SPACING_CONTENT = 5;
+  var SPACING_CONTENT = 4;
 
   /**
    * @param {PendulumLabModel} pendulumLabModel - Main model of pendulum lab simulation.
