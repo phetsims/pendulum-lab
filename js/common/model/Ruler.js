@@ -22,9 +22,9 @@ define( function( require ) {
       isVisible: true // flag to control ruler visibility
     } );
 
-    // length of ruler in meters
-    // @public (read-only)
-    this.length = 2;
+
+    this.length = 2; // @public (read-only) length of ruler in meters
+    
   }
 
   pendulumLab.register( 'Ruler', Ruler );

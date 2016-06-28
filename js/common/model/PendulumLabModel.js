@@ -60,16 +60,16 @@ define( function( require ) {
       Body.CUSTOM
     ];
 
-    // possible gravity range 0m/s to 25m/s
+    // @public (read-only) possible gravity range 0m/s to 25m/s
     this.gravityRange = new Range( 0, 25, this.gravity );
 
-    // possible friction range
+    // @public (read-only) possible friction range
     this.frictionRange = new Range( 0, 0.5115, 0 );
 
-    // model for ruler
+    // @public (read-only) model for ruler
     this.ruler = new Ruler();
 
-    // model for stopwatch
+    // @public (read-only) model for stopwatch
     this.stopwatch = new Stopwatch();
 
     // change gravity if body was changed
