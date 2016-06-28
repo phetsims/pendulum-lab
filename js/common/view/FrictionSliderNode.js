@@ -32,6 +32,7 @@ define( function( require ) {
 
   /**
    * converts the numerical value of the slider to friction, does not assign to friction property
+   * @private
    * @param {number} sliderValue
    * @returns {number}
    */
@@ -41,8 +42,9 @@ define( function( require ) {
 
   /**
    * converts the numerical value of the friction to a slider value, does not assign to slider property
+   * @private
    * @param {number}friction
-   * @returns {*|number}
+   * @returns {number}
    */
   function frictionToSliderValue( friction ) {
     return Util.roundSymmetric( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
@@ -50,7 +52,7 @@ define( function( require ) {
 
   /**
    * Constructor for the gravity slider control.
-   *
+   * @public
    * @param {Property.<number>} frictionProperty - Property to update by slider.
    * @param {Range} frictionRange - Possible range of frictionProperty value.
    * @param {Object} [options]
@@ -105,6 +107,7 @@ define( function( require ) {
       hSlider.addMinorTick( i );
     }
 
+    // slider link to friction value
     sliderValueProperty.link( function( sliderValue ) {
       // snap to integer values
       if ( sliderValue % 1 === 0 ) {
