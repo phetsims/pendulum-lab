@@ -32,6 +32,9 @@ define( function( require ) {
   pendulumLab.register( 'LabModel', LabModel );
 
   return inherit( EnergyModel, LabModel, {
+    /**
+     * Reset function that resets the pendulums and settings
+     */
     reset: function() {
       EnergyModel.prototype.reset.call( this );
 

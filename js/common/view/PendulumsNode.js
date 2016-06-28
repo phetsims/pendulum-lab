@@ -150,21 +150,29 @@ define( function( require ) {
         // add drag events
         var angleOffset;
         var dragListener = new SimpleDragHandler( {
+
+          // determine the position of where the pendulum is dragged.
           start: function( event ) {
             var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
             angleOffset = pendulum.angle - dragAngle;
 
             pendulum.isUserControlled = true;
           },
+
+          // set the angle of the pendulum depending on where it is dragged to.
           drag: function( event ) {
             var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
 
             pendulum.angle = Pendulum.modAngle( angleOffset + dragAngle );
           },
+
+          // release user control
           end: function() {
             pendulum.isUserControlled = false;
           }
         } );
+
+        // add a drag listener
         pendulumRect.addInputListener( dragListener );
         self.draggableItems.push( {
           startDrag: dragListener.startDrag.bind( dragListener ),
