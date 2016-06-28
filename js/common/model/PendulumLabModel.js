@@ -60,7 +60,7 @@ define( function( require ) {
       Body.CUSTOM
     ];
 
-    // possible gravity range
+    // possible gravity range 0m/s to 25m/s
     this.gravityRange = new Range( 0, 25, this.gravity );
 
     // possible friction range
@@ -150,7 +150,7 @@ define( function( require ) {
     },
     /**
      * function that is stepped through every frame. Takes care of stepping through the pendulum motions.
-     * @param {float} dt - change in time measured in  seconds
+     * @param {number} dt - change in time measured in  seconds
      * @private
      */
     modelStep: function( dt ) {
