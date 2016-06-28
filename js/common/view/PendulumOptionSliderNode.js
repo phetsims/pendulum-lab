@@ -127,10 +127,12 @@ define( function( require ) {
       ]
     }, options ) );
 
+    // keep track of the value of the sliders
     sliderProperty.link( function( sliderValue ) {
       trackProperty.value = sliderValue;
     } );
 
+    // change the text when the property changes
     trackProperty.link( function( value ) {
       var valueString = value + '';
       var dotPosition = valueString.indexOf( '.' ) + 1;

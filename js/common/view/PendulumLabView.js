@@ -127,6 +127,7 @@ define( function( require ) {
     var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, this.layoutBounds, toolsControlPanelNode.bounds );
     this.stopwatchNode = stopwatchNode;
 
+    // add return button
     var returnButtonNode = new ReturnButtonNode( {
       listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
       centerX: resetAllButton.bounds.minX - 75,

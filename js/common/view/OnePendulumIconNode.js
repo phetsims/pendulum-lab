@@ -34,6 +34,7 @@ define( function( require ) {
   function OnePendulumIconNode( options ) {
     Node.call( this, _.extend( { pickable: false }, options ) );
 
+    //create the rectangle housing the icon
     this.addChild( new Rectangle( 0, 0, ICON_SIZE, ICON_SIZE ) );
 
     this.content = new Node();

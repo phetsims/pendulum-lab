@@ -67,6 +67,7 @@ define( function( require ) {
     // make it a vertical ruler
     this.rotate( Math.PI / 2 );
 
+    // initial position of the ruler
     this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
     this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
 

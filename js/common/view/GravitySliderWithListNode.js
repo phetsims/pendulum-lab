@@ -185,7 +185,8 @@ define( function( require ) {
           arrowButtonPlus
         ]
       } ) );
-
+     
+      // update the gravity text when the property changes
       gravityProperty.link( function( value ) {
         var valueString = value + '';
         var dotPosition = valueString.indexOf( '.' ) + 1;
