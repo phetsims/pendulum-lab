@@ -200,11 +200,13 @@ define( function( require ) {
     // adds period timer contents on top of yellow background.
     this.addChild( vBox );
 
+    // present for the lifetime of the sim
     periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
       readoutText.text = getTextTime( value );
     } );
 
     // switch to second pendulum when it visible only
+    // present for the lifetime of the sim
     secondPendulumIsVisibleProperty.link( function( isVisible ) {
       graphUnitsSwitch.pickable = isVisible;
       graphUnitsSwitch.opacity = isVisible ? 1 : 0.5;
@@ -225,6 +227,7 @@ define( function( require ) {
         event.handle();
       }
     };
+    // prevent dragging the PeriodTimer from the playPause Button and graphUnitSwitch
     playPauseButton.addInputListener( doNotStartDragListener );
     graphUnitsSwitch.addInputListener( doNotStartDragListener );
 
@@ -236,12 +239,17 @@ define( function( require ) {
       }
     } );
 
-    // set visibility observer
+    // set visibility observer, present for the lifetime of the sim
     periodTimer.isVisibleProperty.linkAttribute( this, 'visible' );
   }
 
   pendulumLab.register( 'PeriodTimerNode', PeriodTimerNode );
 
+  /**
+   * converts the value of time to a string, appending to it the abbreviation for seconds
+   * @param {number} value
+   * @returns {string}
+   */
   var getTextTime = function( value ) {
     return StringUtils.format( pattern0TimeValueTimeUnitsMetricString, Util.toFixed( value, 4 ) );
   };
