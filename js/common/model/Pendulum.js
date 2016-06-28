@@ -150,8 +150,8 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
+      var theta = this.angle;
 
-      var theta = Pendulum.modAngle( this.angle );
       var omega = this.angularVelocity;
 
       var numSteps = Math.max( 7, dt * 120 );
