@@ -43,12 +43,12 @@ define( function( require ) {
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
-    // add protractor node
+    // create protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, modelViewTransform );
     protractorNode.centerX = width / 2;
-    protractorNode.centerY = protractorNode.height / 2 + SCREEN_PADDING.TOP - 5;
+    protractorNode.top = SCREEN_PADDING.TOP - 5;
 
-    // add pendulums
+    // create pendulums
     var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, modelViewTransform, {
       isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
@@ -56,7 +56,7 @@ define( function( require ) {
 
     // place pendulums
     pendulumsNode.centerX = width / 2;
-    pendulumsNode.centerY = pendulumsNode.height / 2 + SCREEN_PADDING.TOP;
+    pendulumsNode.top = SCREEN_PADDING.TOP;
 
     // create drag listener
     var backgroundDragNode = new Plane();
@@ -64,7 +64,7 @@ define( function( require ) {
     pendulumsNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
     backgroundDragNode.addInputListener( dragListener );
 
-    // add period trace node
+    // create period trace node
     var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform, {
       x: width / 2,
       y: SCREEN_PADDING.TOP
@@ -83,8 +83,10 @@ define( function( require ) {
     if ( this.systemSlidersNode.localBounds.width < panelWidth ) {
       this.systemSlidersNode.setContentWidth( panelWidth );
     }
-    pendulumSlidersNode.maxWidth = 180;
-    this.systemSlidersNode.maxWidth = 180;
+
+    var maxLeftWidthPanel = 180;
+    pendulumSlidersNode.maxWidth = maxLeftWidthPanel;
+    this.systemSlidersNode.maxWidth = maxLeftWidthPanel;
 
     var slidersPanelNode = new VBox( {
       spacing: 8, children: [
@@ -92,30 +94,29 @@ define( function( require ) {
         this.systemSlidersNode
       ]
     } );
-    slidersPanelNode.centerX = width - slidersPanelNode.width / 2 - SCREEN_PADDING.RIGHT - 5;
-    slidersPanelNode.centerY = slidersPanelNode.height / 2 + SCREEN_PADDING.TOP - 2;
+    slidersPanelNode.right = width - SCREEN_PADDING.RIGHT - 5;
+    slidersPanelNode.top = SCREEN_PADDING.TOP - 2;
     this.slidersPanelNode = slidersPanelNode;
 
     // add tools control panel
     var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.isVisibleProperty,
-      pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty );
-    toolsControlPanelNode.maxWidth = 180;
-    toolsControlPanelNode.centerX = toolsControlPanelNode.width / 2 + SCREEN_PADDING.LEFT;
-    toolsControlPanelNode.centerY = height - toolsControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
+      pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty, { maxWidth: 180 } );
+    toolsControlPanelNode.left = SCREEN_PADDING.LEFT;
+    toolsControlPanelNode.bottom = height - SCREEN_PADDING.BOTTOM;
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // add pendulum system control panel
     var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.numberOfPendulumsProperty,
       pendulumLabModel.playProperty, pendulumLabModel.timeSpeedProperty, pendulumLabModel.stepManual.bind( pendulumLabModel ) );
     pendulumSystemControlPanelNode.centerX = width / 2;
-    pendulumSystemControlPanelNode.centerY = height - pendulumSystemControlPanelNode.height / 2 - SCREEN_PADDING.BOTTOM;
+    pendulumSystemControlPanelNode.bottom = height - SCREEN_PADDING.BOTTOM;
 
     // add reset all button
     var resetAllButton = new ResetAllButton( {
       listener: pendulumLabModel.reset.bind( pendulumLabModel ),
       touchAreaDilation: 6
     } );
-    resetAllButton.centerX = width - resetAllButton.width / 2 - SCREEN_PADDING.RIGHT;
+    resetAllButton.right = width -  SCREEN_PADDING.RIGHT;
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 4;
     resetAllButton.scale( 0.75 );
 
@@ -176,15 +177,6 @@ define( function( require ) {
     pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );
     pendulumLabModel.stopwatch.setInitialLocationValue( stopwatchNode.center );
 
-    // Layout for https://github.com/phetsims/pendulum-lab/issues/98
-    this.visibleBoundsProperty.link( function( visibleBounds ) {
-      var dx = -visibleBounds.x;
-      dx = Math.min( 200, dx );
-      leftFloatingLayer.x = -dx;
-      rightFloatingLayer.x = dx;
-      rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
-      stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
-    } );
   }
 
   pendulumLab.register( 'PendulumLabView', PendulumLabView );

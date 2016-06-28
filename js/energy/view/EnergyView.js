@@ -31,8 +31,8 @@ define( function( require ) {
     // create and add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulums, pendulumLabModel.isEnergyGraphExpandedProperty,
       pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulumsProperty, energyGraphHeight );
-    energyGraphNode.centerX = energyGraphNode.width / 2 + SCREEN_PADDING.LEFT;
-    energyGraphNode.centerY = energyGraphNode.height / 2 + SCREEN_PADDING.TOP;
+    energyGraphNode.left = SCREEN_PADDING.LEFT;
+    energyGraphNode.top = SCREEN_PADDING.TOP;
     this.energyGraphLayer.addChild( energyGraphNode );
 
     this.energyGraphNode = energyGraphNode; // @public
@@ -41,7 +41,7 @@ define( function( require ) {
     this.rulerNode.centerX += (energyGraphNode.width + 10);
     pendulumLabModel.ruler.setInitialLocationValue( this.rulerNode.center );
 
-    this.stopwatchNode.centerX = this.rulerNode.bounds.maxX + this.stopwatchNode.width / 2 + 10;
+    this.stopwatchNode.left = this.rulerNode.bounds.maxX  + 10;
     pendulumLabModel.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
   }
 
