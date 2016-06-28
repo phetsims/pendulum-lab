@@ -69,7 +69,7 @@ define( function( require ) {
       font: FONT,
       fill: pendulum.color,
       centerX: dimension.width / 2,
-      maxWidth: 180
+      maxWidth: 122
     } );
 
     // labels for bars
