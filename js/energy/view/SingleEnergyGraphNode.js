@@ -53,15 +53,19 @@ define( function( require ) {
    * @constructor
    */
   function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+
+    // @private
     this.pendulum = pendulum;
 
     var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
+    // position of the bars of the energy bar graph
     var kineticCenterX = BAR_OFFSET + 0.5 * BAR_SPACING + 0 * BAR_WIDTH;
     var potentialCenterX = BAR_OFFSET + 1.5 * BAR_SPACING + 1 * BAR_WIDTH;
     var thermalCenterX = BAR_OFFSET + 2.5 * BAR_SPACING + 2 * BAR_WIDTH;
     var totalCenterX = BAR_OFFSET + 3.5 * BAR_SPACING + 3 * BAR_WIDTH;
 
+    // @private
     this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
 
     // header of graph

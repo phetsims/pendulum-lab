@@ -44,8 +44,10 @@ define( function( require ) {
       self.isVisible = isPeriodTraceVisible;
     } );
 
+    // stop the period timer when it is not visible.
     this.isVisibleProperty.onValue( false, this.stop.bind( this ) );
 
+    
     this.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
         // clear time when timer revert to init state
@@ -120,7 +122,7 @@ define( function( require ) {
 
   return inherit( Stopwatch, PeriodTimer, {
     /**
-     *
+     * clears the timer
      * @private
      */
     clear: function() {
