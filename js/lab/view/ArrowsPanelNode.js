@@ -47,6 +47,7 @@ define( function( require ) {
       new Text( accelerationString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
     ];
 
+    // determine max sting width determined by widths of velocity or acceleration strings
     var maxStringWidth = 0;
     textStrings.forEach( function( textString ) {
       maxStringWidth = Math.max( maxStringWidth, textString.width );
@@ -58,12 +59,15 @@ define( function( require ) {
           // necessary to expand panel
           new HStrut( PANEL_WIDTH, { pickable: false } ),
 
+          // Creates check boxes within panel
           new VerticalCheckBoxGroup( [
             {
               content: new Node( {
                 pickable: false,
                 children: [
+                  // adds velocity string to panel
                   textStrings[ 0 ],
+                  // Creates velocity arrow within panel
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
                     fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
                     centerY: 0,
@@ -78,7 +82,9 @@ define( function( require ) {
               content: new Node( {
                 pickable: false,
                 children: [
+                  // adds acceleration string to panel
                   textStrings[ 1 ],
+                  // Creates velocity arrow within panel
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
                     fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
                     centerY: 0,
