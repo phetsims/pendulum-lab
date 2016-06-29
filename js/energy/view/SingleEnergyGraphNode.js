@@ -56,6 +56,7 @@ define( function( require ) {
 
     // @private
     this.pendulum = pendulum;
+    this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
 
     var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
@@ -64,9 +65,6 @@ define( function( require ) {
     var potentialCenterX = BAR_OFFSET + 1.5 * BAR_SPACING + 1 * BAR_WIDTH;
     var thermalCenterX = BAR_OFFSET + 2.5 * BAR_SPACING + 2 * BAR_WIDTH;
     var totalCenterX = BAR_OFFSET + 3.5 * BAR_SPACING + 3 * BAR_WIDTH;
-
-    // @private
-    this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
 
     // header of graph
     var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
@@ -101,6 +99,7 @@ define( function( require ) {
       headWidth: ARROW_HEAD_WIDTH
     } );
 
+    // @private
     // individual bars
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: COLOR.KINETIC,
@@ -115,6 +114,7 @@ define( function( require ) {
       centerX: thermalCenterX
     } );
 
+    // @private
     // combined 'total' bar
     this.totalKineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: COLOR.KINETIC,
