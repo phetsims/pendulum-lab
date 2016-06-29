@@ -76,14 +76,10 @@ define( function( require ) {
     this.peakEmitter = new Emitter();
     this.resetEmitter = new Emitter();
 
-    //@private
-    this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
-
     // default color for this pendulum
     // @public (read-only)
     this.color = color; // {string}
-
-
+    
     // possible length range in meters
     this.lengthRange = new Range( 0.1, 2.0, length ); // @public (read-only)
 
@@ -248,13 +244,13 @@ define( function( require ) {
       var speed = Math.abs( this.angularVelocity ) * this.length;
 
       this.angularAcceleration = this.omegaDerivative( this.angle, this.angularVelocity );
-      this.height = this.length * ( 1 - Math.cos( this.angle ) );
+      var height = this.length * ( 1 - Math.cos( this.angle ) );
 
       var oldKineticEnergy = this.kineticEnergy;
       this.kineticEnergy = 0.5 * this.mass * speed * speed;
 
       var oldPotentialEnergy = this.potentialEnergy;
-      this.potentialEnergy = this.mass * this.gravityProperty.value * this.height;
+      this.potentialEnergy = this.mass * this.gravityProperty.value * height;
 
       if ( energyChangeToThermal ) {
         this.thermalEnergy += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergy + this.potentialEnergy );
