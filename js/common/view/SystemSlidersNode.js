@@ -57,8 +57,8 @@ define( function( require ) {
     // create and add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
       var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
-      var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width / 2, pickable: false } );
-      frictionSliderLabel.centerY = -(frictionSliderNode.height + frictionSliderLabel.height) / 2 - 4;
+      var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, x: -PendulumLabConstants.THUMB_SIZE.width, pickable: false } );
+      frictionSliderLabel.centerY = -(frictionSliderNode.height + frictionSliderLabel.height) / 2 + 4;
       content.addChild( new Node( {
         children: [
           frictionSliderLabel,

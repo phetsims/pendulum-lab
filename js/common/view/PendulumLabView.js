@@ -91,7 +91,7 @@ define( function( require ) {
     this.systemSlidersNode.maxWidth = maxLeftWidthPanel;
 
     var slidersPanelNode = new VBox( {
-      spacing: 8, children: [
+      spacing: 4, children: [
         pendulumSlidersNode,
         this.systemSlidersNode
       ]
@@ -121,7 +121,7 @@ define( function( require ) {
       touchAreaDilation: 6
     } );
     resetAllButton.right = width - SCREEN_PADDING.RIGHT;
-    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 8;
+    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 10;
     resetAllButton.scale( 0.75 );
 
     // add ruler node
