@@ -120,8 +120,8 @@ define( function( require ) {
       listener: pendulumLabModel.reset.bind( pendulumLabModel ),
       touchAreaDilation: 6
     } );
-    resetAllButton.right = width -  SCREEN_PADDING.RIGHT;
-    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 4;
+    resetAllButton.right = width - SCREEN_PADDING.RIGHT;
+    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 8;
     resetAllButton.scale( 0.75 );
 
     // add ruler node
@@ -140,7 +140,7 @@ define( function( require ) {
     var returnButtonNode = new ReturnButtonNode( {
       listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
       centerX: resetAllButton.bounds.minX - 75,
-      centerY: height - SCREEN_PADDING.BOTTOM - 2,
+      centerY: height - SCREEN_PADDING.BOTTOM - 8,
       maxWidth: 120
     } );
 
