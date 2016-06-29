@@ -33,11 +33,11 @@ define( function( require ) {
     Stopwatch.call( this, {
       isVisible: isPeriodTraceVisibleProperty.value, // flag to control visibility of timer
       isFirst: true, // flag to trace timer pendulum
-      activePendulum: pendulums[ INIT_PENDULUM_NUMBER ]
+      activePendulum: pendulums[ INIT_PENDULUM_NUMBER ] // flag to identify pendulum
     } );
 
     // @private
-    this._pendulums = pendulums;
+    self._pendulums = pendulums;
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
@@ -45,10 +45,10 @@ define( function( require ) {
     } );
 
     // stop the period timer when it is not visible.
-    this.isVisibleProperty.onValue( false, this.stop.bind( this ) );
+    self.isVisibleProperty.onValue( false, this.stop.bind( this ) );
 
-    
-    this.isRunningProperty.link( function( isRunning ) {
+
+    self.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
         // clear time when timer revert to init state
         self.elapsedTime = 0;
@@ -97,8 +97,8 @@ define( function( require ) {
     } );
 
     // add path listeners
-    this.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
-    this.isFirstProperty.lazyLink( function( isFirst ) {
+    self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
+    self.isFirstProperty.lazyLink( function( isFirst ) {
       self.clear();
 
       self.activePendulum.periodTrace.isVisible = false;
@@ -122,15 +122,17 @@ define( function( require ) {
 
   return inherit( Stopwatch, PeriodTimer, {
     /**
-     * clears the timer
+     * Clears the timer and period traces
      * @private
      */
     clear: function() {
+      // reseting the timer
+      this.elapsedTime = 0;
+
+      // clearing the period traces
       if ( !this.isRunning ) {
         this.activePendulum.periodTrace.isVisible = false;
       }
-      this.elapsedTime = 0;
-
       this._pendulums.forEach( function( pendulum ) {
         pendulum.periodTrace.resetPathPoints();
       } );

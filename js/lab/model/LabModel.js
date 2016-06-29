@@ -33,7 +33,8 @@ define( function( require ) {
 
   return inherit( EnergyModel, LabModel, {
     /**
-     * Reset function that resets the pendulums and settings
+     * Reset function that resets the pendulums, settings, and period timer settings and default location
+     * @public
      */
     reset: function() {
       EnergyModel.prototype.reset.call( this );
