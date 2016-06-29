@@ -60,7 +60,7 @@ define( function( require ) {
       Body.CUSTOM
     ];
 
-    // @public (read-only) possible gravity range 0m/s to 25m/s
+    // @public (read-only) possible gravity range 0m/s^2 to 25m/s^2
     this.gravityRange = new Range( 0, 25, this.gravity );
 
     // @public (read-only) possible friction range
@@ -133,7 +133,7 @@ define( function( require ) {
     },
     /**
      * function that is stepped over in every frame takes care of stepping through the simulation.
-     * @param {float} dt - change in time measured in seconds.
+     * @param {number} dt - change in time measured in seconds.
      * @private
      */
     step: function( dt ) {
