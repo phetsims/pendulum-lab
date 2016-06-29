@@ -47,7 +47,7 @@ define( function( require ) {
     this.pendulums = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating ),
-      new Pendulum( 0.5, 1.5, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
+      new Pendulum( 0.5, 1.0, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating )
     ];
 
@@ -58,7 +58,6 @@ define( function( require ) {
       Body.EARTH,
       Body.JUPITER,
       Body.PLANET_X,
-
       Body.CUSTOM
     ];
 
