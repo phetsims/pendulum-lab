@@ -100,7 +100,7 @@ define( function( require ) {
     slidersPanelNode.top = SCREEN_PADDING.TOP - 2;
     this.slidersPanelNode = slidersPanelNode;
 
-    // add tools control panel
+    // create tools control panel (which controls the visibility of the ruler and stopwatch)
     var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.isVisibleProperty,
       pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty, { maxWidth: 180 } );
     toolsControlPanelNode.left = SCREEN_PADDING.LEFT;
@@ -109,13 +109,13 @@ define( function( require ) {
     // @protected
     this.toolsControlPanelNode = toolsControlPanelNode;
 
-    // add pendulum system control panel
+    // create pendulum system control panel (controls the length and mass of the pendula)
     var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.numberOfPendulumsProperty,
       pendulumLabModel.playProperty, pendulumLabModel.timeSpeedProperty, pendulumLabModel.stepManual.bind( pendulumLabModel ) );
     pendulumSystemControlPanelNode.centerX = width / 2;
     pendulumSystemControlPanelNode.bottom = height - SCREEN_PADDING.BOTTOM;
 
-    // add reset all button
+    // create reset all button
     var resetAllButton = new ResetAllButton( {
       listener: pendulumLabModel.reset.bind( pendulumLabModel ),
       touchAreaDilation: 6
@@ -124,7 +124,7 @@ define( function( require ) {
     resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 10;
     resetAllButton.scale( 0.75 );
 
-    // add ruler node
+    // create ruler node
     var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, modelViewTransform, this.layoutBounds );
 
     // @protected
@@ -136,10 +136,10 @@ define( function( require ) {
     // @protected
     this.stopwatchNode = stopwatchNode;
 
-    // add return button
+    // create return button
     var returnButtonNode = new ReturnButtonNode( {
       listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
-      centerX: resetAllButton.bounds.minX - 75,
+      centerX: resetAllButton.left - 75,
       centerY: height - SCREEN_PADDING.BOTTOM - 8,
       maxWidth: 120
     } );
@@ -166,6 +166,7 @@ define( function( require ) {
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
+      // set the drag bounds of the ruler and stopwatch
       rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
       stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
     } );
