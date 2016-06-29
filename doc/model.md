@@ -45,6 +45,6 @@ The Period Timer will time one period trace for a selected pendulum.
 The Return button will reset the position of the pendulum, but will not change any settings.
 
 Maximum Pendulum values:
-    -Length ( 0.10m < L < 2.00m )
-    -Mass   ( 0.10kg < M < 2.10kg )
+    -Length ( 0.10m < L < 1.00m )
+    -Mass   ( 0.10kg < M < 1.50kg )
     -Gravity ( 0.00m/s*s < G < 25.00m/s*s)
