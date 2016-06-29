@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function StopwatchNode( stopwatch, layoutBounds, toolsControlPanelNodeBounds ) {
     var self = this;
-    Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty );
+    Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty, { touchAreaDilation: 5 } );
 
     // place the stopwatch on the screen
     // @private
