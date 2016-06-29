@@ -23,7 +23,7 @@ define( function( require ) {
     } );
 
 
-    this.length = 2; // @public (read-only) length of ruler in meters
+    this.length = 1; // @public (read-only) length of ruler in meters
     
   }
 

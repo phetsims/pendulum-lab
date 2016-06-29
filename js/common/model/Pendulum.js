@@ -81,10 +81,10 @@ define( function( require ) {
     this.color = color; // {string}
 
     // possible length range in meters
-    this.lengthRange = new Range( 0.1, 2.0, length );
+    this.lengthRange = new Range( 0.1, 1.0, length );
 
     // possible mass range in kg
-    this.massRange = new Range( 0.1, 2.10, mass );
+    this.massRange = new Range( 0.1, 1.50, mass );
 
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
 
