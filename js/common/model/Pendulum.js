@@ -41,6 +41,7 @@ define( function( require ) {
     var self = this;
 
     // save link to global properties
+    // @private
     this.gravityProperty = gravityProperty;
     this.frictionProperty = frictionProperty;
 
@@ -75,18 +76,21 @@ define( function( require ) {
     this.peakEmitter = new Emitter();
     this.resetEmitter = new Emitter();
 
+    //@private
     this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
 
     // default color for this pendulum
+    // @public (read-only)
     this.color = color; // {string}
 
+
     // possible length range in meters
-    this.lengthRange = new Range( 0.1, 2.0, length );
+    this.lengthRange = new Range( 0.1, 2.0, length ); // @public (read-only)
 
     // possible mass range in kg
-    this.massRange = new Range( 0.1, 2.10, mass );
+    this.massRange = new Range( 0.1, 2.10, mass ); // @public (read-only)
 
-    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
+    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ); // @private
 
 
     // make tick on protractor visible after first drag
@@ -107,6 +111,7 @@ define( function( require ) {
       }
     } );
 
+    // update the angular velocity when the length changes
     this.lengthProperty.lazyLink( function( newLength, oldLength ) {
       self.angularVelocity = self.angularVelocity * oldLength / newLength;
       self.updateDerivedVariables( false ); // preserve thermal energy
@@ -125,6 +130,7 @@ define( function( require ) {
      * @param {number} theta - angular position
      * @param {number} omega - angular velocity
      * @returns {number}
+     * @private
      */
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
@@ -134,9 +140,9 @@ define( function( require ) {
      * Function that returns the tangential drag force on the pendulum per unit mass per unit length
      * The friction term has units of angular acceleration.
      * The friction has a linear and quadratic component (with speed)
-     * @private
      * @param {number} omega - the angular velocity of the pendulum
      * @returns {number}
+     * @private
      */
     frictionTerm: function( omega ) {
       return this.frictionProperty.value * this.length / Math.pow( this.mass, 1 / 3 ) * omega * Math.abs( omega ) +
@@ -146,8 +152,8 @@ define( function( require ) {
     /**
      * Stepper function for the pendulum model.
      * It uses a Runge-Kutta approach to solve the angular differential equation
-     * @public
      * @param {number} dt
+     * @public
      */
     step: function( dt ) {
       var theta = this.angle;
@@ -207,6 +213,7 @@ define( function( require ) {
      * @param {boolean} isPositiveDirection
      * @param {number} oldTheta
      * @param {number} newTheta
+     * @private
      */
     cross: function( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
       // If we crossed near oldTheta, our crossing DT is near oldDT. If we crossed near newTheta, our crossing DT is close
@@ -219,9 +226,9 @@ define( function( require ) {
     /**
      * Sends a signal that the peak angle (turning angle) has been reached
      * It sends the value of the peak angle
-     * @private
      * @param {number} oldTheta
      * @param {number} newTheta
+     * @private
      */
     peak: function( oldTheta, newTheta ) {
       // TODO: we could get a much better theta estimate.
@@ -234,8 +241,8 @@ define( function( require ) {
      * Given the angular position and velocity, this function updates derived variables :
      * namely the various energies( kinetic, thermal, potential and total energy)
      * and the linear variables (position, velocity, acceleration) of the pendulum
-     * @private
      * @param {boolean} energyChangeToThermal - is Friction present in the model
+     * @private
      */
     updateDerivedVariables: function( energyChangeToThermal ) {
       var speed = Math.abs( this.angularVelocity ) * this.length;
@@ -273,6 +280,7 @@ define( function( require ) {
 
     /**
      * Reset all the properties of this model.
+     * @public
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -282,6 +290,7 @@ define( function( require ) {
     /**
      * Function that determines if the pendulum is stationary, i.e. is controlled by the user or not moving
      * @returns {boolean}
+     * @public (read-only)
      */
     isStationary: function() {
       return this.isUserControlled || ( this.angle === 0 && this.angularVelocity === 0 && this.angularAcceleration === 0 );

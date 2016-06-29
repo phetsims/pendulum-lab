@@ -52,11 +52,13 @@ define( function( require ) {
     ];
 
     // all of the bodies that are possible
+    // @public (read-only)
     this.bodies = [
       Body.MOON,
       Body.EARTH,
       Body.JUPITER,
       Body.PLANET_X,
+
       Body.CUSTOM
     ];
 
