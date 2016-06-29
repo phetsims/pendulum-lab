@@ -68,6 +68,7 @@ define( function( require ) {
     this.rotate( Math.PI / 2 );
 
     // initial position of the ruler
+    // @private
     this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
     this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
 

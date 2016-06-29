@@ -41,6 +41,7 @@ define( function( require ) {
     var self = this;
 
     // save link to global properties
+    // @private
     this.gravityProperty = gravityProperty;
     this.frictionProperty = frictionProperty;
 
@@ -75,18 +76,17 @@ define( function( require ) {
     this.peakEmitter = new Emitter();
     this.resetEmitter = new Emitter();
 
-    this.height = 0; // {number}, height from where the pendulum would be at rest, in meters.
-
     // default color for this pendulum
+    // @public (read-only)
     this.color = color; // {string}
-
+    
     // possible length range in meters
-    this.lengthRange = new Range( 0.1, 1.0, length );
+    this.lengthRange = new Range( 0.1, 1.0, length ); // @public (read-only)
 
     // possible mass range in kg
-    this.massRange = new Range( 0.1, 1.50, mass );
+    this.massRange = new Range( 0.1, 1.50, mass ); // @public (read-only)
 
-    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
+    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ); // @private
 
 
     // make tick on protractor visible after first drag
@@ -107,6 +107,7 @@ define( function( require ) {
       }
     } );
 
+    // update the angular velocity when the length changes
     this.lengthProperty.lazyLink( function( newLength, oldLength ) {
       self.angularVelocity = self.angularVelocity * oldLength / newLength;
       self.updateDerivedVariables( false ); // preserve thermal energy
@@ -125,6 +126,7 @@ define( function( require ) {
      * @param {number} theta - angular position
      * @param {number} omega - angular velocity
      * @returns {number}
+     * @private
      */
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
@@ -202,6 +204,7 @@ define( function( require ) {
      * Function that emits when the pendulum is crossing the equilibrium point (theta=0)
      * Given that the time step is finite, we attempt to do a linear interpolation, to find the
      * precise time at which the pendulum cross the vertical.
+     * @private
      * @param {number} oldDT
      * @param {number} newDT
      * @param {boolean} isPositiveDirection
@@ -241,13 +244,13 @@ define( function( require ) {
       var speed = Math.abs( this.angularVelocity ) * this.length;
 
       this.angularAcceleration = this.omegaDerivative( this.angle, this.angularVelocity );
-      this.height = this.length * ( 1 - Math.cos( this.angle ) );
+      var height = this.length * ( 1 - Math.cos( this.angle ) );
 
       var oldKineticEnergy = this.kineticEnergy;
       this.kineticEnergy = 0.5 * this.mass * speed * speed;
 
       var oldPotentialEnergy = this.potentialEnergy;
-      this.potentialEnergy = this.mass * this.gravityProperty.value * this.height;
+      this.potentialEnergy = this.mass * this.gravityProperty.value * height;
 
       if ( energyChangeToThermal ) {
         this.thermalEnergy += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergy + this.potentialEnergy );
@@ -273,6 +276,7 @@ define( function( require ) {
 
     /**
      * Reset all the properties of this model.
+     * @public
      */
     reset: function() {
       PropertySet.prototype.reset.call( this );
@@ -282,6 +286,7 @@ define( function( require ) {
     /**
      * Function that determines if the pendulum is stationary, i.e. is controlled by the user or not moving
      * @returns {boolean}
+     * @public (read-only)
      */
     isStationary: function() {
       return this.isUserControlled || ( this.angle === 0 && this.angularVelocity === 0 && this.angularAcceleration === 0 );
