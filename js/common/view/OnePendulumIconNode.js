@@ -37,6 +37,7 @@ define( function( require ) {
     //create the rectangle housing the icon
     this.addChild( new Rectangle( 0, 0, ICON_SIZE, ICON_SIZE ) );
 
+    // @private
     this.content = new Node();
     this.addChild( this.content );
 

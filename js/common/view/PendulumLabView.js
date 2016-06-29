@@ -73,6 +73,8 @@ define( function( require ) {
     // add panel with sliders for pendulums
     var bodiesListNode = new Node();
     var pendulumSlidersNode = new PendulumSlidersNode( pendulumLabModel );
+
+    // @protected
     this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, bodiesListNode );
 
     // adjust width of panels
@@ -103,6 +105,8 @@ define( function( require ) {
       pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty, { maxWidth: 180 } );
     toolsControlPanelNode.left = SCREEN_PADDING.LEFT;
     toolsControlPanelNode.bottom = height - SCREEN_PADDING.BOTTOM;
+
+    // @protected
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // add pendulum system control panel
@@ -122,10 +126,14 @@ define( function( require ) {
 
     // add ruler node
     var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, modelViewTransform, this.layoutBounds );
+
+    // @protected
     this.rulerNode = rulerNode;
 
     // add timer node
     var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, this.layoutBounds, toolsControlPanelNode.bounds );
+
+    // @protected
     this.stopwatchNode = stopwatchNode;
 
     // add return button
@@ -136,6 +144,7 @@ define( function( require ) {
       maxWidth: 120
     } );
 
+    // @protected
     this.arrowsPanelLayer = new Node();
     this.energyGraphLayer = new Node();
     this.periodTimerLayer = new Node();
