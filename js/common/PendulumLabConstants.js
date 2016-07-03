@@ -42,10 +42,10 @@ define( function( require ) {
     SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),          // Determines bounds for sim   Bounds2( minX, minY, maxX, maxY )
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: {
-      TOP: 15,
-      RIGHT: 15,
-      BOTTOM: 15,
-      LEFT: 15
+      TOP: 14,
+      RIGHT: 14,
+      BOTTOM: 14,
+      LEFT: 14
     },
     // create a model view transform (assuming the dev view screen is 768 wide and the 504 high)
     // the height of the screen is 4/3 m = 1.33 m

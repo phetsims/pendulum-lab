@@ -59,7 +59,7 @@ define( function( require ) {
     backgroundDragNode.addInputListener( dragListener );
 
     // create period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform);
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform );
 
     // add panel with sliders for pendulums
     var bodiesListNode = new Node();
@@ -87,8 +87,8 @@ define( function( require ) {
         this.systemSlidersNode
       ]
     } );
-    slidersPanelNode.right = width - SCREEN_PADDING.RIGHT - 5;
-    slidersPanelNode.top = SCREEN_PADDING.TOP - 2;
+    slidersPanelNode.right = width - SCREEN_PADDING.RIGHT;
+    slidersPanelNode.top = SCREEN_PADDING.TOP;
     this.slidersPanelNode = slidersPanelNode;
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
@@ -112,7 +112,7 @@ define( function( require ) {
       touchAreaDilation: 6
     } );
     resetAllButton.right = width - SCREEN_PADDING.RIGHT;
-    resetAllButton.centerY = height - SCREEN_PADDING.BOTTOM - 10;
+    resetAllButton.bottom = height - 2;
     resetAllButton.scale( 0.75 );
 
     // create ruler node
@@ -131,7 +131,7 @@ define( function( require ) {
     var returnButtonNode = new ReturnButtonNode( {
       listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
       centerX: resetAllButton.left - 75,
-      centerY: height - SCREEN_PADDING.BOTTOM - 8,
+      bottom: height - SCREEN_PADDING.BOTTOM,
       maxWidth: 120
     } );
 
