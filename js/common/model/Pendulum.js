@@ -79,7 +79,7 @@ define( function( require ) {
     // default color for this pendulum
     // @public (read-only)
     this.color = color; // {string}
-    
+
     // possible length range in meters
     this.lengthRange = new Range( 0.1, 1.0, length ); // @public (read-only)
 

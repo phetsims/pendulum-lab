@@ -23,6 +23,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var pattern0NumberOfDegreesDegreeSymbolString = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
@@ -46,6 +47,8 @@ define( function( require ) {
 
     Node.call( this, _.extend( { pickable: false }, options ) );
 
+    var viewOriginPosition = modelViewTransform.modelToViewPosition( new Vector2( 0, 0 ) );
+    this.translation = viewOriginPosition;
     // create central dash line
     if ( pendulums[ 0 ] ) {
       this.addChild( new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulums[ 0 ].lengthRange.max ), {
@@ -70,12 +73,13 @@ define( function( require ) {
     var y1;
     var x2;
     var y2;
+
     // loop for 180 degrees
     for ( var currentAngleDeg = 0; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
       // calculate the angle in radians
       currentAngleRad = currentAngleDeg * Math.PI / 180;
 
-      // if the angle is a mutiple of 10 then make the tick the longest length
+      // if the angle is a multiple of 10 then make the tick the longest length
       if ( currentAngleDeg % 10 === 0 ) {
         lineLength = TICK_10_LENGTH;
       }
@@ -93,7 +97,7 @@ define( function( require ) {
       x2 = (RADIUS + lineLength) * Math.cos( currentAngleRad );
       y2 = (RADIUS + lineLength) * Math.sin( currentAngleRad );
 
-      // draw the tick first by finding the two postions then by drawing a line between them
+      // draw the tick first by finding the two positions then by drawing a line between them
       protractorShape.moveTo( x1, y1 );
       protractorShape.lineTo( x2, y2 );
     }
@@ -168,7 +172,7 @@ define( function( require ) {
       } );
 
       // set ticks visibility observer
-      // present for the lifetime of the sime
+      // present for the lifetime of the sim
       pendulum.multilink( [ 'isTickVisible', 'isVisible' ], function() {
         var isVisible = pendulum.isTickVisible && pendulum.isVisible;
         tickNodeLeft.visible = isVisible;

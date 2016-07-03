@@ -47,6 +47,8 @@ define( function( require ) {
     Node.call( this, options );
     this.preventFit = true;
 
+    this.viewOriginPosition = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+    this.negativeViewOriginPosition = modelViewTransform.modelToViewPosition( Vector2.ZERO ).times( -1 );
     this.draggableItems = [];
 
     var pendulumNodes = [];
@@ -62,7 +64,10 @@ define( function( require ) {
 
         // create the visual representation of a rod that joins the fulcrum point to the bob
         // initially set to be vertical
-        var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulum.length ), { stroke: 'black', pickable: false } );
+        var solidLine = new Line( 0,0,0, modelViewTransform.modelToViewDeltaY( pendulum.length ), {
+          stroke: 'black',
+          pickable: false
+        } );
 
         // create the visual representation of a pendulum bob (a rectangle with a string and a line across the rectangle)
         var pendulumRect = new Node( {
@@ -194,7 +199,10 @@ define( function( require ) {
         // update pendulum rotation, pendulum.angle is radians
         // we are using an inverted modelViewTransform, hence we multiply the view angle by minus one
         pendulum.angleProperty.link( function( angle ) {
+          // TODO using a matrix transformation instead?
+          pendulumNode.translation = self.negativeViewOriginPosition;
           pendulumNode.rotation = -angle;
+          pendulumNode.translation = self.viewOriginPosition;
         } );
 
         // update pendulum components position

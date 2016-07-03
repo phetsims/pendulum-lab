@@ -14,7 +14,6 @@ define( function( require ) {
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -29,12 +28,10 @@ define( function( require ) {
    */
   function EnergyScreen() {
 
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
-
     Screen.call( this, screenEnergyString, new Image( energyImage ),
       function() { return new EnergyModel( true ); },
       //TODO magic number
-      function( model ) { return new EnergyView( model, modelViewTransform, 283 ); },
+      function( model ) { return new EnergyView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 283 ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

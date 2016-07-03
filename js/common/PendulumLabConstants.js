@@ -13,6 +13,8 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var PendulumLabConstants = {
     // pendulums
@@ -37,16 +39,20 @@ define( function( require ) {
     TWEAKERS_PRECISION: 2,
 
     // common
-    MODEL_BOUNDS: new Bounds2( 0, -1.34, 1.34 * (768 / 504), 0 ), // Maintains aspect ratio UI   Bounds2( minX, minY, maxX, maxY )
-    SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),          // Determines bounds for sim   Bounds2( minX, minY, maxX, maxY ) 
+    SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),          // Determines bounds for sim   Bounds2( minX, minY, maxX, maxY )
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: {
       TOP: 15,
       RIGHT: 15,
       BOTTOM: 15,
       LEFT: 15
-    }
-  };
+    },
+    // create a model view transform (assuming the dev view screen is 768 wide and the 504 high)
+    // the height of the screen is 4/3 m = 1.33 m
+    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2( 0, 0 ), new Vector2( 768 / 2, 15 ), 504 / 1.33 )
+
+}
+  ;
 
   pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );
 

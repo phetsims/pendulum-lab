@@ -12,7 +12,6 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -29,12 +28,9 @@ define( function( require ) {
    */
   function IntroScreen() {
 
-    // model coordinates are the same as view coordinates
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
-
     Screen.call( this, screenIntroString, new Image( introImage ),
       function() { return new PendulumLabModel( true ); },
-      function( model ) { return new PendulumLabView( model, modelViewTransform ); },
+      function( model ) { return new PendulumLabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

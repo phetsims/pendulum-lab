@@ -39,24 +39,18 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabView( pendulumLabModel, modelViewTransform ) {
-    ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, 768, 504 ) } );
+    ScreenView.call( this, { layoutBounds: PendulumLabConstants.SIM_BOUNDS } );
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
     // create protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, modelViewTransform );
-    protractorNode.centerX = width / 2;
-    protractorNode.top = SCREEN_PADDING.TOP - 5;
 
     // create pendulums
     var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, modelViewTransform, {
       isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
     } );
-
-    // place pendulums
-    pendulumsNode.centerX = width / 2;
-    pendulumsNode.top = SCREEN_PADDING.TOP;
 
     // create drag listener
     var backgroundDragNode = new Plane();
@@ -65,10 +59,7 @@ define( function( require ) {
     backgroundDragNode.addInputListener( dragListener );
 
     // create period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform, {
-      x: width / 2,
-      y: SCREEN_PADDING.TOP
-    } );
+    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform);
 
     // add panel with sliders for pendulums
     var bodiesListNode = new Node();

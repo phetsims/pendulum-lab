@@ -16,6 +16,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Timer = require( 'PHET_CORE/Timer' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
@@ -33,6 +34,9 @@ define( function( require ) {
       rotation: Math.PI / 2,
       preventFit: true
     }, options ) );
+
+    var viewOriginPosition = modelViewTransform.modelToViewPosition( new Vector2( 0, 0 ) );
+    this.translation = viewOriginPosition;
 
     pendulums.forEach( function( pendulum ) {
       var intervalId = null; // interval id for fading timer

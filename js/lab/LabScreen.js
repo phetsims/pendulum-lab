@@ -14,7 +14,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var LabModel = require( 'PENDULUM_LAB/lab/model/LabModel' );
   var LabView = require( 'PENDULUM_LAB/lab/view/LabView' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -29,13 +29,10 @@ define( function( require ) {
    */
   function LabScreen() {
 
-    // model coordinates are the same as view coordinates
-    var modelViewTransform = ModelViewTransform2.createRectangleInvertedYMapping( PendulumLabConstants.MODEL_BOUNDS, PendulumLabConstants.SIM_BOUNDS );
-
     Screen.call( this, screenLabString, new Image( labImage ),
       function() { return new LabModel(); },
       //TODO magic number 2
-      function( model ) { return new LabView( model, modelViewTransform, 225 ); },
+      function( model ) { return new LabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 225 ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }
