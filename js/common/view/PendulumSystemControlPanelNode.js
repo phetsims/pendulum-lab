@@ -65,7 +65,8 @@ define( function( require ) {
               radius: 16,
               touchAreaDilation: 5
             } ),
-            new StepForwardButton( playProperty, {
+            new StepForwardButton( {
+              playingProperty: playProperty,
               listener: stepFunction,
               radius: 12,
               touchAreaDilation: 5
