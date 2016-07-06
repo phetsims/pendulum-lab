@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
