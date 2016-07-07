@@ -24,7 +24,6 @@ define( function( require ) {
   // constants
   var FONT = new PhetFont( 10 );
   var RULER_HEIGHT = 34;
-  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING; // {Object} 
   var TICK_INTERVAL = 5; // tick interval in cm
 
   /**
@@ -40,8 +39,7 @@ define( function( require ) {
     var tickLabel;
     var rulerTicks = [ '' ]; // zero tick is not labeled
     for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
-      // todo TRY TO DECIPHER THIS,
-      // if the current tick is a multiple of 20 then label it as such otherwise it is not labeled.
+      // if the current tick is a multiple of twice the Tick interval then label it as such otherwise it is not labeled.
       tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
@@ -66,11 +64,6 @@ define( function( require ) {
 
     // make it a vertical ruler
     this.rotate( Math.PI / 2 );
-
-    // initial position of the ruler
-    // @private
-    this.left = layoutBounds.minX + SCREEN_PADDING.TOP;
-    this.top = layoutBounds.minY + SCREEN_PADDING.LEFT + 10;
 
     // @public 
     this.movableDragHandler = new MovableDragHandler( ruler.locationProperty, {

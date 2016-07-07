@@ -121,7 +121,7 @@ define( function( require ) {
     this.rulerNode = rulerNode;
 
     // add timer node
-    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, this.layoutBounds, toolsControlPanelNode.bounds );
+    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, this.layoutBounds );
 
     // @protected
     this.stopwatchNode = stopwatchNode;
@@ -172,6 +172,11 @@ define( function( require ) {
     this.addChild( rulerNode );
     this.addChild( this.periodTimerLayer );
     this.addChild( stopwatchNode );
+
+    rulerNode.left = this.layoutBounds.minX + SCREEN_PADDING.TOP;
+    rulerNode.top = this.layoutBounds.minY + SCREEN_PADDING.LEFT + 10;
+    stopwatchNode.left = rulerNode.right + 15;
+    stopwatchNode.bottom = rulerNode.bottom;
 
     // set initial value for ruler and stopwatch 'location' property
     pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );

@@ -18,19 +18,13 @@ define( function( require ) {
   /**
    * @param {Stopwatch} stopwatch - Model of stopwatch.
    * @param {Bounds2} layoutBounds - Bounds of screen view.
-   * @param {Bounds2} toolsControlPanelNodeBounds - Bounds of tool control panel. Necessary to set relative position of stopwatch.
    * @constructor
    */
-  function StopwatchNode( stopwatch, layoutBounds, toolsControlPanelNodeBounds ) {
+  function StopwatchNode( stopwatch, layoutBounds) {
     var self = this;
     Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty, { touchAreaDilation: 5 } );
 
-    // place the stopwatch on the screen
-    // @private
-    this.centerX = toolsControlPanelNodeBounds.maxX - this.width / 2;
-    this.centerY = toolsControlPanelNodeBounds.minY - this.height / 2 - 5;
-
-    // @public 
+    // @public
     this.movableDragHandler = new MovableDragHandler( stopwatch.locationProperty, {
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } );
