@@ -75,14 +75,14 @@ define( function( require ) {
     // create value label
     var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
       centerX: 0,
-      centerY: -1,
+      centerY: 0,
       font: FONT_LABEL,
       maxWidth: labelBackgroundWidth - 6
     } );
 
     // describes panel box for pendulum mass and length
     VBox.call( this, _.extend( {
-      spacing: 6,
+      spacing: 4,
       resize: false,
       children: [
         // arrow buttons and value panel
@@ -93,7 +93,7 @@ define( function( require ) {
               pickable: false,
               children: [
                 new Rectangle( 0, 0, labelBackgroundWidth, arrowButtonMinus.height, 3, 3, {
-                  centerY: -1,
+                  centerY: 0,
                   centerX: 0,
                   fill: '#FFF',
                   stroke: 'black',
