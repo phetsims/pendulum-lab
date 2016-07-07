@@ -41,7 +41,7 @@ define( function( require ) {
     this.rulerNode.centerX += (energyGraphNode.width + 10);
     pendulumLabModel.ruler.setInitialLocationValue( this.rulerNode.center );
 
-    this.stopwatchNode.left = this.rulerNode.bounds.maxX  + 10;
+    this.stopwatchNode.left = this.rulerNode.right  + 10;
     pendulumLabModel.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
   }
 

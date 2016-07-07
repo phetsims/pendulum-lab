@@ -14,7 +14,7 @@ define( function( require ) {
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
 
   /**
-   * creates a ruler with length of 2 meters
+   * creates a ruler with length of 1 meter
    * @constructor
    */
   function Ruler() {

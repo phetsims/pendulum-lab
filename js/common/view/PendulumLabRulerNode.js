@@ -69,8 +69,8 @@ define( function( require ) {
 
     // initial position of the ruler
     // @private
-    this.centerX = layoutBounds.minX + SCREEN_PADDING.TOP + this.width / 2;
-    this.centerY = layoutBounds.minY + SCREEN_PADDING.LEFT + this.height / 2 + 10;
+    this.left = layoutBounds.minX + SCREEN_PADDING.TOP;
+    this.top = layoutBounds.minY + SCREEN_PADDING.LEFT + 10;
 
     // @public 
     this.movableDragHandler = new MovableDragHandler( ruler.locationProperty, {
