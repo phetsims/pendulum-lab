@@ -46,11 +46,11 @@ define( function( require ) {
     this.periodTimerLayer.addChild( periodTimerNode );
 
     // layout the nodes
-    periodTimerNode.right = this.slidersPanelNode.bounds.minX - 10;
+    periodTimerNode.right = this.slidersPanelNode.left - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     arrowsPanelNode.left = SCREEN_PADDING.LEFT;
     arrowsPanelNode.top = SCREEN_PADDING.TOP;
-    this.energyGraphNode.centerY += (arrowsPanelNode.height + 8); // move energyGraphNode to the bottom
+    this.energyGraphNode.top = arrowsPanelNode.bottom + 8; // move energyGraphNode to the bottom
 
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
