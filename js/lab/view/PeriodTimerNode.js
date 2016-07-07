@@ -159,8 +159,8 @@ define( function( require ) {
       top: PANEL_PAD,
 
       children: [
-        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: periodTimerPendulumsSelector.width * 0.80 } ),
-        new Node( { children: [ textBackground, readoutText ], pickable: false } ),
+        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: periodTimerPendulumsSelector.width } ),
+        new Node( { children: [ textBackground, readoutText ], pickable: false, maxWidth: periodTimerPendulumsSelector.width } ),
         periodTimerPendulumsSelector
       ]
     } );
