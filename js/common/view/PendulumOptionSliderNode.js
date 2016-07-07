@@ -60,7 +60,7 @@ define( function( require ) {
     var arrowButtonPlus = new ArrowButton( 'right', function() {
       trackProperty.value = Util.toFixedNumber( Math.min( trackRange.max, trackProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
     }, { scale: 0.5 } );
-    // add a touch aread to the plus arrow
+    // add a touch area to the plus arrow
     arrowButtonPlus.touchArea = arrowButtonPlus.localBounds.withOffsets( ARROW_TOUCH_PADDING_IN,
       ARROW_TOUCH_PADDING_TOP,
       ARROW_TOUCH_PADDING_OUT,
