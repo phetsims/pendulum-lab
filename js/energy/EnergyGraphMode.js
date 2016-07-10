@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
 
   var EnergyGraphMode = Object.freeze( {
     ONE: 'One',

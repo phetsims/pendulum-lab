@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );

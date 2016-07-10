@@ -64,7 +64,7 @@ define( function( require ) {
 
         // create the visual representation of a rod that joins the fulcrum point to the bob
         // initially set to be vertical
-        var solidLine = new Line( 0,0,0, modelViewTransform.modelToViewDeltaY( pendulum.length ), {
+        var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaY( pendulum.length ), {
           stroke: 'black',
           pickable: false
         } );
@@ -229,6 +229,4 @@ define( function( require ) {
   pendulumLab.register( 'PendulumsNode', PendulumsNode );
 
   return inherit( Node, PendulumsNode );
-
-  // TODO we need a reset function for the arrows
 } );

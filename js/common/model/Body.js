@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
 
   // strings
   var customString = require( 'string!PENDULUM_LAB/custom' );

@@ -24,7 +24,7 @@ define( function( require ) {
 
 
     this.length = 1; // @public (read-only) length of ruler in meters
-    
+
   }
 
   pendulumLab.register( 'Ruler', Ruler );

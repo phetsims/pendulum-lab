@@ -135,7 +135,7 @@ define( function( require ) {
     /**
      * function that is stepped over in every frame takes care of stepping through the simulation.
      * @param {number} dt - change in time measured in seconds.
-     * @private
+     * @public
      */
     step: function( dt ) {
       if ( this.play ) {

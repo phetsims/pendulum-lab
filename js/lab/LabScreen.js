@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab');
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
   var LabModel = require( 'PENDULUM_LAB/lab/model/LabModel' );

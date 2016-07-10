@@ -20,7 +20,7 @@ define( function( require ) {
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @constructor
    */
-  function StopwatchNode( stopwatch, layoutBounds) {
+  function StopwatchNode( stopwatch, layoutBounds ) {
     var self = this;
     Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty, { touchAreaDilation: 5 } );
 

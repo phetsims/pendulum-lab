@@ -126,7 +126,7 @@ define( function( require ) {
      * @private
      */
     clear: function() {
-      // reseting the timer
+      // resetting the timer
       this.elapsedTime = 0;
 
       // clearing the period traces

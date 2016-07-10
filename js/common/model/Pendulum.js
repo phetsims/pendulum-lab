@@ -227,8 +227,7 @@ define( function( require ) {
      * @param {number} newTheta
      */
     peak: function( oldTheta, newTheta ) {
-      // TODO: we could get a much better theta estimate.
-      // a better estimate is theta =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
+      // a slightly better estimate is turningAngle =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
       var turningAngle = (oldTheta + newTheta > 0) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
       this.peakEmitter.emit1( turningAngle );
     },
@@ -310,7 +309,9 @@ define( function( require ) {
     resetMotion: function() {
       this.angleProperty.reset();
       this.angularVelocityProperty.reset();
-      this.isTickVisibleProperty.reset(); // TODO: why?
+
+      // ticks are initially invisible
+      this.isTickVisibleProperty.reset();
 
       this.periodTrace.resetPathPoints();
 
@@ -329,7 +330,6 @@ define( function( require ) {
     /**
      * Takes our angle modulo 2pi between -pi and pi.
      * @public
-     *
      * @param {number} angle
      * @returns {number}
      */
