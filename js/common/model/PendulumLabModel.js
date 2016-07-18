@@ -15,7 +15,7 @@ define( function( require ) {
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
@@ -62,10 +62,10 @@ define( function( require ) {
     ];
 
     // @public (read-only) possible gravity range 0m/s^2 to 25m/s^2
-    this.gravityRange = new Range( 0, 25, this.gravity );
+    this.gravityRange = new RangeWithValue( 0, 25, this.gravity );
 
     // @public (read-only) possible friction range
-    this.frictionRange = new Range( 0, 0.5115, 0 );
+    this.frictionRange = new RangeWithValue( 0, 0.5115, 0 );
 
     // @public (read-only) model for ruler
     this.ruler = new Ruler();

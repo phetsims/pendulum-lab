@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -81,10 +81,10 @@ define( function( require ) {
     this.color = color; // {string}
 
     // possible length range in meters
-    this.lengthRange = new Range( 0.1, 1.0, length ); // @public (read-only)
+    this.lengthRange = new RangeWithValue( 0.1, 1.0, length ); // @public (read-only)
 
     // possible mass range in kg
-    this.massRange = new Range( 0.1, 1.50, mass ); // @public (read-only)
+    this.massRange = new RangeWithValue( 0.1, 1.50, mass ); // @public (read-only)
 
     this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ); // @private
 

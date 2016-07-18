@@ -17,7 +17,7 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
+  var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Util = require( 'DOT/Util' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -63,7 +63,7 @@ define( function( require ) {
     var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
 
     // range the slider can have
-    var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
+    var sliderValueRange = new RangeWithValue( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
 
     // the slider itself
     var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
