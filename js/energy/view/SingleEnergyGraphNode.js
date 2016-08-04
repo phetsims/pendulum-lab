@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var ClearThermalButton = require( 'PENDULUM_LAB/energy/view/ClearThermalButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -129,11 +130,17 @@ define( function( require ) {
       centerX: totalCenterX
     } );
 
+    var clearThermalButton = new ClearThermalButton( pendulum.thermalEnergyProperty, {
+      centerX: thermalCenterX,
+      top: thermalLabel.bottom + 12
+    } );
+
+
     Node.call( this, {
       preventFit: true,
       children: [
         header,
-        kineticLabel, potentialLabel, thermalLabel, totalLabel,
+        kineticLabel, potentialLabel, thermalLabel, totalLabel, clearThermalButton,
         new Node( {
           // flip the coordinate frame for easier positioning
           matrix: Matrix3.scale( 1, -1 ),

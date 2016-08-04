@@ -32,7 +32,7 @@ define( function( require ) {
     Screen.call( this, screenLabString, new Image( labImage ),
       function() { return new LabModel(); },
       //TODO magic number 2
-      function( model ) { return new LabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 225 ); },
+      function( model ) { return new LabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 195 ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }

@@ -92,7 +92,7 @@ define( function( require ) {
     radioButtonTwo.setEnabled = setEnabledRadioButton.bind( radioButtonTwo );
     radioButtonTwo.touchArea = radioButtonTwo.localBounds.dilatedXY( SELECT_TOUCH_X_PADDING, SELECT_TOUCH_Y_PADDING );
 
-// create zoom buttons
+    // create zoom buttons
     var zoomOutButton = new ZoomButton( {
       in: false,
       listener: function() {
@@ -129,7 +129,7 @@ define( function( require ) {
     AccordionBox.call( this, new VBox( {
         spacing: 5, resize: false, children: [
           new HBox( { spacing: 20, children: [ radioButtonOne, radioButtonTwo ], resize: false } ),
-          new Panel( content, { resize: false, pickable: false } ),
+          new Panel( content, { resize: false } ),
           new HBox( { spacing: 20, children: [ zoomOutButton, zoomInButton ], resize: false } )
         ]
       } ),

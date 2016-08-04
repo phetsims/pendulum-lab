@@ -31,7 +31,7 @@ define( function( require ) {
     Screen.call( this, screenEnergyString, new Image( energyImage ),
       function() { return new EnergyModel( true ); },
       //TODO magic number
-      function( model ) { return new EnergyView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 283 ); },
+      function( model ) { return new EnergyView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 253 ); },
       { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
     );
   }
