@@ -1,31 +1,47 @@
 {
   "energy-screen-icon.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Amy Rouinfar"
+  },
+  "intro-navbar-icon.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amy Rouinfar"
   },
   "intro-screen-icon.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Amy Rouinfar"
+  },
+  "intro-navbar-icon.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amy Rouinfar"
   },
   "lab-screen-icon.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Amy Rouinfar"
   },
   "trash-can.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
@@ -33,7 +49,7 @@
   },
   "trash-can-disabled.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",

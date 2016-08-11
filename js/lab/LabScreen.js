@@ -22,18 +22,22 @@ define( function( require ) {
   var screenLabString = require( 'string!PENDULUM_LAB/screen.lab' );
 
   // images
-  var labImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
+  var labScreenImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
+  var labNavbarImage = require( 'mipmap!PENDULUM_LAB/lab-navbar-icon.png' );
 
   /**
    * @constructor
    */
   function LabScreen() {
 
-    Screen.call( this, screenLabString, new Image( labImage ),
+    Screen.call( this, screenLabString, new Image( labScreenImage ),
       function() { return new LabModel(); },
       //TODO magic number 2
       function( model ) { return new LabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 195 ); },
-      { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
+      {
+        backgroundColor: PendulumLabConstants.BACKGROUND_COLOR,
+        navigationBarIcon: new Image( labNavbarImage )
+      }
     );
   }
 
