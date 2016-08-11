@@ -49,7 +49,7 @@ define( function( require ) {
       yMargin: 2
     } );
 
-    this.mouseArea = this.bounds.dilated( 5 );
+    this.touchArea = this.bounds.dilated( 5 );
     this.mutate( options );
 
     thermalEnergyProperty.link( function( thermalEnergy ) {
