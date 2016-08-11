@@ -132,7 +132,7 @@ define( function( require ) {
 
     var clearThermalButton = new ClearThermalButton( pendulum.thermalEnergyProperty, {
       centerX: thermalCenterX,
-      top: thermalLabel.bottom + 12
+      top: thermalLabel.bottom + 5
     } );
 
 

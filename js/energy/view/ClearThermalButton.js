@@ -34,19 +34,19 @@ define( function( require ) {
       cursor: 'pointer'
     }, options );
 
-    var icon = new Image( trashCanImage, { scale: 0.22 } );
+    var icon = new Image( trashCanImage, { scale: 0.16 } );
 
     RectangularPushButton.call( this, {
       content: icon,
       baseColor: new Color( 230, 230, 240 ),
       disabledBaseColor: 'white',
-      cornerRadius: 6,
+      cornerRadius: 4,
       listener: function() {
         thermalEnergyProperty.reset();
       },
       buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy,
-      xMargin: 7,
-      yMargin: 3
+      xMargin: 5,
+      yMargin: 2
     } );
 
     this.mouseArea = this.bounds.dilated( 5 );
