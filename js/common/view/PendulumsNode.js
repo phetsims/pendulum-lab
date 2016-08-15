@@ -55,7 +55,11 @@ define( function( require ) {
     var velocityArrows = [];
     var accelerationArrows = [];
 
-    // add pendulums
+    // TODO: there should exist a PendulumNode Type (singular) so that there is a one
+    // to one correspondence between pendulum and pendulumNode, nothing here depends on pendulums.
+    // pendulumNode should be responsible for the color of the pendulum and other view properties
+    // the array pendulums (and the for loop forEach), should be created in the pendulumLabModel
+
     pendulums.forEach( function( pendulum, pendulumIndex ) {
         var massToScale = function( mass ) {
           // height/width/depth of mass scale by cube-root to maintain density
