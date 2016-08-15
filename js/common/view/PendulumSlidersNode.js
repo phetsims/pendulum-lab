@@ -39,10 +39,9 @@ define( function( require ) {
    * @constructor
    */
   function PendulumSlidersNode( pendulumLabModel, options ) {
-    var self = this;
+
     var pendulumSlidersNodeStorage = [];
 
-    this.optionSliders = [];
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
     this._content = content;
 
@@ -56,7 +55,6 @@ define( function( require ) {
         pendulum.color,
         { y: SPACING_CONTENT }
       );
-      self.optionSliders.push( lengthSlider );
 
       // create mass slider
       var massSlider = new PendulumOptionSliderNode(
@@ -66,7 +64,6 @@ define( function( require ) {
         pendulum.color,
         { y: SPACING_CONTENT }
       );
-      self.optionSliders.push( massSlider );
 
       // create vertical box for length and mass sliders
       var vBoxSlidersNode = new VBox( {
