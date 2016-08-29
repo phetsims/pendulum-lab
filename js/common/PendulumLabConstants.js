@@ -35,6 +35,8 @@ define( function( require ) {
       // sliders
       TRACK_SIZE: new Dimension2( 95, 0.5 ),
       THUMB_SIZE: new Dimension2( 10, 17 ),
+      THUMB_TOUCH_AREA_X_DILATION: 5,
+      THUMB_TOUCH_AREA_Y_DILATION: 4,
       SLIDER_PRECISION: 1,
       TWEAKERS_PRECISION: 2,
 

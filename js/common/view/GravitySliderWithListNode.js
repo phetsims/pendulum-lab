@@ -85,6 +85,8 @@ define( function( require ) {
       majorTickLength: 10,
       trackSize: PendulumLabConstants.TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE,
+      thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
+      thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
       thumbFillEnabled: '#00C4DF',
       thumbFillHighlighted: '#71EDFF'
     } );

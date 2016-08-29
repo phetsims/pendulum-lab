@@ -117,6 +117,8 @@ define( function( require ) {
             new HSlider( sliderProperty, trackRange, {
               trackSize: PendulumLabConstants.TRACK_SIZE,
               thumbSize: PendulumLabConstants.THUMB_SIZE,
+              thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
+              thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
               thumbFillEnabled: color
             } ),
 
