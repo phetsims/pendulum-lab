@@ -124,6 +124,8 @@ define( function( require ) {
     var graphUnitsSwitch = new ABSwitch( periodTimer.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
+      thumbTouchAreaXDilation: 3.5,
+      thumbTouchAreaYDilation: 3.5,
       setEnabled: null // Do not highlight the selected mass more than the other
     } );
 
