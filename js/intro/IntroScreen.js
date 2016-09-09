@@ -22,20 +22,24 @@ define( function( require ) {
 
   // images
   var introScreenImage = require( 'mipmap!PENDULUM_LAB/intro-screen-icon.png' );
-  var introNavbarImage= require( 'mipmap!PENDULUM_LAB/intro-navbar-icon.png' );
+  var introNavbarImage = require( 'mipmap!PENDULUM_LAB/intro-navbar-icon.png' );
 
   /**
    * @constructor
    */
   function IntroScreen() {
 
-    Screen.call( this, screenIntroString, new Image( introScreenImage ),
+    var options = {
+      name: screenIntroString,
+      backgroundColor: PendulumLabConstants.BACKGROUND_COLOR,
+      homeScreenIcon: new Image( introScreenImage ),
+      navigationBarIcon: new Image( introNavbarImage )
+    };
+
+    Screen.call( this,
       function() { return new PendulumLabModel( true ); },
       function( model ) { return new PendulumLabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM ); },
-      {
-        backgroundColor: PendulumLabConstants.BACKGROUND_COLOR,
-        navigationBarIcon: new Image( introNavbarImage )
-      }
+      options
     );
   }
 

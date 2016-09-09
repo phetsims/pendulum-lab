@@ -28,11 +28,17 @@ define( function( require ) {
    */
   function EnergyScreen() {
 
-    Screen.call( this, screenEnergyString, new Image( energyImage ),
+    var options = {
+      name: screenEnergyString,
+      backgroundColor: PendulumLabConstants.BACKGROUND_COLOR,
+      homeScreenIcon: new Image( energyImage )
+    };
+
+    Screen.call( this,
       function() { return new EnergyModel( true ); },
       //TODO magic number
       function( model ) { return new EnergyView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 253 ); },
-      { backgroundColor: PendulumLabConstants.BACKGROUND_COLOR }
+      options
     );
   }
 
