@@ -29,7 +29,7 @@ define( function( require ) {
    * @constructor
    */
   function ClearThermalButton( thermalEnergyProperty, options ) {
-    var clearThermalButton = this;
+    var self = this;
     options = _.extend( {
       cursor: 'pointer'
     }, options );
@@ -56,8 +56,8 @@ define( function( require ) {
       var allowClearingThermalEnergy = (thermalEnergy !== 0 );
       icon.image = allowClearingThermalEnergy ? trashCanImage : trashCanGrayImage;
       icon.opacity = allowClearingThermalEnergy ? 1 : 0.3;
-      clearThermalButton.pickable = allowClearingThermalEnergy;
-      clearThermalButton.enabled = allowClearingThermalEnergy;
+      self.pickable = allowClearingThermalEnergy;
+      self.enabled = allowClearingThermalEnergy;
     } );
 
   }
