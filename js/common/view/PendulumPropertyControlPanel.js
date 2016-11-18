@@ -39,7 +39,7 @@ define( function( require ) {
    * @param {Object} [options] for control panel node
    * @constructor
    */
-  function PendulumSlidersNode( pendulumLabModel, options ) {
+  function PendulumPropertyControlPanel( pendulumLabModel, options ) {
 
     var pendulumSlidersNodeStorage = [];
 
@@ -120,9 +120,9 @@ define( function( require ) {
     Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
   }
 
-  pendulumLab.register( 'PendulumSlidersNode', PendulumSlidersNode );
+  pendulumLab.register( 'PendulumPropertyControlPanel', PendulumPropertyControlPanel );
 
-  return inherit( Panel, PendulumSlidersNode, {
+  return inherit( Panel, PendulumPropertyControlPanel, {
     /**
      * sets the content width by adding a strut to make up the difference
      * @param {number} width - the width desired

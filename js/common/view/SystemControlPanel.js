@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
-  var GravitySliderWithListNode = require( 'PENDULUM_LAB/common/view/GravitySliderWithListNode' );
+  var GravityControlNode = require( 'PENDULUM_LAB/common/view/GravityControlNode' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -37,14 +37,14 @@ define( function( require ) {
    * @param {Object} [options] for control panel node.
    * @constructor
    */
-  function SystemSlidersNode( pendulumLabModel, bodiesListNode, options ) {
+  function SystemControlPanel( pendulumLabModel, bodiesListNode, options ) {
 
     var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
     // @private
     this._content = content;
 
     // create and add gravity slider with title and body list menu
-    this.gravitySlider = new GravitySliderWithListNode( pendulumLabModel.gravityProperty,
+    this.gravitySlider = new GravityControlNode( pendulumLabModel.gravityProperty,
       pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
     var gravitySliderLabel = new Text( gravityString, { font: FONT_TITLE, pickable: false } );
     content.addChild( new Node( {
@@ -70,9 +70,9 @@ define( function( require ) {
     Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
   }
 
-  pendulumLab.register( 'SystemSlidersNode', SystemSlidersNode );
+  pendulumLab.register( 'SystemControlPanel', SystemControlPanel );
 
-  return inherit( Panel, SystemSlidersNode, {
+  return inherit( Panel, SystemControlPanel, {
     /**
      * Sets the width of the content
      * @param {number} width

@@ -39,7 +39,7 @@ define( function( require ) {
    * @param {Object} [options] for tools control panel node
    * @constructor
    */
-  function PendulumSystemControlPanelNode( numberOfPendulumsProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
+  function PlaybackControlsNode( numberOfPendulumsProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
     HBox.call( this, _.extend( {
       spacing: 26,
       children: [
@@ -95,7 +95,7 @@ define( function( require ) {
     }, options ) );
   }
 
-  pendulumLab.register( 'PendulumSystemControlPanelNode', PendulumSystemControlPanelNode );
+  pendulumLab.register( 'PlaybackControlsNode', PlaybackControlsNode );
 
-  return inherit( HBox, PendulumSystemControlPanelNode );
+  return inherit( HBox, PlaybackControlsNode );
 } );

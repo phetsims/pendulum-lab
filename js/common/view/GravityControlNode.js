@@ -51,7 +51,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function GravitySliderWithListNode( gravityProperty, gravityRange, bodyProperty, bodies, bodiesListNode, options ) {
+  function GravityControlNode( gravityProperty, gravityRange, bodyProperty, bodies, bodiesListNode, options ) {
     var self = this;
     var container = new Node();
 
@@ -132,14 +132,14 @@ define( function( require ) {
     this.addChild( container );
   }
 
-  pendulumLab.register( 'GravitySliderWithListNode', GravitySliderWithListNode );
+  pendulumLab.register( 'GravityControlNode', GravityControlNode );
 
   var updateQuestionTextPosition = function( questionNodeText, gravityAdjustmentNode ) {
     questionNodeText.centerX = gravityAdjustmentNode.bounds.minX + gravityAdjustmentNode.width / 2;
     questionNodeText.centerY = gravityAdjustmentNode.bounds.minY + gravityAdjustmentNode.height / 2;
   };
 
-  return inherit( VBox, GravitySliderWithListNode, {
+  return inherit( VBox, GravityControlNode, {
     /**
      * function that will add the value panel and the buttons to change the gravity one tick at a time
      * @param {Property} gravityProperty - the gravity value

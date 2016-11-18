@@ -17,15 +17,15 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
-  var PendulumSlidersNode = require( 'PENDULUM_LAB/common/view/PendulumSlidersNode' );
-  var PendulumSystemControlPanelNode = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanelNode' );
+  var PendulumPropertyControlPanel = require( 'PENDULUM_LAB/common/view/PendulumPropertyControlPanel' );
+  var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
-  var SystemSlidersNode = require( 'PENDULUM_LAB/common/view/SystemSlidersNode' );
+  var SystemControlPanel = require( 'PENDULUM_LAB/common/view/SystemControlPanel' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -59,12 +59,12 @@ define( function( require ) {
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, modelViewTransform );
 
     // create panel with sliders for pendulums (control length and mass)
-    var pendulumSlidersNode = new PendulumSlidersNode( pendulumLabModel );
+    var pendulumSlidersNode = new PendulumPropertyControlPanel( pendulumLabModel );
 
     // create a node to keep track of combo box
     var bodiesListNode = new Node();
     // @protected - create the system slider that control gravity and friction
-    this.systemSlidersNode = new SystemSlidersNode( pendulumLabModel, bodiesListNode );
+    this.systemSlidersNode = new SystemControlPanel( pendulumLabModel, bodiesListNode );
 
     // adjust width of panels
     var panelWidth = Math.max( pendulumSlidersNode.localBounds.width, this.systemSlidersNode.localBounds.width );
@@ -96,7 +96,7 @@ define( function( require ) {
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
-    var pendulumSystemControlPanelNode = new PendulumSystemControlPanelNode( pendulumLabModel.numberOfPendulumsProperty,
+    var pendulumSystemControlPanelNode = new PlaybackControlsNode( pendulumLabModel.numberOfPendulumsProperty,
       pendulumLabModel.playProperty, pendulumLabModel.timeSpeedProperty, pendulumLabModel.stepManual.bind( pendulumLabModel ) );
 
     // create reset all button
