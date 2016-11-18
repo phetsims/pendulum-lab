@@ -17,7 +17,6 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
-  var PendulumPropertyControlPanel = require( 'PENDULUM_LAB/common/view/PendulumPropertyControlPanel' );
   var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
@@ -25,9 +24,8 @@ define( function( require ) {
   var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
-  var SystemControlPanel = require( 'PENDULUM_LAB/common/view/SystemControlPanel' );
+  var PendulumSystemControlPanels = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanels' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
@@ -37,8 +35,12 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function PendulumLabView( pendulumLabModel, modelViewTransform ) {
+  function PendulumLabView( pendulumLabModel, modelViewTransform, options ) {
     ScreenView.call( this, { layoutBounds: PendulumLabConstants.SIM_BOUNDS } );
+
+    options = _.extend( {
+      includeGravityTweakers: false
+    }, options );
 
     // create pendula
     var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, modelViewTransform, {
@@ -58,32 +60,12 @@ define( function( require ) {
     // create protractor node
     var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, modelViewTransform );
 
-    // create panel with sliders for pendulums (control length and mass)
-    var pendulumSlidersNode = new PendulumPropertyControlPanel( pendulumLabModel );
-
     // create a node to keep track of combo box
     var bodiesListNode = new Node();
-    // @protected - create the system slider that control gravity and friction
-    this.systemSlidersNode = new SystemControlPanel( pendulumLabModel, bodiesListNode );
 
-    // adjust width of panels
-    var panelWidth = Math.max( pendulumSlidersNode.localBounds.width, this.systemSlidersNode.localBounds.width );
-    if ( pendulumSlidersNode.localBounds.width < panelWidth ) {
-      pendulumSlidersNode.setContentWidth( panelWidth );
-    }
-    if ( this.systemSlidersNode.localBounds.width < panelWidth ) {
-      this.systemSlidersNode.setContentWidth( panelWidth );
-    }
-
-    var maxLeftWidthPanel = 180;
-    pendulumSlidersNode.maxWidth = maxLeftWidthPanel;
-    this.systemSlidersNode.maxWidth = maxLeftWidthPanel;
-
-    var slidersPanelNode = new VBox( {
-      spacing: 4, children: [
-        pendulumSlidersNode,
-        this.systemSlidersNode
-      ]
+    var slidersPanelNode = new PendulumSystemControlPanels( pendulumLabModel, bodiesListNode, {
+      includeGravityTweakers: !!options.includeGravityTweakers
+      // TODO: layout here
     } );
 
     this.slidersPanelNode = slidersPanelNode;

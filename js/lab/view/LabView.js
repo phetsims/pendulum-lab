@@ -29,7 +29,9 @@ define( function( require ) {
    * @constructor
    */
   function LabView( pendulumLabModel, modelViewTransform, energyGraphHeight ) {
-    EnergyView.call( this, pendulumLabModel, modelViewTransform, energyGraphHeight );
+    EnergyView.call( this, pendulumLabModel, modelViewTransform, energyGraphHeight, {
+      includeGravityTweakers: true
+    } );
 
     // create arrow panel node to the bottom layer
     var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.isVelocityVisibleProperty,
@@ -37,9 +39,6 @@ define( function( require ) {
 
     // create period timer node
     var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, this.layoutBounds );
-
-    // add tweakers for gravity slider slider
-    this.systemSlidersNode.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
 
     // add the various nodes
     this.arrowsPanelLayer.addChild( arrowsPanelNode );

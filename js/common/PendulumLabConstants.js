@@ -35,7 +35,7 @@ define( function( require ) {
       cornerRadius: PANEL_CORNER_RADIUS,
       fill: PANEL_BACKGROUND_COLOR,
       xMargin: PANEL_MARGIN,
-      yMargin: PANEL_MARGIN
+      yMargin: 8 // TODO: clean this up
     },
     LEFT_PANELS_MIN_WIDTH: 122,
     PANEL_BACKGROUND_COLOR: PANEL_BACKGROUND_COLOR,

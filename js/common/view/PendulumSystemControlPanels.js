@@ -1,8 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Sliders node for system options in 'Pendulum Lab' simulation.
- * Contains friction slider and gravity slider with dropdown menu.
+ * Length/mass panel and gravity/friction panel
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -14,7 +13,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
   var GravityControlNode = require( 'PENDULUM_LAB/common/view/GravityControlNode' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var LengthMassControlNode = require( 'PENDULUM_LAB/common/view/LengthMassControlNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
@@ -29,7 +28,7 @@ define( function( require ) {
 
   // constants
   var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
-  var SPACING_CONTENT = 4;
+  var SPACING_CONTENT = 4; // spacing in between slider elements
 
   /**
    * @param {PendulumLabModel} pendulumLabModel - Main model of pendulum lab simulation.
@@ -37,29 +36,40 @@ define( function( require ) {
    * @param {Object} [options] for control panel node.
    * @constructor
    */
-  function SystemControlPanel( pendulumLabModel, bodiesListNode, options ) {
+  function PendulumSystemControlPanels( pendulumLabModel, bodiesListNode, options ) {
 
-    var content = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
-    // @private
-    this._content = content;
+    var lengthMassControls = [ 0, 1 ].map( function( index ) {
+      return new LengthMassControlNode( pendulumLabModel.pendulums[ index ], index );
+    } );
 
+    var lengthMassContentNode = new VBox( { spacing: SPACING_CONTENT, align: 'center', children: lengthMassControls } );
+
+    var gravityFrictionContentNode = new VBox( { spacing: SPACING_CONTENT, align: 'center' } );
+
+    // TODO: cleanup
     // create and add gravity slider with title and body list menu
+    // TODO: reduce number of parameters
     this.gravitySlider = new GravityControlNode( pendulumLabModel.gravityProperty,
       pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
     var gravitySliderLabel = new Text( gravityString, { font: FONT_TITLE, pickable: false } );
-    content.addChild( new Node( {
+    gravityFrictionContentNode.addChild( new Node( {
       children: [
         gravitySliderLabel,
         this.gravitySlider
       ]
     } ) );
 
+    if ( options.includeGravityTweakers ) {
+      // add tweakers for gravity slider slider
+      this.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
+    }
+
     // create and add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
       var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
       var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, pickable: false } );
       frictionSliderNode.top = frictionSliderLabel.bottom + 4;
-      content.addChild( new Node( {
+      gravityFrictionContentNode.addChild( new Node( {
         children: [
           frictionSliderLabel,
           frictionSliderNode
@@ -67,18 +77,28 @@ define( function( require ) {
       } ) );
     }
 
-    Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
+    var maxWidth = Math.max( lengthMassContentNode.width, gravityFrictionContentNode.width );
+
+    pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
+      lengthMassContentNode.children = lengthMassControls.slice( 0, numberOfPendulums );
+    } );
+
+    var panelOptions = _.extend( {
+      // TODO: margins not included in minWidth?
+      minWidth: maxWidth + PendulumLabConstants.PANEL_OPTIONS.xMargin * 2,
+      align: 'center'
+    }, PendulumLabConstants.PANEL_OPTIONS );
+
+    VBox.call( this, _.extend( {
+      spacing: 5,
+      children: [
+        new Panel( lengthMassContentNode, panelOptions ),
+        new Panel( gravityFrictionContentNode, panelOptions )
+      ],
+    }, options ) );
   }
 
-  pendulumLab.register( 'SystemControlPanel', SystemControlPanel );
+  pendulumLab.register( 'PendulumSystemControlPanels', PendulumSystemControlPanels );
 
-  return inherit( Panel, SystemControlPanel, {
-    /**
-     * Sets the width of the content
-     * @param {number} width
-     */
-    setContentWidth: function( width ) {
-      this._content.addChild( new HStrut( width - PendulumLabConstants.PANEL_MARGIN ) );
-    }
-  } );
+  return inherit( VBox, PendulumSystemControlPanels );
 } );

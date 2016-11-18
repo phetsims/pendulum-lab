@@ -24,9 +24,9 @@ define( function( require ) {
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @constructor
    */
-  function EnergyView( pendulumLabModel, modelViewTransform, energyGraphHeight ) {
+  function EnergyView( pendulumLabModel, modelViewTransform, energyGraphHeight, options ) {
 
-    PendulumLabView.call( this, pendulumLabModel, modelViewTransform );
+    PendulumLabView.call( this, pendulumLabModel, modelViewTransform, options );
 
     // create and add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulums, pendulumLabModel.isEnergyGraphExpandedProperty,
