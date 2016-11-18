@@ -17,7 +17,7 @@ define( function( require ) {
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
+  var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -67,12 +67,12 @@ define( function( require ) {
       } ) );
     }
 
-    PanelPendulumAbstract.call( this, content, options );
+    Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
   }
 
   pendulumLab.register( 'SystemSlidersNode', SystemSlidersNode );
 
-  return inherit( PanelPendulumAbstract, SystemSlidersNode, {
+  return inherit( Panel, SystemSlidersNode, {
     /**
      * Sets the width of the content
      * @param {number} width

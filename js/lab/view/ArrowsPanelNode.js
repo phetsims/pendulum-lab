@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
+  var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -53,7 +53,7 @@ define( function( require ) {
       maxStringWidth = Math.max( maxStringWidth, textString.width );
     } );
 
-    PanelPendulumAbstract.call( this,
+    Panel.call( this,
       new Node( {
         children: [
           // necessary to expand panel
@@ -98,11 +98,11 @@ define( function( require ) {
           ], { spacing: 5, boxWidth: 15 } )
         ]
       } ),
-      _.extend( { yMargin: 7 }, options )
+      _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options )
     );
   }
 
   pendulumLab.register( 'ArrowsPanelNode', ArrowsPanelNode );
 
-  return inherit( PanelPendulumAbstract, ArrowsPanelNode );
+  return inherit( Panel, ArrowsPanelNode );
 } );

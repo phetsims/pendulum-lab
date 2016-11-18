@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PanelPendulumAbstract = require( 'PENDULUM_LAB/common/view/PanelPendulumAbstract' );
+  var Panel = require( 'SUN/Panel' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -50,7 +50,7 @@ define( function( require ) {
       new Text( periodTraceString, TEXT_OPTIONS )
     ];
 
-    PanelPendulumAbstract.call( this,
+    Panel.call( this,
       new Node( {
         children: [
           // necessary to expand panel
@@ -73,7 +73,7 @@ define( function( require ) {
 
   pendulumLab.register( 'ToolsControlPanelNode', ToolsControlPanelNode );
 
-  return inherit( PanelPendulumAbstract, ToolsControlPanelNode, {
+  return inherit( Panel, ToolsControlPanelNode, {
     /**
      * Set text of label selected by index.
      *
