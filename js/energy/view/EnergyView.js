@@ -15,9 +15,6 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
 
-  // constants
-  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING; // {Object}
-
   /**
    * @param {PendulumLabModel} pendulumLabModel
    * @param {ModelViewTransform2} modelViewTransform
@@ -31,8 +28,8 @@ define( function( require ) {
     // create and add energy graph node to the bottom layer
     var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulums, pendulumLabModel.isEnergyGraphExpandedProperty,
       pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulumsProperty, energyGraphHeight );
-    energyGraphNode.left = SCREEN_PADDING.LEFT;
-    energyGraphNode.top = SCREEN_PADDING.TOP;
+    energyGraphNode.left = PendulumLabConstants.SCREEN_PADDING;
+    energyGraphNode.top = PendulumLabConstants.SCREEN_PADDING;
     this.energyGraphLayer.addChild( energyGraphNode );
 
     this.energyGraphNode = energyGraphNode; // @public

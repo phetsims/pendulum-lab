@@ -53,12 +53,7 @@ define( function( require ) {
     // common
     SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),          // Determines bounds for sim   Bounds2( minX, minY, maxX, maxY )
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
-    SCREEN_PADDING: {
-      TOP: 14,
-      RIGHT: 14,
-      BOTTOM: 14,
-      LEFT: 14
-    },
+    SCREEN_PADDING: 14,
     // create a model view transform (assuming the dev view screen is 768 wide and the 504 high)
     // the height of the screen is 4/3 m = 1.33 m
     MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2(), new Vector2( 768 / 2, 15 ), 504 / 1.33 )

@@ -64,7 +64,7 @@ define( function( require ) {
     // make it a vertical ruler
     this.rotate( Math.PI / 2 );
 
-    // @public 
+    // @public
     this.movableDragHandler = new MovableDragHandler( ruler.locationProperty, {
       dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
     } );

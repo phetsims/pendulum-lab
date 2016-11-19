@@ -27,9 +27,6 @@ define( function( require ) {
   var PendulumSystemControlPanels = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanels' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
-  // constants
-  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING;
-
   /**
    * @param {PendulumLabModel} pendulumLabModel
    * @param {ModelViewTransform2} modelViewTransform
@@ -146,14 +143,14 @@ define( function( require ) {
     this.addChild( stopwatchNode );
 
     // layout of nodes
-    slidersPanelNode.right = this.layoutBounds.maxX - SCREEN_PADDING.RIGHT;
-    slidersPanelNode.top = SCREEN_PADDING.TOP;
+    slidersPanelNode.right = this.layoutBounds.maxX - PendulumLabConstants.SCREEN_PADDING;
+    slidersPanelNode.top = PendulumLabConstants.SCREEN_PADDING;
     pendulumSystemControlPanelNode.centerX = this.layoutBounds.centerX;
-    pendulumSystemControlPanelNode.bottom = this.layoutBounds.maxY - SCREEN_PADDING.BOTTOM;
-    toolsControlPanelNode.left = SCREEN_PADDING.LEFT;
+    pendulumSystemControlPanelNode.bottom = this.layoutBounds.maxY - PendulumLabConstants.SCREEN_PADDING;
+    toolsControlPanelNode.left = PendulumLabConstants.SCREEN_PADDING;
     toolsControlPanelNode.bottom = pendulumSystemControlPanelNode.bottom;
     rulerNode.left = toolsControlPanelNode.left;
-    rulerNode.top = SCREEN_PADDING.TOP + 10;
+    rulerNode.top = PendulumLabConstants.SCREEN_PADDING + 10;
     stopwatchNode.left = rulerNode.right + 15;
     stopwatchNode.bottom = rulerNode.bottom;
     resetAllButton.right = slidersPanelNode.right;

@@ -19,9 +19,6 @@ define( function( require ) {
   // strings
   var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
 
-  // constants
-  var SCREEN_PADDING = PendulumLabConstants.SCREEN_PADDING; // {Object}
-
   /**
    * @param {PendulumLabModel} pendulumLabModel
    * @param {ModelViewTransform2} modelViewTransform
@@ -47,8 +44,8 @@ define( function( require ) {
     // layout the nodes
     periodTimerNode.right = this.slidersPanelNode.left - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
-    arrowsPanelNode.left = SCREEN_PADDING.LEFT;
-    arrowsPanelNode.top = SCREEN_PADDING.TOP;
+    arrowsPanelNode.left = PendulumLabConstants.SCREEN_PADDING;
+    arrowsPanelNode.top = PendulumLabConstants.SCREEN_PADDING;
     this.energyGraphNode.top = arrowsPanelNode.bottom + 8; // move energyGraphNode to the bottom
 
     // change label for period timer

@@ -190,5 +190,4 @@ define( function( require ) {
   };
 
   return inherit( AccordionBox, EnergyGraphNode );
-} )
-;
+} );

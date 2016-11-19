@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Single body model.
+ * Body model for gravitational acceleration
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -21,14 +21,16 @@ define( function( require ) {
   /**
    * Constructor for bodies
    *
-   * @param {string} title of body.
-   * @param {number|null} gravity acceleration on body (m/s^2) if defined.
+   * @param {string} - Title of body.
+   * @param {number|null} - Gravity acceleration on body (m/s^2) if defined.
    * @constructor
    */
   function Body( title, gravity ) {
-    // @public (read-only)
-    this.title = title; // {string} name of the body
-    this.gravity = gravity; // {number} gravitational acceleration in meter/second^2
+    // @public {string} (read-only) - Name of the body
+    this.title = title;
+
+    // @public {number|null} (read-only) - Gravitation acceleration (if available) in meters/second^2
+    this.gravity = gravity;
   }
 
   pendulumLab.register( 'Body', Body );
