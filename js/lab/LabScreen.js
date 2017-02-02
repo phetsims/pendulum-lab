@@ -15,7 +15,6 @@ define( function( require ) {
   var LabModel = require( 'PENDULUM_LAB/lab/model/LabModel' );
   var LabView = require( 'PENDULUM_LAB/lab/view/LabView' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -33,7 +32,7 @@ define( function( require ) {
 
     var options = {
       name: screenLabString,
-      backgroundColorProperty: new Property( Color.toColor( PendulumLabConstants.BACKGROUND_COLOR ) ),
+      backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( labScreenImage ),
       navigationBarIcon: new Image( labNavbarImage )
     };

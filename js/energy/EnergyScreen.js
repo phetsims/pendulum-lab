@@ -17,7 +17,6 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
-  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var screenEnergyString = require( 'string!PENDULUM_LAB/screen.energy' );
@@ -32,7 +31,7 @@ define( function( require ) {
 
     var options = {
       name: screenEnergyString,
-      backgroundColorProperty: new Property( Color.toColor( PendulumLabConstants.BACKGROUND_COLOR ) ),
+      backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( energyImage )
     };
 
