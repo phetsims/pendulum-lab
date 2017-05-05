@@ -38,10 +38,9 @@ define( function( require ) {
    * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
    * @param {Property.<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
    * @param {Property.<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
-   * @param {Object} [options] for tools control panel node.
    * @constructor
    */
-  function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
+  function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty ) {
 
     // @private
     this._labels = [
@@ -68,7 +67,7 @@ define( function( require ) {
           }
           ], { spacing: 5, boxWidth: 15 } )
         ]
-      } ), options );
+      } ), PendulumLabConstants.PANEL_OPTIONS );
   }
 
   pendulumLab.register( 'ToolsControlPanelNode', ToolsControlPanelNode );
