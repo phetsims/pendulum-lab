@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
