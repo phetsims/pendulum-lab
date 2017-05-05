@@ -79,11 +79,12 @@ define( function( require ) {
     Node.call( this, _.extend( {
       spacing: 6,
       resize: false,
-      children: hSlider
+      children: [ hSlider ]
     }, options ) );
 
     // add ticks, we want two major ticks
     hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( sliderValueRange.min / 2 + sliderValueRange.max / 2 );
     hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
     // add the minor ticks
