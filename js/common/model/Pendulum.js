@@ -129,7 +129,7 @@ define( function( require ) {
      * @private
      */
     omegaDerivative: function( theta, omega ) {
-      return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.length ) * Math.sin( theta );
+      return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.lengthProperty.value ) * Math.sin( theta );
     },
 
     /**
@@ -141,8 +141,8 @@ define( function( require ) {
      * @returns {number}
      */
     frictionTerm: function( omega ) {
-      return this.frictionProperty.value * this.length / Math.pow( this.mass, 1 / 3 ) * omega * Math.abs( omega ) +
-             this.frictionProperty.value / Math.pow( this.mass, 2 / 3 ) * omega;
+      return this.frictionProperty.value * this.lengthProperty.value / Math.pow( this.massProperty.value, 1 / 3 ) * omega * Math.abs( omega ) +
+             this.frictionProperty.value / Math.pow( this.massProperty.value, 2 / 3 ) * omega;
     },
 
     /**
@@ -152,9 +152,9 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      var theta = this.angle;
+      var theta = this.angleProperty.value;
 
-      var omega = this.angularVelocity;
+      var omega = this.angularVelocityProperty.value;
 
       var numSteps = Math.max( 7, dt * 120 );
 
@@ -191,8 +191,8 @@ define( function( require ) {
       }
 
       // update the angular variables
-      this.angle = theta;
-      this.angularVelocity = omega;
+      this.angleProperty.value = theta;
+      this.angularVelocityProperty.value = omega;
 
       // update the derived variables, taking into account the transfer to thermal energy if friction is present
       this.updateDerivedVariables( this.frictionProperty.value > 0 );
@@ -240,33 +240,33 @@ define( function( require ) {
      * @param {boolean} energyChangeToThermal - is Friction present in the model
      */
     updateDerivedVariables: function( energyChangeToThermal ) {
-      var speed = Math.abs( this.angularVelocity ) * this.length;
+      var speed = Math.abs( this.angularVelocityProperty.value ) * this.lengthProperty.value;
 
-      this.angularAcceleration = this.omegaDerivative( this.angle, this.angularVelocity );
-      var height = this.length * ( 1 - Math.cos( this.angle ) );
+      this.angularAccelerationProperty.value = this.omegaDerivative( this.angleProperty.value, this.angularVelocityProperty.value );
+      var height = this.lengthProperty.value * ( 1 - Math.cos( this.angleProperty.value ) );
 
       var oldKineticEnergy = this.kineticEnergy;
-      this.kineticEnergy = 0.5 * this.mass * speed * speed;
+      this.kineticEnergy = 0.5 * this.massProperty.value * speed * speed;
 
       var oldPotentialEnergy = this.potentialEnergy;
-      this.potentialEnergy = this.mass * this.gravityProperty.value * height;
+      this.potentialEnergy = this.massProperty.value * this.gravityProperty.value * height;
 
       if ( energyChangeToThermal ) {
         this.thermalEnergy += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergy + this.potentialEnergy );
       }
       this.totalEnergy = this.kineticEnergy + this.potentialEnergy + this.thermalEnergy;
 
-      this.position.setPolar( this.length, this.angle - Math.PI / 2 );
-      this.velocity.setPolar( this.angularVelocity * this.length, this.angle ); // coordinate frame -pi/2, but perpendicular +pi/2
+      this.positionProperty.value.setPolar( this.lengthProperty.value, this.angleProperty.value - Math.PI / 2 );
+      this.velocityProperty.value.setPolar( this.angularVelocityProperty.value * this.lengthProperty.value, this.angleProperty.value ); // coordinate frame -pi/2, but perpendicular +pi/2
 
       // add up net forces for the acceleration
 
       // tangential friction
-      this.acceleration.setPolar( -this.frictionTerm( this.angularVelocity ) / this.mass, this.angle );
+      this.accelerationProperty.value.setPolar( -this.frictionTerm( this.angularVelocityProperty.value ) / this.massProperty.value, this.angleProperty.value );
       // tangential gravity
-      this.acceleration.add( scratchVector.setPolar( -this.gravityProperty.value * Math.sin( this.angle ), this.angle ) );
+      this.accelerationProperty.value.add( scratchVector.setPolar( -this.gravityProperty.value * Math.sin( this.angleProperty.value ), this.angleProperty.value ) );
       // radial (centripetal acceleration)
-      this.acceleration.add( scratchVector.setPolar( this.length * this.angularVelocity * this.angularVelocity, this.angle + Math.PI / 2 ) );
+      this.accelerationProperty.value.add( scratchVector.setPolar( this.lengthProperty.value * this.angularVelocityProperty.value * this.angularVelocityProperty.value, this.angleProperty.value + Math.PI / 2 ) );
 
       this.velocityProperty.notifyObserversStatic();
       this.accelerationProperty.notifyObserversStatic();
@@ -288,7 +288,7 @@ define( function( require ) {
      * @public (read-only)
      */
     isStationary: function() {
-      return this.isUserControlled || ( this.angle === 0 && this.angularVelocity === 0 && this.angularAcceleration === 0 );
+      return this.isUserControlled || ( this.angleProperty.value === 0 && this.angularVelocityProperty.value === 0 && this.angularAcceleration === 0 );
     },
 
     /**
@@ -299,7 +299,7 @@ define( function( require ) {
      * @returns {number}
      */
     getApproximatePeriod: function() {
-      return 2 * Math.PI * Math.sqrt( this.length / this.gravityProperty.value );
+      return 2 * Math.PI * Math.sqrt( this.lengthProperty.value / this.gravityProperty.value );
     },
 
     /**
