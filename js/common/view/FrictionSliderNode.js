@@ -12,7 +12,6 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -20,7 +19,7 @@ define( function( require ) {
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Util = require( 'DOT/Util' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
@@ -76,31 +75,16 @@ define( function( require ) {
       thumbFillEnabled: '#00C4DF',
       thumbFillHighlighted: '#71EDFF'
     } );
-    // describes the panel box containing the friction and gravity sliders
-    // we will want this to be in a VBox so that it does not wiggle
-    VBox.call( this, _.extend( {
+
+    // describes the panel box containing the friction slider
+    Node.call( this, _.extend( {
       spacing: 6,
       resize: false,
-      children: [
-        new HBox( {
-          resize: false,
-          children: [
-            //needed to stop the slider from wiggling
-            new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
-
-            hSlider,
-
-            // needed to stop the slider from wiggling
-            new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 )
-          ]
-        } )
-      ]
-
+      children: hSlider
     }, options ) );
 
-    // add ticks, we want three major ticks
+    // add ticks, we want two major ticks
     hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
-    hSlider.addMajorTick( (sliderValueRange.min + sliderValueRange.max) / 2 );
     hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
     // add the minor ticks
@@ -127,5 +111,5 @@ define( function( require ) {
 
   pendulumLab.register( 'FrictionSliderNode', FrictionSliderNode );
 
-  return inherit( VBox, FrictionSliderNode );
+  return inherit( Node, FrictionSliderNode );
 } );

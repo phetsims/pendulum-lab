@@ -3,7 +3,7 @@
 /**
  * Constructor for the pendulum options sliders.
  * Contains title, left and right arrows, label and slider itself.
- *
+ *`
  * @author Andrey Zelenkov (Mlearner)
  */
 define( function( require ) {
@@ -14,7 +14,6 @@ define( function( require ) {
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -106,25 +105,13 @@ define( function( require ) {
           ]
         } ),
 
-        // describes the slider bars for the mass and length
-        new HBox( {
-          resize: false,
-          children: [
-            // necessary to prevent expanding box by thumb
-            new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 ),
-
-            // slider for property
-            new HSlider( sliderProperty, trackRange, {
-              trackSize: PendulumLabConstants.TRACK_SIZE,
-              thumbSize: PendulumLabConstants.THUMB_SIZE,
-              thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
-              thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
-              thumbFillEnabled: color
-            } ),
-
-            // necessary to prevent expanding box by thumb
-            new HStrut( PendulumLabConstants.THUMB_SIZE.width / 2 )
-          ]
+        // slider for property
+        new HSlider( sliderProperty, trackRange, {
+          trackSize: PendulumLabConstants.TRACK_SIZE,
+          thumbSize: PendulumLabConstants.THUMB_SIZE,
+          thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
+          thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
+          thumbFillEnabled: color
         } )
       ]
     }, options ) );
