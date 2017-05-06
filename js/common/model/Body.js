@@ -21,8 +21,8 @@ define( function( require ) {
   /**
    * Constructor for bodies
    *
-   * @param {string} - Title of body.
-   * @param {number|null} - Gravity acceleration on body (m/s^2) if defined.
+   * @param {string} title - Title of body.
+   * @param {number|null} gravity - Gravity acceleration on body (m/s^2) if defined.
    * @constructor
    */
   function Body( title, gravity ) {
