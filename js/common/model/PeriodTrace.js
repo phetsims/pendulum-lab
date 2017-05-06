@@ -50,43 +50,43 @@ define( function( require ) {
     pendulum.crossingEmitter.addListener( function( dt, isPositive ) {
       // On the first zero-crossing, detect counterClockwise (direction) and increment. Don't trigger if our pendulum's angle
       // is likely to have been crossing at the top (angle~pi).
-      if ( self.numberOfPoints === 0 && Math.abs( pendulum.angle ) < 0.5 ) {
+      if ( self.numberOfPointsProperty.value === 0 && Math.abs( pendulum.angle ) < 0.5 ) {
 
         // modify numberOfPoints before elapsedTime, so anything waiting for elapsedTime changes while running works
-        self.numberOfPoints = 1;
+        self.numberOfPointsProperty.value = 1;
         self.counterClockwise = !isPositive;
 
         // Set our elapsed time to the negative, as this was the elapsed time UNTIL we started. When the next step
         // callback happens, it will increment our elapsedTime to the correct (current) amount.
-        self.elapsedTime = -dt;
+        self.elapsedTimeProperty.value = -dt;
 
       }
       // On the third zero-crossing (we passed by the other direction already), increment to end the period trace.
-      else if ( self.numberOfPoints === 3 ) {
+      else if ( self.numberOfPointsProperty.value === 3 ) {
 
         // modify numberOfPoints after elapsedTime, so anything waiting for elapsedTime changes while running works
-        self.elapsedTime += dt;
+        self.elapsedTimeProperty.value += dt;
 
-        self.numberOfPoints = 4;
+        self.numberOfPointsProperty.value = 4;
       }
       // Check to see if we looped! Should have peaked before second crossing.
-      else if ( self.numberOfPoints === 1 ) {
+      else if ( self.numberOfPointsProperty.value === 1 ) {
         self.resetPathPoints();
       }
     } );
     pendulum.peakEmitter.addListener( function( theta ) {
-      if ( self.numberOfPoints === 1 ) {
+      if ( self.numberOfPointsProperty.value === 1 ) {
         self.firstAngle = theta;
-        self.numberOfPoints = 2;
+        self.numberOfPointsProperty.value = 2;
       }
-      else if ( self.numberOfPoints === 2 ) {
+      else if ( self.numberOfPointsProperty.value === 2 ) {
         self.secondAngle = theta;
-        self.numberOfPoints = 3;
+        self.numberOfPointsProperty.value = 3;
       }
     } );
     pendulum.stepEmitter.addListener( function( dt ) {
-      if ( self.numberOfPoints > 0 && self.numberOfPoints < 4 ) {
-        self.elapsedTime += dt;
+      if ( self.numberOfPointsProperty.value > 0 && self.numberOfPointsProperty.value < 4 ) {
+        self.elapsedTimeProperty.value += dt;
       }
     } );
 
@@ -123,8 +123,8 @@ define( function( require ) {
       this.counterClockwise = null;
       this.firstAngle = null;
       this.secondAngle = null;
-      this.numberOfPoints = 0;
-      this.elapsedTime = 0;
+      this.numberOfPointsProperty.value = 0;
+      this.elapsedTimeProperty.value = 0;
     },
 
     /**
@@ -140,12 +140,12 @@ define( function( require ) {
 
       // listener
       this.setPeriodTraceVisibility = function() {
-        if ( checkBoxProperty.value && self._pendulum.isVisible ) {
-          self.isVisible = true;
+        if ( checkBoxProperty.value && self._pendulum.isVisibleProperty.value ) {
+          self.isVisibleProperty.value = true;
           self.resetPathPoints();
         }
         else {
-          self.isVisible = false;
+          self.isVisibleProperty.value = false;
         }
       };
 
