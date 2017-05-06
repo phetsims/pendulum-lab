@@ -92,16 +92,16 @@ define( function( require ) {
     // make tick on protractor visible after first drag
     this.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       if ( isUserControlled ) {
-        self.isTickVisible = true; // Seems like an UI-specific issue, not model
+        self.isTickVisibleProperty.value = true; // Seems like an UI-specific issue, not model
 
-        self.angularVelocity = 0;
+        self.angularVelocityProperty.value = 0;
         self.updateDerivedVariables( false );
       }
     } );
 
     // make the angle value visible after the first drag
     this.angleProperty.lazyLink( function() {
-      if ( self.isUserControlled ) {
+      if ( self.isUserControlledProperty.value ) {
         self.updateDerivedVariables( false );
         self.userMovedEmitter.emit();
       }
@@ -109,7 +109,7 @@ define( function( require ) {
 
     // update the angular velocity when the length changes
     this.lengthProperty.lazyLink( function( newLength, oldLength ) {
-      self.angularVelocity = self.angularVelocity * oldLength / newLength;
+      self.angularVelocityProperty.value = self.angularVelocityProperty.value * oldLength / newLength;
       self.updateDerivedVariables( false ); // preserve thermal energy
     } );
 
@@ -245,16 +245,16 @@ define( function( require ) {
       this.angularAccelerationProperty.value = this.omegaDerivative( this.angleProperty.value, this.angularVelocityProperty.value );
       var height = this.lengthProperty.value * ( 1 - Math.cos( this.angleProperty.value ) );
 
-      var oldKineticEnergy = this.kineticEnergy;
-      this.kineticEnergy = 0.5 * this.massProperty.value * speed * speed;
+      var oldKineticEnergy = this.kineticEnergyProperty.value;
+      this.kineticEnergyProperty.value = 0.5 * this.massProperty.value * speed * speed;
 
-      var oldPotentialEnergy = this.potentialEnergy;
-      this.potentialEnergy = this.massProperty.value * this.gravityProperty.value * height;
+      var oldPotentialEnergy = this.potentialEnergyProperty.value;
+      this.potentialEnergyProperty.value = this.massProperty.value * this.gravityProperty.value * height;
 
       if ( energyChangeToThermal ) {
-        this.thermalEnergy += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergy + this.potentialEnergy );
+        this.thermalEnergyProperty.value += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergyProperty.value + this.potentialEnergyProperty.value );
       }
-      this.totalEnergy = this.kineticEnergy + this.potentialEnergy + this.thermalEnergy;
+      this.totalEnergyProperty.value = this.kineticEnergyProperty.value + this.potentialEnergyProperty.value + this.thermalEnergyProperty.value;
 
       this.positionProperty.value.setPolar( this.lengthProperty.value, this.angleProperty.value - Math.PI / 2 );
       this.velocityProperty.value.setPolar( this.angularVelocityProperty.value * this.lengthProperty.value, this.angleProperty.value ); // coordinate frame -pi/2, but perpendicular +pi/2
@@ -278,7 +278,23 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.lengthProperty.reset();
+      this.massProperty.reset();
+      this.angleProperty.reset();
+      this.angularVelocityProperty.reset();
+      this.angularAccelerationProperty.reset();
+      this.positionProperty.reset();
+      this.velocityProperty.reset();
+      this.accelerationProperty.reset();
+      this.kineticEnergyProperty.reset();
+      this.potentialEnergyProperty.reset();
+      this.thermalEnergyProperty.reset();
+      this.totalEnergyProperty.reset();
+      this.isUserControlledProperty.reset();
+      this.isTickVisibleProperty.reset();
+      this.isVisibleProperty.reset();
+      this.energyMultiplierProperty.reset();
+
       this.updateDerivedVariables( false );
     },
 
@@ -288,7 +304,7 @@ define( function( require ) {
      * @public (read-only)
      */
     isStationary: function() {
-      return this.isUserControlled || ( this.angleProperty.value === 0 && this.angularVelocityProperty.value === 0 && this.angularAcceleration === 0 );
+      return this.isUserControlledProperty.value || ( this.angleProperty.value === 0 && this.angularVelocityProperty.value === 0 && this.angularAccelerationProperty.value === 0 );
     },
 
     /**
