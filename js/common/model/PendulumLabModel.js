@@ -62,7 +62,7 @@ define( function( require ) {
     ];
 
     // @public (read-only) possible gravity range 0m/s^2 to 25m/s^2
-    this.gravityRange = new RangeWithValue( 0, 25, this.gravity );
+    this.gravityRange = new RangeWithValue( 0, 25, this.gravityProperty.value );
 
     // @public (read-only) possible friction range
     this.frictionRange = new RangeWithValue( 0, 0.5115, 0 );
@@ -77,16 +77,16 @@ define( function( require ) {
     this.bodyProperty.lazyLink( function( body, oldBody ) {
       // If it's not custom, set it to its value
       if ( body !== Body.CUSTOM ) {
-        self.gravity = body.gravity;
+        self.gravityProperty.value = body.gravity;
       }
       else {
         // If we are switching from Planet X to Custom, don't let them cheat (go back to last custom value)
         if ( oldBody === Body.PLANET_X ) {
-          self.gravity = self.customGravity;
+          self.gravityProperty.value = self.customGravityProperty.value;
         }
         // For non-Planet X, update our internal custom gravity
         else {
-          self.customGravity = self.gravity;
+          self.customGravityProperty.value = self.gravityProperty.value;
         }
       }
     } );
@@ -105,7 +105,7 @@ define( function( require ) {
     // change pendulum visibility if number of pendulums was changed
     this.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
       self.pendulums.forEach( function( pendulum, pendulumIndex ) {
-        pendulum.isVisible = (numberOfPendulums > pendulumIndex);
+        pendulum.isVisibleProperty.value = (numberOfPendulums > pendulumIndex);
       } );
     } );
   }
@@ -118,7 +118,14 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.bodyProperty.reset();
+      this.gravityProperty.reset();
+      this.customGravityProperty.reset();
+      this.timeSpeedProperty.reset();
+      this.numberOfPendulumsProperty.reset();
+      this.playProperty.reset();
+      this.frictionProperty.reset();
+      this.isPeriodTraceVisibleProperty.reset();
 
       // reset ruler model
       this.ruler.reset();
@@ -161,7 +168,7 @@ define( function( require ) {
       }
 
       // loop over the pendula
-      for ( var i = 0; i < this.numberOfPendulums; i++ ) {
+      for ( var i = 0; i < this.numberOfPendulumsProperty.value; i++ ) {
         var pendulum = this.pendulums[ i ]; // get the pendulum from the array
 
         // if the pendulum is moving

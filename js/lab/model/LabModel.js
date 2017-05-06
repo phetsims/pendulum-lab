@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
@@ -22,8 +23,9 @@ define( function( require ) {
     EnergyModel.call( this, false );
 
     // add properties to control visibility of arrows
-    this.addProperty( 'isVelocityVisible', false );
-    this.addProperty( 'isAccelerationVisible', false );
+    this.isVelocityVisibleProperty = new BooleanProperty( false );
+
+    this.isAccelerationVisibleProperty = new BooleanProperty( false );
 
     // model for period trace
     this.periodTimer = new PeriodTimer( this.pendulums, this.isPeriodTraceVisibleProperty );
@@ -38,6 +40,9 @@ define( function( require ) {
      */
     reset: function() {
       EnergyModel.prototype.reset.call( this );
+
+      this.isVelocityVisibleProperty.reset();
+      this.isAccelerationVisibleProperty.reset();
 
       // reset period trace model
       this.periodTimer.reset();
