@@ -94,7 +94,7 @@ define( function( require ) {
       children: [
         new Panel( lengthMassContentNode, panelOptions ),
         new Panel( gravityFrictionContentNode, panelOptions )
-      ],
+      ]
     }, options ) );
   }
 
