@@ -55,17 +55,17 @@ define( function( require ) {
 
         // reset and show trace path
         self.clear();
-        self.activePendulum.periodTrace.isVisible = true;
+        self.activePendulum.periodTrace.isVisibleProperty.value = true;
       }
       else {
         // clear path if it wasn't finished
-        if ( (self.activePendulum.periodTrace.numberOfPoints < 4) ) {
+        if ( (self.activePendulum.periodTrace.numberOfPointsProperty.value < 4) ) {
           self.clear();
         }
 
         // hide path if it wasn't started
-        if ( self.activePendulum.periodTrace.numberOfPoints === 0 ) {
-          self.activePendulum.periodTrace.isVisible = false;
+        if ( self.activePendulum.periodTrace.numberOfPointsProperty.value === 0 ) {
+          self.activePendulum.periodTrace.isVisibleProperty.value = false;
         }
       }
     } );
@@ -76,7 +76,7 @@ define( function( require ) {
     var pathListeners = [];
     pendulums.forEach( function( pendulum, pendulumIndex ) {
       pendulum.periodTrace.removeVisibilityObservers();
-      pendulum.periodTrace.isVisible = false;
+      pendulum.periodTrace.isVisibleProperty.value = false;
 
       pendulum.lengthProperty.lazyLink( clearCallback );
       pendulum.gravityProperty.lazyLink( clearCallback );
@@ -90,7 +90,7 @@ define( function( require ) {
       } );
 
       pathListeners[ pendulumIndex ] = function() {
-        if ( pendulum.periodTrace.numberOfPoints === 4 && self.isRunning ) {
+        if ( pendulum.periodTrace.numberOfPointsProperty.value === 4 && self.isRunning ) {
           self.isRunning = false;
         }
       };
@@ -101,7 +101,7 @@ define( function( require ) {
     self.isFirstProperty.lazyLink( function( isFirst ) {
       self.clear();
 
-      self.activePendulum.periodTrace.isVisible = false;
+      self.activePendulum.periodTrace.isVisibleProperty.value = false;
 
       if ( isFirst ) {
         self.activePendulum.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
@@ -131,7 +131,7 @@ define( function( require ) {
 
       // clearing the period traces
       if ( !this.isRunning ) {
-        this.activePendulum.periodTrace.isVisible = false;
+        this.activePendulum.periodTrace.isVisibleProperty.value = false;
       }
       this._pendulums.forEach( function( pendulum ) {
         pendulum.periodTrace.resetPathPoints();
