@@ -10,8 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var Property = require( 'AXON/Property' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   // constants
@@ -26,22 +28,27 @@ define( function( require ) {
   function PeriodTimer( pendulums, isPeriodTraceVisibleProperty ) {
     var self = this;
 
-
     //TODO: we need more documentation here
     // make sure that we are not creating memory leaks.
 
-    Stopwatch.call( this, {
-      isVisible: isPeriodTraceVisibleProperty.value, // flag to control visibility of timer
-      isFirst: true, // flag to trace timer pendulum
-      activePendulum: pendulums[ INIT_PENDULUM_NUMBER ] // flag to identify pendulum
-    } );
+    Stopwatch.call( this );
+
+    // @public {Property.<boolean>} flag to control visibility of timer
+    this.isVisibleProperty = new BooleanProperty( isPeriodTraceVisibleProperty.value );
+
+    // @public {Property.<boolean>} flag to trace timer pendulum
+    this.isFirstProperty = new BooleanProperty( true );
+
+    // @public {Property.<pendulum>} flag to identify pendulum
+    this.activePendulumProperty = new Property( pendulums[ INIT_PENDULUM_NUMBER ] );
+
 
     // @private
     self._pendulums = pendulums;
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
-      self.isVisible = isPeriodTraceVisible;
+      self.isVisibleProperty.value = isPeriodTraceVisible;
     } );
 
     // stop the period timer when it is not visible.
@@ -51,21 +58,21 @@ define( function( require ) {
     self.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
         // clear time when timer revert to init state
-        self.elapsedTime = 0;
+        self.elapsedTimeProperty.value = 0;
 
         // reset and show trace path
         self.clear();
-        self.activePendulum.periodTrace.isVisibleProperty.value = true;
+        self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = true;
       }
       else {
         // clear path if it wasn't finished
-        if ( (self.activePendulum.periodTrace.numberOfPointsProperty.value < 4) ) {
+        if ( (self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.value < 4) ) {
           self.clear();
         }
 
         // hide path if it wasn't started
-        if ( self.activePendulum.periodTrace.numberOfPointsProperty.value === 0 ) {
-          self.activePendulum.periodTrace.isVisibleProperty.value = false;
+        if ( self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.value === 0 ) {
+          self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
         }
       }
     } );
@@ -84,37 +91,37 @@ define( function( require ) {
       self.isVisibleProperty.onValue( false, clearCallback ); // TODO: is this better not done, or does it matter for perf?
 
       pendulum.periodTrace.elapsedTimeProperty.lazyLink( function( time ) {
-        if ( pendulum === self.activePendulum && self.isRunning ) {
-          self.elapsedTime = time;
+        if ( pendulum === self.activePendulumProperty.value && self.isRunningProperty.value ) {
+          self.elapsedTimeProperty.value = time;
         }
       } );
 
       pathListeners[ pendulumIndex ] = function() {
-        if ( pendulum.periodTrace.numberOfPointsProperty.value === 4 && self.isRunning ) {
-          self.isRunning = false;
+        if ( pendulum.periodTrace.numberOfPointsProperty.value === 4 && self.isRunningProperty.value ) {
+          self.isRunningProperty.value = false;
         }
       };
     } );
 
     // add path listeners
-    self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
+    self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
     self.isFirstProperty.lazyLink( function( isFirst ) {
       self.clear();
 
-      self.activePendulum.periodTrace.isVisibleProperty.value = false;
+      self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
 
       if ( isFirst ) {
-        self.activePendulum.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
+        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
         self.activePendulum = pendulums[ 0 ];
-        self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
+        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
       }
       else {
-        self.activePendulum.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 0 ] );
+        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 0 ] );
         self.activePendulum = pendulums[ 1 ];
-        self.activePendulum.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
+        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
       }
 
-      self.activePendulum.periodTrace.isVisible = self.isRunning;
+      self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = self.isRunningProperty.value;
     } );
   }
 
@@ -122,16 +129,27 @@ define( function( require ) {
 
   return inherit( Stopwatch, PeriodTimer, {
     /**
+     * Resets the PeriodTimer
+     * @public
+     */
+    reset: function() {
+      Stopwatch.prototype.reset.call( this );
+      this.isVisibleProperty.reset();
+      this.isFirstProperty.reset();
+      this.activePendulumProperty.reset();
+    },
+
+    /**
      * Clears the timer and period traces
      * @private
      */
     clear: function() {
       // resetting the timer
-      this.elapsedTime = 0;
+      this.elapsedTimeProperty.value = 0;
 
       // clearing the period traces
-      if ( !this.isRunning ) {
-        this.activePendulum.periodTrace.isVisibleProperty.value = false;
+      if ( !this.isRunningProperty.value ) {
+        this.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
       }
       this._pendulums.forEach( function( pendulum ) {
         pendulum.periodTrace.resetPathPoints();
@@ -142,7 +160,7 @@ define( function( require ) {
      * @public
      */
     stop: function() {
-      if ( this.isRunning === true ) {
+      if ( this.isRunningProperty.value === true ) {
         this.clear();
       }
     }

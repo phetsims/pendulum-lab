@@ -12,20 +12,38 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Movable = require( 'PENDULUM_LAB/common/model/Movable' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
-   * @param {Object} [properties] for extending by this constructor.
    * @constructor
    */
-  function Stopwatch( properties ) {
-    Movable.call( this, _.extend( {
-      isVisible: false, // flag to control stopwatch visibility
-      isRunning: false, // flag to determine stopwatch state
-      elapsedTime: 0 // passed time
-    }, properties ) );
+  function Stopwatch() {
+    Movable.call( this );
+
+    // @public {Property.<boolean>} flag to determine stopwatch state
+    this.isVisibleProperty = new BooleanProperty( false );
+
+    // @public {Property.<boolean>}
+    this.isRunningProperty = new BooleanProperty( false );
+
+    // @public {Property.<number>} passed time
+    this.elapsedTimeProperty = new NumberProperty( 0 );
+
   }
 
   pendulumLab.register( 'Stopwatch', Stopwatch );
 
-  return inherit( Movable, Stopwatch );
+  return inherit( Movable, Stopwatch, {
+    /**
+     * Resets the stopwatch
+     * @public
+     */
+    reset: function() {
+      Movable.prototype.reset.call( this );
+      this.isVisibleProperty.reset();
+      this.isRunningProperty.reset();
+      this.elapsedTimeProperty.reset();
+    }
+  } );
 } );

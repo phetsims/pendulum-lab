@@ -13,23 +13,21 @@ define( function( require ) {
   // modules
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * Constructor for movable objects.
-   *
-   * @param {Object} [properties] for extending by this constructor.
    * @constructor
    */
-  function Movable( properties ) {
-    PropertySet.call( this, _.extend( {
-      location: null // {Vector2} initial value will be set in view, after calculating all bounds of nodes
-    }, properties ) );
+  function Movable(  ) {
+    // @public {Property.<Vector2||null>}
+    // initial value will be set in view, after calculating all bounds of nodes
+    this.locationProperty = new Property( null );
   }
 
   pendulumLab.register( 'Movable', Movable );
 
-  return inherit( PropertySet, Movable, {
+  return inherit( Object, Movable, {
     /**
      * Function that sets the initial location of a movable object and keeps an internal copy of it.
      * @public
@@ -42,7 +40,7 @@ define( function( require ) {
       this.initialLocation = initialLocation.copy();
 
       // set the location to the initial location
-      this.location = this.initialLocation.copy();
+      this.locationProperty.value = this.initialLocation.copy();
     },
 
     /**
@@ -50,10 +48,9 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
 
       // Reset the location to the initial location
-      this.location = this.initialLocation ? this.initialLocation.copy() : null;
+      this.locationProperty.value = this.initialLocation ? this.initialLocation.copy() : null;
     }
   } );
 } );

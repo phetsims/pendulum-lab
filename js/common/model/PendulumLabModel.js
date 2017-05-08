@@ -163,8 +163,8 @@ define( function( require ) {
      */
     modelStep: function( dt ) {
       // add time to the stopwatch if it is running
-      if ( this.stopwatch.isRunning ) {
-        this.stopwatch.elapsedTime += dt;
+      if ( this.stopwatch.isRunningProperty.value ) {
+        this.stopwatch.elapsedTimeProperty.value += dt;
       }
 
       // loop over the pendula

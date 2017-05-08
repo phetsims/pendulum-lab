@@ -213,7 +213,7 @@ define( function( require ) {
       graphUnitsSwitch.pickable = isVisible;
       graphUnitsSwitch.opacity = isVisible ? 1 : 0.5;
       if ( !isVisible ) {
-        periodTimer.isFirst = true;
+        periodTimer.isFirstProperty.value = true;
       }
     } );
 
