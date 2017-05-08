@@ -60,7 +60,7 @@ define( function( require ) {
       // draw the path based on the state of the pendulum
       var updateShape = function() {
         var periodTrace = pendulum.periodTrace;
-        var numberOfPoints = periodTrace.numberOfPoints;
+        var numberOfPoints = periodTrace.numberOfPointsProperty.value;
 
         if ( numberOfPoints > 0 ) { // 0 means we just started the trace
           var shape = new Shape(); // create the new shape
@@ -109,11 +109,11 @@ define( function( require ) {
         intervalId = Timer.setInterval( function() {
           pathNode.opacity -= 0.01;
           if ( pathNode.opacity <= 0 ) {
-            pendulum.periodTrace.isVisible = false;
+            pendulum.periodTrace.isVisibleProperty.value = false;
 
             // show track continuously
-            if ( pendulum.periodTrace.isRepeat ) {
-              pendulum.periodTrace.isVisible = true;
+            if ( pendulum.periodTrace.isRepeatProperty.value ) {
+              pendulum.periodTrace.isVisibleProperty.value = true;
             }
           }
         }, tickTime );

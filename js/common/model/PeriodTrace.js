@@ -9,9 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {Pendulum} pendulum - Pendulum model.
@@ -22,22 +23,25 @@ define( function( require ) {
   function PeriodTrace( pendulum, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ) {
     var self = this;
 
-    PropertySet.call( this, {
-      // 0: Trace hasn't started recording.
-      // 1: Pendulum had its first zero-crossing, but hasn't reached its first peak.
-      // 2: Pendulum reached first peak, and is swinging towards second peak.
-      // 3: Pendulum had second peak, but hasn't crossed the zero-line since.
-      // 4: Pendulum trace completed.
-      numberOfPoints: 0,
+    // @public {Property.<number>}
+    // 0: Trace hasn't started recording.
+    // 1: Pendulum had its first zero-crossing, but hasn't reached its first peak.
+    // 2: Pendulum reached first peak, and is swinging towards second peak.
+    // 3: Pendulum had second peak, but hasn't crossed the zero-line since.
+    // 4: Pendulum trace completed.
+    this.numberOfPointsProperty = new NumberProperty( 0 );
 
-      // flag to control visibility of period trace
-      // it's necessary because period trace can be hide even when isPeriodTraceVisibleProperty === true (example: while pendulum not reach central position)
-      isVisible: false,
+    // @public {Property.<boolean>}
+    // flag to control visibility of period trace
+    // it's necessary because period trace can be hide even when isPeriodTraceVisibleProperty === true (example: while pendulum not reach central position)
+    this.isVisibleProperty = new BooleanProperty( false );
 
-      isRepeat: isPeriodTraceRepeating, // flag to control repeating of drawing path
+    // @public {Property.<boolean>}
+    // flag to control repeating of drawing path
+    this.isRepeatProperty = new BooleanProperty( isPeriodTraceRepeating );
 
-      elapsedTime: 0
-    } );
+    // @public {Property.<number>}
+    this.elapsedTimeProperty = new NumberProperty( 0 );
 
     // save links to properties
     this._pendulum = pendulum;
@@ -105,14 +109,16 @@ define( function( require ) {
 
   pendulumLab.register( 'PeriodTrace', PeriodTrace );
 
-  return inherit( PropertySet, PeriodTrace, {
+  return inherit( Object, PeriodTrace, {
     /**
      * Resets the property set and the path points
      * @public
      */
     reset: function() {
-      PropertySet.prototype.reset.call( this );
-
+      this.numberOfPointsProperty.reset();
+      this.elapsedTimeProperty.reset();
+      this.isRepeatProperty.reset();
+      this.isVisibleProperty.reset();
       this.resetPathPoints();
     },
     /**
