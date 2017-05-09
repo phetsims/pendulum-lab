@@ -10,9 +10,9 @@ define( function( require ) {
 
   // modules
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
   var Property = require( 'AXON/Property' );
 
