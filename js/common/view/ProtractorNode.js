@@ -18,6 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -173,10 +174,9 @@ define( function( require ) {
 
       // set ticks visibility observer
       // present for the lifetime of the sim
-      pendulum.multilink( [ 'isTickVisible', 'isVisible' ], function( ) {
-        var isVisible = pendulum.isTickVisibleProperty.value && pendulum.isVisibleProperty.value;
-        tickNodeLeft.visible = isVisible;
-        tickNodeRight.visible = isVisible;
+      Property.multilink( [ pendulum.isTickVisibleProperty, pendulum.isVisibleProperty ], function( isTickVisible, isVisible ) {
+        tickNodeLeft.visible = isTickVisible && isVisible;
+        tickNodeRight.visible = isTickVisible && isVisible;
         updateTicksPosition();
       } );
 
