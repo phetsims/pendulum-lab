@@ -188,7 +188,7 @@ define( function( require ) {
      */
     update: function() {
       if ( this.isEnergyGraphExpandedProperty.value && this.visible ) {
-        var energyMultiplier = this.pendulum.energyMultiplier;
+        var energyMultiplier = this.pendulum.energyMultiplierProperty.value;
         var maxHeight = this.graphHeight;
 
         var kineticEnergy = this.pendulum.kineticEnergy * energyMultiplier;
@@ -217,7 +217,7 @@ define( function( require ) {
      * @public
      */
     zoomIn: function() {
-      this.pendulum.energyMultiplier *= ZOOM_MULTIPLIER;
+      this.pendulum.energyMultiplierProperty.value *= ZOOM_MULTIPLIER;
       this.update();
     },
     /**
@@ -226,7 +226,7 @@ define( function( require ) {
      * @public
      */
     zoomOut: function() {
-      this.pendulum.energyMultiplier /= ZOOM_MULTIPLIER;
+      this.pendulum.energyMultiplierProperty.value /= ZOOM_MULTIPLIER;
       this.update();
     }
   } );

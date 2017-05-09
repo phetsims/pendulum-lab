@@ -130,9 +130,9 @@ define( function( require ) {
        * function that updates the position of the tick associated with a pendulum
        */
       var updateTicksPosition = function() {
-        if ( pendulum.isUserControlled ) {
-          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angle );
-          tickNodeRight.setRotation( Math.PI / 2 + pendulum.angle );
+        if ( pendulum.isUserControlledProperty.value ) {
+          tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angleProperty.value );
+          tickNodeRight.setRotation( Math.PI / 2 + pendulum.angleProperty.value );
         }
       };
 
@@ -148,9 +148,9 @@ define( function( require ) {
        * function that updates the text of the degrees associated with a pendulum
        */
       var updateDegreesText = function() {
-        if ( pendulum.isUserControlled ) {
+        if ( pendulum.isUserControlledProperty.value ) {
           // pendulum.angle is in radians, convert to degrees
-          var angle = pendulum.angle * 180 / Math.PI;
+          var angle = pendulum.angleProperty.value * 180 / Math.PI;
           assert && assert( angle <= 180 && angle >= -180, 'Out of range angle' );
 
           degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );
@@ -173,8 +173,8 @@ define( function( require ) {
 
       // set ticks visibility observer
       // present for the lifetime of the sim
-      pendulum.multilink( [ 'isTickVisible', 'isVisible' ], function() {
-        var isVisible = pendulum.isTickVisible && pendulum.isVisible;
+      pendulum.multilink( [ 'isTickVisible', 'isVisible' ], function( ) {
+        var isVisible = pendulum.isTickVisibleProperty.value && pendulum.isVisibleProperty.value;
         tickNodeLeft.visible = isVisible;
         tickNodeRight.visible = isVisible;
         updateTicksPosition();

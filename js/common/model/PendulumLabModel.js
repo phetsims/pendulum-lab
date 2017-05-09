@@ -94,11 +94,11 @@ define( function( require ) {
     // change body to custom if gravity was changed
     this.gravityProperty.lazyLink( function( gravity ) {
       if ( !_.some( Body.bodies, function( body ) { return body.gravity === gravity; } ) ) {
-        self.body = Body.CUSTOM;
+        self.bodyProperty.value = Body.CUSTOM;
       }
 
-      if ( self.body === Body.CUSTOM ) {
-        self.customGravity = gravity;
+      if ( self.bodyProperty.value === Body.CUSTOM ) {
+        self.customGravityProperty.value = gravity;
       }
     } );
 
@@ -145,7 +145,7 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      if ( this.play ) {
+      if ( this.playProperty.value ) {
         // pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
         var periodTimerOffsetFactor = 1.007;
 
@@ -153,7 +153,7 @@ define( function( require ) {
         // enough for getting an accurate period timer or speed loss on Jupiter with the shortest length.
         // We apply this BEFORE speed is applied, so that even if we're on a slow device, slow-motion WILL be guaranteed
         // to slow the sim speed down.
-        this.modelStep( Math.min( 0.05, dt ) * (this.timeSpeed * periodTimerOffsetFactor) );
+        this.modelStep( Math.min( 0.05, dt ) * (this.timeSpeedProperty.value * periodTimerOffsetFactor) );
       }
     },
     /**
@@ -174,10 +174,10 @@ define( function( require ) {
         // if the pendulum is moving
         if ( !pendulum.isStationary() ) {
           // prevent infinite motion after friction.
-          var dampMotion = (Math.abs( pendulum.angle ) < 1e-3) && (Math.abs( pendulum.angularAcceleration ) < 1e-3) && (Math.abs( pendulum.angularVelocity ) < 1e-3);
+          var dampMotion = (Math.abs( pendulum.angleProperty.value ) < 1e-3) && (Math.abs( pendulum.angularAcceleration ) < 1e-3) && (Math.abs( pendulum.angularVelocityProperty.value ) < 1e-3);
           if ( dampMotion ) {
-            pendulum.angle = 0;
-            pendulum.angularVelocity = 0;
+            pendulum.angleProperty.value = 0;
+            pendulum.angularVelocityProperty.value = 0;
           }
           // step through the pendulum model
           pendulum.step( dt );

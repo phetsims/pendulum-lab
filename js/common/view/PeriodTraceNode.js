@@ -66,7 +66,7 @@ define( function( require ) {
           var shape = new Shape(); // create the new shape
 
           // trace length is how far away from the pivot the trace will show up.
-          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.length * 3.2 / 4 - 0.1 / 2 );
+          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.lengthProperty.value * 3.2 / 4 - 0.1 / 2 );
 
           // traceStep is how the distance between two line of the trace
           var traceStep = DEFAULT_TRACE_STEP;
@@ -91,15 +91,15 @@ define( function( require ) {
                 fadeOutPath( 3 * pendulum.getApproximatePeriod() / 2 * 10 );
               }
               else {
-                shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, -pendulum.angle, !periodTrace.counterClockwise );
+                shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
               }
             }
             else {
-              shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -pendulum.angle, periodTrace.counterClockwise );
+              shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -pendulum.angleProperty.value, periodTrace.counterClockwise );
             }
           }
           else {
-            shape.arc( 0, 0, traceLength, 0, -pendulum.angle, !periodTrace.counterClockwise );
+            shape.arc( 0, 0, traceLength, 0, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
           }
           pathNode.setShape( shape );
         }

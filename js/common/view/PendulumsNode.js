@@ -120,7 +120,7 @@ define( function( require ) {
             velocityArrow.visible = pendulumVisible && velocityVisible;
             // update the size of the arrow
             if ( velocityArrow.visible ) {
-              var position = modelViewTransform.modelToViewPosition( pendulum.position );
+              var position = modelViewTransform.modelToViewPosition( pendulum.positionProperty.value );
               velocityArrow.setTailAndTip( position.x,
                 position.y,
                 position.x + ARROW_SIZE_DEFAULT * velocity.x,
@@ -145,7 +145,7 @@ define( function( require ) {
           Property.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty, pendulum.accelerationProperty ], function( pendulumVisible, accelerationVisible, acceleration ) {
             accelerationArrow.visible = pendulumVisible && accelerationVisible;
             if ( accelerationArrow.visible ) {
-              var position = modelViewTransform.modelToViewPosition( pendulum.position );
+              var position = modelViewTransform.modelToViewPosition( pendulum.positionProperty.value );
               accelerationArrow.setTailAndTip( position.x,
                 position.y,
                 position.x + ARROW_SIZE_DEFAULT * acceleration.x,
@@ -163,21 +163,21 @@ define( function( require ) {
           // determine the position of where the pendulum is dragged.
           start: function( event ) {
             var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
-            angleOffset = pendulum.angle - dragAngle;
+            angleOffset = pendulum.angleProperty.value - dragAngle;
 
-            pendulum.isUserControlled = true;
+            pendulum.isUserControlledProperty.value = true;
           },
 
           // set the angle of the pendulum depending on where it is dragged to.
           drag: function( event ) {
             var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
 
-            pendulum.angle = Pendulum.modAngle( angleOffset + dragAngle );
+            pendulum.angleProperty.value = Pendulum.modAngle( angleOffset + dragAngle );
           },
 
           // release user control
           end: function() {
-            pendulum.isUserControlled = false;
+            pendulum.isUserControlledProperty.value = false;
           }
         } );
 
@@ -186,21 +186,21 @@ define( function( require ) {
         self.draggableItems.push( {
           startDrag: dragListener.startDrag.bind( dragListener ),
           computeDistance: function( globalPoint ) {
-            if ( pendulum.isUserControlled || !pendulum.isVisible ) {
+            if ( pendulum.isUserControlledProperty.value || !pendulum.isVisibleProperty.value ) {
               return Number.POSITIVE_INFINITY;
             }
             else {
               var cursorModelPosition = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( globalPoint ) );
-              cursorModelPosition.rotate( -pendulum.angle ).add( new Vector2( 0, pendulum.length ) ); // rotate/length so (0,0) would be mass center
-              var massViewWidth = modelViewTransform.viewToModelDeltaX( RECT_SIZE.width * massToScale( pendulum.mass ) );
-              var massViewHeight = modelViewTransform.viewToModelDeltaX( RECT_SIZE.height * massToScale( pendulum.mass ) );
+              cursorModelPosition.rotate( -pendulum.angleProperty.value ).add( new Vector2( 0, pendulum.lengthProperty.value ) ); // rotate/length so (0,0) would be mass center
+              var massViewWidth = modelViewTransform.viewToModelDeltaX( RECT_SIZE.width * massToScale( pendulum.massProperty.value ) );
+              var massViewHeight = modelViewTransform.viewToModelDeltaX( RECT_SIZE.height * massToScale( pendulum.massProperty.value ) );
               var massBounds = new Bounds2( -massViewWidth / 2, -massViewHeight / 2, massViewWidth / 2, massViewHeight / 2 );
               return Math.sqrt( massBounds.minimumDistanceToPointSquared( cursorModelPosition ) );
             }
           }
         } );
 
-        // update pendulum rotation, pendulum.angle is radians
+        // update pendulum rotation, pendulum.angleProperty.value is radians
         // we are using an inverted modelViewTransform, hence we multiply the view angle by minus one
         pendulum.angleProperty.link( function( angle ) {
           // TODO using a matrix transformation instead?
