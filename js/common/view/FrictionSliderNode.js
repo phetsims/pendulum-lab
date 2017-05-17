@@ -92,7 +92,9 @@ define( function( require ) {
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );
     }
-
+    
+    // TODO: Consider using hSlider.constrainValue as an option for snapping values.
+    // Check BatteryResistanceControl.js line 57
     // slider link to friction value
     sliderValueProperty.link( function( sliderValue ) {
       // snap to integer values
