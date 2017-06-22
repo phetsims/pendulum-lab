@@ -9,12 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
@@ -27,20 +29,33 @@ define( function( require ) {
   function PendulumLabModel( isPeriodTraceRepeating ) {
     var self = this;
 
-    PropertySet.call( this, {
-      body: Body.EARTH, // we want the default body to be earth
-      gravity: Body.EARTH.gravity, // gravitational acceleration
+    // @public {Property.<Body>}
+    this.bodyProperty = new Property( Body.EARTH );
 
-      // tracked for the "Custom" body, so that we can revert to this when the user changes from "Planet X" to "Custom"
-      customGravity: Body.EARTH.gravity,
-      timeSpeed: 1, // speed of time ticking
-      numberOfPendulums: 1, // number of visible pendulums,
-      play: true, // flag: controls running of time
-      friction: 0, // friction coefficient
+    //TODO: How separate does this need to be? DerivedProperty possible?
+    // @public {Property.<number>} - Gravitational acceleration
+    this.gravityProperty = new NumberProperty( Body.EARTH.gravity );
 
-      // flag: controls check box value of period trace visibility
-      isPeriodTraceVisible: false
-    } );
+    //TODO: How separate does this need to be? DerivedProperty possible?
+    // @public {Property.<number>} - Tracked for the "Custom" body, so that we can revert to this when the user changes
+    //                               from "Planet X" to "Custom"
+    this.customGravityProperty = new NumberProperty( Body.EARTH.gravity );
+
+    // @public {Property.<number>} - Speed of time.
+    this.timeSpeedProperty = new NumberProperty( 1 );
+
+    // @public {Property.<number>} - Number of visible pendulums (2 pendulums are handled in the model)
+    this.numberOfPendulumsProperty = new NumberProperty( 1 );
+
+    // TODO: runningProperty?
+    // @public {Property.<boolean>}
+    this.playProperty = new BooleanProperty( true );
+
+    // @public {Property.<number>} - Friction coefficient
+    this.frictionProperty = new NumberProperty( 0 );
+
+    // @public {Property.<boolean}
+    this.isPeriodTraceVisibleProperty = new BooleanProperty( false );
 
     // @public
     // an array of pendulum, apologies to all english majors
@@ -112,7 +127,7 @@ define( function( require ) {
 
   pendulumLab.register( 'PendulumLabModel', PendulumLabModel );
 
-  return inherit( PropertySet, PendulumLabModel, {
+  return inherit( Object, PendulumLabModel, {
     /**
      * function that resets the elements of the simulation, ruler, stopwatch, and pedulums
      * @public
