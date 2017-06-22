@@ -12,6 +12,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var PropertySet = require( 'AXON/PropertySet' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
@@ -40,18 +41,19 @@ define( function( require ) {
   function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ) {
     var self = this;
 
-    // save link to global properties
-    // @private
-    this.gravityProperty = gravityProperty;
-    this.frictionProperty = frictionProperty;
+    // @public {Property.<number>} - Length of the pendulum (in meters)
+    this.lengthProperty = new NumberProperty( length );
+
+    // @public {Property.<number>} - Mass of the pendulum (in kilograms)
+    this.massProperty = new NumberProperty( mass );
+
+    // @public {Property.<number>} - Angle in radians (0 is straight down, positive is to the right)
+    this.angleProperty = new NumberProperty( 0 );
+
+    // @public {Property.<number>} - Angular velocity (in radians/second)
+    this.angularVelocityProperty = new NumberProperty( 0 );
 
     PropertySet.call( this, {
-      // Primary variables
-      length: length, // length of pendulum in meters
-      mass: mass, // mass of pendulum in kg
-      angle: 0, // radians, 0 indicates straight down, pi/2 is to the right
-      angularVelocity: 0, // angular velocity in rad/s
-
       // Derived variables
       angularAcceleration: 0, // angular acceleration in rad/s^2
       position: new Vector2( 0, 0 ), // from the rotation point
@@ -68,6 +70,11 @@ define( function( require ) {
       isVisible: isVisible, // flag: is pendulum visible
       energyMultiplier: 40 // coefficient for drawing energy graph
     } );
+
+    // save link to global properties
+    // @private
+    this.gravityProperty = gravityProperty;
+    this.frictionProperty = frictionProperty;
 
     // @public
     this.stepEmitter = new Emitter();

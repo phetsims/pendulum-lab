@@ -68,7 +68,7 @@ define( function( require ) {
 
         // create the visual representation of a rod that joins the fulcrum point to the bob
         // initially set to be vertical
-        var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaY( pendulum.length ), {
+        var solidLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaY( pendulum.lengthProperty.value ), {
           stroke: 'black',
           pickable: false
         } );
