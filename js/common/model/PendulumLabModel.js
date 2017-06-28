@@ -189,7 +189,7 @@ define( function( require ) {
         // if the pendulum is moving
         if ( !pendulum.isStationary() ) {
           // prevent infinite motion after friction.
-          var dampMotion = (Math.abs( pendulum.angleProperty.value ) < 1e-3) && (Math.abs( pendulum.angularAcceleration ) < 1e-3) && (Math.abs( pendulum.angularVelocityProperty.value ) < 1e-3);
+          var dampMotion = ( Math.abs( pendulum.angleProperty.value ) < 1e-3 ) && ( Math.abs( pendulum.angularAccelerationProperty.value ) < 1e-3 ) && ( Math.abs( pendulum.angularVelocityProperty.value ) < 1e-3 );
           if ( dampMotion ) {
             pendulum.angleProperty.value = 0;
             pendulum.angularVelocityProperty.value = 0;

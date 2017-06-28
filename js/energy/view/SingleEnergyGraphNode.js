@@ -191,9 +191,9 @@ define( function( require ) {
         var energyMultiplier = this.pendulum.energyMultiplierProperty.value;
         var maxHeight = this.graphHeight;
 
-        var kineticEnergy = this.pendulum.kineticEnergy * energyMultiplier;
-        var potentialEnergy = this.pendulum.potentialEnergy * energyMultiplier;
-        var thermalEnergy = this.pendulum.thermalEnergy * energyMultiplier;
+        var kineticEnergy = this.pendulum.kineticEnergyProperty.value * energyMultiplier;
+        var potentialEnergy = this.pendulum.potentialEnergyProperty.value * energyMultiplier;
+        var thermalEnergy = this.pendulum.thermalEnergyProperty.value * energyMultiplier;
 
         // individual bars
         this.kineticEnergyBar.rectHeight = Math.min( maxHeight, kineticEnergy );

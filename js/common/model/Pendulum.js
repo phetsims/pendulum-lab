@@ -9,12 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -53,23 +54,45 @@ define( function( require ) {
     // @public {Property.<number>} - Angular velocity (in radians/second)
     this.angularVelocityProperty = new NumberProperty( 0 );
 
-    PropertySet.call( this, {
-      // Derived variables
-      angularAcceleration: 0, // angular acceleration in rad/s^2
-      position: new Vector2( 0, 0 ), // from the rotation point
-      velocity: new Vector2( 0, 0 ),
-      acceleration: new Vector2( 0, 0 ),
-      kineticEnergy: 0, // Joules
-      potentialEnergy: 0, // Joules
-      thermalEnergy: 0, // Joules
-      totalEnergy: 0, // Joules
+    /*---------------------------------------------------------------------------*
+    * Derived variables
+    *----------------------------------------------------------------------------*/
 
-      // UI??
-      isUserControlled: false, // flag: is pendulum currently being dragged
-      isTickVisible: false,  // flag: is pendulum tick visible on protractor
-      isVisible: isVisible, // flag: is pendulum visible
-      energyMultiplier: 40 // coefficient for drawing energy graph
-    } );
+    // @public {Property.<number>} - Angular acceleration in rad/s^2 TODO: not listened to, convert to non-property?
+    this.angularAccelerationProperty = new NumberProperty( 0 );
+
+    // @public {Property.<Vector2>} - Position from the rotation point
+    this.positionProperty = new Property( Vector2.ZERO );
+
+    // @public {Property.<Vector2>}
+    this.velocityProperty = new Property( Vector2.ZERO );
+
+    // @public {Property.<Vector2>}
+    this.accelerationProperty = new Property( Vector2.ZERO );
+
+    // @public {Property.<number>} - In Joules
+    this.kineticEnergyProperty = new NumberProperty( 0 );
+
+    // @public {Property.<number>} - In Joules
+    this.potentialEnergyProperty = new NumberProperty( 0 );
+
+    // @public {Property.<number>} - In Joules
+    this.thermalEnergyProperty = new NumberProperty( 0 );
+
+    // @public {Property.<number>} - In Joules TODO: do we ever read this?
+    this.totalEnergyProperty = new NumberProperty( 0 );
+
+    // @public {Property.<boolean>} - Whether the pendulum is currently being dragged.
+    this.isUserControlledProperty = new BooleanProperty( false );
+
+    // @public {Property.<boolean>} - Whether the pendulum tick is visible on the protractor.
+    this.isTickVisibleProperty = new BooleanProperty( false );
+
+    // @public {Property.<boolean>} - Whether the entire pendulum is visible or not
+    this.isVisibleProperty = new BooleanProperty( false );
+
+    // @public {Property.<number>} - Coefficient for drawing the energy graph
+    this.energyMultiplierProperty = new NumberProperty( 40 );
 
     // save link to global properties
     // @private
@@ -127,7 +150,7 @@ define( function( require ) {
 
   pendulumLab.register( 'Pendulum', Pendulum );
 
-  return inherit( PropertySet, Pendulum, {
+  return inherit( Object, Pendulum, {
     /**
      * Function that returns the instantaneous angular acceleration
      * @param {number} theta - angular position
@@ -263,13 +286,13 @@ define( function( require ) {
       }
       this.totalEnergyProperty.value = this.kineticEnergyProperty.value + this.potentialEnergyProperty.value + this.thermalEnergyProperty.value;
 
-      this.positionProperty.value.setPolar( this.lengthProperty.value, this.angleProperty.value - Math.PI / 2 );
-      this.velocityProperty.value.setPolar( this.angularVelocityProperty.value * this.lengthProperty.value, this.angleProperty.value ); // coordinate frame -pi/2, but perpendicular +pi/2
+      this.positionProperty.value = Vector2.createPolar( this.lengthProperty.value, this.angleProperty.value - Math.PI / 2 );
+      this.velocityProperty.value = Vector2.createPolar( this.angularVelocityProperty.value * this.lengthProperty.value, this.angleProperty.value ); // coordinate frame -pi/2, but perpendicular +pi/2
 
       // add up net forces for the acceleration
 
       // tangential friction
-      this.accelerationProperty.value.setPolar( -this.frictionTerm( this.angularVelocityProperty.value ) / this.massProperty.value, this.angleProperty.value );
+      this.accelerationProperty.value = Vector2.createPolar( -this.frictionTerm( this.angularVelocityProperty.value ) / this.massProperty.value, this.angleProperty.value );
       // tangential gravity
       this.accelerationProperty.value.add( scratchVector.setPolar( -this.gravityProperty.value * Math.sin( this.angleProperty.value ), this.angleProperty.value ) );
       // radial (centripetal acceleration)
@@ -277,7 +300,6 @@ define( function( require ) {
 
       this.velocityProperty.notifyObserversStatic();
       this.accelerationProperty.notifyObserversStatic();
-      this.positionProperty.notifyObserversStatic();
     },
 
     /**
