@@ -17,15 +17,16 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   /**
-   * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
-   * @param {boolean} isPeriodTraceRepeatable
    * @constructor
+   *
+   * @param {Object} [options]
    */
-  function EnergyModel( isPeriodTraceRepeatable ) {
-    PendulumLabModel.call( this, isPeriodTraceRepeatable );
+  function EnergyModel( options ) {
+    options = _.extend( {
+      rulerInitiallyVisible: false // Hide the ruler by default on the energy screens
+    }, options );
 
-    // hide ruler by default
-    this.ruler.isVisible = false;
+    PendulumLabModel.call( this, options );
 
     // add energy mode property
     this.isEnergyGraphExpandedProperty = new BooleanProperty( false );
@@ -43,7 +44,6 @@ define( function( require ) {
       PendulumLabModel.prototype.reset.call( this );
       this.isEnergyGraphExpandedProperty.reset();
       this.energyGraphModeProperty.reset();
-      this.ruler.isVisible = false;
     }
   } );
 } );

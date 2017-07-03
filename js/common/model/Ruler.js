@@ -15,9 +15,11 @@ define( function( require ) {
 
   /**
    * @constructor
+   *
+   * @param {boolean} isInitiallyVisible
    */
-  function Ruler() {
-    MovableComponent.call( this, true );
+  function Ruler( isInitiallyVisible ) {
+    MovableComponent.call( this, isInitiallyVisible );
 
     // @public (read-only) - Meters
     this.length = 1;

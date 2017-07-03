@@ -38,7 +38,7 @@ define( function( require ) {
     };
 
     Screen.call( this,
-      function() { return new PendulumLabModel( true ); },
+      function() { return new PendulumLabModel(); },
       function( model ) { return new PendulumLabView( model ); },
       options
     );

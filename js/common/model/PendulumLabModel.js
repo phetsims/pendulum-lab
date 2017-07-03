@@ -22,12 +22,20 @@ define( function( require ) {
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**
-   * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
-   * @param {boolean} isPeriodTraceRepeatable
    * @constructor
+   *
+   * @param {Object} [options]
    */
-  function PendulumLabModel( isPeriodTraceRepeatable ) {
+  function PendulumLabModel( options ) {
     var self = this;
+
+    options = _.extend( {
+      // {boolean} - Should be false if there is a PeriodTimer handling the trace's visibility.
+      periodTraceRepeatable: true,
+
+      // {boolean}
+      rulerInitiallyVisible: true
+    }, options );
 
     // @public {Property.<Body>}
     this.bodyProperty = new Property( Body.EARTH );
@@ -61,9 +69,9 @@ define( function( require ) {
     // an array of pendulum, apologies to all english majors
     this.pendula = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
-        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ),
+        this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable ),
       new Pendulum( 0.5, 1.0, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
-        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeatable )
+        this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable )
     ];
 
     // all of the bodies that are possible
@@ -83,7 +91,7 @@ define( function( require ) {
     this.frictionRange = new RangeWithValue( 0, 0.5115, 0 );
 
     // @public (read-only) model for ruler
-    this.ruler = new Ruler();
+    this.ruler = new Ruler( options.rulerInitiallyVisible );
 
     // @public (read-only) model for stopwatch
     this.stopwatch = new Stopwatch();

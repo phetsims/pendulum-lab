@@ -36,7 +36,7 @@ define( function( require ) {
     };
 
     Screen.call( this,
-      function() { return new EnergyModel( true ); },
+      function() { return new EnergyModel(); },
       //TODO magic number
       function( model ) { return new EnergyView( model, 253 ); },
       options

@@ -16,11 +16,16 @@ define( function( require ) {
   var PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
 
   /**
-   * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
    * @constructor
+   *
+   * @param {Object} [options]
    */
-  function LabModel() {
-    EnergyModel.call( this, false );
+  function LabModel( options ) {
+    options = _.extend( {
+      periodTraceRepeatable: false
+    }, options );
+
+    EnergyModel.call( this, options );
 
     // add properties to control visibility of arrows
     this.isVelocityVisibleProperty = new BooleanProperty( false );
