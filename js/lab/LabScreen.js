@@ -41,7 +41,7 @@ define( function( require ) {
       function() { return new LabModel(); },
       //TODO magic number 2
       //TODO: MVT can be abstracted out?
-      function( model ) { return new LabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 195 ); },
+      function( model ) { return new LabView( model, 195 ); },
       options
     );
   }

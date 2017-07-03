@@ -21,12 +21,11 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel
-   * @param {ModelViewTransform2} modelViewTransform
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @constructor
    */
-  function LabView( pendulumLabModel, modelViewTransform, energyGraphHeight ) {
-    EnergyView.call( this, pendulumLabModel, modelViewTransform, energyGraphHeight, {
+  function LabView( pendulumLabModel, energyGraphHeight ) {
+    EnergyView.call( this, pendulumLabModel, energyGraphHeight, {
       includeGravityTweakers: true
     } );
 

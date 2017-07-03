@@ -9,22 +9,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Plane = require( 'SCENERY/nodes/Plane' );
+  var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
-  var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
-  var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
+  var PendulumSystemControlPanels = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanels' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
+  var Plane = require( 'SCENERY/nodes/Plane' );
+  var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
-  var PendulumSystemControlPanels = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanels' );
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   /**
@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function PendulumLabView( model, modelViewTransform, options ) {
+  function PendulumLabView( model, options ) {
     ScreenView.call( this, { layoutBounds: PendulumLabConstants.SIM_BOUNDS } );
 
     // @private {PendulumLabModel}
@@ -41,6 +41,8 @@ define( function( require ) {
     options = _.extend( {
       includeGravityTweakers: false
     }, options );
+
+    var modelViewTransform = PendulumLabConstants.MODEL_VIEW_TRANSFORM;
 
     var pendulaNode = new PendulaNode( model.pendula, modelViewTransform, {
       isAccelerationVisibleProperty: model.isAccelerationVisibleProperty,

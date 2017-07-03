@@ -39,7 +39,7 @@ define( function( require ) {
       function() { return new EnergyModel( true ); },
       //TODO magic number
       //TODO: MVT can be abstracted out?
-      function( model ) { return new EnergyView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 253 ); },
+      function( model ) { return new EnergyView( model, 253 ); },
       options
     );
   }

@@ -10,10 +10,10 @@ define( function( require ) {
 
   // modules
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
@@ -116,8 +116,8 @@ define( function( require ) {
     // possible mass range in kg
     this.massRange = new RangeWithValue( 0.1, 1.50, mass ); // @public (read-only)
 
-    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ); // @private
-
+    // @public {PeriodTrace}
+    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
 
     // make tick on protractor visible after first drag
     this.isUserControlledProperty.lazyLink( function( isUserControlled ) {
@@ -364,6 +364,7 @@ define( function( require ) {
 
       this.resetEmitter.emit();
     },
+
     /**
      * Resets the thermal energy to zero
      * @public
