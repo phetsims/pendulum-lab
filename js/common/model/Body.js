@@ -19,14 +19,13 @@ define( function( require ) {
   var planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
-   * Constructor for bodies
-   *
-   * @param {string} title - Title of body.
-   * @param {number|null} gravity - Gravity acceleration on body (m/s^2) if defined.
    * @constructor
+   *
+   * @param {string} title
+   * @param {number|null} gravity - Gravitational acceleration on body (m/s^2) if defined.
    */
   function Body( title, gravity ) {
-    // @public {string} (read-only) - Name of the body
+    // @public {string} (read-only)
     this.title = title;
 
     // @public {number|null} (read-only) - Gravitation acceleration (if available) in meters/second^2
@@ -49,6 +48,9 @@ define( function( require ) {
     Body.PLANET_X,
     Body.CUSTOM
   ];
+
+  // verify that enumeration is immutable, without the runtime penalty in production code
+  if ( assert ) { Object.freeze( Body ); }
 
   return Body;
 } );

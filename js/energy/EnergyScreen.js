@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * The 'Pendulum's Lab' Energy screen.
+ * Energy screen.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -9,14 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenEnergyString = require( 'string!PENDULUM_LAB/screen.energy' );
@@ -38,6 +38,7 @@ define( function( require ) {
     Screen.call( this,
       function() { return new EnergyModel( true ); },
       //TODO magic number
+      //TODO: MVT can be abstracted out?
       function( model ) { return new EnergyView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 253 ); },
       options
     );

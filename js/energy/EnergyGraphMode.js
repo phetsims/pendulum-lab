@@ -18,5 +18,8 @@ define( function( require ) {
 
   pendulumLab.register( 'EnergyGraphMode', EnergyGraphMode );
 
+  // verify that enumeration is immutable, without the runtime penalty in production code
+  if ( assert ) { Object.freeze( EnergyGraphMode ); }
+
   return EnergyGraphMode;
 } );

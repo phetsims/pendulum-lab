@@ -11,17 +11,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Property = require( 'AXON/Property' );
 
   /**
-   * Constructor for movable objects.
    * @constructor
    */
-  function Movable(  ) {
-    // @public {Property.<Vector2||null>}
-    // initial value will be set in view, after calculating all bounds of nodes
+  function Movable() {
+    // @public {Property.<Vector2|null>} - Initial value will be set in view, after calculating all bounds of nodes
     this.locationProperty = new Property( null );
   }
 
@@ -31,6 +29,7 @@ define( function( require ) {
     /**
      * Function that sets the initial location of a movable object and keeps an internal copy of it.
      * @public
+     *
      * @param {Vector2} initialLocation
      */
     setInitialLocationValue: function( initialLocation ) {

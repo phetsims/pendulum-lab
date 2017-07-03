@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * The 'Pendulum's Lab' Lab screen.
+ * Lab screen.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -9,21 +9,21 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var LabModel = require( 'PENDULUM_LAB/lab/model/LabModel' );
   var LabView = require( 'PENDULUM_LAB/lab/view/LabView' );
-  var Property = require( 'AXON/Property' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenLabString = require( 'string!PENDULUM_LAB/screen.lab' );
 
   // images
-  var labScreenImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
   var labNavbarImage = require( 'mipmap!PENDULUM_LAB/lab-navbar-icon.png' );
+  var labScreenImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
 
   /**
    * @constructor
@@ -40,6 +40,7 @@ define( function( require ) {
     Screen.call( this,
       function() { return new LabModel(); },
       //TODO magic number 2
+      //TODO: MVT can be abstracted out?
       function( model ) { return new LabView( model, PendulumLabConstants.MODEL_VIEW_TRANSFORM, 195 ); },
       options
     );
