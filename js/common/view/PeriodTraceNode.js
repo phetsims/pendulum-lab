@@ -80,7 +80,7 @@ define( function( require ) {
             pendulum.periodTrace.isVisibleProperty.value = false;
 
             // show track continuously
-            if ( pendulum.periodTrace.isRepeatProperty.value ) {
+            if ( pendulum.periodTrace.isRepeatable ) {
               pendulum.periodTrace.isVisibleProperty.value = true;
             }
 

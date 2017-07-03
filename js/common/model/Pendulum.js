@@ -36,10 +36,10 @@ define( function( require ) {
    * @param {Property.<number>} gravityProperty - Property with current gravity value.
    * @param {Property.<number>} frictionProperty - Property with current friction value.
    * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
-   * @param {boolean} isPeriodTraceRepeating
+   * @param {boolean} isPeriodTraceRepeatable
    * @constructor
    */
-  function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeating ) {
+  function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ) {
     var self = this;
 
     // @public {Property.<number>} - Length of the pendulum (in meters)
@@ -117,7 +117,7 @@ define( function( require ) {
     this.massRange = new RangeWithValue( 0.1, 1.50, mass ); // @public (read-only)
 
     // @public {PeriodTrace}
-    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeating );
+    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable );
 
     // make tick on protractor visible after first drag
     this.isUserControlledProperty.lazyLink( function( isUserControlled ) {

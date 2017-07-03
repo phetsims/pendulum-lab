@@ -23,10 +23,10 @@ define( function( require ) {
 
   /**
    * Main constructor for PendulumLabModel, which contains all of the model logic for the entire sim screen.
-   * @param {boolean} isPeriodTraceRepeating
+   * @param {boolean} isPeriodTraceRepeatable
    * @constructor
    */
-  function PendulumLabModel( isPeriodTraceRepeating ) {
+  function PendulumLabModel( isPeriodTraceRepeatable ) {
     var self = this;
 
     // @public {Property.<Body>}
@@ -61,9 +61,9 @@ define( function( require ) {
     // an array of pendulum, apologies to all english majors
     this.pendula = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
-        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating ),
+        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ),
       new Pendulum( 0.5, 1.0, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
-        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating )
+        this.isPeriodTraceVisibleProperty, isPeriodTraceRepeatable )
     ];
 
     // all of the bodies that are possible
