@@ -9,16 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var DynamicProperty = require( 'AXON/DynamicProperty' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
-  var Util = require( 'DOT/Util' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
@@ -57,8 +58,11 @@ define( function( require ) {
    * @constructor
    */
   function FrictionSliderNode( frictionProperty, frictionRange, options ) {
-    // property for the slider value
-    var sliderValueProperty = new Property( frictionToSliderValue( frictionProperty.value ) );
+    var sliderValueProperty = new DynamicProperty( new Property( frictionProperty ), {
+      bidirectional: true,
+      map: frictionToSliderValue,
+      inverseMap: sliderValueToFriction
+    } );
 
     // range the slider can have
     var sliderValueRange = new RangeWithValue( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
@@ -72,7 +76,10 @@ define( function( require ) {
       thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
       thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
       thumbFillEnabled: '#00C4DF',
-      thumbFillHighlighted: '#71EDFF'
+      thumbFillHighlighted: '#71EDFF',
+      constrainValue: function( value ) {
+        return Util.roundSymmetric( value );
+      }
     } );
 
     // describes the panel box containing the friction slider
@@ -92,23 +99,6 @@ define( function( require ) {
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );
     }
-    
-    // TODO: Consider using hSlider.constrainValue as an option for snapping values.
-    // Check BatteryResistanceControl.js line 57
-    // slider link to friction value
-    sliderValueProperty.link( function( sliderValue ) {
-      // snap to integer values
-      if ( sliderValue % 1 === 0 ) {
-        frictionProperty.value = sliderValueToFriction( sliderValue );
-      }
-      else {
-        sliderValueProperty.value = Util.roundSymmetric( sliderValue );
-      }
-    } );
-
-    frictionProperty.lazyLink( function( frictionValue ) {
-      sliderValueProperty.value = Util.roundSymmetric( frictionToSliderValue( frictionValue ) );
-    } );
   }
 
   pendulumLab.register( 'FrictionSliderNode', FrictionSliderNode );
