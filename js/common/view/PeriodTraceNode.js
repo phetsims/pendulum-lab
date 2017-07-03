@@ -38,6 +38,9 @@ define( function( require ) {
     var viewOriginPosition = modelViewTransform.modelToViewPosition( new Vector2( 0, 0 ) );
     this.translation = viewOriginPosition;
 
+    // TODO: don't require this
+    this.stepFunctions = [];
+
     pendulums.forEach( function( pendulum ) {
       var intervalId = null; // interval id for fading timer
       var isCompleted = false; // flag to control completing of trace view
@@ -56,6 +59,28 @@ define( function( require ) {
         }
         pathNode.opacity = 1;
       };
+
+      // TODO: better
+      var fadeOutSpeed = null;
+
+      self.stepFunctions.push( function step( dt ) {
+        if ( fadeOutSpeed ) {
+          var opacity = Math.max( 0, pathNode.opacity - fadeOutSpeed * dt );
+          pathNode.opacity = opacity;
+
+          // TODO: better way of handling
+          if ( opacity === 0 ) {
+            pendulum.periodTrace.isVisibleProperty.value = false;
+
+            // show track continuously
+            if ( pendulum.periodTrace.isRepeatProperty.value ) {
+              pendulum.periodTrace.isVisibleProperty.value = true;
+            }
+
+            fadeOutSpeed = null;
+          }
+        }
+      } );
 
       // draw the path based on the state of the pendulum
       var updateShape = function() {
@@ -88,7 +113,7 @@ define( function( require ) {
               if ( numberOfPoints > 3 ) {
                 shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, 0, !periodTrace.counterClockwise );
                 isCompleted = true;
-                fadeOutPath( 3 * pendulum.getApproximatePeriod() / 2 * 10 );
+                fadeOutSpeed = 1 / ( 3 * pendulum.getApproximatePeriod() / 2 );
               }
               else {
                 shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
@@ -103,20 +128,6 @@ define( function( require ) {
           }
           pathNode.setShape( shape );
         }
-      };
-
-      var fadeOutPath = function( tickTime ) {
-        intervalId = Timer.setInterval( function() {
-          pathNode.opacity -= 0.01;
-          if ( pathNode.opacity <= 0 ) {
-            pendulum.periodTrace.isVisibleProperty.value = false;
-
-            // show track continuously
-            if ( pendulum.periodTrace.isRepeatProperty.value ) {
-              pendulum.periodTrace.isVisibleProperty.value = true;
-            }
-          }
-        }, tickTime );
       };
 
       // update path shape
@@ -140,5 +151,17 @@ define( function( require ) {
 
   pendulumLab.register( 'PeriodTraceNode', PeriodTraceNode );
 
-  return inherit( Node, PeriodTraceNode );
+  return inherit( Node, PeriodTraceNode, {
+    /**
+     * Steps the view.
+     * @public
+     *
+     * @param {number} dt
+     */
+    step: function( dt ) {
+      for ( var i = 0; i < this.stepFunctions.length; i++ ) {
+        this.stepFunctions[ i ]( dt );
+      }
+    }
+  } );
 } );

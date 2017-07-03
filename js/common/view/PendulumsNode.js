@@ -40,6 +40,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @constructor
+   *TODO: PendulaNode (proper plural)
    */
   function PendulumsNode( pendulums, modelViewTransform, options ) {
     var self = this;

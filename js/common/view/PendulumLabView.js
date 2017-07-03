@@ -28,21 +28,23 @@ define( function( require ) {
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   /**
-   * @param {PendulumLabModel} pendulumLabModel
+   * @param {PendulumLabModel} model
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function PendulumLabView( pendulumLabModel, modelViewTransform, options ) {
+  function PendulumLabView( model, modelViewTransform, options ) {
     ScreenView.call( this, { layoutBounds: PendulumLabConstants.SIM_BOUNDS } );
+
+    // @private {PendulumLabModel}
+    this.model = model;
 
     options = _.extend( {
       includeGravityTweakers: false
     }, options );
 
-    // create pendula
-    var pendulumsNode = new PendulumsNode( pendulumLabModel.pendulums, modelViewTransform, {
-      isAccelerationVisibleProperty: pendulumLabModel.isAccelerationVisibleProperty,
-      isVelocityVisibleProperty: pendulumLabModel.isVelocityVisibleProperty
+    var pendulumsNode = new PendulumsNode( model.pendulums, modelViewTransform, {
+      isAccelerationVisibleProperty: model.isAccelerationVisibleProperty,
+      isVelocityVisibleProperty: model.isVelocityVisibleProperty
     } );
 
     // create drag listener for the pendula
@@ -51,16 +53,16 @@ define( function( require ) {
     pendulumsNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
     backgroundDragNode.addInputListener( dragListener );
 
-    // create period trace node
-    var periodTraceNode = new PeriodTraceNode( pendulumLabModel.pendulums, modelViewTransform );
+    // @private {PeriodTraceNode}
+    this.periodTraceNode = new PeriodTraceNode( model.pendulums, modelViewTransform );
 
     // create protractor node
-    var protractorNode = new ProtractorNode( pendulumLabModel.pendulums, modelViewTransform );
+    var protractorNode = new ProtractorNode( model.pendulums, modelViewTransform );
 
     // create a node to keep track of combo box
     var bodiesListNode = new Node();
 
-    var slidersPanelNode = new PendulumSystemControlPanels( pendulumLabModel, bodiesListNode, {
+    var slidersPanelNode = new PendulumSystemControlPanels( model, bodiesListNode, {
       includeGravityTweakers: !!options.includeGravityTweakers
       // TODO: layout here
     } );
@@ -68,38 +70,38 @@ define( function( require ) {
     this.slidersPanelNode = slidersPanelNode;
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
-    var toolsControlPanelNode = new ToolsControlPanelNode( pendulumLabModel.ruler.isVisibleProperty,
-      pendulumLabModel.stopwatch.isVisibleProperty, pendulumLabModel.isPeriodTraceVisibleProperty, { maxWidth: 180 } );
+    var toolsControlPanelNode = new ToolsControlPanelNode( model.ruler.isVisibleProperty,
+      model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, { maxWidth: 180 } );
 
     // @protected
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
-    var pendulumSystemControlPanelNode = new PlaybackControlsNode( pendulumLabModel.numberOfPendulumsProperty,
-      pendulumLabModel.playProperty, pendulumLabModel.timeSpeedProperty, pendulumLabModel.stepManual.bind( pendulumLabModel ) );
+    var pendulumSystemControlPanelNode = new PlaybackControlsNode( model.numberOfPendulumsProperty,
+      model.playProperty, model.timeSpeedProperty, model.stepManual.bind( model ) );
 
     // create reset all button
     var resetAllButton = new ResetAllButton( {
-      listener: pendulumLabModel.reset.bind( pendulumLabModel ),
+      listener: model.reset.bind( model ),
       touchAreaDilation: 6
     } );
     resetAllButton.scale( 0.75 );
 
     // create ruler node
-    var rulerNode = new PendulumLabRulerNode( pendulumLabModel.ruler, modelViewTransform, this.layoutBounds );
+    var rulerNode = new PendulumLabRulerNode( model.ruler, modelViewTransform, this.layoutBounds );
 
     // @protected
     this.rulerNode = rulerNode;
 
     // create timer node
-    var stopwatchNode = new StopwatchNode( pendulumLabModel.stopwatch, this.layoutBounds );
+    var stopwatchNode = new StopwatchNode( model.stopwatch, this.layoutBounds );
 
     // @protected
     this.stopwatchNode = stopwatchNode;
 
     // create return button
     var returnButtonNode = new ReturnButtonNode( {
-      listener: pendulumLabModel.returnHandler.bind( pendulumLabModel ),
+      listener: model.returnHandler.bind( model ),
       maxWidth: 120
     } );
 
@@ -131,12 +133,13 @@ define( function( require ) {
     } );
 
     // render order
+    //TODO: children
     this.addChild( backgroundDragNode );
     this.addChild( protractorNode );
     this.addChild( leftFloatingLayer );
     this.addChild( rightFloatingLayer );
     this.addChild( pendulumSystemControlPanelNode );
-    this.addChild( periodTraceNode );
+    this.addChild( this.periodTraceNode );
     this.addChild( pendulumsNode );
     this.addChild( rulerNode );
     this.addChild( this.periodTimerLayer );
@@ -159,12 +162,24 @@ define( function( require ) {
     returnButtonNode.centerY = resetAllButton.centerY;
 
     // set initial value for ruler and stopwatch 'location' property
-    pendulumLabModel.ruler.setInitialLocationValue( rulerNode.center );
-    pendulumLabModel.stopwatch.setInitialLocationValue( stopwatchNode.center );
+    model.ruler.setInitialLocationValue( rulerNode.center );
+    model.stopwatch.setInitialLocationValue( stopwatchNode.center );
 
   }
 
   pendulumLab.register( 'PendulumLabView', PendulumLabView );
 
-  return inherit( ScreenView, PendulumLabView );
+  return inherit( ScreenView, PendulumLabView, {
+    /**
+     * Steps the view.
+     * @public
+     *
+     * @param {number} dt
+     */
+    step: function( dt ) {
+      if ( this.model.playProperty.value ) {
+        this.periodTraceNode.step( dt );
+      }
+    }
+  } );
 } );
