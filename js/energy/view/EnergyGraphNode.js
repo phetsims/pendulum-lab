@@ -50,20 +50,20 @@ define( function( require ) {
 
 
   /**
-   * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
+   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
    * @param {Property.<string>} energyGraphModeProperty - Property to select mode of energy graph representation
-   * @param {Property.<string>} numberOfPendulumsProperty - Property to control number of pendulums.
+   * @param {Property.<string>} numberOfPendulaProperty - Property to control number of pendula.
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @param {Object} [options]
    * @constructor
    */
-  function EnergyGraphNode( pendulums, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulumsProperty, energyGraphHeight, options ) {
+  function EnergyGraphNode( pendula, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulaProperty, energyGraphHeight, options ) {
     var graphStorage = [];
 
     // create the energy graphs for each pendulum
     var content = new VBox( { align: 'center', resize: false } );
-    pendulums.forEach( function( pendulum, pendulumIndex ) {
+    pendula.forEach( function( pendulum, pendulumIndex ) {
       var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
       content.addChild( new HBox( {
         children: [
@@ -148,12 +148,12 @@ define( function( require ) {
       }, options ) );
 
 // no need to unlink, present for the lifetime of the sim
-    numberOfPendulumsProperty.link( function( numberOfPendulums ) {
-      if ( numberOfPendulums === 1 ) {
+    numberOfPendulaProperty.link( function( numberOfPendula ) {
+      if ( numberOfPendula === 1 ) {
         energyGraphModeProperty.value = EnergyGraphMode.ONE;
         radioButtonTwo.setEnabled( false );
       }
-      else if ( numberOfPendulums === 2 ) {
+      else if ( numberOfPendula === 2 ) {
         radioButtonTwo.setEnabled( true );
       }
     } );

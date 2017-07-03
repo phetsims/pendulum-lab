@@ -39,7 +39,7 @@ define( function( require ) {
   function PendulumSystemControlPanels( pendulumLabModel, bodiesListNode, options ) {
 
     var lengthMassControls = [ 0, 1 ].map( function( index ) {
-      return new LengthMassControlNode( pendulumLabModel.pendulums[ index ], index );
+      return new LengthMassControlNode( pendulumLabModel.pendula[ index ], index );
     } );
 
     var lengthMassContentNode = new VBox( { spacing: SPACING_CONTENT, align: 'center', children: lengthMassControls } );
@@ -79,8 +79,8 @@ define( function( require ) {
 
     var maxWidth = Math.max( lengthMassContentNode.width, gravityFrictionContentNode.width );
 
-    pendulumLabModel.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
-      lengthMassContentNode.children = lengthMassControls.slice( 0, numberOfPendulums );
+    pendulumLabModel.numberOfPendulaProperty.link( function( numberOfPendula ) {
+      lengthMassContentNode.children = lengthMassControls.slice( 0, numberOfPendula );
     } );
 
     var panelOptions = _.extend( {

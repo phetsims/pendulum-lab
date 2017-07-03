@@ -2,7 +2,7 @@
 
 /**
  * Pendulum node in 'Pendulum Lab' simulation.
- * Contains pendulums and threads. Pendulums always above threads.
+ * Contains pendula and threads. Pendula always above threads.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -36,13 +36,13 @@ define( function( require ) {
   var RECT_SIZE = new Dimension2( 60, 80 );
 
   /**
-   * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
+   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @constructor
    *TODO: PendulaNode (proper plural)
    */
-  function PendulumsNode( pendulums, modelViewTransform, options ) {
+  function PendulaNode( pendula, modelViewTransform, options ) {
     var self = this;
 
     Node.call( this, options );
@@ -57,11 +57,11 @@ define( function( require ) {
     var accelerationArrows = [];
 
     // TODO: there should exist a PendulumNode Type (singular) so that there is a one
-    // to one correspondence between pendulum and pendulumNode, nothing here depends on pendulums.
+    // to one correspondence between pendulum and pendulumNode, nothing here depends on pendula.
     // pendulumNode should be responsible for the color of the pendulum and other view properties
-    // the array pendulums (and the for loop forEach), should be created in the pendulumLabModel
+    // the array pendula (and the for loop forEach), should be created in the pendulumLabModel
 
-    pendulums.forEach( function( pendulum, pendulumIndex ) {
+    pendula.forEach( function( pendulum, pendulumIndex ) {
         var massToScale = function( mass ) {
           // height/width/depth of mass scale by cube-root to maintain density
           return 0.3 + 0.4 * Math.sqrt( mass / 1.5 );
@@ -229,7 +229,7 @@ define( function( require ) {
     this.children = pendulumNodes.concat( velocityArrows ).concat( accelerationArrows );
   }
 
-  pendulumLab.register( 'PendulumsNode', PendulumsNode );
+  pendulumLab.register( 'PendulaNode', PendulaNode );
 
-  return inherit( Node, PendulumsNode );
+  return inherit( Node, PendulaNode );
 } );

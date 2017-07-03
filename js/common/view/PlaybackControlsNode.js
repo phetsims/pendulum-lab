@@ -1,8 +1,8 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Pendulums system control panel node in 'Pendulum Lab' simulation.
- * Contains radio buttons to control number of pendulums, play/pause and step buttons and time speed control radio buttons.
+ * Pendula system control panel node in 'Pendulum Lab' simulation.
+ * Contains radio buttons to control number of pendula, play/pause and step buttons and time speed control radio buttons.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -32,19 +32,19 @@ define( function( require ) {
   var RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
 
   /**
-   * @param {Property.<number>} numberOfPendulumsProperty - property to control number of pendulums.
+   * @param {Property.<number>} numberOfPendulaProperty - property to control number of pendula.
    * @param {Property.<boolean>} playProperty - property to control stream of time.
    * @param {Property.<number>} timeSpeedProperty - property to control speed of time.
    * @param {function} stepFunction - handler for step button.
    * @param {Object} [options] for tools control panel node
    * @constructor
    */
-  function PlaybackControlsNode( numberOfPendulumsProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
+  function PlaybackControlsNode( numberOfPendulaProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
     HBox.call( this, _.extend( {
       spacing: 26,
       children: [
-        // radio buttons to control number of pendulums
-        new RadioButtonGroup( numberOfPendulumsProperty, [
+        // radio buttons to control number of pendula
+        new RadioButtonGroup( numberOfPendulaProperty, [
           { node: new OnePendulumIconNode(), value: 1 },
           { node: new TwoPendulumIconNode(), value: 2 }
         ], {

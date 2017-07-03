@@ -28,14 +28,14 @@ define( function( require ) {
     this.isAccelerationVisibleProperty = new BooleanProperty( false );
 
     // model for period trace
-    this.periodTimer = new PeriodTimer( this.pendulums, this.isPeriodTraceVisibleProperty );
+    this.periodTimer = new PeriodTimer( this.pendula, this.isPeriodTraceVisibleProperty );
   }
 
   pendulumLab.register( 'LabModel', LabModel );
 
   return inherit( EnergyModel, LabModel, {
     /**
-     * Reset function that resets the pendulums, settings, and period timer settings and default location
+     * Reset function that resets the pendula, settings, and period timer settings and default location
      * @public
      */
     reset: function() {

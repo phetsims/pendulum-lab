@@ -23,12 +23,12 @@ define( function( require ) {
   var DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
 
   /**
-   * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
+   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options] for protractor node
    * @constructor
    */
-  function PeriodTraceNode( pendulums, modelViewTransform, options ) {
+  function PeriodTraceNode( pendula, modelViewTransform, options ) {
     var self = this;
     Node.call( this, _.extend( {
       pickable: false,
@@ -42,7 +42,7 @@ define( function( require ) {
     // TODO: don't require this
     this.stepFunctions = [];
 
-    pendulums.forEach( function( pendulum ) {
+    pendula.forEach( function( pendulum ) {
       var intervalId = null; // interval id for fading timer
       var isCompleted = false; // flag to control completing of trace view
 

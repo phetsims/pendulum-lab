@@ -21,7 +21,7 @@ define( function( require ) {
   var PANEL_BACKGROUND_COLOR = 'rgb( 216, 251, 196 )';
 
   var PendulumLabConstants = {
-    // pendulums
+    // pendula
     FIRST_PENDULUM_COLOR: 'rgb( 0, 0, 255 )',
     ICON_PENDULUM_MODE_SIZE: 29,
     SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )',

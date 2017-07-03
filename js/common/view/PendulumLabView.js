@@ -16,7 +16,7 @@ define( function( require ) {
   var Plane = require( 'SCENERY/nodes/Plane' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
-  var PendulumsNode = require( 'PENDULUM_LAB/common/view/PendulumsNode' );
+  var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
   var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
@@ -42,7 +42,7 @@ define( function( require ) {
       includeGravityTweakers: false
     }, options );
 
-    var pendulumsNode = new PendulumsNode( model.pendulums, modelViewTransform, {
+    var pendulaNode = new PendulaNode( model.pendula, modelViewTransform, {
       isAccelerationVisibleProperty: model.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: model.isVelocityVisibleProperty
     } );
@@ -50,14 +50,14 @@ define( function( require ) {
     // create drag listener for the pendula
     var backgroundDragNode = new Plane();
     var dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
-    pendulumsNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
+    pendulaNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
     backgroundDragNode.addInputListener( dragListener );
 
     // @private {PeriodTraceNode}
-    this.periodTraceNode = new PeriodTraceNode( model.pendulums, modelViewTransform );
+    this.periodTraceNode = new PeriodTraceNode( model.pendula, modelViewTransform );
 
     // create protractor node
-    var protractorNode = new ProtractorNode( model.pendulums, modelViewTransform );
+    var protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
 
     // create a node to keep track of combo box
     var bodiesListNode = new Node();
@@ -77,7 +77,7 @@ define( function( require ) {
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
-    var pendulumSystemControlPanelNode = new PlaybackControlsNode( model.numberOfPendulumsProperty,
+    var pendulumSystemControlPanelNode = new PlaybackControlsNode( model.numberOfPendulaProperty,
       model.playProperty, model.timeSpeedProperty, model.stepManual.bind( model ) );
 
     // create reset all button
@@ -140,7 +140,7 @@ define( function( require ) {
     this.addChild( rightFloatingLayer );
     this.addChild( pendulumSystemControlPanelNode );
     this.addChild( this.periodTraceNode );
-    this.addChild( pendulumsNode );
+    this.addChild( pendulaNode );
     this.addChild( rulerNode );
     this.addChild( this.periodTimerLayer );
     this.addChild( stopwatchNode );

@@ -38,12 +38,12 @@ define( function( require ) {
   var TICK_10_LENGTH = 9;
 
   /**
-   * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
+   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options] for protractor node.
    * @constructor
    */
-  function ProtractorNode( pendulums, modelViewTransform, options ) {
+  function ProtractorNode( pendula, modelViewTransform, options ) {
     var self = this;
 
     Node.call( this, _.extend( { pickable: false }, options ) );
@@ -51,8 +51,8 @@ define( function( require ) {
     var viewOriginPosition = modelViewTransform.modelToViewPosition( new Vector2( 0, 0 ) );
     this.translation = viewOriginPosition;
     // create central dash line
-    if ( pendulums[ 0 ] ) {
-      this.addChild( new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendulums[ 0 ].lengthRange.max ), {
+    if ( pendula[ 0 ] ) {
+      this.addChild( new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendula[ 0 ].lengthRange.max ), {
         stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
         lineDash: [ 4, 7 ]
       } ) );
@@ -113,7 +113,7 @@ define( function( require ) {
     this.addChild( this.firstPendulumTickLayer );
 
     // add ticks for pendulum
-    pendulums.forEach( function( pendulum, pendulumIndex ) {
+    pendula.forEach( function( pendulum, pendulumIndex ) {
       var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
       var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
 

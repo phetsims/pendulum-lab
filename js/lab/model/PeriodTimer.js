@@ -20,12 +20,12 @@ define( function( require ) {
   var INIT_PENDULUM_NUMBER = 0;
 
   /**
-   * @param {Array.<Pendulum>} pendulums - Array of pendulum models.
+   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    *
    * @constructor
    */
-  function PeriodTimer( pendulums, isPeriodTraceVisibleProperty ) {
+  function PeriodTimer( pendula, isPeriodTraceVisibleProperty ) {
     var self = this;
 
     //TODO: we need more documentation here
@@ -40,11 +40,11 @@ define( function( require ) {
     this.isFirstProperty = new BooleanProperty( true );
 
     // @public {Property.<pendulum>} flag to identify pendulum
-    this.activePendulumProperty = new Property( pendulums[ INIT_PENDULUM_NUMBER ] );
+    this.activePendulumProperty = new Property( pendula[ INIT_PENDULUM_NUMBER ] );
 
 
     // @private
-    self._pendulums = pendulums;
+    self._pendula = pendula;
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
@@ -81,7 +81,7 @@ define( function( require ) {
 
     // create listeners
     var pathListeners = [];
-    pendulums.forEach( function( pendulum, pendulumIndex ) {
+    pendula.forEach( function( pendulum, pendulumIndex ) {
       pendulum.periodTrace.removeVisibilityObservers();
       pendulum.periodTrace.isVisibleProperty.value = false;
 
@@ -112,12 +112,12 @@ define( function( require ) {
 
       if ( isFirst ) {
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
-        self.activePendulum = pendulums[ 0 ];
+        self.activePendulum = pendula[ 0 ];
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
       }
       else {
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 0 ] );
-        self.activePendulum = pendulums[ 1 ];
+        self.activePendulum = pendula[ 1 ];
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
       }
 
@@ -151,7 +151,7 @@ define( function( require ) {
       if ( !this.isRunningProperty.value ) {
         this.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
       }
-      this._pendulums.forEach( function( pendulum ) {
+      this._pendula.forEach( function( pendulum ) {
         pendulum.periodTrace.resetPathPoints();
       } );
     },

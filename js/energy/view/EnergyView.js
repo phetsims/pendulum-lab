@@ -26,8 +26,8 @@ define( function( require ) {
     PendulumLabView.call( this, pendulumLabModel, modelViewTransform, options );
 
     // create and add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendulums, pendulumLabModel.isEnergyGraphExpandedProperty,
-      pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulumsProperty, energyGraphHeight );
+    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendula, pendulumLabModel.isEnergyGraphExpandedProperty,
+      pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulaProperty, energyGraphHeight );
     energyGraphNode.left = PendulumLabConstants.SCREEN_PADDING;
     energyGraphNode.top = PendulumLabConstants.SCREEN_PADDING;
     this.energyGraphLayer.addChild( energyGraphNode );

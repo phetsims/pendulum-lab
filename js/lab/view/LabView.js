@@ -35,7 +35,7 @@ define( function( require ) {
       pendulumLabModel.isAccelerationVisibleProperty );
 
     // create period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendulums[ 1 ].isVisibleProperty, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
 
     // add the various nodes
     this.arrowsPanelLayer.addChild( arrowsPanelNode );

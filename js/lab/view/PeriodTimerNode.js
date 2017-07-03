@@ -129,7 +129,7 @@ define( function( require ) {
       setEnabled: null // Do not highlight the selected mass more than the other
     } );
 
-    // indicates touch areas for pendulum icons 
+    // indicates touch areas for pendulum icons
     var firstBounds = firstPendulumIcon.localBounds;
     var secondBounds = secondPendulumIcon.localBounds;
     firstPendulumIcon.touchArea = new Bounds2( firstBounds.minX - TOUCH_PADDING_HORIZONTAL,
@@ -142,10 +142,10 @@ define( function( require ) {
       secondBounds.maxY + TOUCH_PADDING_BOTTOM );
 
     // Switch,Play button, and pendulum icon buttons at the bottom of the period timer tool.
-    var periodTimerPendulumsSelector = new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } );
+    var periodTimerPendulaSelector = new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } );
 
     // Creates time text inside period timer tool.
-    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME, maxWidth: periodTimerPendulumsSelector.width * 0.80 } );
+    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME, maxWidth: periodTimerPendulaSelector.width * 0.80 } );
 
     // Creates white background behind the time readout text in period timer tool.
     var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
@@ -161,9 +161,9 @@ define( function( require ) {
       top: PANEL_PAD,
 
       children: [
-        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: periodTimerPendulumsSelector.width } ),
-        new Node( { children: [ textBackground, readoutText ], pickable: false, maxWidth: periodTimerPendulumsSelector.width } ),
-        periodTimerPendulumsSelector
+        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
+        new Node( { children: [ textBackground, readoutText ], pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
+        periodTimerPendulaSelector
       ]
     } );
 

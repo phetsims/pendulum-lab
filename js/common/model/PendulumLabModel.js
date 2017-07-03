@@ -44,8 +44,8 @@ define( function( require ) {
     // @public {Property.<number>} - Speed of time.
     this.timeSpeedProperty = new NumberProperty( 1 );
 
-    // @public {Property.<number>} - Number of visible pendulums (2 pendulums are handled in the model)
-    this.numberOfPendulumsProperty = new NumberProperty( 1 );
+    // @public {Property.<number>} - Number of visible pendula (2 pendula are handled in the model)
+    this.numberOfPendulaProperty = new NumberProperty( 1 );
 
     // TODO: runningProperty?
     // @public {Property.<boolean>}
@@ -59,7 +59,7 @@ define( function( require ) {
 
     // @public
     // an array of pendulum, apologies to all english majors
-    this.pendulums = [
+    this.pendula = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, isPeriodTraceRepeating ),
       new Pendulum( 0.5, 1.0, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
@@ -117,10 +117,10 @@ define( function( require ) {
       }
     } );
 
-    // change pendulum visibility if number of pendulums was changed
-    this.numberOfPendulumsProperty.link( function( numberOfPendulums ) {
-      self.pendulums.forEach( function( pendulum, pendulumIndex ) {
-        pendulum.isVisibleProperty.value = (numberOfPendulums > pendulumIndex);
+    // change pendulum visibility if number of pendula was changed
+    this.numberOfPendulaProperty.link( function( numberOfPendula ) {
+      self.pendula.forEach( function( pendulum, pendulumIndex ) {
+        pendulum.isVisibleProperty.value = (numberOfPendula > pendulumIndex);
       } );
     } );
   }
@@ -137,7 +137,7 @@ define( function( require ) {
       this.gravityProperty.reset();
       this.customGravityProperty.reset();
       this.timeSpeedProperty.reset();
-      this.numberOfPendulumsProperty.reset();
+      this.numberOfPendulaProperty.reset();
       this.playProperty.reset();
       this.frictionProperty.reset();
       this.isPeriodTraceVisibleProperty.reset();
@@ -149,7 +149,7 @@ define( function( require ) {
       this.stopwatch.reset();
 
       // reset pendulum models
-      this.pendulums.forEach( function( pendulum ) {
+      this.pendula.forEach( function( pendulum ) {
         pendulum.reset();
       } );
 
@@ -183,8 +183,8 @@ define( function( require ) {
       }
 
       // loop over the pendula
-      for ( var i = 0; i < this.numberOfPendulumsProperty.value; i++ ) {
-        var pendulum = this.pendulums[ i ]; // get the pendulum from the array
+      for ( var i = 0; i < this.numberOfPendulaProperty.value; i++ ) {
+        var pendulum = this.pendula[ i ]; // get the pendulum from the array
 
         // if the pendulum is moving
         if ( !pendulum.isStationary() ) {
@@ -216,7 +216,7 @@ define( function( require ) {
      */
     returnHandler: function() {
       //reset the pendula
-      this.pendulums.forEach( function( pendulum ) {
+      this.pendula.forEach( function( pendulum ) {
         pendulum.resetThermalEnergy();
         pendulum.resetMotion();
       } );
