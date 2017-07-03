@@ -100,10 +100,8 @@ define( function( require ) {
           children: [
             solidLine,
             pendulumRect
-          ],
-          cssTransform: true
+          ]
         } );
-
 
         // add velocity arrows if necessary
         if ( options.isVelocityVisibleProperty ) {
