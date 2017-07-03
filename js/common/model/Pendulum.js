@@ -54,6 +54,9 @@ define( function( require ) {
     // @public {Property.<number>} - Angular velocity (in radians/second)
     this.angularVelocityProperty = new NumberProperty( 0 );
 
+    // @public {boolean}
+    this.isPeriodTraceRepeatable = isPeriodTraceRepeatable;
+
     /*---------------------------------------------------------------------------*
     * Derived variables
     *----------------------------------------------------------------------------*/
@@ -117,7 +120,15 @@ define( function( require ) {
     this.massRange = new RangeWithValue( 0.1, 1.50, mass ); // @public (read-only)
 
     // @public {PeriodTrace}
-    this.periodTrace = new PeriodTrace( this, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable );
+    this.periodTrace = new PeriodTrace( this );
+
+    // If it NOT repeatable, the PeriodTimer type will control the visibility.
+    // TODO: can we move this outside somewhere?
+    if ( isPeriodTraceRepeatable ) {
+      Property.multilink( [ isPeriodTraceVisibleProperty, this.isVisibleProperty ], function( isPeriodTraceVisible, isVisible ) {
+        self.periodTrace.isVisibleProperty.value = isPeriodTraceVisible && isVisible;
+      } );
+    }
 
     // make tick on protractor visible after first drag
     this.isUserControlledProperty.lazyLink( function( isUserControlled ) {

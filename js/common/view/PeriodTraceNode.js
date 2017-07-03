@@ -23,10 +23,11 @@ define( function( require ) {
   var DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
 
   /**
+   * @constructor
+   *
    * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options] for protractor node
-   * @constructor
    */
   function PeriodTraceNode( pendula, modelViewTransform, options ) {
     var self = this;
@@ -77,13 +78,7 @@ define( function( require ) {
 
           // TODO: better way of handling
           if ( opacity === 0 ) {
-            pendulum.periodTrace.isVisibleProperty.value = false;
-
-            // show track continuously
-            if ( pendulum.periodTrace.isRepeatable ) {
-              pendulum.periodTrace.isVisibleProperty.value = true;
-            }
-
+            pendulum.periodTrace.onFaded();
             fadeOutSpeed = null;
           }
         }

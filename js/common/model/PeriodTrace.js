@@ -18,19 +18,12 @@ define( function( require ) {
    * @constructor
    *
    * @param {Pendulum} pendulum
-   * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace
-   *                                                            visibility.
-   * @param {boolean} isPeriodTraceRepeatable - Seems to be whether the period trace will automatically start up again
-   *                                            after it finishes.
    */
-  function PeriodTrace( pendulum, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ) {
+  function PeriodTrace( pendulum ) {
     var self = this;
 
     // @private {Pendulum}
     this.pendulum = pendulum;
-
-    // @public {boolean} - Whether the path gets repeated
-    this.isRepeatable = isPeriodTraceRepeatable;
 
     // @public {Property.<number>}
     // 0: Trace hasn't started recording.
@@ -40,9 +33,7 @@ define( function( require ) {
     // 4: Pendulum trace completed.
     this.numberOfPointsProperty = new NumberProperty( 0 );
 
-    // @public {Property.<boolean>} - Flag to control visibility of period trace
-    // it's necessary because period trace can be hidden even when isPeriodTraceVisibleProperty.value === true
-    // (for example, while the pendulum has not yet reached the central portion, and thus there is nothing to display)
+    // @public {Property.<boolean>}
     this.isVisibleProperty = new BooleanProperty( false );
 
     // @public {Property.<number>}
@@ -80,6 +71,7 @@ define( function( require ) {
         self.resetPathPoints();
       }
     } );
+
     pendulum.peakEmitter.addListener( function( theta ) {
       if ( self.numberOfPointsProperty.value === 1 ) {
         self.firstAngle = theta;
@@ -90,6 +82,7 @@ define( function( require ) {
         self.numberOfPointsProperty.value = 3;
       }
     } );
+
     pendulum.stepEmitter.addListener( function( dt ) {
       if ( self.numberOfPointsProperty.value > 0 && self.numberOfPointsProperty.value < 4 ) {
         self.elapsedTimeProperty.value += dt;
@@ -101,27 +94,35 @@ define( function( require ) {
     pendulum.gravityProperty.lazyLink( resetPathPoints );
     pendulum.lengthProperty.lazyLink( resetPathPoints );
     pendulum.isUserControlledProperty.lazyLink( resetPathPoints );
-    if ( isPeriodTraceRepeatable ) {
-      this.isVisibleProperty.onValue( false, resetPathPoints );
-    }
 
-    // add visibility observer
-    this.addVisibilityObservers( isPeriodTraceVisibleProperty );
+    this.isVisibleProperty.lazyLink( resetPathPoints );
   }
 
   pendulumLab.register( 'PeriodTrace', PeriodTrace );
 
   return inherit( Object, PeriodTrace, {
     /**
+     * Called when the trace has fully faded away.
+     * @public
+     */
+    onFaded: function() {
+      this.isVisibleProperty.value = false;
+
+      // show track continuously
+      if ( this.pendulum.isPeriodTraceRepeatable ) {
+        this.isVisibleProperty.value = true;
+      }
+    },
+
+    /**
      * Resets the property set and the path points
      * @public
      */
     reset: function() {
-      this.numberOfPointsProperty.reset();
-      this.elapsedTimeProperty.reset();
       this.isVisibleProperty.reset();
       this.resetPathPoints();
     },
+
     /**
      * Resets the path points that are used to draw the period path trace
      * @public
@@ -130,43 +131,8 @@ define( function( require ) {
       this.counterClockwise = null;
       this.firstAngle = null;
       this.secondAngle = null;
-      this.numberOfPointsProperty.value = 0;
-      this.elapsedTimeProperty.value = 0;
-    },
-
-    /**
-     * Adds visibility observers to the trace
-     * @private
-     * @param {Property.<boolean>} checkBoxProperty
-     */
-    addVisibilityObservers: function( checkBoxProperty ) {
-      var self = this;
-
-      // @private
-      this._checkBoxProperty = checkBoxProperty;
-
-      // listener
-      this.setPeriodTraceVisibility = function() {
-        if ( checkBoxProperty.value && self.pendulum.isVisibleProperty.value ) {
-          self.isVisibleProperty.value = true;
-          self.resetPathPoints();
-        }
-        else {
-          self.isVisibleProperty.value = false;
-        }
-      };
-
-      checkBoxProperty.lazyLink( this.setPeriodTraceVisibility );
-      self.pendulum.isVisibleProperty.lazyLink( this.setPeriodTraceVisibility );
-    },
-
-    /**
-     * Disposes of the visibility observers
-     * @public
-     */
-    removeVisibilityObservers: function() {
-      this._checkBoxProperty.unlink( this.setPeriodTraceVisibility );
-      this.pendulum.isVisibleProperty.unlink( this.setPeriodTraceVisibility );
+      this.numberOfPointsProperty.reset();
+      this.elapsedTimeProperty.reset();
     }
   } );
 } );

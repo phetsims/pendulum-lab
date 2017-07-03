@@ -82,7 +82,6 @@ define( function( require ) {
     // create listeners
     var pathListeners = [];
     pendula.forEach( function( pendulum, pendulumIndex ) {
-      pendulum.periodTrace.removeVisibilityObservers();
       pendulum.periodTrace.isVisibleProperty.value = false;
 
       pendulum.lengthProperty.lazyLink( clearCallback );
