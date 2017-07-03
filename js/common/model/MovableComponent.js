@@ -11,21 +11,27 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Property = require( 'AXON/Property' );
 
   /**
    * @constructor
+   *
+   * @param {boolean} isInitiallyVisible
    */
-  function Movable() {
+  function MovableComponent( isInitiallyVisible ) {
     // @public {Property.<Vector2|null>} - Initial value will be set in view, after calculating all bounds of nodes
     this.locationProperty = new Property( null );
+
+    // @public {Property.<boolean>} flag to determine stopwatch state
+    this.isVisibleProperty = new BooleanProperty( isInitiallyVisible );
   }
 
-  pendulumLab.register( 'Movable', Movable );
+  pendulumLab.register( 'MovableComponent', MovableComponent );
 
-  return inherit( Object, Movable, {
+  return inherit( Object, MovableComponent, {
     /**
      * Function that sets the initial location of a movable object and keeps an internal copy of it.
      * @public
@@ -50,6 +56,8 @@ define( function( require ) {
 
       // Reset the location to the initial location
       this.locationProperty.value = this.initialLocation ? this.initialLocation.copy() : null;
+
+      this.isVisibleProperty.reset();
     }
   } );
 } );
