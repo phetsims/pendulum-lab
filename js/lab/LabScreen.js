@@ -40,7 +40,6 @@ define( function( require ) {
     Screen.call( this,
       function() { return new LabModel(); },
       //TODO magic number 2
-      //TODO: MVT can be abstracted out?
       function( model ) { return new LabView( model, 195 ); },
       options
     );

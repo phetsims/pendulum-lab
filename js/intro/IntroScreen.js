@@ -39,7 +39,6 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new PendulumLabModel( true ); },
-      //TODO: MVT can be abstracted out?
       function( model ) { return new PendulumLabView( model ); },
       options
     );

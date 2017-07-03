@@ -38,7 +38,6 @@ define( function( require ) {
     Screen.call( this,
       function() { return new EnergyModel( true ); },
       //TODO magic number
-      //TODO: MVT can be abstracted out?
       function( model ) { return new EnergyView( model, 253 ); },
       options
     );
