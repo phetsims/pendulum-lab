@@ -10,10 +10,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Shape = require( 'KITE/Shape' );
   var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -45,8 +46,15 @@ define( function( require ) {
       var intervalId = null; // interval id for fading timer
       var isCompleted = false; // flag to control completing of trace view
 
+      var baseColor = new Color( pendulum.color );
+      var currentColor = baseColor.copy();
+      var opacity = 1;
+
+      // TODO: better
+      var fadeOutSpeed = null;
+
       // create trace path path
-      var pathNode = new Path( null, { stroke: pendulum.color, lineWidth: 2 } );
+      var pathNode = new Path( null, { stroke: currentColor, lineWidth: 2 } );
       self.addChild( pathNode );
 
       // reset the path
@@ -57,16 +65,15 @@ define( function( require ) {
           Timer.clearInterval( intervalId );
           intervalId = null;
         }
-        pathNode.opacity = 1;
+        opacity = 1;
+        currentColor.set( baseColor );
+        fadeOutSpeed = null;
       };
-
-      // TODO: better
-      var fadeOutSpeed = null;
 
       self.stepFunctions.push( function step( dt ) {
         if ( fadeOutSpeed ) {
-          var opacity = Math.max( 0, pathNode.opacity - fadeOutSpeed * dt );
-          pathNode.opacity = opacity;
+          opacity = Math.max( 0, opacity - fadeOutSpeed * dt );
+          currentColor.alpha = opacity;
 
           // TODO: better way of handling
           if ( opacity === 0 ) {
