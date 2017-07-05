@@ -123,7 +123,7 @@ define( function( require ) {
 
   return inherit( Object, PendulumLabModel, {
     /**
-     * function that resets the elements of the simulation, ruler, stopwatch, and pedulums
+     * Resets the model.
      * @public
      */
     reset: function() {
@@ -146,12 +146,13 @@ define( function( require ) {
       this.pendula.forEach( function( pendulum ) {
         pendulum.reset();
       } );
-
     },
+
     /**
-     * function that is stepped over in every frame takes care of stepping through the simulation.
-     * @param {number} dt - change in time measured in seconds.
+     * Steps the model forward in time.
      * @public
+     *
+     * @param {number} dt
      */
     step: function( dt ) {
       if ( this.isPlayingProperty.value ) {
@@ -162,12 +163,13 @@ define( function( require ) {
         // enough for getting an accurate period timer or speed loss on Jupiter with the shortest length.
         // We apply this BEFORE speed is applied, so that even if we're on a slow device, slow-motion WILL be guaranteed
         // to slow the sim speed down.
-        this.modelStep( Math.min( 0.05, dt ) * (this.timeSpeedProperty.value * periodTimerOffsetFactor) );
+        this.modelStep( Math.min( 0.05, dt ) * ( this.timeSpeedProperty.value * periodTimerOffsetFactor ) );
       }
     },
+
     /**
-     * function that is stepped through every frame. Takes care of stepping through the pendulum motions.
-     * @param {number} dt - change in time measured in  seconds
+     * Steps in model time.
+     * @param {number} dt - change in time measured in seconds
      * @private
      */
     modelStep: function( dt ) {
@@ -195,8 +197,7 @@ define( function( require ) {
     },
 
     /**
-     * Handler for the step button
-     * Called by PendulumLabView
+     * Steps forward by a specific amount of time (even if paused).
      * @public
      */
     stepManual: function() {
@@ -204,11 +205,10 @@ define( function( require ) {
     },
 
     /**
-     * Handler for return button
-     * Called by PendulumLabView
+     * Returns the pendula to rest.
      * @public
      */
-    returnHandler: function() {
+    returnPendula: function() {
       //reset the pendula
       this.pendula.forEach( function( pendulum ) {
         pendulum.resetThermalEnergy();

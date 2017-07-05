@@ -103,7 +103,7 @@ define( function( require ) {
 
     // create return button
     var returnButtonNode = new ReturnButtonNode( {
-      listener: model.returnHandler.bind( model ),
+      listener: model.returnPendula.bind( model ),
       maxWidth: 120
     } );
 
