@@ -40,11 +40,9 @@ define( function( require ) {
     // @public {Property.<Body>}
     this.bodyProperty = new Property( Body.EARTH );
 
-    //TODO: How separate does this need to be? DerivedProperty possible?
     // @public {Property.<number>} - Gravitational acceleration
     this.gravityProperty = new NumberProperty( Body.EARTH.gravity );
 
-    //TODO: How separate does this need to be? DerivedProperty possible?
     // @public {Property.<number>} - Tracked for the "Custom" body, so that we can revert to this when the user changes
     //                               from "Planet X" to "Custom"
     this.customGravityProperty = new NumberProperty( Body.EARTH.gravity );
@@ -55,9 +53,8 @@ define( function( require ) {
     // @public {Property.<number>} - Number of visible pendula (2 pendula are handled in the model)
     this.numberOfPendulaProperty = new NumberProperty( 1 );
 
-    // TODO: runningProperty?
     // @public {Property.<boolean>}
-    this.playProperty = new BooleanProperty( true );
+    this.isPlayingProperty = new BooleanProperty( true );
 
     // @public {Property.<number>} - Friction coefficient
     this.frictionProperty = new NumberProperty( 0 );
@@ -65,23 +62,12 @@ define( function( require ) {
     // @public {Property.<boolean}
     this.isPeriodTraceVisibleProperty = new BooleanProperty( false );
 
-    // @public
-    // an array of pendulum, apologies to all english majors
+    // @public {Array.<Pendulum>}
     this.pendula = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable ),
       new Pendulum( 0.5, 1.0, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
         this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable )
-    ];
-
-    // all of the bodies that are possible
-    // @public (read-only)
-    this.bodies = [
-      Body.MOON,
-      Body.EARTH,
-      Body.JUPITER,
-      Body.PLANET_X,
-      Body.CUSTOM
     ];
 
     // @public (read-only) possible gravity range 0m/s^2 to 25m/s^2
@@ -116,7 +102,7 @@ define( function( require ) {
 
     // change body to custom if gravity was changed
     this.gravityProperty.lazyLink( function( gravity ) {
-      if ( !_.some( Body.bodies, function( body ) { return body.gravity === gravity; } ) ) {
+      if ( !_.some( Body.BODIES, function( body ) { return body.gravity === gravity; } ) ) {
         self.bodyProperty.value = Body.CUSTOM;
       }
 
@@ -146,7 +132,7 @@ define( function( require ) {
       this.customGravityProperty.reset();
       this.timeSpeedProperty.reset();
       this.numberOfPendulaProperty.reset();
-      this.playProperty.reset();
+      this.isPlayingProperty.reset();
       this.frictionProperty.reset();
       this.isPeriodTraceVisibleProperty.reset();
 
@@ -168,7 +154,7 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-      if ( this.playProperty.value ) {
+      if ( this.isPlayingProperty.value ) {
         // pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
         var periodTimerOffsetFactor = 1.007;
 

@@ -39,8 +39,10 @@ define( function( require ) {
     // @public {Property.<number>}
     this.elapsedTimeProperty = new NumberProperty( 0 );
 
-    // properties for drawing path shape
+    // @public {boolean|null}
     this.counterClockwise = null;
+
+    // @public {number|null}
     this.firstAngle = null;
     this.secondAngle = null;
 

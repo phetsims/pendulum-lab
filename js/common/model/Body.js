@@ -41,7 +41,7 @@ define( function( require ) {
   Body.CUSTOM = new Body( customString, null );
 
   // array of all the bodies used in the simulation.
-  Body.bodies = [
+  Body.BODIES = [
     Body.MOON,
     Body.EARTH,
     Body.JUPITER,

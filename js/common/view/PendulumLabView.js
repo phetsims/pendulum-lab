@@ -62,9 +62,9 @@ define( function( require ) {
     var protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
 
     // create a node to keep track of combo box
-    var bodiesListNode = new Node();
+    var popupLayer = new Node();
 
-    var slidersPanelNode = new PendulumSystemControlPanels( model, bodiesListNode, {
+    var slidersPanelNode = new PendulumSystemControlPanels( model, popupLayer, {
       includeGravityTweakers: !!options.includeGravityTweakers
       // TODO: layout here
     } );
@@ -80,7 +80,7 @@ define( function( require ) {
 
     // create pendulum system control panel (controls the length and mass of the pendula)
     var pendulumSystemControlPanelNode = new PlaybackControlsNode( model.numberOfPendulaProperty,
-      model.playProperty, model.timeSpeedProperty, model.stepManual.bind( model ) );
+      model.isPlayingProperty, model.timeSpeedProperty, model.stepManual.bind( model ) );
 
     // create reset all button
     var resetAllButton = new ResetAllButton( {
@@ -119,7 +119,7 @@ define( function( require ) {
     } );
     var rightFloatingLayer = new Node( {
       children: [
-        slidersPanelNode, bodiesListNode, resetAllButton, returnButtonNode
+        slidersPanelNode, resetAllButton, returnButtonNode, popupLayer
       ]
     } );
 
@@ -179,7 +179,7 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      if ( this.model.playProperty.value ) {
+      if ( this.model.isPlayingProperty.value ) {
         this.periodTraceNode.step( dt );
       }
     }

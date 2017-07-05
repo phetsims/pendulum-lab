@@ -40,38 +40,33 @@ define( function( require ) {
   var VALUE_LABEL_SPACING = 4;
 
   /**
-   * Constructor for the gravity slider control.
+   * @constructor
    *
    * @param {Property.<number>} gravityProperty - Property to update by slider.
    * @param {Range} gravityRange - Range of gravity property.
    * @param {Property.<Body>} bodyProperty - Property to update by combo box.
-   * @param {Array.<Body>} bodies - Models of all bodies.
-   * @param {Node} bodiesListNode - Node for displaying body list. Should be above all other nodes.
+   * @param {Node} popupLayer
    * @param {Object} [options]
-   * @constructor
    */
-  function GravityControlNode( gravityProperty, gravityRange, bodyProperty, bodies, bodiesListNode, options ) {
+  function GravityControlNode( gravityProperty, gravityRange, bodyProperty, popupLayer, options ) {
     var self = this;
     var container = new Node();
 
     VBox.call( this, _.extend( { spacing: 2 }, options ) );
     this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
 
-    // create body list menu
-    var bodyListItems = [];
-    bodies.forEach( function( body ) {
-      var bodyLabel = new Text( body.title, { font: FONT_LIST } );
-      bodyLabel.localBounds = bodyLabel.localBounds.withMaxX( Math.max( 50, bodyLabel.localBounds.maxX ) );
-
-      bodyListItems.push( {
-        node: bodyLabel,
+    var comboBoxItems = Body.BODIES.map( function( body ) {
+      return {
+        node: new Text( body.title, {
+          font: FONT_LIST,
+          maxWidth: 50
+        } ),
         value: body
-      } );
+      };
     } );
 
     // add body menu combo box
-    bodiesListNode.scale( 1.2 );
-    this.addChild( new ComboBox( bodyListItems, bodyProperty, bodiesListNode, {
+    this.addChild( new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
       listPosition: 'above',
       buttonCornerRadius: 3,
       buttonYMargin: 0,

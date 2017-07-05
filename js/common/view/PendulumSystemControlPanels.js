@@ -32,11 +32,11 @@ define( function( require ) {
 
   /**
    * @param {PendulumLabModel} pendulumLabModel - Main model of pendulum lab simulation.
-   * @param {Node} bodiesListNode - Node for bodies list. Should be displayed above all other layers.
+   * @param {Node} popupLayer
    * @param {Object} [options] for control panel node.
    * @constructor
    */
-  function PendulumSystemControlPanels( pendulumLabModel, bodiesListNode, options ) {
+  function PendulumSystemControlPanels( pendulumLabModel, popupLayer, options ) {
 
     var lengthMassControls = [ 0, 1 ].map( function( index ) {
       return new LengthMassControlNode( pendulumLabModel.pendula[ index ], index );
@@ -49,8 +49,7 @@ define( function( require ) {
     // TODO: cleanup
     // create and add gravity slider with title and body list menu
     // TODO: reduce number of parameters
-    this.gravitySlider = new GravityControlNode( pendulumLabModel.gravityProperty,
-      pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, pendulumLabModel.bodies, bodiesListNode, { y: SPACING_CONTENT } );
+    this.gravitySlider = new GravityControlNode( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, popupLayer, { y: SPACING_CONTENT } );
     var gravitySliderLabel = new Text( gravityString, { font: FONT_TITLE, pickable: false } );
     gravityFrictionContentNode.addChild( new Node( {
       children: [

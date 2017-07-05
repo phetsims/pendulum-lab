@@ -33,13 +33,13 @@ define( function( require ) {
 
   /**
    * @param {Property.<number>} numberOfPendulaProperty - property to control number of pendula.
-   * @param {Property.<boolean>} playProperty - property to control stream of time.
+   * @param {Property.<boolean>} isPlayingProperty - property to control stream of time.
    * @param {Property.<number>} timeSpeedProperty - property to control speed of time.
    * @param {function} stepFunction - handler for step button.
    * @param {Object} [options] for tools control panel node
    * @constructor
    */
-  function PlaybackControlsNode( numberOfPendulaProperty, playProperty, timeSpeedProperty, stepFunction, options ) {
+  function PlaybackControlsNode( numberOfPendulaProperty, isPlayingProperty, timeSpeedProperty, stepFunction, options ) {
     HBox.call( this, _.extend( {
       spacing: 26,
       children: [
@@ -61,12 +61,12 @@ define( function( require ) {
         // play/pause and step buttons
         new HBox( {
           spacing: 10, children: [
-            new PlayPauseButton( playProperty, {
+            new PlayPauseButton( isPlayingProperty, {
               radius: 16,
               touchAreaDilation: 5
             } ),
             new StepForwardButton( {
-              playingProperty: playProperty,
+              playingProperty: isPlayingProperty,
               listener: stepFunction,
               radius: 12,
               touchAreaDilation: 5
