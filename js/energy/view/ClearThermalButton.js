@@ -44,7 +44,7 @@ define( function( require ) {
       listener: function() {
         thermalEnergyProperty.reset();
       },
-      buttonAppearanceStrategy: RectangularButtonView.flatAppearanceStrategy,
+      buttonAppearanceStrategy: RectangularButtonView.FlatAppearanceStrategy,
       xMargin: 5,
       yMargin: 2
     } );
