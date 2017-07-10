@@ -13,7 +13,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var Timer = require( 'SCENERY_PHET/Timer' );
+  var TimerNode = require( 'SCENERY_PHET/TimerNode' );
 
   /**
    * @param {Stopwatch} stopwatch - Model of stopwatch.
@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function StopwatchNode( stopwatch, layoutBounds ) {
     var self = this;
-    Timer.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty, { touchAreaDilation: 5 } );
+    TimerNode.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty, { touchAreaDilation: 5 } );
 
     // @public
     this.movableDragHandler = new MovableDragHandler( stopwatch.locationProperty, {
@@ -46,5 +46,5 @@ define( function( require ) {
 
   pendulumLab.register( 'StopwatchNode', StopwatchNode );
 
-  return inherit( Timer, StopwatchNode );
+  return inherit( TimerNode, StopwatchNode );
 } );
