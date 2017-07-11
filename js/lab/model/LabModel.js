@@ -29,7 +29,6 @@ define( function( require ) {
 
     // add properties to control visibility of arrows
     this.isVelocityVisibleProperty = new BooleanProperty( false );
-
     this.isAccelerationVisibleProperty = new BooleanProperty( false );
 
     // model for period trace
