@@ -111,12 +111,12 @@ define( function( require ) {
 
       if ( isFirst ) {
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
-        self.activePendulum = pendula[ 0 ];
+        self.activePendulumProperty.value = pendula[ 0 ];
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
       }
       else {
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 0 ] );
-        self.activePendulum = pendula[ 1 ];
+        self.activePendulumProperty.value = pendula[ 1 ];
         self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
       }
 
