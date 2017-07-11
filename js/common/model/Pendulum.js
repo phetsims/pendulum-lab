@@ -16,7 +16,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -61,7 +61,7 @@ define( function( require ) {
     * Derived variables
     *----------------------------------------------------------------------------*/
 
-    // @public {Property.<number>} - Angular acceleration in rad/s^2 TODO: not listened to, convert to non-property?
+    // @public {Property.<number>} - Angular acceleration in rad/s^2
     this.angularAccelerationProperty = new NumberProperty( 0 );
 
     // @public {Property.<Vector2>} - Position from the rotation point
@@ -81,9 +81,6 @@ define( function( require ) {
 
     // @public {Property.<number>} - In Joules
     this.thermalEnergyProperty = new NumberProperty( 0 );
-
-    // @public {Property.<number>} - In Joules TODO: do we ever read this?
-    this.totalEnergyProperty = new NumberProperty( 0 );
 
     // @public {Property.<boolean>} - Whether the pendulum is currently being dragged.
     this.isUserControlledProperty = new BooleanProperty( false );
@@ -113,17 +110,16 @@ define( function( require ) {
     // @public (read-only)
     this.color = color; // {string}
 
-    // possible length range in meters
-    this.lengthRange = new RangeWithValue( 0.1, 1.0, length ); // @public (read-only)
+    // @public {Range} (read-only)
+    this.lengthRange = new Range( 0.1, 1.0 );
 
-    // possible mass range in kg
-    this.massRange = new RangeWithValue( 0.1, 1.50, mass ); // @public (read-only)
+    // @public {Range} (read-only)
+    this.massRange = new Range( 0.1, 1.50 );
 
     // @public {PeriodTrace}
     this.periodTrace = new PeriodTrace( this );
 
     // If it NOT repeatable, the PeriodTimer type will control the visibility.
-    // TODO: can we move this outside somewhere?
     if ( isPeriodTraceRepeatable ) {
       Property.multilink( [ isPeriodTraceVisibleProperty, this.isVisibleProperty ], function( isPeriodTraceVisible, isVisible ) {
         self.periodTrace.isVisibleProperty.value = isPeriodTraceVisible && isVisible;
@@ -164,10 +160,11 @@ define( function( require ) {
   return inherit( Object, Pendulum, {
     /**
      * Function that returns the instantaneous angular acceleration
+     * @private
+     *
      * @param {number} theta - angular position
      * @param {number} omega - angular velocity
      * @returns {number}
-     * @private
      */
     omegaDerivative: function( theta, omega ) {
       return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.lengthProperty.value ) * Math.sin( theta );
@@ -178,6 +175,7 @@ define( function( require ) {
      * The friction term has units of angular acceleration.
      * The friction has a linear and quadratic component (with speed)
      * @private
+     *
      * @param {number} omega - the angular velocity of the pendulum
      * @returns {number}
      */
@@ -190,6 +188,7 @@ define( function( require ) {
      * Stepper function for the pendulum model.
      * It uses a Runge-Kutta approach to solve the angular differential equation
      * @public
+     *
      * @param {number} dt
      */
     step: function( dt ) {
@@ -217,13 +216,13 @@ define( function( require ) {
 
         // did the pendulum crossed the vertical axis (from below)
         // is the pendulum going from left to right or vice versa, or (is the pendulum on the vertical axis and changed position )
-        if ( (newTheta * theta < 0) || (newTheta === 0 && theta !== 0 ) ) {
+        if ( ( newTheta * theta < 0 ) || ( newTheta === 0 && theta !== 0 ) ) {
           this.cross( i * step, ( i + 1 ) * step, newOmega > 0, theta, newTheta );
         }
 
         // did the pendulum reach a turning point
         // is the pendulum changing is speed from left to right or is the angular speed zero but wasn't zero on the last update
-        if ( (newOmega * omega < 0) || (newOmega === 0 && omega !== 0 ) ) {
+        if ( ( newOmega * omega < 0 ) || ( newOmega === 0 && omega !== 0 ) ) {
           this.peak( theta, newTheta );
         }
 
@@ -246,6 +245,7 @@ define( function( require ) {
      * Given that the time step is finite, we attempt to do a linear interpolation, to find the
      * precise time at which the pendulum cross the vertical.
      * @private
+     *
      * @param {number} oldDT
      * @param {number} newDT
      * @param {boolean} isPositiveDirection
@@ -264,6 +264,7 @@ define( function( require ) {
      * Sends a signal that the peak angle (turning angle) has been reached
      * It sends the value of the peak angle
      * @private
+     *
      * @param {number} oldTheta
      * @param {number} newTheta
      */
@@ -278,6 +279,7 @@ define( function( require ) {
      * namely the various energies( kinetic, thermal, potential and total energy)
      * and the linear variables (position, velocity, acceleration) of the pendulum
      * @private
+     *
      * @param {boolean} energyChangeToThermal - is Friction present in the model
      */
     updateDerivedVariables: function( energyChangeToThermal ) {
@@ -295,7 +297,6 @@ define( function( require ) {
       if ( energyChangeToThermal ) {
         this.thermalEnergyProperty.value += ( oldKineticEnergy + oldPotentialEnergy ) - ( this.kineticEnergyProperty.value + this.potentialEnergyProperty.value );
       }
-      this.totalEnergyProperty.value = this.kineticEnergyProperty.value + this.potentialEnergyProperty.value + this.thermalEnergyProperty.value;
 
       this.positionProperty.value = Vector2.createPolar( this.lengthProperty.value, this.angleProperty.value - Math.PI / 2 );
       this.velocityProperty.value = Vector2.createPolar( this.angularVelocityProperty.value * this.lengthProperty.value, this.angleProperty.value ); // coordinate frame -pi/2, but perpendicular +pi/2
@@ -329,7 +330,6 @@ define( function( require ) {
       this.kineticEnergyProperty.reset();
       this.potentialEnergyProperty.reset();
       this.thermalEnergyProperty.reset();
-      this.totalEnergyProperty.reset();
       this.isUserControlledProperty.reset();
       this.isTickVisibleProperty.reset();
       this.isVisibleProperty.reset();
@@ -340,11 +340,14 @@ define( function( require ) {
 
     /**
      * Function that determines if the pendulum is stationary, i.e. is controlled by the user or not moving
+     * @public
+     *
      * @returns {boolean}
-     * @public (read-only)
      */
     isStationary: function() {
-      return this.isUserControlledProperty.value || ( this.angleProperty.value === 0 && this.angularVelocityProperty.value === 0 && this.angularAccelerationProperty.value === 0 );
+      return this.isUserControlledProperty.value || ( this.angleProperty.value === 0 &&
+                                                      this.angularVelocityProperty.value === 0 &&
+                                                      this.angularAccelerationProperty.value === 0 );
     },
 
     /**
@@ -352,6 +355,7 @@ define( function( require ) {
      * The so-called small angle approximation is a lower bound to the true period in absence of friction
      * This function is currently used to fade out the path of the period trace
      * @public
+     *
      * @returns {number}
      */
     getApproximatePeriod: function() {
@@ -387,6 +391,7 @@ define( function( require ) {
     /**
      * Takes our angle modulo 2pi between -pi and pi.
      * @public
+     *
      * @param {number} angle
      * @returns {number}
      */
