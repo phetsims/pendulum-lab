@@ -319,6 +319,7 @@ define( function( require ) {
      * @public
      */
     reset: function() {
+      // Note: We don't reset isVisibleProperty, since it is controlled externally.
       this.lengthProperty.reset();
       this.massProperty.reset();
       this.angleProperty.reset();
@@ -332,7 +333,6 @@ define( function( require ) {
       this.thermalEnergyProperty.reset();
       this.isUserControlledProperty.reset();
       this.isTickVisibleProperty.reset();
-      this.isVisibleProperty.reset();
       this.energyMultiplierProperty.reset();
 
       this.updateDerivedVariables( false );
