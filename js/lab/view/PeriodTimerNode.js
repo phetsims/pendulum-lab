@@ -121,7 +121,7 @@ define( function( require ) {
     } );
 
     // creates switch icon for choosing the first or second pendulum
-    var graphUnitsSwitch = new ABSwitch( periodTimer.isFirstProperty, true, firstPendulumIcon, false, secondPendulumIcon, {
+    var graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
       thumbTouchAreaXDilation: 3.5,
@@ -213,7 +213,7 @@ define( function( require ) {
       graphUnitsSwitch.pickable = isVisible;
       graphUnitsSwitch.opacity = isVisible ? 1 : 0.5;
       if ( !isVisible ) {
-        periodTimer.isFirstProperty.value = true;
+        periodTimer.activePendulumIndexProperty.value = 0;
       }
     } );
 

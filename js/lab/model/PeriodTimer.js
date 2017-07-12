@@ -11,9 +11,10 @@ define( function( require ) {
 
   // modules
   var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var Property = require( 'AXON/Property' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   // constants
@@ -36,15 +37,16 @@ define( function( require ) {
     // @public {Property.<boolean>} flag to control visibility of timer
     this.isVisibleProperty = new BooleanProperty( isPeriodTraceVisibleProperty.value );
 
-    // @public {Property.<boolean>} flag to trace timer pendulum
-    this.isFirstProperty = new BooleanProperty( true );
+    // @public {Property.<number>}
+    this.activePendulumIndexProperty = new NumberProperty( INIT_PENDULUM_NUMBER );
 
     // @public {Property.<pendulum>} flag to identify pendulum
-    this.activePendulumProperty = new Property( pendula[ INIT_PENDULUM_NUMBER ] );
+    this.activePendulumProperty = new DerivedProperty( [ this.activePendulumIndexProperty ], function( index ) {
+      return pendula[ index ];
+    } );
 
-
-    // @private
-    self._pendula = pendula;
+    // @private {Array.<Pendulum>}
+    this.pendula = pendula;
 
     // add visibility observer
     isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
@@ -52,10 +54,10 @@ define( function( require ) {
     } );
 
     // stop the period timer when it is not visible.
-    self.isVisibleProperty.onValue( false, this.stop.bind( this ) );
+    this.isVisibleProperty.onValue( false, this.stop.bind( this ) );
 
 
-    self.isRunningProperty.link( function( isRunning ) {
+    this.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
         // clear time when timer revert to init state
         self.elapsedTimeProperty.value = 0;
@@ -104,23 +106,14 @@ define( function( require ) {
 
     // add path listeners
     self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
-    self.isFirstProperty.lazyLink( function( isFirst ) {
+    self.activePendulumIndexProperty.lazyLink( function( index, oldIndex ) {
       self.clear();
 
-      self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
+      self.pendula[ oldIndex ].periodTrace.isVisibleProperty.value = false;
+      self.pendula[ oldIndex ].periodTrace.numberOfPointsProperty.unlink( pathListeners[ oldIndex ] );
 
-      if ( isFirst ) {
-        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 1 ] );
-        self.activePendulumProperty.value = pendula[ 0 ];
-        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 0 ] );
-      }
-      else {
-        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.unlink( pathListeners[ 0 ] );
-        self.activePendulumProperty.value = pendula[ 1 ];
-        self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ 1 ] );
-      }
-
-      self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = self.isRunningProperty.value;
+      self.pendula[ index ].periodTrace.numberOfPointsProperty.link( pathListeners[ index ] );
+      self.pendula[ index ].periodTrace.isVisibleProperty.value = self.isRunningProperty.value;
     } );
   }
 
@@ -134,8 +127,7 @@ define( function( require ) {
     reset: function() {
       Stopwatch.prototype.reset.call( this );
       this.isVisibleProperty.reset();
-      this.isFirstProperty.reset();
-      this.activePendulumProperty.reset();
+      this.activePendulumIndexProperty.reset();
     },
 
     /**
@@ -150,7 +142,7 @@ define( function( require ) {
       if ( !this.isRunningProperty.value ) {
         this.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
       }
-      this._pendula.forEach( function( pendulum ) {
+      this.pendula.forEach( function( pendulum ) {
         pendulum.periodTrace.resetPathPoints();
       } );
     },
