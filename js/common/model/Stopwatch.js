@@ -17,9 +17,13 @@ define( function( require ) {
 
   /**
    * @constructor
+   *
+   * @param {boolean} initiallyVisible
    */
-  function Stopwatch() {
-    MovableComponent.call( this, false );
+  function Stopwatch( initiallyVisible ) {
+    assert && assert( typeof initiallyVisible === 'boolean' );
+
+    MovableComponent.call( this, initiallyVisible );
 
     // @public {Property.<boolean>}
     this.isRunningProperty = new BooleanProperty( false );

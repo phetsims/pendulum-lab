@@ -80,7 +80,7 @@ define( function( require ) {
     this.ruler = new Ruler( options.rulerInitiallyVisible );
 
     // @public (read-only) model for stopwatch
-    this.stopwatch = new Stopwatch();
+    this.stopwatch = new Stopwatch( false );
 
     // change gravity if body was changed
     this.bodyProperty.lazyLink( function( body, oldBody ) {

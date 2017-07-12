@@ -2,7 +2,7 @@
 
 /**
  * Period timer model in 'Pendulum Lab' simulation.
- * Calculate period time of first or second pendulum.
+ * Calculates the period for the active pendulum, in addition to the normal trace.
  *
  * @author Andrey Zelenkov (MLearner)
  */
@@ -10,37 +10,32 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
-  // constants
-  var INIT_PENDULUM_NUMBER = 0;
-
   /**
    * @param {Array.<Pendulum>} pendula - Array of pendulum models.
-   * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
+   * @param {Property.<boolean>} isVisibleProperty
    *
    * @constructor
    */
-  function PeriodTimer( pendula, isPeriodTraceVisibleProperty ) {
+  function PeriodTimer( pendula, isVisibleProperty ) {
     var self = this;
 
-    //TODO: we need more documentation here
-    // make sure that we are not creating memory leaks.
+    // TODO make sure that we are not creating memory leaks.
 
-    Stopwatch.call( this );
+    Stopwatch.call( this, isVisibleProperty.value );
 
-    // @public {Property.<boolean>} flag to control visibility of timer
-    this.isVisibleProperty = new BooleanProperty( isPeriodTraceVisibleProperty.value );
+    // Forward our invisibleProperty over to the MovableComponent visibility.
+    isVisibleProperty.linkAttribute( this.isVisibleProperty, 'value' );
 
     // @public {Property.<number>}
-    this.activePendulumIndexProperty = new NumberProperty( INIT_PENDULUM_NUMBER );
+    this.activePendulumIndexProperty = new NumberProperty( 0 ); // Start with the first pendulum
 
-    // @public {Property.<pendulum>} flag to identify pendulum
+    // @public {Property.<pendulum>} - The active pendulum that we'll record the period/trace on.
     this.activePendulumProperty = new DerivedProperty( [ this.activePendulumIndexProperty ], function( index ) {
       return pendula[ index ];
     } );
@@ -48,14 +43,8 @@ define( function( require ) {
     // @private {Array.<Pendulum>}
     this.pendula = pendula;
 
-    // add visibility observer
-    isPeriodTraceVisibleProperty.link( function( isPeriodTraceVisible ) {
-      self.isVisibleProperty.value = isPeriodTraceVisible;
-    } );
-
     // stop the period timer when it is not visible.
     this.isVisibleProperty.onValue( false, this.stop.bind( this ) );
-
 
     this.isRunningProperty.link( function( isRunning ) {
       if ( isRunning ) {
@@ -105,7 +94,7 @@ define( function( require ) {
     } );
 
     // add path listeners
-    self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ INIT_PENDULUM_NUMBER ] );
+    self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.link( pathListeners[ this.activePendulumIndexProperty.value ] );
     self.activePendulumIndexProperty.lazyLink( function( index, oldIndex ) {
       self.clear();
 
@@ -126,7 +115,6 @@ define( function( require ) {
      */
     reset: function() {
       Stopwatch.prototype.reset.call( this );
-      this.isVisibleProperty.reset();
       this.activePendulumIndexProperty.reset();
     },
 
