@@ -34,7 +34,7 @@ define( function( require ) {
     this.energyGraphNode = energyGraphNode; // @public
 
     // move ruler and stopwatch to the right side
-    this.rulerNode.centerX += (energyGraphNode.width + 10);
+    this.rulerNode.centerX += ( energyGraphNode.width + 10 );
     pendulumLabModel.ruler.setInitialLocationValue( this.rulerNode.center );
 
     this.stopwatchNode.left = this.rulerNode.right + 10;

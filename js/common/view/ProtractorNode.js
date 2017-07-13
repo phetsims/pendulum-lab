@@ -2,7 +2,6 @@
 
 /**
  * Protractor node in 'Pendulum Lab' simulation.
- * The protracter node is responsible for displaying ticks
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -11,15 +10,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -30,7 +29,6 @@ define( function( require ) {
   var pattern0NumberOfDegreesDegreeSymbolString = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
 
   // constants
-  var FONT = new PhetFont( { size: 14, weight: 'bold' } );
   var LINE_LENGTH_DEFAULT = 3;
   var PENDULUM_TICK_LENGTH = 12;
   var RADIUS = 87;
@@ -38,94 +36,80 @@ define( function( require ) {
   var TICK_10_LENGTH = 9;
 
   /**
+   * @constructor
+   *
    * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options] for protractor node.
-   * @constructor
    */
   function ProtractorNode( pendula, modelViewTransform, options ) {
-    var self = this;
-
-    Node.call( this, _.extend( { pickable: false }, options ) );
-
-    var viewOriginPosition = modelViewTransform.modelToViewPosition( new Vector2( 0, 0 ) );
-    this.translation = viewOriginPosition;
-    // create central dash line
-    if ( pendula[ 0 ] ) {
-      this.addChild( new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendula[ 0 ].lengthRange.max ), {
-        stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
-        lineDash: [ 4, 7 ]
-      } ) );
-    }
-
-    // create central circles
-    this.addChild( new Circle( 2, { fill: 'black' } ) );
-    this.addChild( new Circle( 5, { stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR } ) );
-
-    // create a separate layer to add
-    var degreesLayer = new Node();
-    this.addChild( degreesLayer );
+    var centralDashLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendula[ 0 ].lengthRange.max ), {
+      stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
+      lineDash: [ 4, 7 ]
+    } );
+    var pivotDot = new Circle( 2, { fill: 'black' } );
+    var pivotCircle = new Circle( 5, { stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR } );
 
     // create background ticks
     var protractorShape = new Shape();
-    var currentAngleRad;
-    var lineLength;
-    var x1;
-    var y1;
-    var x2;
-    var y2;
+    for ( var currentAngleDegrees = 0; currentAngleDegrees <= 180; currentAngleDegrees += 1 ) {
+      var tickLength;
 
-    // loop for 180 degrees
-    for ( var currentAngleDeg = 0; currentAngleDeg <= 180; currentAngleDeg += 1 ) {
       // calculate the angle in radians
-      currentAngleRad = currentAngleDeg * Math.PI / 180;
+      var currentAngle = currentAngleDegrees * Math.PI / 180;
 
       // if the angle is a multiple of 10 then make the tick the longest length
-      if ( currentAngleDeg % 10 === 0 ) {
-        lineLength = TICK_10_LENGTH;
+      if ( currentAngleDegrees % 10 === 0 ) {
+        tickLength = TICK_10_LENGTH;
       }
-      else if ( currentAngleDeg % 5 === 0 ) { // if the angle is 5 the give it medium length
-        lineLength = TICK_5_LENGTH;
+      // if the angle is 5 the give it medium length
+      else if ( currentAngleDegrees % 5 === 0 ) {
+        tickLength = TICK_5_LENGTH;
       }
-      else { // otherwise make the length short
-        lineLength = LINE_LENGTH_DEFAULT;
+      // otherwise make the length short
+      else {
+        tickLength = LINE_LENGTH_DEFAULT;
       }
-      // calculate the position of the tick
-      x1 = RADIUS * Math.cos( currentAngleRad );
-      y1 = RADIUS * Math.sin( currentAngleRad );
-
-      // calculate the end of the tick
-      x2 = (RADIUS + lineLength) * Math.cos( currentAngleRad );
-      y2 = (RADIUS + lineLength) * Math.sin( currentAngleRad );
 
       // draw the tick first by finding the two positions then by drawing a line between them
-      protractorShape.moveTo( x1, y1 );
-      protractorShape.lineTo( x2, y2 );
+      protractorShape.moveToPoint( Vector2.createPolar( RADIUS, currentAngle ) );
+      protractorShape.lineToPoint( Vector2.createPolar( RADIUS + tickLength, currentAngle ) );
     }
+    var protractorPath = new Path( protractorShape, { stroke: 'black' } );
 
-    // add protractor path
-    this.addChild( new Path( protractorShape, { stroke: 'black' } ) );
+    // Layer for the ticks (angle of release) associated with each pendulum
+    var pendulaTickLayers = [ new Node(), new Node() ];
 
-    // create and add a layer for the ticks (angle of release) associated with each pendulum
-    this.firstPendulumTickLayer = new Node();
-    this.secondPendulumTickLayer = new Node();
-    this.addChild( this.secondPendulumTickLayer );
-    this.addChild( this.firstPendulumTickLayer );
+    // Layer for degrees labels
+    var degreesLayer = new Node();
+
+    Node.call( this, _.extend( {
+      pickable: false,
+      translation: modelViewTransform.modelToViewPosition( Vector2.ZERO ),
+      children: [
+        centralDashLine,
+        pivotDot,
+        pivotCircle,
+        degreesLayer,
+        protractorPath,
+        pendulaTickLayers[ 1 ],
+        pendulaTickLayers[ 0 ]
+      ]
+    }, options ) );
+
 
     // add ticks for pendulum
     pendula.forEach( function( pendulum, pendulumIndex ) {
-      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
-      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, { stroke: pendulum.color, lineWidth: 2 } );
-
-      // to make blue ticks upper than red
-      if ( pendulumIndex === 0 ) {
-        self.firstPendulumTickLayer.addChild( tickNodeLeft );
-        self.firstPendulumTickLayer.addChild( tickNodeRight );
-      }
-      else if ( pendulumIndex === 1 ) {
-        self.secondPendulumTickLayer.addChild( tickNodeLeft );
-        self.secondPendulumTickLayer.addChild( tickNodeRight );
-      }
+      var tickNodeLeft = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {
+        stroke: pendulum.color,
+        lineWidth: 2
+      } );
+      pendulaTickLayers[ pendulumIndex ].addChild( tickNodeLeft );
+      var tickNodeRight = new Line( RADIUS - PENDULUM_TICK_LENGTH - 2, 0, RADIUS - 2, 0, {
+        stroke: pendulum.color,
+        lineWidth: 2
+      } );
+      pendulaTickLayers[ pendulumIndex ].addChild( tickNodeRight );
 
       /**
        * function that updates the position of the tick associated with a pendulum
@@ -140,21 +124,17 @@ define( function( require ) {
       // add number of degrees text
       var degreesText = new Text( '0', {
         centerY: 15,
-        font: FONT,
+        font: new PhetFont( { size: 14, weight: 'bold' } ),
         fill: pendulum.color
       } );
       degreesLayer.addChild( degreesText );
 
-      /**
-       * function that updates the text of the degrees associated with a pendulum
-       */
       var updateDegreesText = function() {
         if ( pendulum.isUserControlledProperty.value ) {
-          // pendulum.angle is in radians, convert to degrees
-          var angle = pendulum.angleProperty.value * 180 / Math.PI;
-          assert && assert( angle <= 180 && angle >= -180, 'Out of range angle' );
+          var degrees = Util.toDegrees( pendulum.angleProperty.value );
+          assert && assert( degrees <= 180 && degrees >= -180, 'Out of range angle' );
 
-          degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( angle, 0 ) );
+          degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( degrees, 0 ) );
           if ( pendulumIndex === 0 ) {
             degreesText.right = -25;
           }
@@ -165,23 +145,20 @@ define( function( require ) {
         }
       };
 
-      // update tick position
-      // present for the lifetime of the sim
+      // update tick position, present for the lifetime of the sim
       pendulum.angleProperty.link( function() {
         updateTicksPosition();
         updateDegreesText();
       } );
 
-      // set ticks visibility observer
-      // present for the lifetime of the sim
+      // set ticks visibility observer, present for the lifetime of the sim
       Property.multilink( [ pendulum.isTickVisibleProperty, pendulum.isVisibleProperty ], function( isTickVisible, isVisible ) {
         tickNodeLeft.visible = isTickVisible && isVisible;
         tickNodeRight.visible = isTickVisible && isVisible;
         updateTicksPosition();
       } );
 
-      // set degrees text visibility observer
-      // present for the lifetime of the sim
+      // set degrees text visibility observer, present for the lifetime of the sim
       pendulum.isUserControlledProperty.link( function( isUserControlled ) {
         degreesText.visible = isUserControlled;
         updateDegreesText();

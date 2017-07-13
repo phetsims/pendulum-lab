@@ -67,9 +67,9 @@ define( function( require ) {
       var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
       content.addChild( new HBox( {
         children: [
-          new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 ),
+          new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 ),
           graphNode,
-          new HStrut( (GRAPH_WIDTH - graphNode.width) / 2 )
+          new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 )
         ],
         resize: false
       } ) );
