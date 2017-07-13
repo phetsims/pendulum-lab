@@ -21,7 +21,7 @@ define( function( require ) {
   var PANEL_BACKGROUND_COLOR = 'rgb( 216, 251, 196 )';
 
   var PendulumLabConstants = {
-    // pendula
+    // Pendula
     FIRST_PENDULUM_COLOR: 'rgb( 0, 0, 255 )',
     ICON_PENDULUM_MODE_SIZE: 29,
     SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )',
@@ -51,7 +51,7 @@ define( function( require ) {
     TWEAKERS_PRECISION: 2,
 
     // common
-    SIM_BOUNDS: new Bounds2( 0, 0, 768, 504 ),          // Determines bounds for sim   Bounds2( minX, minY, maxX, maxY )
+    LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     SCREEN_PADDING: 14,
     // create a model view transform (assuming the dev view screen is 768 wide and the 504 high)

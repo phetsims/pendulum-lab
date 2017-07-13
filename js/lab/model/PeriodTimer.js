@@ -25,8 +25,6 @@ define( function( require ) {
   function PeriodTimer( pendula, isVisibleProperty ) {
     var self = this;
 
-    // TODO make sure that we are not creating memory leaks.
-
     Stopwatch.call( this, isVisibleProperty.value );
 
     // Forward our invisibleProperty over to the MovableComponent visibility.
@@ -78,7 +76,7 @@ define( function( require ) {
       pendulum.lengthProperty.lazyLink( clearCallback );
       pendulum.gravityProperty.lazyLink( clearCallback );
       pendulum.isUserControlledProperty.lazyLink( clearCallback );
-      self.isVisibleProperty.onValue( false, clearCallback ); // TODO: is this better not done, or does it matter for perf?
+      self.isVisibleProperty.onValue( false, clearCallback );
 
       pendulum.periodTrace.elapsedTimeProperty.lazyLink( function( time ) {
         if ( pendulum === self.activePendulumProperty.value && self.isRunningProperty.value ) {

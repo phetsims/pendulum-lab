@@ -33,7 +33,7 @@ define( function( require ) {
    * @constructor
    */
   function PendulumLabView( model, options ) {
-    ScreenView.call( this, { layoutBounds: PendulumLabConstants.SIM_BOUNDS } );
+    ScreenView.call( this, { layoutBounds: PendulumLabConstants.LAYOUT_BOUNDS } );
 
     // @private {PendulumLabModel}
     this.model = model;

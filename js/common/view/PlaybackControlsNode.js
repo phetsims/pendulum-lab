@@ -14,13 +14,12 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var OnePendulumIconNode = require( 'PENDULUM_LAB/common/view/OnePendulumIconNode' );
+  var PendulaIcons = require( 'PENDULUM_LAB/common/view/PendulaIcons' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var TwoPendulumIconNode = require( 'PENDULUM_LAB/common/view/TwoPendulumIconNode' );
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
@@ -45,8 +44,8 @@ define( function( require ) {
       children: [
         // radio buttons to control number of pendula
         new RadioButtonGroup( numberOfPendulaProperty, [
-          { node: new OnePendulumIconNode(), value: 1 },
-          { node: new TwoPendulumIconNode(), value: 2 }
+          { node: PendulaIcons.ONE_PENDULUM_ICON, value: 1 },
+          { node: PendulaIcons.TWO_PENDULA_ICON, value: 2 }
         ], {
           spacing: 9,
           orientation: 'horizontal',
