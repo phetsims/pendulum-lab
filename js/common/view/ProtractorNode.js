@@ -56,7 +56,7 @@ define( function( require ) {
       var tickLength;
 
       // calculate the angle in radians
-      var currentAngle = currentAngleDegrees * Math.PI / 180;
+      var currentAngle = Util.toRadians( currentAngleDegrees );
 
       // if the angle is a multiple of 10 then make the tick the longest length
       if ( currentAngleDegrees % 10 === 0 ) {
