@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -78,7 +79,9 @@ define( function( require ) {
         var pendulumRect = new Node( {
           children: [
             new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
-              fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).addColorStop( 0.3, pendulum.color ).addColorStop( 0.8, 'white' ).addColorStop( 1, pendulum.color )
+              fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).addColorStop( 0.3, pendulum.color )
+                                                                                         .addColorStop( 0.8, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.9 ) )
+                                                                                         .addColorStop( 1, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.4 ) )
             } ),
             new Text( ( pendulumIndex + 1 ).toString(), {
               font: FONT,
