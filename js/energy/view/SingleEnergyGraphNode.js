@@ -42,6 +42,8 @@ define( function( require ) {
   };
   var SPACING = 4;
 
+  var GRAPH_WIDTH = 80;
+
   /**
    * @constructor
    *
@@ -49,9 +51,9 @@ define( function( require ) {
    * @param {Property.<number>} zoomProperty
    * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
-   * @param {Dimension2} dimension - dimension of graph in view coordinates.
+   * @param {Property.<number>} graphHeightProperty
    */
-  function SingleEnergyGraphNode( pendulum, zoomProperty, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+  function SingleEnergyGraphNode( pendulum, zoomProperty, isEnergyGraphExpandedProperty, pendulumNumber, graphHeightProperty ) {
 
     // @private {Pendulum}
     this.pendulum = pendulum;
@@ -63,7 +65,7 @@ define( function( require ) {
     this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
 
 
-    var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
+    var BAR_SPACING = GRAPH_WIDTH / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
     // position of the bars of the energy bar graph
     var kineticCenterX = BAR_OFFSET + 0.5 * BAR_SPACING + 0 * BAR_WIDTH;
@@ -75,7 +77,7 @@ define( function( require ) {
     var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
       font: new PhetFont( { size: 11, weight: 'bold' } ),
       fill: pendulum.color,
-      centerX: dimension.width / 2,
+      centerX: GRAPH_WIDTH / 2,
       maxWidth: 122
     } );
 
@@ -93,11 +95,11 @@ define( function( require ) {
     var maxLabelHeight = Math.max( Math.max( kineticLabel.height, potentialLabel.height ), Math.max( thermalLabel.height, totalLabel.height ) );
 
     // rest of space will be used for graph and bars
-    this.graphHeight = dimension.height - header.height - maxLabelHeight - SPACING * 2;
+    this.graphHeight = graphHeightProperty.value - header.height - maxLabelHeight - SPACING * 2;
     header.bottom = -this.graphHeight - SPACING;
 
     // create 'x' and 'y' axis
-    var axisX = new Line( 0, 0, dimension.width, 0, { stroke: 'black' } );
+    var axisX = new Line( 0, 0, GRAPH_WIDTH, 0, { stroke: 'black' } );
     var axisY = new ArrowNode( 0, 0, 0, this.graphHeight, {
       tailWidth: 2,
       headHeight: 7,
@@ -136,7 +138,6 @@ define( function( require ) {
       centerX: thermalCenterX,
       top: thermalLabel.bottom + 5
     } );
-
 
     Node.call( this, {
       preventFit: true,

@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var Dimension2 = require( 'DOT/Dimension2' );
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -22,6 +21,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
   var SingleEnergyGraphNode = require( 'PENDULUM_LAB/energy/view/SingleEnergyGraphNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -46,7 +46,7 @@ define( function( require ) {
     // create the energy graphs for each pendulum
     var content = new VBox( { align: 'center', resize: false } );
     model.pendula.forEach( function( pendulum, pendulumIndex ) {
-      var graphNode = new SingleEnergyGraphNode( pendulum, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
+      var graphNode = new SingleEnergyGraphNode( pendulum, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, pendulumIndex + 1, new Property( energyGraphHeight ) );
       content.addChild( new HBox( {
         children: [
           new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 ),
