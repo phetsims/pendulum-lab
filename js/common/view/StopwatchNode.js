@@ -10,15 +10,16 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var TimerNode = require( 'SCENERY_PHET/TimerNode' );
 
   /**
+   * @constructor
+   *
    * @param {Stopwatch} stopwatch - Model of stopwatch.
    * @param {Bounds2} layoutBounds - Bounds of screen view.
-   * @constructor
    */
   function StopwatchNode( stopwatch, layoutBounds ) {
     var self = this;

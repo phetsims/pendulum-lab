@@ -111,9 +111,6 @@ define( function( require ) {
       } );
       pendulaTickLayers[ pendulumIndex ].addChild( tickNodeRight );
 
-      /**
-       * function that updates the position of the tick associated with a pendulum
-       */
       var updateTicksPosition = function() {
         if ( pendulum.isUserControlledProperty.value ) {
           tickNodeLeft.setRotation( Math.PI / 2 - pendulum.angleProperty.value );

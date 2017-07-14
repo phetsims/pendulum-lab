@@ -53,7 +53,7 @@ define( function( require ) {
     this.mutate( options );
 
     thermalEnergyProperty.link( function( thermalEnergy ) {
-      var allowClearingThermalEnergy = (thermalEnergy !== 0 );
+      var allowClearingThermalEnergy = ( thermalEnergy !== 0 );
       icon.image = allowClearingThermalEnergy ? trashCanImage : trashCanGrayImage;
       icon.opacity = allowClearingThermalEnergy ? 1 : 0.3;
       self.pickable = allowClearingThermalEnergy;
