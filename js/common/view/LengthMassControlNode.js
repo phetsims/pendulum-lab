@@ -43,14 +43,18 @@ define( function( require ) {
       spacing: 4,
       align: 'left',
       children: [
-        new Text( StringUtils.format( lengthString, pendulumNumberString ), labelOptions ),
+        new Text( StringUtils.fillIn( lengthString, {
+          pendulumNumber: pendulumNumberString
+        } ), labelOptions ),
         new PendulumOptionSliderNode(
           pendulum.lengthProperty,
           pendulum.lengthRange,
           pattern0LengthValueLengthUnitsMetricString,
           pendulum.color
         ),
-        new Text( StringUtils.format( massString, pendulumNumberString ), labelOptions ),
+        new Text( StringUtils.fillIn( massString, {
+          pendulumNumber: pendulumNumberString
+        } ), labelOptions ),
         new PendulumOptionSliderNode(
           pendulum.massProperty,
           pendulum.massRange,

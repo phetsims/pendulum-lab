@@ -24,13 +24,13 @@
     "value": "Kinetic"
   },
   "length": {
-    "value": "Length {0}"
+    "value": "Length {{pendulumNumber}}"
   },
   "lots": {
     "value": "Lots"
   },
   "mass": {
-    "value": "Mass {0}"
+    "value": "Mass {{pendulumNumber}}"
   },
   "moon": {
     "value": "Moon"
