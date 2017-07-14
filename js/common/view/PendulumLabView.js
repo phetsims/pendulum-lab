@@ -87,7 +87,6 @@ define( function( require ) {
       listener: model.reset.bind( model ),
       touchAreaDilation: 6
     } );
-    resetAllButton.scale( 0.75 );
 
     // create ruler node
     var rulerNode = new PendulumLabRulerNode( model.ruler, modelViewTransform, this.layoutBounds );
