@@ -84,8 +84,11 @@ define( function( require ) {
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
-    var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
-      model.isPlayingProperty, model.timeSpeedProperty, model.stepManual.bind( model ) );
+    //TODO: pass in model? :P
+    var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty, model.isPlayingProperty, model.timeSpeedProperty, model.stepManual.bind( model ), {
+      centerX: this.layoutBounds.centerX,
+      bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
+    } );
 
     // create reset all button
     var resetAllButton = new ResetAllButton( {
@@ -161,10 +164,6 @@ define( function( require ) {
     this.addChild( rulerNode );
     this.addChild( this.periodTimerLayer );
     this.addChild( stopwatchNode );
-
-    // layout of nodes
-    playbackControls.centerX = this.layoutBounds.centerX;
-    playbackControls.bottom = this.layoutBounds.maxY - PendulumLabConstants.SCREEN_PADDING;
 
     // set initial value for ruler and stopwatch 'location' property
     model.ruler.setInitialLocationValue( rulerNode.center );
