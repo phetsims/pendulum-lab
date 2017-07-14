@@ -36,8 +36,7 @@ define( function( require ) {
 
     var labelOptions = {
       pickable: false,
-      font: FONT_TITLE,
-      fill: pendulum.color
+      font: FONT_TITLE
     };
 
     VBox.call( this, {
