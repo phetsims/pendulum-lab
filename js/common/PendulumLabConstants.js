@@ -18,7 +18,7 @@ define( function( require ) {
 
   var PANEL_CORNER_RADIUS = 5;
   var PANEL_MARGIN = 10;
-  var PANEL_BACKGROUND_COLOR = 'rgb( 216, 251, 196 )';
+  var PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
 
   var PendulumLabConstants = {
     // Pendula
