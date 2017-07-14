@@ -14,6 +14,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var PANEL_CORNER_RADIUS = 5;
@@ -29,6 +30,8 @@ define( function( require ) {
     // arrows
     ACCELERATION_ARROW_COLOR: 'rgb( 255, 253, 56 )',
     VELOCITY_ARROW_COLOR: 'rgb( 41, 253, 46 )',
+
+    TITLE_FONT: new PhetFont( 11 ),
 
     // panels
     PANEL_OPTIONS: {

@@ -20,7 +20,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var SingleEnergyGraphNode = require( 'PENDULUM_LAB/energy/view/SingleEnergyGraphNode' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -60,12 +59,11 @@ define( function( require ) {
 
     function createRadioButton( value, labelString ) {
       var label = new Text( labelString, {
-        font: new PhetFont( 16 )
+        font: PendulumLabConstants.TITLE_FONT
       } );
       var button = new AquaRadioButton( model.energyGraphModeProperty, value, label, {
         radius: label.height / 2.2,
-        xSpacing: 3,
-        scale: 0.7
+        xSpacing: 3
       } );
       button.touchArea = button.localBounds.dilatedXY( 15, 5 );
       return button;
@@ -124,7 +122,7 @@ define( function( require ) {
       buttonXMargin: 10,
       buttonYMargin: 6,
       titleNode: new Text( energyGraphString, {
-        font: new PhetFont( 11 ),
+        font: PendulumLabConstants.TITLE_FONT,
         maxWidth: GRAPH_WIDTH * 0.90
       } ),
       titleAlignX: 'left',

@@ -18,7 +18,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -27,7 +26,6 @@ define( function( require ) {
   var gravityString = require( 'string!PENDULUM_LAB/gravity' );
 
   // constants
-  var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
   var SPACING_CONTENT = 4; // spacing in between slider elements
 
   /**
@@ -51,7 +49,7 @@ define( function( require ) {
     // create and add gravity slider with title and body list menu
     // TODO: reduce number of parameters
     this.gravitySlider = new GravityControlNode( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, popupLayer, { y: SPACING_CONTENT } );
-    var gravitySliderLabel = new Text( gravityString, { font: FONT_TITLE, pickable: false } );
+    var gravitySliderLabel = new Text( gravityString, { font: PendulumLabConstants.TITLE_FONT, pickable: false } );
     gravityFrictionContentNode.addChild( new Node( {
       children: [
         gravitySliderLabel,
@@ -67,7 +65,7 @@ define( function( require ) {
     // create and add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
       var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
-      var frictionSliderLabel = new Text( frictionString, { font: FONT_TITLE, pickable: false } );
+      var frictionSliderLabel = new Text( frictionString, { font: PendulumLabConstants.TITLE_FONT, pickable: false } );
       frictionSliderNode.top = frictionSliderLabel.bottom + 4;
       gravityFrictionContentNode.addChild( new Node( {
         children: [

@@ -12,8 +12,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/PendulumOptionSliderNode' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -24,9 +24,6 @@ define( function( require ) {
   var pattern0LengthValueLengthUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0lengthValue.lengthUnitsMetric' );
   var pattern0MassValueMassUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0massValue.massUnitsMetric' );
 
-  // constants
-  var FONT_TITLE = new PhetFont( { size: 12, weight: 'bold' } );
-
   /**
    * TODO: doc
    * TODO: get rid of having to pass pendulumIndex around
@@ -36,7 +33,7 @@ define( function( require ) {
 
     var labelOptions = {
       pickable: false,
-      font: FONT_TITLE
+      font: PendulumLabConstants.TITLE_FONT
     };
 
     VBox.call( this, {

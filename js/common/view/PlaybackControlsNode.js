@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulaIcons = require( 'PENDULUM_LAB/common/view/PendulaIcons' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
@@ -27,7 +27,7 @@ define( function( require ) {
   var slowMotionString = require( 'string!PENDULUM_LAB/slowMotion' );
 
   // constants
-  var FONT = new PhetFont( 11 );
+  var FONT = PendulumLabConstants.TITLE_FONT;
   var RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
 
   /**

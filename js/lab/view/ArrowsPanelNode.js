@@ -18,7 +18,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
@@ -30,7 +29,6 @@ define( function( require ) {
   var ARROW_LENGTH = 22;
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
-  var FONT = new PhetFont( 11 );
   var TEXT_MARGIN_RIGHT = 5;
   var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
   var MAX_TEXT_WIDTH = PANEL_WIDTH * 0.60;  // allows for 60% of the horizontal space in the panel for text.
@@ -44,8 +42,8 @@ define( function( require ) {
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     var labels = [
-      new Text( velocityString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } ),
-      new Text( accelerationString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
+      new Text( velocityString, { font: PendulumLabConstants.TITLE_FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } ),
+      new Text( accelerationString, { font: PendulumLabConstants.TITLE_FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
     ];
 
     // determine max sting width determined by widths of velocity or acceleration strings
