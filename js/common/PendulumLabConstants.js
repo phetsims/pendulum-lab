@@ -69,7 +69,7 @@ define( function( require ) {
 
     // create a model view transform (assuming the dev view screen is 1024 wide and the 618 high)
     // the height of the screen is 4/3 m = 1.33 m
-    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2(), new Vector2( 1024 / 2, 15 ), 618 / 1.33 )
+    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, new Vector2( 1024 / 2, 15 ), 618 / 1.33 )
   };
 
   pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );

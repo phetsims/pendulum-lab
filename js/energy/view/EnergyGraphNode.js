@@ -43,6 +43,7 @@ define( function( require ) {
     var graphStorage = [];
 
     // create the energy graphs for each pendulum
+    //TODO: shouldn't have to have resize: false here!
     var content = new VBox( { align: 'center', resize: false } );
     model.pendula.forEach( function( pendulum, pendulumIndex ) {
       var graphNode = new SingleEnergyGraphNode( pendulum, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, pendulumIndex + 1, new Property( energyGraphHeight ) );
@@ -51,8 +52,7 @@ define( function( require ) {
           new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 ),
           graphNode,
           new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 )
-        ],
-        resize: false
+        ]
       } ) );
       graphStorage[ pendulumIndex ] = graphNode;
     } );
@@ -97,7 +97,7 @@ define( function( require ) {
 
     // add accordion box
     AccordionBox.call( this, new VBox( {
-      spacing: 5, resize: false, children: [
+      spacing: 5, children: [
         new HBox( {
           spacing: 20,
           children: [
@@ -105,7 +105,9 @@ define( function( require ) {
             radioButtonTwo
           ]
         } ),
-        new Panel( content, { resize: false } ),
+        new Panel( content, {
+          cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS
+        } ),
         new HBox( {
           spacing: 20,
           children: [

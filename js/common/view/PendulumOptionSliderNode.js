@@ -80,7 +80,6 @@ define( function( require ) {
     // describes panel box for pendulum mass and length
     VBox.call( this, _.extend( {
       spacing: 4,
-      resize: false,
       children: [
         // arrow buttons and value panel
         new HBox( {

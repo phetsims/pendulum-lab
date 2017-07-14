@@ -84,7 +84,6 @@ define( function( require ) {
     // describes the panel box containing the friction slider
     Node.call( this, _.extend( {
       spacing: 6,
-      resize: false,
       children: [ hSlider ]
     }, options ) );
 
