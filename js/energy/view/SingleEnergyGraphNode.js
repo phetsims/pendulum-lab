@@ -31,7 +31,6 @@ define( function( require ) {
   var totalString = require( 'string!PENDULUM_LAB/total' );
 
   // constants
-  var ZOOM_MULTIPLIER = 1.3;
   var BAR_WIDTH = 8;
   var BAR_OFFSET = 4;
 
@@ -105,8 +104,7 @@ define( function( require ) {
       headWidth: 6
     } );
 
-    // @private
-    // individual bars
+    // @private {Rectangle} - Individual energy bars
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: COLORS.KINETIC,
       centerX: kineticCenterX
@@ -120,8 +118,7 @@ define( function( require ) {
       centerX: thermalCenterX
     } );
 
-    // @private
-    // combined 'total' bar
+    // @private {Rectangle} - For the combined total bar
     this.totalKineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: COLORS.KINETIC,
       centerX: totalCenterX
@@ -216,28 +213,6 @@ define( function( require ) {
         this.totalKineticEnergyBar.rectY = potentialAndThermalHeight;
         this.totalKineticEnergyBar.rectHeight = totalHeight - potentialAndThermalHeight;
       }
-    },
-
-    /**
-     * Updates the length of the bar graphs by multiplying each of them by a common factor
-     * Mimics the actions of zooming in.
-     * @public
-     */
-    zoomIn: function() {
-      //TODO: remove from here
-      this.zoomProperty.value *= ZOOM_MULTIPLIER;
-      this.update();
-    },
-
-    /**
-     * Updates the length of the bar graphs by dividing each of them by a common factor
-     * Mimics the actions of zooming out.
-     * @public
-     */
-    zoomOut: function() {
-      //TODO: remove from here
-      this.zoomProperty.value /= ZOOM_MULTIPLIER;
-      this.update();
     }
   } );
 } );

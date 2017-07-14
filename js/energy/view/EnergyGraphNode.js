@@ -75,12 +75,12 @@ define( function( require ) {
       return new ZoomButton( _.extend( {
         in: isIn,
         listener: function() {
-          var graphNode = graphStorage[ model.energyGraphModeProperty.value === EnergyGraphMode.ONE ? 0 : 1 ];
+          var zoomMultiplier = 1.3;
           if ( isIn ) {
-            graphNode.zoomIn();
+            model.energyZoomProperty.value *= zoomMultiplier;
           }
           else {
-            graphNode.zoomOut();
+            model.energyZoomProperty.value /= zoomMultiplier;
           }
         }
       }, {
