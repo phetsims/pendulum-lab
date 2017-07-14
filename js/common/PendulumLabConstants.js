@@ -33,6 +33,8 @@ define( function( require ) {
 
     TITLE_FONT: new PhetFont( 11 ),
 
+    PANEL_PADDING: 8,
+
     // panels
     PANEL_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,

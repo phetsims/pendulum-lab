@@ -26,12 +26,14 @@ define( function( require ) {
     PendulumLabView.call( this, model, options );
 
     // create and add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyGraphNode( model, energyGraphHeight );
-    energyGraphNode.left = PendulumLabConstants.SCREEN_PADDING;
-    energyGraphNode.top = PendulumLabConstants.SCREEN_PADDING;
+    var energyGraphNode = new EnergyGraphNode( model, energyGraphHeight, {
+      left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
+      top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
+    } );
     this.energyGraphLayer.addChild( energyGraphNode );
 
-    this.energyGraphNode = energyGraphNode; // @public
+    // @public {EnergyGraphNode} TODO check if protected is OK
+    this.energyGraphNode = energyGraphNode;
 
     // move ruler and stopwatch to the right side
     this.rulerNode.centerX += ( energyGraphNode.width + 10 );

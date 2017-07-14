@@ -88,7 +88,7 @@ define( function( require ) {
     }, PendulumLabConstants.PANEL_OPTIONS );
 
     VBox.call( this, _.extend( {
-      spacing: 5,
+      spacing: PendulumLabConstants.PANEL_PADDING,
       children: [
         new Panel( lengthMassContentNode, panelOptions ),
         new Panel( gravityFrictionContentNode, panelOptions )

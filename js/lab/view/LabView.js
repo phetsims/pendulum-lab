@@ -22,20 +22,22 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {PendulumLabModel} pendulumLabModel
+   * @param {PendulumLabModel} model
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    */
-  function LabView( pendulumLabModel, energyGraphHeight ) {
-    EnergyView.call( this, pendulumLabModel, energyGraphHeight, {
+  function LabView( model, energyGraphHeight ) {
+    EnergyView.call( this, model, energyGraphHeight, {
       includeGravityTweakers: true
     } );
 
     // create arrow panel node to the bottom layer
-    var arrowsPanelNode = new ArrowsPanelNode( pendulumLabModel.isVelocityVisibleProperty,
-      pendulumLabModel.isAccelerationVisibleProperty );
+    var arrowsPanelNode = new ArrowsPanelNode( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
+      left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
+      top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
+    } );
 
     // create period timer node
-    var periodTimerNode = new PeriodTimerNode( pendulumLabModel.periodTimer, pendulumLabModel.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
+    var periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
 
     // add the various nodes
     this.arrowsPanelLayer.addChild( arrowsPanelNode );
@@ -44,14 +46,12 @@ define( function( require ) {
     // layout the nodes
     periodTimerNode.right = this.slidersPanelNode.left - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
-    arrowsPanelNode.left = PendulumLabConstants.SCREEN_PADDING;
-    arrowsPanelNode.top = PendulumLabConstants.SCREEN_PADDING;
-    this.energyGraphNode.top = arrowsPanelNode.bottom + 8; // move energyGraphNode to the bottom
+    this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING; // move energyGraphNode to the bottom
 
     // change label for period timer
     this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
 
-    pendulumLabModel.periodTimer.setInitialLocationValue( periodTimerNode.center );
+    model.periodTimer.setInitialLocationValue( periodTimerNode.center );
 
     // set dynamical dragBounds to keep the periodTimer within the visibleBounds
     this.visibleBoundsProperty.link( function( visibleBounds ) {
