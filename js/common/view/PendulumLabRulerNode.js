@@ -14,14 +14,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
   // strings
   var rulerUnitsString = require( 'string!PENDULUM_LAB/rulerUnits' );
 
   // constants
-  var FONT = new PhetFont( 10 );
   var RULER_HEIGHT = 34;
   var TICK_INTERVAL = 5; // tick interval in cm
 
@@ -53,10 +52,10 @@ define( function( require ) {
       backgroundFill: 'rgb( 237, 225, 121 )',
       cursor: 'pointer',
       insetsWidth: 0,
-      majorTickFont: FONT,
+      majorTickFont: PendulumLabConstants.RULER_FONT,
       majorTickHeight: 12,
       minorTickHeight: 6,
-      unitsFont: FONT,
+      unitsFont: PendulumLabConstants.RULER_FONT,
       unitsMajorTickIndex: rulerTicks.length - 3,
       minorTicksPerMajorTick: 4,
       tickMarksOnBottom: false

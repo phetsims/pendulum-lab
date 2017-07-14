@@ -15,7 +15,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -26,7 +25,6 @@ define( function( require ) {
   var noneString = require( 'string!PENDULUM_LAB/none' );
 
   // constants
-  var FONT = new PhetFont( 9 );
   var TICK_NUMBER = 10;
 
   /**
@@ -91,9 +89,9 @@ define( function( require ) {
     }, options ) );
 
     // add ticks, we want two major ticks
-    hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
     hSlider.addMajorTick( sliderValueRange.min / 2 + sliderValueRange.max / 2 );
-    hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
 
     // add the minor ticks
     var tickStep = ( sliderValueRange.max - sliderValueRange.min ) / TICK_NUMBER;

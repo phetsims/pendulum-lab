@@ -18,7 +18,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -75,7 +75,7 @@ define( function( require ) {
 
     // header of graph
     var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
-      font: new PhetFont( { size: 11, weight: 'bold' } ),
+      font: PendulumLabConstants.ENERGY_HEADER_FONT,
       fill: pendulum.color,
       centerX: GRAPH_WIDTH / 2,
       maxWidth: 122
@@ -83,7 +83,7 @@ define( function( require ) {
 
     // labels for bars
     var barLabelOptions = {
-      font: new PhetFont( { size: 11, weight: 'bold' } ),
+      font: PendulumLabConstants.ENERGY_BAR_FONT,
       rotation: -Math.PI / 2,
       top: SPACING,
       maxWidth: 70

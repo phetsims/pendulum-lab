@@ -22,7 +22,6 @@ define( function( require ) {
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -33,8 +32,7 @@ define( function( require ) {
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
   var ARROW_SIZE_DEFAULT = 25;
-  var FONT = new PhetFont( { size: 32, weight: 'bold' } );
-  var RECT_SIZE = new Dimension2( 60, 80 );
+  var RECT_SIZE = new Dimension2( 73, 98 ); // TODO: MVT this?
 
   /**
    * @constructor
@@ -84,7 +82,7 @@ define( function( require ) {
                                                                                          .addColorStop( 1, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.4 ) )
             } ),
             new Text( ( pendulumIndex + 1 ).toString(), {
-              font: FONT,
+              font: PendulumLabConstants.PENDULUM_LABEL_FONT,
               fill: 'white',
               centerY: RECT_SIZE.height / 4,
               centerX: 0,

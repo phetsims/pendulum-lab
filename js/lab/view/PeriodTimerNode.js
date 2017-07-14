@@ -40,8 +40,6 @@ define( function( require ) {
   var BACKGROUND_IN_COLOR = 'rgb( 245, 217, 73 )';
   var BACKGROUND_OUT_COLOR = 'rgb( 64, 64, 65 )';
   var BUTTON_WIDTH = 40;    // play button width on period timer tool
-  var FONT_TEXT = new PhetFont( 14 );
-  var FONT_TIME = new PhetFont( 20 );
   var PANEL_PAD = 8;
   var RECT_SIZE = new Dimension2( 15, 20 );  // pendulum icon dimensions
   var TOUCH_PADDING_HORIZONTAL = 5;
@@ -110,7 +108,7 @@ define( function( require ) {
         stroke: 'black',
         fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
       } ),
-        new Text( '1', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
+        new Text( '1', { fill: 'white', font: new PhetFont( 14 ), centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
 
     // creates pendulum icon for second pendulum
@@ -119,7 +117,7 @@ define( function( require ) {
         stroke: 'black',
         fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
       } ),
-        new Text( '2', { fill: 'white', font: FONT_TEXT, centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
+        new Text( '2', { fill: 'white', font: new PhetFont( 14 ), centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
     } );
 
     // creates switch icon for choosing the first or second pendulum
@@ -147,7 +145,7 @@ define( function( require ) {
     var periodTimerPendulaSelector = new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } );
 
     // Creates time text inside period timer tool.
-    var readoutText = new Text( getTextTime( 0 ), { font: FONT_TIME, maxWidth: periodTimerPendulaSelector.width * 0.80 } );
+    var readoutText = new Text( getTextTime( 0 ), { font: PendulumLabConstants.PERIOD_TIMER_READOUT_FONT, maxWidth: periodTimerPendulaSelector.width * 0.80 } );
 
     // Creates white background behind the time readout text in period timer tool.
     var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
@@ -163,7 +161,7 @@ define( function( require ) {
       top: PANEL_PAD,
 
       children: [
-        new Text( periodString, { font: FONT_TEXT, pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
+        new Text( periodString, { font: PendulumLabConstants.PERIOD_TIMER_TITLE_FONT, pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
         new Node( { children: [ textBackground, readoutText ], pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
         periodTimerPendulaSelector
       ]

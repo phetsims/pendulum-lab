@@ -49,7 +49,7 @@ define( function( require ) {
     // create and add gravity slider with title and body list menu
     // TODO: reduce number of parameters
     this.gravitySlider = new GravityControlNode( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange, pendulumLabModel.bodyProperty, popupLayer, { y: SPACING_CONTENT } );
-    var gravitySliderLabel = new Text( gravityString, { font: PendulumLabConstants.TITLE_FONT, pickable: false } );
+    var gravitySliderLabel = new Text( gravityString, { font: PendulumLabConstants.TITLE_FONT_BOLD, pickable: false } );
     gravityFrictionContentNode.addChild( new Node( {
       children: [
         gravitySliderLabel,
@@ -65,7 +65,7 @@ define( function( require ) {
     // create and add friction slider with title when necessary
     if ( pendulumLabModel.frictionProperty ) {
       var frictionSliderNode = new FrictionSliderNode( pendulumLabModel.frictionProperty, pendulumLabModel.frictionRange, { y: SPACING_CONTENT } );
-      var frictionSliderLabel = new Text( frictionString, { font: PendulumLabConstants.TITLE_FONT, pickable: false } );
+      var frictionSliderLabel = new Text( frictionString, { font: PendulumLabConstants.TITLE_FONT_BOLD, pickable: false } );
       frictionSliderNode.top = frictionSliderLabel.bottom + 4;
       gravityFrictionContentNode.addChild( new Node( {
         children: [

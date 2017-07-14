@@ -41,7 +41,7 @@ define( function( require ) {
    */
   function PlaybackControlsNode( numberOfPendulaProperty, isPlayingProperty, timeSpeedProperty, stepFunction, options ) {
     HBox.call( this, _.extend( {
-      spacing: 26,
+      spacing: 31,
       children: [
         // radio buttons to control number of pendula
         new RadioButtonGroup( numberOfPendulaProperty, [
@@ -62,13 +62,13 @@ define( function( require ) {
         new HBox( {
           spacing: 10, children: [
             new PlayPauseButton( isPlayingProperty, {
-              radius: 16,
+              radius: 20,
               touchAreaDilation: 5
             } ),
             new StepForwardButton( {
               playingProperty: isPlayingProperty,
               listener: stepFunction,
-              radius: 12,
+              radius: 15,
               touchAreaDilation: 5
             } )
           ]

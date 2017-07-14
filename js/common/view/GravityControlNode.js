@@ -19,7 +19,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RichText = require( 'SCENERY_PHET/RichText' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -34,8 +33,6 @@ define( function( require ) {
   var whatIsTheValueOfGravityString = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   // constants
-  var FONT = new PhetFont( 9 );
-  var FONT_LIST = new PhetFont( 12 );
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
   var VALUE_LABEL_SPACING = 4;
 
@@ -58,7 +55,7 @@ define( function( require ) {
     var comboBoxItems = Body.BODIES.map( function( body ) {
       return {
         node: new Text( body.title, {
-          font: FONT_LIST,
+          font: PendulumLabConstants.GRAVITY_COMBO_FONT,
           maxWidth: 50
         } ),
         value: body
@@ -71,7 +68,7 @@ define( function( require ) {
       buttonCornerRadius: 3,
       buttonYMargin: 0,
       itemYMargin: 3,
-      listYMargin: 8
+      listYMargin: 3
     } ) );
 
     // create slider for gravity property
@@ -86,14 +83,14 @@ define( function( require ) {
     } );
 
     // we want two major ticks one at the beginning and the other at the end
-    hSlider.addMajorTick( gravityRange.min, new Text( noneString, { font: FONT, pickable: false } ) );
-    hSlider.addMajorTick( gravityRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
+    hSlider.addMajorTick( gravityRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    hSlider.addMajorTick( gravityRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( hSlider );
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
-    this.questionNodeText = new Text( whatIsTheValueOfGravityString, { font: FONT, maxWidth: 150 } );
+    this.questionNodeText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT, maxWidth: 150 } );
     this.questionNode = new Node( { children: [ this.questionNodeBackground, this.questionNodeText ], pickable: false } );
     updateQuestionTextPosition( this.questionNodeText, this.gravityAdjustmentNode );
     container.addChild( this.questionNode );
@@ -139,7 +136,7 @@ define( function( require ) {
       var valueLabel = new RichText( StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
           centerX: 0,
           centerY: -1,
-          font: FONT,
+          font: PendulumLabConstants.READOUT_FONT,
           maxWidth: labelBackgroundWidth - 6 // the label has to be smaller than the box
         } )
       ;

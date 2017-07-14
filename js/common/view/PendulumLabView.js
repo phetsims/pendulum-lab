@@ -34,7 +34,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform
    */
   function PendulumLabView( model, options ) {
-    ScreenView.call( this, { layoutBounds: PendulumLabConstants.LAYOUT_BOUNDS } );
+    ScreenView.call( this );
 
     // @private {PendulumLabModel}
     this.model = model;

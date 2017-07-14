@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
@@ -24,7 +24,7 @@ define( function( require ) {
    */
   function ReturnButtonNode( options ) {
     TextPushButton.call( this, returnString, _.extend( {
-      font: new PhetFont( 12 ),
+      font: PendulumLabConstants.RETURN_BUTTON_FONT,
       baseColor: 'rgb( 231, 232, 233 )',
       touchAreaXDilation: 10,
       touchAreaYDilation: 6

@@ -18,7 +18,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -27,7 +26,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
-  var FONT_LABEL = new PhetFont( 9 );
   var VALUE_LABEL_SPACING = 4;
   var TWEAKERS_STEP = Math.pow( 10, -PendulumLabConstants.TWEAKERS_PRECISION );
   var ARROW_TOUCH_PADDING_TOP = 15;
@@ -75,7 +73,7 @@ define( function( require ) {
     var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
       centerX: 0,
       centerY: 0,
-      font: FONT_LABEL,
+      font: PendulumLabConstants.READOUT_FONT,
       maxWidth: labelBackgroundWidth - 6
     } );
 

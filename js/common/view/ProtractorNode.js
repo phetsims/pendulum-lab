@@ -17,7 +17,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -29,11 +28,11 @@ define( function( require ) {
   var pattern0NumberOfDegreesDegreeSymbolString = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
 
   // constants
-  var LINE_LENGTH_DEFAULT = 3;
-  var PENDULUM_TICK_LENGTH = 12;
-  var RADIUS = 87;
-  var TICK_5_LENGTH = 6;
-  var TICK_10_LENGTH = 9;
+  var LINE_LENGTH_DEFAULT = 3.6;
+  var PENDULUM_TICK_LENGTH = 14.7;
+  var RADIUS = 106;
+  var TICK_5_LENGTH = 7.3;
+  var TICK_10_LENGTH = 11;
 
   /**
    * @constructor
@@ -75,7 +74,10 @@ define( function( require ) {
       protractorShape.moveToPoint( Vector2.createPolar( RADIUS, currentAngle ) );
       protractorShape.lineToPoint( Vector2.createPolar( RADIUS + tickLength, currentAngle ) );
     }
-    var protractorPath = new Path( protractorShape, { stroke: 'black' } );
+    var protractorPath = new Path( protractorShape, {
+      stroke: 'black',
+      lineWidth: 0.5
+    } );
 
     // Layer for the ticks (angle of release) associated with each pendulum
     var pendulaTickLayers = [ new Node(), new Node() ];
@@ -121,7 +123,7 @@ define( function( require ) {
       // add number of degrees text
       var degreesText = new Text( '0', {
         centerY: 15,
-        font: new PhetFont( { size: 14, weight: 'bold' } ),
+        font: PendulumLabConstants.PROTRACTOR_DEGREES_FONT,
         fill: pendulum.color
       } );
       degreesLayer.addChild( degreesText );

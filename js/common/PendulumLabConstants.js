@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -22,46 +21,55 @@ define( function( require ) {
   var PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
 
   var PendulumLabConstants = {
-    // Pendula
+    BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     FIRST_PENDULUM_COLOR: 'rgb( 0, 0, 255 )',
-    ICON_PENDULUM_MODE_SIZE: 29,
     SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )',
-
-    // arrows
     ACCELERATION_ARROW_COLOR: 'rgb( 255, 253, 56 )',
     VELOCITY_ARROW_COLOR: 'rgb( 41, 253, 46 )',
 
-    TITLE_FONT: new PhetFont( 11 ),
+    ICON_PENDULUM_MODE_SIZE: 35,
 
-    PANEL_PADDING: 8,
+    // TODO: adjust to fit
+    TITLE_FONT: new PhetFont( 13 ),
+    TITLE_FONT_BOLD: new PhetFont( { size: 13, weight: 'bold' } ),
+    TICK_FONT: new PhetFont( 10 ),
+    READOUT_FONT: new PhetFont( 10 ),
+    RULER_FONT: new PhetFont( 10 ),
+    PERIOD_TIMER_TITLE_FONT: new PhetFont( 14 ),
+    PERIOD_TIMER_READOUT_FONT: new PhetFont( 14 ),
+    VALUE_OF_GRAVITY_FONT: new PhetFont( 10 ),
+    GRAVITY_COMBO_FONT: new PhetFont( 12 ),
+    PENDULUM_LABEL_FONT: new PhetFont( { size: 32, weight: 'bold' } ),
+    PROTRACTOR_DEGREES_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
+    RETURN_BUTTON_FONT: new PhetFont( 14 ),
+    ENERGY_HEADER_FONT: new PhetFont( { size: 11, weight: 'bold' } ),
+    ENERGY_BAR_FONT: new PhetFont( { size: 11, weight: 'bold' } ),
 
-    // panels
+    PANEL_PADDING: 10,
+
     PANEL_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
       fill: PANEL_BACKGROUND_COLOR,
       xMargin: PANEL_MARGIN,
       yMargin: 8 // TODO: clean this up
     },
+
     LEFT_PANELS_MIN_WIDTH: 122,
     PANEL_BACKGROUND_COLOR: PANEL_BACKGROUND_COLOR,
     PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
     PANEL_MARGIN: PANEL_MARGIN,
 
     // sliders
-    TRACK_SIZE: new Dimension2( 95, 0.5 ),
-    THUMB_SIZE: new Dimension2( 10, 17 ),
+    TRACK_SIZE: new Dimension2( 116, 0.5 ),
+    THUMB_SIZE: new Dimension2( 11, 20 ),
     THUMB_TOUCH_AREA_X_DILATION: 5,
     THUMB_TOUCH_AREA_Y_DILATION: 4,
     SLIDER_PRECISION: 1,
     TWEAKERS_PRECISION: 2,
 
-    // common
-    LAYOUT_BOUNDS: new Bounds2( 0, 0, 768, 504 ),
-    BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
-    SCREEN_PADDING: 14,
-    // create a model view transform (assuming the dev view screen is 768 wide and the 504 high)
+    // create a model view transform (assuming the dev view screen is 1024 wide and the 618 high)
     // the height of the screen is 4/3 m = 1.33 m
-    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2(), new Vector2( 768 / 2, 15 ), 504 / 1.33 )
+    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( new Vector2(), new Vector2( 1024 / 2, 15 ), 618 / 1.33 )
   };
 
   pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );

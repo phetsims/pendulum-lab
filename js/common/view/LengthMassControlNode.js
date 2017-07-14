@@ -33,7 +33,7 @@ define( function( require ) {
 
     var labelOptions = {
       pickable: false,
-      font: PendulumLabConstants.TITLE_FONT
+      font: PendulumLabConstants.TITLE_FONT_BOLD
     };
 
     VBox.call( this, {
