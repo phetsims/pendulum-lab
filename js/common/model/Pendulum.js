@@ -90,9 +90,6 @@ define( function( require ) {
     // @public {Property.<boolean>} - Whether the entire pendulum is visible or not
     this.isVisibleProperty = new BooleanProperty( false );
 
-    // @public {Property.<number>} - Coefficient for drawing the energy graph
-    this.energyMultiplierProperty = new NumberProperty( 40 );
-
     // save link to global properties
     // @private
     this.gravityProperty = gravityProperty;
@@ -332,7 +329,6 @@ define( function( require ) {
       this.thermalEnergyProperty.reset();
       this.isUserControlledProperty.reset();
       this.isTickVisibleProperty.reset();
-      this.energyMultiplierProperty.reset();
 
       this.updateDerivedVariables( false );
     },

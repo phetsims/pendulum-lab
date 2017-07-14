@@ -35,30 +35,34 @@ define( function( require ) {
   var BAR_WIDTH = 8;
   var BAR_OFFSET = 4;
 
-  var ARROW_HEAD_WIDTH = 6; // for the arrows on the x and y axis
-  var ARROW_HEAD_HEIGHT = 7;
-  var COLOR = {
+  var COLORS = {
     KINETIC: 'rgb( 31, 202, 46 )',
     POTENTIAL: 'rgb( 55, 132, 213 )',
     THERMAL: 'rgb( 253, 87, 31 )',
     TOTAL: 'rgb( 0, 0, 0 )'
   };
-  var FONT = new PhetFont( { size: 11, weight: 'bold' } );
   var SPACING = 4;
 
   /**
    * @constructor
    *
    * @param {Pendulum} pendulum - Property with selected pendulum for energy graph representation.
+   * @param {Property.<number>} zoomProperty
    * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
    * @param {Dimension2} dimension - dimension of graph in view coordinates.
    */
-  function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
+  function SingleEnergyGraphNode( pendulum, zoomProperty, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
 
-    // @private
+    // @private {Pendulum}
     this.pendulum = pendulum;
+
+    // @private {Property.<number>}
+    this.zoomProperty = zoomProperty;
+
+    // @private {Property.<boolean>}
     this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
+
 
     var BAR_SPACING = dimension.width / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
@@ -70,7 +74,7 @@ define( function( require ) {
 
     // header of graph
     var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
-      font: FONT,
+      font: new PhetFont( { size: 11, weight: 'bold' } ),
       fill: pendulum.color,
       centerX: dimension.width / 2,
       maxWidth: 122
@@ -78,15 +82,15 @@ define( function( require ) {
 
     // labels for bars
     var barLabelOptions = {
-      font: FONT,
+      font: new PhetFont( { size: 11, weight: 'bold' } ),
       rotation: -Math.PI / 2,
-      top: +SPACING,
+      top: SPACING,
       maxWidth: 70
     };
-    var kineticLabel = new Text( kineticString, _.extend( { fill: COLOR.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
-    var potentialLabel = new Text( potentialString, _.extend( { fill: COLOR.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
-    var thermalLabel = new Text( thermalString, _.extend( { fill: COLOR.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
-    var totalLabel = new Text( totalString, _.extend( { fill: COLOR.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
+    var kineticLabel = new Text( kineticString, _.extend( { fill: COLORS.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
+    var potentialLabel = new Text( potentialString, _.extend( { fill: COLORS.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
+    var thermalLabel = new Text( thermalString, _.extend( { fill: COLORS.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
+    var totalLabel = new Text( totalString, _.extend( { fill: COLORS.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
     var maxLabelHeight = Math.max( Math.max( kineticLabel.height, potentialLabel.height ), Math.max( thermalLabel.height, totalLabel.height ) );
 
     // rest of space will be used for graph and bars
@@ -97,37 +101,37 @@ define( function( require ) {
     var axisX = new Line( 0, 0, dimension.width, 0, { stroke: 'black' } );
     var axisY = new ArrowNode( 0, 0, 0, this.graphHeight, {
       tailWidth: 2,
-      headHeight: ARROW_HEAD_HEIGHT,
-      headWidth: ARROW_HEAD_WIDTH
+      headHeight: 7,
+      headWidth: 6
     } );
 
     // @private
     // individual bars
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLOR.KINETIC,
+      fill: COLORS.KINETIC,
       centerX: kineticCenterX
     } );
     this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLOR.POTENTIAL,
+      fill: COLORS.POTENTIAL,
       centerX: potentialCenterX
     } );
     this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLOR.THERMAL,
+      fill: COLORS.THERMAL,
       centerX: thermalCenterX
     } );
 
     // @private
     // combined 'total' bar
     this.totalKineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLOR.KINETIC,
+      fill: COLORS.KINETIC,
       centerX: totalCenterX
     } );
     this.totalPotentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLOR.POTENTIAL,
+      fill: COLORS.POTENTIAL,
       centerX: totalCenterX
     } );
     this.totalThermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLOR.THERMAL,
+      fill: COLORS.THERMAL,
       centerX: totalCenterX
     } );
 
@@ -156,13 +160,12 @@ define( function( require ) {
 
     // add listeners to pendulum
     var updateListener = this.update.bind( this );
-    pendulum.stepEmitter.addListener( updateListener );
-    pendulum.resetEmitter.addListener( updateListener );
-    pendulum.userMovedEmitter.addListener( updateListener );
-    pendulum.lengthProperty.link( updateListener );
-    pendulum.massProperty.link( updateListener );
-    pendulum.energyMultiplierProperty.lazyLink( updateListener );
+    pendulum.kineticEnergyProperty.lazyLink( updateListener );
+    pendulum.potentialEnergyProperty.lazyLink( updateListener );
+    pendulum.thermalEnergyProperty.lazyLink( updateListener );
+    zoomProperty.lazyLink( updateListener );
     isEnergyGraphExpandedProperty.link( updateListener );
+    this.update();
   }
 
   pendulumLab.register( 'SingleEnergyGraphNode', SingleEnergyGraphNode );
@@ -191,7 +194,7 @@ define( function( require ) {
      */
     update: function() {
       if ( this.isEnergyGraphExpandedProperty.value && this.visible ) {
-        var energyMultiplier = this.pendulum.energyMultiplierProperty.value;
+        var energyMultiplier = 40 * this.zoomProperty.value;
         var maxHeight = this.graphHeight;
 
         var kineticEnergy = this.pendulum.kineticEnergyProperty.value * energyMultiplier;
@@ -221,7 +224,8 @@ define( function( require ) {
      * @public
      */
     zoomIn: function() {
-      this.pendulum.energyMultiplierProperty.value *= ZOOM_MULTIPLIER;
+      //TODO: remove from here
+      this.zoomProperty.value *= ZOOM_MULTIPLIER;
       this.update();
     },
 
@@ -231,7 +235,8 @@ define( function( require ) {
      * @public
      */
     zoomOut: function() {
-      this.pendulum.energyMultiplierProperty.value /= ZOOM_MULTIPLIER;
+      //TODO: remove from here
+      this.zoomProperty.value /= ZOOM_MULTIPLIER;
       this.update();
     }
   } );

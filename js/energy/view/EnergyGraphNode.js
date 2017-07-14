@@ -36,20 +36,17 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
-   * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
-   * @param {Property.<string>} energyGraphModeProperty - Property to select mode of energy graph representation
-   * @param {Property.<string>} numberOfPendulaProperty - Property to control number of pendula.
+   * @param {EnergyModel} model
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @param {Object} [options]
    */
-  function EnergyGraphNode( pendula, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulaProperty, energyGraphHeight, options ) {
+  function EnergyGraphNode( model, energyGraphHeight, options ) {
     var graphStorage = [];
 
     // create the energy graphs for each pendulum
     var content = new VBox( { align: 'center', resize: false } );
-    pendula.forEach( function( pendulum, pendulumIndex ) {
-      var graphNode = new SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
+    model.pendula.forEach( function( pendulum, pendulumIndex ) {
+      var graphNode = new SingleEnergyGraphNode( pendulum, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, pendulumIndex + 1, new Dimension2( 80, energyGraphHeight ) );
       content.addChild( new HBox( {
         children: [
           new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 ),
@@ -65,7 +62,7 @@ define( function( require ) {
       var label = new Text( labelString, {
         font: new PhetFont( 16 )
       } );
-      var button = new AquaRadioButton( energyGraphModeProperty, value, label, {
+      var button = new AquaRadioButton( model.energyGraphModeProperty, value, label, {
         radius: 9,
         xSpacing: 3,
         scale: 0.7
@@ -78,7 +75,7 @@ define( function( require ) {
       return new ZoomButton( _.extend( {
         in: isIn,
         listener: function() {
-          var graphNode = graphStorage[ energyGraphModeProperty.value === EnergyGraphMode.ONE ? 0 : 1 ];
+          var graphNode = graphStorage[ model.energyGraphModeProperty.value === EnergyGraphMode.ONE ? 0 : 1 ];
           if ( isIn ) {
             graphNode.zoomIn();
           }
@@ -121,7 +118,7 @@ define( function( require ) {
       ]
     } ),
     _.extend( {
-      expandedProperty: isEnergyGraphExpandedProperty,
+      expandedProperty: model.isEnergyGraphExpandedProperty,
       cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
       fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
       buttonXMargin: 10,
@@ -138,9 +135,9 @@ define( function( require ) {
     }, options ) );
 
     // no need to unlink, present for the lifetime of the sim
-    numberOfPendulaProperty.link( function( numberOfPendula ) {
+    model.numberOfPendulaProperty.link( function( numberOfPendula ) {
       if ( numberOfPendula === 1 ) {
-        energyGraphModeProperty.value = EnergyGraphMode.ONE;
+        model.energyGraphModeProperty.value = EnergyGraphMode.ONE;
         radioButtonTwo.setEnabled( false );
       }
       else if ( numberOfPendula === 2 ) {
@@ -149,7 +146,7 @@ define( function( require ) {
     } );
 
     // no need to unlink, present for the lifetime of the sim
-    energyGraphModeProperty.link( function( energyGraphMode ) {
+    model.energyGraphModeProperty.link( function( energyGraphMode ) {
       if ( energyGraphMode === EnergyGraphMode.ONE ) {
         graphStorage[ 0 ].show();
         graphStorage[ 1 ].hide();

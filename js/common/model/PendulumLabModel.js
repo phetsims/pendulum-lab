@@ -62,6 +62,9 @@ define( function( require ) {
     // @public {Property.<boolean}
     this.isPeriodTraceVisibleProperty = new BooleanProperty( false );
 
+    // @public {Property.<number>}
+    this.energyZoomProperty = new NumberProperty( 1 );
+
     // @public {Array.<Pendulum>}
     this.pendula = [
       new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
@@ -135,6 +138,7 @@ define( function( require ) {
       this.isPlayingProperty.reset();
       this.frictionProperty.reset();
       this.isPeriodTraceVisibleProperty.reset();
+      this.energyZoomProperty.reset();
 
       // reset ruler model
       this.ruler.reset();

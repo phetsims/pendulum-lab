@@ -18,16 +18,15 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {PendulumLabModel} pendulumLabModel
+   * @param {PendulumLabModel} model
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    */
-  function EnergyView( pendulumLabModel, energyGraphHeight, options ) {
+  function EnergyView( model, energyGraphHeight, options ) {
 
-    PendulumLabView.call( this, pendulumLabModel, options );
+    PendulumLabView.call( this, model, options );
 
     // create and add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyGraphNode( pendulumLabModel.pendula, pendulumLabModel.isEnergyGraphExpandedProperty,
-      pendulumLabModel.energyGraphModeProperty, pendulumLabModel.numberOfPendulaProperty, energyGraphHeight );
+    var energyGraphNode = new EnergyGraphNode( model, energyGraphHeight );
     energyGraphNode.left = PendulumLabConstants.SCREEN_PADDING;
     energyGraphNode.top = PendulumLabConstants.SCREEN_PADDING;
     this.energyGraphLayer.addChild( energyGraphNode );
@@ -36,10 +35,10 @@ define( function( require ) {
 
     // move ruler and stopwatch to the right side
     this.rulerNode.centerX += ( energyGraphNode.width + 10 );
-    pendulumLabModel.ruler.setInitialLocationValue( this.rulerNode.center );
+    model.ruler.setInitialLocationValue( this.rulerNode.center );
 
     this.stopwatchNode.left = this.rulerNode.right + 10;
-    pendulumLabModel.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
+    model.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
   }
 
   pendulumLab.register( 'EnergyView', EnergyView );
