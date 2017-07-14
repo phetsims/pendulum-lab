@@ -55,7 +55,7 @@ define( function( require ) {
       }
       else {
         // clear path if it wasn't finished
-        if ( (self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.value < 4) ) {
+        if ( self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.value < 4 ) {
           self.clear();
         }
 

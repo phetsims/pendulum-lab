@@ -114,7 +114,7 @@ define( function( require ) {
     // change pendulum visibility if number of pendula was changed
     this.numberOfPendulaProperty.link( function( numberOfPendula ) {
       self.pendula.forEach( function( pendulum, pendulumIndex ) {
-        pendulum.isVisibleProperty.value = (numberOfPendula > pendulumIndex);
+        pendulum.isVisibleProperty.value = ( numberOfPendula > pendulumIndex );
       } );
     } );
   }

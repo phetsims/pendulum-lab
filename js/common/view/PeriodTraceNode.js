@@ -104,12 +104,12 @@ define( function( require ) {
           // draw first arc
           if ( numberOfPoints > 1 ) {
             shape.arc( 0, 0, traceLength, 0, -periodTrace.firstAngle, !periodTrace.counterClockwise );
-            shape.lineTo( (traceLength - traceStep) * Math.cos( -periodTrace.firstAngle ), (traceLength - traceStep) * Math.sin( -periodTrace.firstAngle ) );
+            shape.lineTo( ( traceLength - traceStep ) * Math.cos( -periodTrace.firstAngle ), (traceLength - traceStep) * Math.sin( -periodTrace.firstAngle ) );
 
             // draw second arc
             if ( numberOfPoints > 2 ) {
               shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -periodTrace.secondAngle, periodTrace.counterClockwise );
-              shape.lineTo( (traceLength - 2 * traceStep) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * traceStep) * Math.sin( -periodTrace.secondAngle ) );
+              shape.lineTo( ( traceLength - 2 * traceStep ) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * traceStep) * Math.sin( -periodTrace.secondAngle ) );
 
               // draw third arc
               if ( numberOfPoints > 3 ) {

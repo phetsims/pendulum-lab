@@ -80,7 +80,7 @@ define( function( require ) {
             new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
               fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).addColorStop( 0.3, pendulum.color ).addColorStop( 0.8, 'white' ).addColorStop( 1, pendulum.color )
             } ),
-            new Text( (pendulumIndex + 1).toString(), {
+            new Text( ( pendulumIndex + 1 ).toString(), {
               font: FONT,
               fill: 'white',
               centerY: RECT_SIZE.height / 4,

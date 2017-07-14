@@ -96,7 +96,7 @@ define( function( require ) {
     hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: FONT, pickable: false } ) );
 
     // add the minor ticks
-    var tickStep = (sliderValueRange.max - sliderValueRange.min) / TICK_NUMBER;
+    var tickStep = ( sliderValueRange.max - sliderValueRange.min ) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
       hSlider.addMinorTick( i );
     }

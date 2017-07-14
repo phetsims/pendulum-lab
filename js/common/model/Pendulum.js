@@ -269,7 +269,7 @@ define( function( require ) {
      */
     peak: function( oldTheta, newTheta ) {
       // a slightly better estimate is turningAngle =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
-      var turningAngle = (oldTheta + newTheta > 0) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
+      var turningAngle = ( oldTheta + newTheta > 0 ) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
       this.peakEmitter.emit1( turningAngle );
     },
 

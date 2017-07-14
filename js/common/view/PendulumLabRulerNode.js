@@ -40,14 +40,14 @@ define( function( require ) {
     var rulerTicks = [ '' ]; // zero tick is not labeled
     for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
       // if the current tick is a multiple of twice the Tick interval then label it as such otherwise it is not labeled.
-      tickLabel = currentTick % (2 * TICK_INTERVAL) ? '' : currentTick.toString();
+      tickLabel = currentTick % ( 2 * TICK_INTERVAL ) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
     }
     rulerTicks.push( '' ); // last tick is not labeled
 
     // define ruler params in view coordinates
     var rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
-    var tickWidth = rulerWidth / (rulerTicks.length - 1);
+    var tickWidth = rulerWidth / ( rulerTicks.length - 1 );
 
     RulerNode.call( this, rulerWidth, RULER_HEIGHT, tickWidth, rulerTicks, rulerUnitsString, {
       backgroundFill: 'rgb( 237, 225, 121 )',
