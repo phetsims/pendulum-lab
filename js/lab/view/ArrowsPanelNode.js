@@ -43,14 +43,14 @@ define( function( require ) {
    * @param {Object} [options] for tools control panel node
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
-    var textStrings = [
+    var labels = [
       new Text( velocityString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } ),
       new Text( accelerationString, { font: FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
     ];
 
     // determine max sting width determined by widths of velocity or acceleration strings
     var maxStringWidth = 0;
-    textStrings.forEach( function( textString ) {
+    labels.forEach( function( textString ) {
       maxStringWidth = Math.max( maxStringWidth, textString.width );
     } );
 
@@ -67,7 +67,7 @@ define( function( require ) {
                 pickable: false,
                 children: [
                   // adds velocity string to panel
-                  textStrings[ 0 ],
+                  labels[ 0 ],
                   // Creates velocity arrow within panel
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
                     fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
@@ -84,7 +84,7 @@ define( function( require ) {
                 pickable: false,
                 children: [
                   // adds acceleration string to panel
-                  textStrings[ 1 ],
+                  labels[ 1 ],
                   // Creates velocity arrow within panel
                   new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
                     fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
@@ -96,7 +96,10 @@ define( function( require ) {
               } ),
               property: isAccelerationVisibleProperty
             }
-          ], { spacing: 5, boxWidth: 15 } )
+          ], {
+            spacing: 7,
+            boxWidth: labels[ 0 ].height
+          } )
         ]
       } ),
       _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options )

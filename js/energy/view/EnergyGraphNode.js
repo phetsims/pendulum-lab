@@ -63,7 +63,7 @@ define( function( require ) {
         font: new PhetFont( 16 )
       } );
       var button = new AquaRadioButton( model.energyGraphModeProperty, value, label, {
-        radius: 9,
+        radius: label.height / 2.2,
         xSpacing: 3,
         scale: 0.7
       } );

@@ -67,7 +67,10 @@ define( function( require ) {
             content: this._labels[ 2 ],
             property: isPeriodTraceProperty
           }
-          ], { spacing: 5, boxWidth: 15 } )
+          ], {
+            spacing: 7,
+            boxWidth: this._labels[ 0 ].height
+          } )
         ]
       } ), _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
   }
