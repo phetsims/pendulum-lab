@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
+  var Color = require( 'SCENERY/util/Color' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -110,7 +111,8 @@ define( function( require ) {
           thumbSize: PendulumLabConstants.THUMB_SIZE,
           thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
           thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
-          thumbFillEnabled: color
+          thumbFillEnabled: color,
+          thumbFillHighlighted: Color.toColor( color ).colorUtilsBrighter( 0.6 )
         } )
       ]
     }, options ) );
