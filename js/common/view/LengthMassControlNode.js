@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/PendulumOptionSliderNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var PendulumOptionSliderNode = require( 'PENDULUM_LAB/common/view/PendulumOptionSliderNode' );
 
   // strings
   var lengthString = require( 'string!PENDULUM_LAB/length' );

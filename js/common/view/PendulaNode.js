@@ -11,7 +11,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -20,6 +19,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
@@ -36,11 +36,11 @@ define( function( require ) {
   var RECT_SIZE = new Dimension2( 60, 80 );
 
   /**
+   * @constructor
+   *
    * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
-   * @constructor
-   *TODO: PendulaNode (proper plural)
    */
   function PendulaNode( pendula, modelViewTransform, options ) {
     var self = this;

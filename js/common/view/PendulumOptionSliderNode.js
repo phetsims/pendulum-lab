@@ -10,18 +10,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -35,14 +35,13 @@ define( function( require ) {
   var ARROW_TOUCH_PADDING_BOTTOM = 5;
 
   /**
-   * Constructor for the sliders control.
+   * @constructor
    *
    * @param {Property.<number>} trackProperty - Property to update by slider.
    * @param {Range} trackRange - Range of track property.
    * @param {string} valuePatternString - String pattern for representation current property value in label.
    * @param {string} color - Base color for thumb and label text in rgb format.
    * @param {Object} [options]
-   * @constructor
    */
   function PendulumOptionSliderNode( trackProperty, trackRange, valuePatternString, color, options ) {
     // create minus button

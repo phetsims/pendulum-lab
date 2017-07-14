@@ -10,17 +10,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
@@ -49,11 +49,12 @@ define( function( require ) {
   var TOUCH_PADDING_BOTTOM = 7;
 
   /**
+   * @constructor
+   *
    * @param {PeriodTimer} periodTimer - Period timer
    * @param {Property.<boolean>} secondPendulumIsVisibleProperty - Second pendulum visibility property.
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    * @param {Object} [options]
-   * @constructor
    */
   function PeriodTimerNode( periodTimer, secondPendulumIsVisibleProperty, layoutBounds, options ) {
     var self = this;

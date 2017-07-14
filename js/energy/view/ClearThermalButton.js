@@ -12,21 +12,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Color = require( 'SCENERY/util/Color' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var RectangularButtonView = require( 'SUN/buttons/RectangularButtonView' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images
+  //TODO: reduce duplication
   var trashCanImage = require( 'image!PENDULUM_LAB/trash-can.png' );
   var trashCanGrayImage = require( 'image!PENDULUM_LAB/trash-can-disabled.png' );
 
   /**
+   * @constructor
+   *
    * @param {Property.<number>} thermalEnergyProperty
    * @param {Object} [options]
-   * @constructor
    */
   function ClearThermalButton( thermalEnergyProperty, options ) {
     var self = this;

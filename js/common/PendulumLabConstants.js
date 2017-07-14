@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Vector2 = require( 'DOT/Vector2' );
 
   var PANEL_CORNER_RADIUS = 5;

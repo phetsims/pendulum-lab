@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
   var GravityControlNode = require( 'PENDULUM_LAB/common/view/GravityControlNode' );
-  var LengthMassControlNode = require( 'PENDULUM_LAB/common/view/LengthMassControlNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LengthMassControlNode = require( 'PENDULUM_LAB/common/view/LengthMassControlNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -31,10 +31,11 @@ define( function( require ) {
   var SPACING_CONTENT = 4; // spacing in between slider elements
 
   /**
+   * @constructor
+   *
    * @param {PendulumLabModel} pendulumLabModel - Main model of pendulum lab simulation.
    * @param {Node} popupLayer
    * @param {Object} [options] for control panel node.
-   * @constructor
    */
   function PendulumSystemControlPanels( pendulumLabModel, popupLayer, options ) {
 

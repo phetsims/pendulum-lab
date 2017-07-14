@@ -17,10 +17,10 @@ define( function( require ) {
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**
+   * @constructor
+   *
    * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {Property.<boolean>} isVisibleProperty
-   *
-   * @constructor
    */
   function PeriodTimer( pendula, isVisibleProperty ) {
     var self = this;

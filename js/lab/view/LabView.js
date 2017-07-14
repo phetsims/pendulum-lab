@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
   var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
 
@@ -20,9 +20,10 @@ define( function( require ) {
   var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
 
   /**
+   * @constructor
+   *
    * @param {PendulumLabModel} pendulumLabModel
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
-   * @constructor
    */
   function LabView( pendulumLabModel, energyGraphHeight ) {
     EnergyView.call( this, pendulumLabModel, energyGraphHeight, {

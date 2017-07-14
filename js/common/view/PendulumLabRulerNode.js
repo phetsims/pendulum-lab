@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
@@ -26,10 +26,11 @@ define( function( require ) {
   var TICK_INTERVAL = 5; // tick interval in cm
 
   /**
+   * @constructor
+   *
    * @param {Ruler} ruler - Model for ruler.
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Bounds2} layoutBounds - Bounds of screen view
-   * @constructor
    */
   function PendulumLabRulerNode( ruler, modelViewTransform, layoutBounds ) {
     var self = this;

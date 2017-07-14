@@ -12,10 +12,10 @@ define( function( require ) {
   // modules
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Util = require( 'DOT/Util' );

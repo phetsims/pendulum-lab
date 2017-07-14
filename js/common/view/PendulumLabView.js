@@ -28,9 +28,10 @@ define( function( require ) {
   var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
 
   /**
+   * @constructor
+   *
    * @param {PendulumLabModel} model
    * @param {ModelViewTransform2} modelViewTransform
-   * @constructor
    */
   function PendulumLabView( model, options ) {
     ScreenView.call( this, { layoutBounds: PendulumLabConstants.LAYOUT_BOUNDS } );

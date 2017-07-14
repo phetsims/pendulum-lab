@@ -36,10 +36,11 @@ define( function( require ) {
   var MAX_TEXT_WIDTH = PANEL_WIDTH * 0.60;  // allows for 60% of the horizontal space in the panel for text.
 
   /**
+   * @constructor
+   *
    * @param {Property.<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.
    * @param {Property.<boolean>} isAccelerationVisibleProperty - Property to control visibility of acceleration arrows.
    * @param {Object} [options] for tools control panel node
-   * @constructor
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     var textStrings = [

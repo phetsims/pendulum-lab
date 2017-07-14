@@ -11,11 +11,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -35,11 +35,12 @@ define( function( require ) {
   };
 
   /**
+   * @constructor
+   *
    * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
    * @param {Property.<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
    * @param {Property.<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
    * @param {Object} [options]
-   * @constructor
    */
   function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
 
@@ -76,10 +77,10 @@ define( function( require ) {
   return inherit( Panel, ToolsControlPanelNode, {
     /**
      * Set text of label selected by index.
+     * @public
      *
      * @param {number} index - Index of label.
      * @param {string} text - New text for label.
-     * @public
      */
     setLabelText: function( index, text ) {
       this._labels[ index ].setText( text );

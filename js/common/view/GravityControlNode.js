@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
@@ -18,6 +17,7 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );

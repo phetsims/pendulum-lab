@@ -11,10 +11,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PendulaIcons = require( 'PENDULUM_LAB/common/view/PendulaIcons' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -31,12 +31,13 @@ define( function( require ) {
   var RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
 
   /**
+   * @constructor
+   *
    * @param {Property.<number>} numberOfPendulaProperty - property to control number of pendula.
    * @param {Property.<boolean>} isPlayingProperty - property to control stream of time.
    * @param {Property.<number>} timeSpeedProperty - property to control speed of time.
    * @param {function} stepFunction - handler for step button.
    * @param {Object} [options] for tools control panel node
-   * @constructor
    */
   function PlaybackControlsNode( numberOfPendulaProperty, isPlayingProperty, timeSpeedProperty, stepFunction, options ) {
     HBox.call( this, _.extend( {

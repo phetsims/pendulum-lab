@@ -27,7 +27,7 @@ define( function( require ) {
   var scratchVector = new Vector2();
 
   /**
-   * Constructor for single pendulum model.
+   * @constructor
    *
    * @param {number} mass - mass of pendulum, kg.
    * @param {number} length - length of pendulum, m.
@@ -37,7 +37,6 @@ define( function( require ) {
    * @param {Property.<number>} frictionProperty - Property with current friction value.
    * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    * @param {boolean} isPeriodTraceRepeatable
-   * @constructor
    */
   function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ) {
     var self = this;

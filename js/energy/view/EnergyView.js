@@ -9,16 +9,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var EnergyGraphNode = require( 'PENDULUM_LAB/energy/view/EnergyGraphNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
 
   /**
+   * @constructor
+   *
    * @param {PendulumLabModel} pendulumLabModel
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
-   * @constructor
    */
   function EnergyView( pendulumLabModel, energyGraphHeight, options ) {
 

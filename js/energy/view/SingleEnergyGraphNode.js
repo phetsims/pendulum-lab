@@ -11,15 +11,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var ClearThermalButton = require( 'PENDULUM_LAB/energy/view/ClearThermalButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -47,11 +47,12 @@ define( function( require ) {
   var SPACING = 4;
 
   /**
+   * @constructor
+   *
    * @param {Pendulum} pendulum - Property with selected pendulum for energy graph representation.
    * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
    * @param {number} pendulumNumber - Index number of the graph.
    * @param {Dimension2} dimension - dimension of graph in view coordinates.
-   * @constructor
    */
   function SingleEnergyGraphNode( pendulum, isEnergyGraphExpandedProperty, pendulumNumber, dimension ) {
 
@@ -174,6 +175,7 @@ define( function( require ) {
     hide: function() {
       this.visible = false;
     },
+
     /**
      * Show the bar graph and update its status
      * @public
@@ -182,6 +184,7 @@ define( function( require ) {
       this.visible = true;
       this.update();
     },
+
     /**
      * Update the heights of the bar graph
      * @private
@@ -211,6 +214,7 @@ define( function( require ) {
         this.totalKineticEnergyBar.rectHeight = totalHeight - potentialAndThermalHeight;
       }
     },
+
     /**
      * Updates the length of the bar graphs by multiplying each of them by a common factor
      * Mimics the actions of zooming in.
@@ -220,6 +224,7 @@ define( function( require ) {
       this.pendulum.energyMultiplierProperty.value *= ZOOM_MULTIPLIER;
       this.update();
     },
+
     /**
      * Updates the length of the bar graphs by dividing each of them by a common factor
      * Mimics the actions of zooming out.

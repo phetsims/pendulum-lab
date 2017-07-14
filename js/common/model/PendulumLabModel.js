@@ -169,8 +169,9 @@ define( function( require ) {
 
     /**
      * Steps in model time.
-     * @param {number} dt - change in time measured in seconds
      * @private
+     *
+     * @param {number} dt - change in time measured in seconds
      */
     modelStep: function( dt ) {
       // add time to the stopwatch if it is running

@@ -11,7 +11,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Dimension2 = require( 'DOT/Dimension2' );
@@ -20,6 +19,7 @@ define( function( require ) {
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
+  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var SingleEnergyGraphNode = require( 'PENDULUM_LAB/energy/view/SingleEnergyGraphNode' );
@@ -50,13 +50,14 @@ define( function( require ) {
 
 
   /**
+   * @constructor
+   *
    * @param {Array.<Pendulum>} pendula - Array of pendulum models.
    * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property to track energy graphs visibility.
    * @param {Property.<string>} energyGraphModeProperty - Property to select mode of energy graph representation
    * @param {Property.<string>} numberOfPendulaProperty - Property to control number of pendula.
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @param {Object} [options]
-   * @constructor
    */
   function EnergyGraphNode( pendula, isEnergyGraphExpandedProperty, energyGraphModeProperty, numberOfPendulaProperty, energyGraphHeight, options ) {
     var graphStorage = [];
@@ -176,9 +177,11 @@ define( function( require ) {
   /**
    * Sets the radio button to enable/disable
    * @private
+   *
    * @param {boolean} enabled
    */
   var setEnabledRadioButton = function( enabled ) {
+    //TODO: rename to setRadioButtonEnabled?
     if ( enabled ) {
       this.opacity = 1;
       this.pickable = true;

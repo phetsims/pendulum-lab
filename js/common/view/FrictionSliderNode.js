@@ -30,8 +30,9 @@ define( function( require ) {
   var TICK_NUMBER = 10;
 
   /**
-   * converts the numerical value of the slider to friction, does not assign to friction property
+   * Converts the numerical value of the slider to friction, does not assign to friction property
    * @private
+   *
    * @param {number} sliderValue
    * @returns {number}
    */
@@ -40,8 +41,9 @@ define( function( require ) {
   }
 
   /**
-   * converts the numerical value of the friction to a slider value, does not assign to slider property
+   * Converts the numerical value of the friction to a slider value, does not assign to slider property
    * @private
+   *
    * @param {number}friction
    * @returns {number}
    */
@@ -50,12 +52,11 @@ define( function( require ) {
   }
 
   /**
-   * Constructor for the gravity slider control.
-   * @public
+   * @constructor
+   *
    * @param {Property.<number>} frictionProperty - Property to update by slider.
    * @param {Range} frictionRange - Possible range of frictionProperty value.
    * @param {Object} [options]
-   * @constructor
    */
   function FrictionSliderNode( frictionProperty, frictionRange, options ) {
     var sliderValueProperty = new DynamicProperty( new Property( frictionProperty ), {
