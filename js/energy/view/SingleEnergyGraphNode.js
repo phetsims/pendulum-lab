@@ -20,6 +20,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
 
@@ -88,10 +89,10 @@ define( function( require ) {
       top: SPACING,
       maxWidth: 70
     };
-    var kineticLabel = new Text( kineticString, _.extend( { fill: COLORS.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
-    var potentialLabel = new Text( potentialString, _.extend( { fill: COLORS.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
-    var thermalLabel = new Text( thermalString, _.extend( { fill: COLORS.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
-    var totalLabel = new Text( totalString, _.extend( { fill: COLORS.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
+    var kineticLabel = new RichText( kineticString, _.extend( { fill: COLORS.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
+    var potentialLabel = new RichText( potentialString, _.extend( { fill: COLORS.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
+    var thermalLabel = new RichText( thermalString, _.extend( { fill: COLORS.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
+    var totalLabel = new RichText( totalString, _.extend( { fill: COLORS.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
     var maxLabelHeight = Math.max( Math.max( kineticLabel.height, potentialLabel.height ), Math.max( thermalLabel.height, totalLabel.height ) );
 
     // rest of space will be used for graph and bars

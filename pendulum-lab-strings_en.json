@@ -21,7 +21,7 @@
     "value": "Jupiter"
   },
   "kinetic": {
-    "value": "Kinetic"
+    "value": "KE"
   },
   "length": {
     "value": "Length {{pendulumNumber}}"
@@ -75,7 +75,7 @@
     "value": "Planet X"
   },
   "potential": {
-    "value": "Potential"
+    "value": "PE"
   },
   "return": {
     "value": "Return"
@@ -102,10 +102,10 @@
     "value": "Lab"
   },
   "thermal": {
-    "value": "Thermal"
+    "value": "E<sub>therm</sub>"
   },
   "total": {
-    "value": "Total"
+    "value": "E<sub>total</sub>"
   },
   "velocity": {
     "value": "Velocity"
