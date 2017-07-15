@@ -21,12 +21,9 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RichText = require( 'SCENERY_PHET/RichText' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var kineticString = require( 'string!PENDULUM_LAB/kinetic' );
-  var patternEnergyOf0PendulumNumberString = require( 'string!PENDULUM_LAB/pattern.energyOf.0pendulumNumber' );
   var potentialString = require( 'string!PENDULUM_LAB/potential' );
   var thermalString = require( 'string!PENDULUM_LAB/thermal' );
   var totalString = require( 'string!PENDULUM_LAB/total' );
@@ -43,28 +40,29 @@ define( function( require ) {
   };
   var SPACING = 4;
 
-  var GRAPH_WIDTH = 80;
+  var GRAPH_WIDTH = 122;
 
   /**
    * @constructor
    *
-   * @param {Pendulum} pendulum - Property with selected pendulum for energy graph representation.
+   * @param {Property.<number>} kineticEnergyProperty
+   * @param {Property.<number>} potentialEnergyProperty
+   * @param {Property.<number>} thermalEnergyProperty
    * @param {Property.<number>} zoomProperty
    * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
-   * @param {number} pendulumNumber - Index number of the graph.
    * @param {Property.<number>} graphHeightProperty
    */
-  function SingleEnergyGraphNode( pendulum, zoomProperty, isEnergyGraphExpandedProperty, pendulumNumber, graphHeightProperty ) {
-
-    // @private {Pendulum}
-    this.pendulum = pendulum;
+  function EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, zoomProperty, isEnergyGraphExpandedProperty, graphHeightProperty ) {
 
     // @private {Property.<number>}
+    this.kineticEnergyProperty = kineticEnergyProperty;
+    this.potentialEnergyProperty = potentialEnergyProperty;
+    this.thermalEnergyProperty = thermalEnergyProperty;
     this.zoomProperty = zoomProperty;
+    this.graphHeightProperty = graphHeightProperty;
 
     // @private {Property.<boolean>}
     this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
-
 
     var BAR_SPACING = GRAPH_WIDTH / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
@@ -73,14 +71,6 @@ define( function( require ) {
     var potentialCenterX = BAR_OFFSET + 1.5 * BAR_SPACING + 1 * BAR_WIDTH;
     var thermalCenterX = BAR_OFFSET + 2.5 * BAR_SPACING + 2 * BAR_WIDTH;
     var totalCenterX = BAR_OFFSET + 3.5 * BAR_SPACING + 3 * BAR_WIDTH;
-
-    // header of graph
-    var header = new Text( StringUtils.format( patternEnergyOf0PendulumNumberString, pendulumNumber ), {
-      font: PendulumLabConstants.ENERGY_HEADER_FONT,
-      fill: pendulum.color,
-      centerX: GRAPH_WIDTH / 2,
-      maxWidth: 122
-    } );
 
     // labels for bars
     var barLabelOptions = {
@@ -93,15 +83,10 @@ define( function( require ) {
     var potentialLabel = new RichText( potentialString, _.extend( { fill: COLORS.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
     var thermalLabel = new RichText( thermalString, _.extend( { fill: COLORS.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
     var totalLabel = new RichText( totalString, _.extend( { fill: COLORS.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
-    var maxLabelHeight = Math.max( Math.max( kineticLabel.height, potentialLabel.height ), Math.max( thermalLabel.height, totalLabel.height ) );
-
-    // rest of space will be used for graph and bars
-    this.graphHeight = graphHeightProperty.value - header.height - maxLabelHeight - SPACING * 2;
-    header.bottom = -this.graphHeight - SPACING;
 
     // create 'x' and 'y' axis
     var axisX = new Line( 0, 0, GRAPH_WIDTH, 0, { stroke: 'black' } );
-    var axisY = new ArrowNode( 0, 0, 0, this.graphHeight, {
+    var axisY = new ArrowNode( 0, 0, 0, graphHeightProperty.value, {
       tailWidth: 2,
       headHeight: 7,
       headWidth: 6
@@ -135,7 +120,7 @@ define( function( require ) {
       centerX: totalCenterX
     } );
 
-    var clearThermalButton = new ClearThermalButton( pendulum.thermalEnergyProperty, {
+    var clearThermalButton = new ClearThermalButton( thermalEnergyProperty, {
       centerX: thermalCenterX,
       top: thermalLabel.bottom + 5
     } );
@@ -143,7 +128,6 @@ define( function( require ) {
     Node.call( this, {
       preventFit: true,
       children: [
-        header,
         kineticLabel, potentialLabel, thermalLabel, totalLabel, clearThermalButton,
         new Node( {
           // flip the coordinate frame for easier positioning
@@ -157,19 +141,18 @@ define( function( require ) {
       ]
     } );
 
-    // add listeners to pendulum
     var updateListener = this.update.bind( this );
-    pendulum.kineticEnergyProperty.lazyLink( updateListener );
-    pendulum.potentialEnergyProperty.lazyLink( updateListener );
-    pendulum.thermalEnergyProperty.lazyLink( updateListener );
+    kineticEnergyProperty.lazyLink( updateListener );
+    potentialEnergyProperty.lazyLink( updateListener );
+    thermalEnergyProperty.lazyLink( updateListener );
     zoomProperty.lazyLink( updateListener );
     isEnergyGraphExpandedProperty.link( updateListener );
     this.update();
   }
 
-  pendulumLab.register( 'SingleEnergyGraphNode', SingleEnergyGraphNode );
+  pendulumLab.register( 'EnergyBarChartNode', EnergyBarChartNode );
 
-  return inherit( Node, SingleEnergyGraphNode, {
+  return inherit( Node, EnergyBarChartNode, {
     /**
      * Hide the bar graph
      * @public
@@ -194,11 +177,11 @@ define( function( require ) {
     update: function() {
       if ( this.isEnergyGraphExpandedProperty.value && this.visible ) {
         var energyMultiplier = 40 * this.zoomProperty.value;
-        var maxHeight = this.graphHeight;
+        var maxHeight = this.graphHeightProperty.value;
 
-        var kineticEnergy = this.pendulum.kineticEnergyProperty.value * energyMultiplier;
-        var potentialEnergy = this.pendulum.potentialEnergyProperty.value * energyMultiplier;
-        var thermalEnergy = this.pendulum.thermalEnergyProperty.value * energyMultiplier;
+        var kineticEnergy = this.kineticEnergyProperty.value * energyMultiplier;
+        var potentialEnergy = this.potentialEnergyProperty.value * energyMultiplier;
+        var thermalEnergy = this.thermalEnergyProperty.value * energyMultiplier;
 
         // individual bars
         this.kineticEnergyBar.rectHeight = Math.min( maxHeight, kineticEnergy );

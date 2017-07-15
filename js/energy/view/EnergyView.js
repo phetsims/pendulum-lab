@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EnergyGraphNode = require( 'PENDULUM_LAB/energy/view/EnergyGraphNode' );
+  var EnergyBox = require( 'PENDULUM_LAB/energy/view/EnergyBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -26,13 +26,13 @@ define( function( require ) {
     PendulumLabView.call( this, model, options );
 
     // create and add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyGraphNode( model, energyGraphHeight, {
+    var energyGraphNode = new EnergyBox( model, energyGraphHeight, {
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
     this.energyGraphLayer.addChild( energyGraphNode );
 
-    // @public {EnergyGraphNode} TODO check if protected is OK
+    // @public {EnergyBox} TODO check if protected is OK
     this.energyGraphNode = energyGraphNode;
 
     // move ruler and stopwatch to the right side

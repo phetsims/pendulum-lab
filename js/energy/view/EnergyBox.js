@@ -1,8 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Energy graph node in 'Pendulum Lab' simulation.
- * Contains graphs for Kinetic, Potential, Thermal, Total energy and zoom buttons.
+ * Contains the energy plot, along with the associated controls.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -13,21 +12,24 @@ define( function( require ) {
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var DynamicProperty = require( 'AXON/DynamicProperty' );
   var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Property = require( 'AXON/Property' );
-  var SingleEnergyGraphNode = require( 'PENDULUM_LAB/energy/view/SingleEnergyGraphNode' );
+  var EnergyBarChartNode = require( 'PENDULUM_LAB/energy/view/EnergyBarChartNode' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // strings
   var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
+  var patternEnergyOf0PendulumNumberString = require( 'string!PENDULUM_LAB/pattern.energyOf.0pendulumNumber' );
 
   // constants
   var GRAPH_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
@@ -39,22 +41,37 @@ define( function( require ) {
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    * @param {Object} [options]
    */
-  function EnergyGraphNode( model, energyGraphHeight, options ) {
-    var graphStorage = [];
+  function EnergyBox( model, energyGraphHeight, options ) {
+    var headerText = new Text( '', {
+      font: PendulumLabConstants.ENERGY_HEADER_FONT,
+      maxWidth: 122
+    } );
 
-    // create the energy graphs for each pendulum
-    //TODO: shouldn't have to have resize: false here!
-    var content = new VBox( { align: 'center', resize: false } );
-    model.pendula.forEach( function( pendulum, pendulumIndex ) {
-      var graphNode = new SingleEnergyGraphNode( pendulum, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, pendulumIndex + 1, new Property( energyGraphHeight ) );
-      content.addChild( new HBox( {
-        children: [
-          new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 ),
-          graphNode,
-          new HStrut( ( GRAPH_WIDTH - graphNode.width ) / 2 )
-        ]
-      } ) );
-      graphStorage[ pendulumIndex ] = graphNode;
+    model.energyGraphModeProperty.link( function( energyGraphMode ) {
+      var index = energyGraphMode === EnergyGraphMode.ONE ? 0 : 1;
+      headerText.text = StringUtils.format( patternEnergyOf0PendulumNumberString, '' + ( index + 1 ) );
+      headerText.fill = model.pendula[ index ].color;
+    } );
+
+    // TODO: This should probably be in the model (or at least the index?)
+    var activePendulum = new DerivedProperty( [ model.energyGraphModeProperty ], function( energyGraphMode ) {
+      return model.pendula[ energyGraphMode === EnergyGraphMode.ONE ? 0 : 1 ];
+    } );
+
+    var kineticEnergyProperty = new DynamicProperty( activePendulum, { derive: 'kineticEnergyProperty' } );
+    var potentialEnergyProperty = new DynamicProperty( activePendulum, { derive: 'potentialEnergyProperty' } );
+    var thermalEnergyProperty = new DynamicProperty( activePendulum, {
+      bidirectional: true,
+      derive: 'thermalEnergyProperty'
+    } );
+
+    var graphNode = new EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, new Property( energyGraphHeight ) );
+    var content = new VBox( {
+      spacing: 4,
+      children: [
+        headerText,
+        graphNode
+      ]
     } );
 
     function createRadioButton( value, labelString ) {
@@ -91,6 +108,17 @@ define( function( require ) {
 
     var radioButtonOne = createRadioButton( EnergyGraphMode.ONE, '1' );
     var radioButtonTwo = createRadioButton( EnergyGraphMode.TWO, '2' );
+
+    // no need to unlink, present for the lifetime of the sim
+    model.numberOfPendulaProperty.link( function( numberOfPendula ) {
+      if ( numberOfPendula === 1 ) {
+        model.energyGraphModeProperty.value = EnergyGraphMode.ONE;
+        radioButtonTwo.setEnabled( false );
+      }
+      else if ( numberOfPendula === 2 ) {
+        radioButtonTwo.setEnabled( true );
+      }
+    } );
 
     var zoomOutButton = createZoomButton( false );
     var zoomInButton = createZoomButton( true );
@@ -133,32 +161,9 @@ define( function( require ) {
       contentYMargin: 5,
       contentYSpacing: 0
     }, options ) );
-
-    // no need to unlink, present for the lifetime of the sim
-    model.numberOfPendulaProperty.link( function( numberOfPendula ) {
-      if ( numberOfPendula === 1 ) {
-        model.energyGraphModeProperty.value = EnergyGraphMode.ONE;
-        radioButtonTwo.setEnabled( false );
-      }
-      else if ( numberOfPendula === 2 ) {
-        radioButtonTwo.setEnabled( true );
-      }
-    } );
-
-    // no need to unlink, present for the lifetime of the sim
-    model.energyGraphModeProperty.link( function( energyGraphMode ) {
-      if ( energyGraphMode === EnergyGraphMode.ONE ) {
-        graphStorage[ 0 ].show();
-        graphStorage[ 1 ].hide();
-      }
-      else if ( energyGraphMode === EnergyGraphMode.TWO ) {
-        graphStorage[ 0 ].hide();
-        graphStorage[ 1 ].show();
-      }
-    } );
   }
 
-  pendulumLab.register( 'EnergyGraphNode', EnergyGraphNode );
+  pendulumLab.register( 'EnergyBox', EnergyBox );
 
-  return inherit( AccordionBox, EnergyGraphNode );
+  return inherit( AccordionBox, EnergyBox );
 } );
