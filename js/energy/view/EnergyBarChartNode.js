@@ -49,10 +49,10 @@ define( function( require ) {
    * @param {Property.<number>} potentialEnergyProperty
    * @param {Property.<number>} thermalEnergyProperty
    * @param {Property.<number>} zoomProperty
-   * @param {Property.<boolean>} isEnergyGraphExpandedProperty - Property which track expansion of graph.
+   * @param {Property.<boolean>} isEnergyBoxExpandedProperty - Property which track expansion of graph.
    * @param {Property.<number>} graphHeightProperty
    */
-  function EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, zoomProperty, isEnergyGraphExpandedProperty, graphHeightProperty ) {
+  function EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, zoomProperty, isEnergyBoxExpandedProperty, graphHeightProperty ) {
 
     // @private {Property.<number>}
     this.kineticEnergyProperty = kineticEnergyProperty;
@@ -62,7 +62,7 @@ define( function( require ) {
     this.graphHeightProperty = graphHeightProperty;
 
     // @private {Property.<boolean>}
-    this.isEnergyGraphExpandedProperty = isEnergyGraphExpandedProperty;
+    this.isEnergyBoxExpandedProperty = isEnergyBoxExpandedProperty;
 
     var BAR_SPACING = GRAPH_WIDTH / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
@@ -146,7 +146,7 @@ define( function( require ) {
     potentialEnergyProperty.lazyLink( updateListener );
     thermalEnergyProperty.lazyLink( updateListener );
     zoomProperty.lazyLink( updateListener );
-    isEnergyGraphExpandedProperty.link( updateListener );
+    isEnergyBoxExpandedProperty.link( updateListener );
     this.update();
   }
 
@@ -175,7 +175,7 @@ define( function( require ) {
      * @private
      */
     update: function() {
-      if ( this.isEnergyGraphExpandedProperty.value && this.visible ) {
+      if ( this.isEnergyBoxExpandedProperty.value && this.visible ) {
         var energyMultiplier = 40 * this.zoomProperty.value;
         var maxHeight = this.graphHeightProperty.value;
 

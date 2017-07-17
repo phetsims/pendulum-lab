@@ -12,9 +12,7 @@ define( function( require ) {
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
-  var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -47,25 +45,19 @@ define( function( require ) {
       maxWidth: 122
     } );
 
-    model.energyGraphModeProperty.link( function( energyGraphMode ) {
-      var index = energyGraphMode === EnergyGraphMode.ONE ? 0 : 1;
-      headerText.text = StringUtils.format( patternEnergyOf0PendulumNumberString, '' + ( index + 1 ) );
-      headerText.fill = model.pendula[ index ].color;
+    model.activeEnergyPendulumProperty.link( function( pendulum ) {
+      headerText.text = StringUtils.format( patternEnergyOf0PendulumNumberString, '' + ( pendulum.index + 1 ) );
+      headerText.fill = pendulum.color;
     } );
 
-    // TODO: This should probably be in the model (or at least the index?)
-    var activePendulum = new DerivedProperty( [ model.energyGraphModeProperty ], function( energyGraphMode ) {
-      return model.pendula[ energyGraphMode === EnergyGraphMode.ONE ? 0 : 1 ];
-    } );
-
-    var kineticEnergyProperty = new DynamicProperty( activePendulum, { derive: 'kineticEnergyProperty' } );
-    var potentialEnergyProperty = new DynamicProperty( activePendulum, { derive: 'potentialEnergyProperty' } );
-    var thermalEnergyProperty = new DynamicProperty( activePendulum, {
+    var kineticEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, { derive: 'kineticEnergyProperty' } );
+    var potentialEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, { derive: 'potentialEnergyProperty' } );
+    var thermalEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, {
       bidirectional: true,
       derive: 'thermalEnergyProperty'
     } );
 
-    var graphNode = new EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, model.energyZoomProperty, model.isEnergyGraphExpandedProperty, new Property( energyGraphHeight ) );
+    var graphNode = new EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, model.energyZoomProperty, model.isEnergyBoxExpandedProperty, new Property( energyGraphHeight ) );
     var content = new VBox( {
       spacing: 4,
       children: [
@@ -74,11 +66,11 @@ define( function( require ) {
       ]
     } );
 
-    function createRadioButton( value, labelString ) {
-      var label = new Text( labelString, {
+    function createRadioButton( pendulum ) {
+      var label = new Text( pendulum.index + 1, {
         font: PendulumLabConstants.TITLE_FONT
       } );
-      var button = new AquaRadioButton( model.energyGraphModeProperty, value, label, {
+      var button = new AquaRadioButton( model.activeEnergyPendulumProperty, pendulum, label, {
         radius: label.height / 2.2,
         xSpacing: 3
       } );
@@ -106,13 +98,13 @@ define( function( require ) {
       } ) );
     }
 
-    var radioButtonOne = createRadioButton( EnergyGraphMode.ONE, '1' );
-    var radioButtonTwo = createRadioButton( EnergyGraphMode.TWO, '2' );
+    var radioButtonOne = createRadioButton( model.pendula[ 0 ] );
+    var radioButtonTwo = createRadioButton( model.pendula[ 1 ] );
 
     // no need to unlink, present for the lifetime of the sim
     model.numberOfPendulaProperty.link( function( numberOfPendula ) {
       if ( numberOfPendula === 1 ) {
-        model.energyGraphModeProperty.value = EnergyGraphMode.ONE;
+        model.activeEnergyPendulumProperty.value = model.pendula[ 0 ];
         radioButtonTwo.setEnabled( false );
       }
       else if ( numberOfPendula === 2 ) {
@@ -146,7 +138,7 @@ define( function( require ) {
       ]
     } ),
     _.extend( {
-      expandedProperty: model.isEnergyGraphExpandedProperty,
+      expandedProperty: model.isEnergyBoxExpandedProperty,
       cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
       fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
       buttonXMargin: 10,

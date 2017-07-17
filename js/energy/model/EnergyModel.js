@@ -10,7 +10,6 @@ define( function( require ) {
 
   // modules
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var EnergyGraphMode = require( 'PENDULUM_LAB/energy/EnergyGraphMode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
@@ -29,8 +28,10 @@ define( function( require ) {
     PendulumLabModel.call( this, options );
 
     // add energy mode property
-    this.isEnergyGraphExpandedProperty = new BooleanProperty( false );
-    this.energyGraphModeProperty = new Property( EnergyGraphMode.ONE );
+    this.isEnergyBoxExpandedProperty = new BooleanProperty( false );
+
+    // @public {Property.<Pendulum>} - The pendulum whose energy will be displayed in the plot.
+    this.activeEnergyPendulumProperty = new Property( this.pendula[ 0 ] );
   }
 
   pendulumLab.register( 'EnergyModel', EnergyModel );
@@ -42,8 +43,8 @@ define( function( require ) {
      */
     reset: function() {
       PendulumLabModel.prototype.reset.call( this );
-      this.isEnergyGraphExpandedProperty.reset();
-      this.energyGraphModeProperty.reset();
+      this.isEnergyBoxExpandedProperty.reset();
+      this.activeEnergyPendulumProperty.reset();
     }
   } );
 } );
