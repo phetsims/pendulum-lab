@@ -14,7 +14,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
-  var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
+  var PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
 
@@ -39,7 +39,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new PendulumLabModel(); },
-      function( model ) { return new PendulumLabView( model ); },
+      function( model ) { return new PendulumLabScreenView( model ); },
       options
     );
   }

@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumLabView = require( 'PENDULUM_LAB/common/view/PendulumLabView' );
+  var PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
 
   /**
    * @constructor
@@ -21,9 +21,9 @@ define( function( require ) {
    * @param {PendulumLabModel} model
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    */
-  function EnergyView( model, energyGraphHeight, options ) {
+  function EnergyScreenView( model, energyGraphHeight, options ) {
 
-    PendulumLabView.call( this, model, options );
+    PendulumLabScreenView.call( this, model, options );
 
     // create and add energy graph node to the bottom layer
     var energyGraphNode = new EnergyBox( model, energyGraphHeight, {
@@ -43,7 +43,7 @@ define( function( require ) {
     model.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
   }
 
-  pendulumLab.register( 'EnergyView', EnergyView );
+  pendulumLab.register( 'EnergyScreenView', EnergyScreenView );
 
-  return inherit( PendulumLabView, EnergyView );
+  return inherit( PendulumLabScreenView, EnergyScreenView );
 } );

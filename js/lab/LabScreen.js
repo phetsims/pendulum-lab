@@ -12,7 +12,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabModel = require( 'PENDULUM_LAB/lab/model/LabModel' );
-  var LabView = require( 'PENDULUM_LAB/lab/view/LabView' );
+  var LabScreenView = require( 'PENDULUM_LAB/lab/view/LabScreenView' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Property = require( 'AXON/Property' );
@@ -40,7 +40,7 @@ define( function( require ) {
     Screen.call( this,
       function() { return new LabModel(); },
       //TODO magic number 2
-      function( model ) { return new LabView( model, 195 ); },
+      function( model ) { return new LabScreenView( model, 195 ); },
       options
     );
   }

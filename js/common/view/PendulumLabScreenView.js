@@ -33,7 +33,7 @@ define( function( require ) {
    * @param {PendulumLabModel} model
    * @param {ModelViewTransform2} modelViewTransform
    */
-  function PendulumLabView( model, options ) {
+  function PendulumLabScreenView( model, options ) {
     ScreenView.call( this );
 
     // @private {PendulumLabModel}
@@ -171,9 +171,9 @@ define( function( require ) {
 
   }
 
-  pendulumLab.register( 'PendulumLabView', PendulumLabView );
+  pendulumLab.register( 'PendulumLabScreenView', PendulumLabScreenView );
 
-  return inherit( ScreenView, PendulumLabView, {
+  return inherit( ScreenView, PendulumLabScreenView, {
     /**
      * Steps the view.
      * @public

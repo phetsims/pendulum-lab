@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
-  var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
+  var EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -38,7 +38,7 @@ define( function( require ) {
     Screen.call( this,
       function() { return new EnergyModel(); },
       //TODO magic number
-      function( model ) { return new EnergyView( model, 253 ); },
+      function( model ) { return new EnergyScreenView( model, 253 ); },
       options
     );
   }

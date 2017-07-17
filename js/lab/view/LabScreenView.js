@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
-  var EnergyView = require( 'PENDULUM_LAB/energy/view/EnergyView' );
+  var EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -25,8 +25,8 @@ define( function( require ) {
    * @param {PendulumLabModel} model
    * @param {number} energyGraphHeight - Height tuned number for the energy graph
    */
-  function LabView( model, energyGraphHeight ) {
-    EnergyView.call( this, model, energyGraphHeight, {
+  function LabScreenView( model, energyGraphHeight ) {
+    EnergyScreenView.call( this, model, energyGraphHeight, {
       includeGravityTweakers: true
     } );
 
@@ -59,7 +59,7 @@ define( function( require ) {
     } );
   }
 
-  pendulumLab.register( 'LabView', LabView );
+  pendulumLab.register( 'LabScreenView', LabScreenView );
 
-  return inherit( EnergyView, LabView );
+  return inherit( EnergyScreenView, LabScreenView );
 } );
