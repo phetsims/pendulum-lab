@@ -42,7 +42,7 @@ define( function( require ) {
    * @param {boolean} hasPeriodTimer
    * @param {Object} [options]
    */
-  function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
+  function ToolsPanel( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
 
     // @private
     this._labels = [
@@ -70,7 +70,7 @@ define( function( require ) {
     Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
   }
 
-  pendulumLab.register( 'ToolsControlPanelNode', ToolsControlPanelNode );
+  pendulumLab.register( 'ToolsPanel', ToolsPanel );
 
-  return inherit( Panel, ToolsControlPanelNode );
+  return inherit( Panel, ToolsPanel );
 } );

@@ -25,7 +25,7 @@ define( function( require ) {
   var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
-  var ToolsControlPanelNode = require( 'PENDULUM_LAB/common/view/ToolsControlPanelNode' );
+  var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
 
   /**
    * @constructor
@@ -75,7 +75,7 @@ define( function( require ) {
     this.slidersPanelNode = slidersPanelNode;
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
-    var toolsControlPanelNode = new ToolsControlPanelNode( model.ruler.isVisibleProperty, model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, options.hasPeriodTimer, {
+    var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty, model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, options.hasPeriodTimer, {
       maxWidth: 180,
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
