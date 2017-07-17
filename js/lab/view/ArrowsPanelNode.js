@@ -11,15 +11,18 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var CheckBox = require( 'SUN/CheckBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var Property = require( 'AXON/Property' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var accelerationString = require( 'string!PENDULUM_LAB/acceleration' );
@@ -29,7 +32,6 @@ define( function( require ) {
   var ARROW_LENGTH = 22;
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
-  var TEXT_MARGIN_RIGHT = 5;
   var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
   var MAX_TEXT_WIDTH = PANEL_WIDTH * 0.60;  // allows for 60% of the horizontal space in the panel for text.
 
@@ -43,65 +45,68 @@ define( function( require ) {
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
-    var labels = [
-      new Text( velocityString, { font: PendulumLabConstants.TITLE_FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } ),
-      new Text( accelerationString, { font: PendulumLabConstants.TITLE_FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
-    ];
+    var textGroup = new AlignGroup();
+    var velocityText = new AlignBox( new Text( velocityString, {
+      font: PendulumLabConstants.TITLE_FONT,
+      maxWidth: MAX_TEXT_WIDTH
+    } ), { group: textGroup, xAlign: 'left' } );
+    var accelerationText = new AlignBox( new Text( accelerationString, {
+      font: PendulumLabConstants.TITLE_FONT,
+      maxWidth: MAX_TEXT_WIDTH
+    } ), { group: textGroup, xAlign: 'left' } );
 
-    // determine max sting width determined by widths of velocity or acceleration strings
-    var maxStringWidth = 0;
-    labels.forEach( function( textString ) {
-      maxStringWidth = Math.max( maxStringWidth, textString.width );
+    var velocityArrow = new ArrowNode( 0, 0, ARROW_LENGTH, 0, {
+      fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
+      centerY: 0,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    var accelerationArrow = new ArrowNode( 0, 0, ARROW_LENGTH, 0, {
+      fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
+      centerY: 0,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
     } );
 
-    Panel.call( this,
-      new Node( {
-        children: [
-          // necessary to expand panel
-          new HStrut( PANEL_WIDTH, { pickable: false } ),
+    // Currently no better way to handle the fluid layout with checkboxes than to determine the amount of additional
+    // space they take up.
+    var tmpContent = new HBox( { children: [ velocityText, velocityArrow ] } );
+    var minContentWidth = tmpContent.width;
+    var checkBoxChromeWidth = new CheckBox( tmpContent, new Property( true ), {
+      boxWidth: velocityText.height
+    } ).width - tmpContent.width;
+    tmpContent.dispose();
 
-          // Creates check boxes within panel
-          new VerticalCheckBoxGroup( [
-            {
-              content: new Node( {
-                pickable: false,
-                children: [
-                  // adds velocity string to panel
-                  labels[ 0 ],
-                  // Creates velocity arrow within panel
-                  new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
-                    fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
-                    centerY: 0,
-                    tailWidth: ARROW_TAIL_WIDTH,
-                    headWidth: ARROW_HEAD_WIDTH
-                  } )
-                ]
-              } ),
-              property: isVelocityVisibleProperty
-            },
-            {
-              content: new Node( {
-                pickable: false,
-                children: [
-                  // adds acceleration string to panel
-                  labels[ 1 ],
-                  // Creates velocity arrow within panel
-                  new ArrowNode( maxStringWidth + TEXT_MARGIN_RIGHT, 0, maxStringWidth + TEXT_MARGIN_RIGHT + ARROW_LENGTH, 0, {
-                    fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
-                    centerY: 0,
-                    tailWidth: ARROW_TAIL_WIDTH,
-                    headWidth: ARROW_HEAD_WIDTH
-                  } )
-                ]
-              } ),
-              property: isAccelerationVisibleProperty
-            }
-          ], {
-            spacing: 7,
-            boxWidth: labels[ 0 ].height
-          } )
-        ]
-      } ), options );
+    var velocityContent = new HBox( { children: [ velocityText, velocityArrow ], pickable: false } );
+    var accelerationContent = new HBox( { children: [ accelerationText, accelerationArrow ], pickable: false } );
+
+    var content = new VBox( {
+      spacing: 7
+    } );
+
+    var velocityCheckBox;
+    var accelerationCheckBox;
+
+    // TODO: maxWidths on text so things work out?
+    PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( function( width ) {
+      if ( velocityCheckBox ) {
+        velocityCheckBox.dispose();
+      }
+      if ( accelerationCheckBox ) {
+        accelerationCheckBox.dispose();
+      }
+      velocityContent.spacing = width - checkBoxChromeWidth - minContentWidth;
+      accelerationContent.spacing = width - checkBoxChromeWidth - minContentWidth;
+      velocityCheckBox = new CheckBox( velocityContent, isVelocityVisibleProperty, {
+        boxWidth: velocityText.height
+      } );
+      accelerationCheckBox = new CheckBox( accelerationContent, isAccelerationVisibleProperty, {
+        boxWidth: accelerationText.height
+      } );
+      content.children = [ velocityCheckBox, accelerationCheckBox ];
+    } );
+
+    Panel.call( this, content, options );
   }
 
   pendulumLab.register( 'ArrowsPanelNode', ArrowsPanelNode );
