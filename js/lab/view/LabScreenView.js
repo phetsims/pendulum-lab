@@ -20,10 +20,9 @@ define( function( require ) {
    * @constructor
    *
    * @param {PendulumLabModel} model
-   * @param {number} energyGraphHeight - Height tuned number for the energy graph
    */
-  function LabScreenView( model, energyGraphHeight ) {
-    EnergyScreenView.call( this, model, energyGraphHeight, {
+  function LabScreenView( model ) {
+    EnergyScreenView.call( this, model, {
       hasGravityTweakers: true,
       hasPeriodTimer: true
     } );
@@ -52,6 +51,8 @@ define( function( require ) {
     this.visibleBoundsProperty.link( function( visibleBounds ) {
       periodTimerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 ) );
     } );
+
+    this.resizeEnergyGraphToFit();
   }
 
   pendulumLab.register( 'LabScreenView', LabScreenView );

@@ -50,16 +50,16 @@ define( function( require ) {
    * @param {Property.<number>} thermalEnergyProperty
    * @param {Property.<number>} zoomProperty
    * @param {Property.<boolean>} isEnergyBoxExpandedProperty - Property which track expansion of graph.
-   * @param {Property.<number>} graphHeightProperty
+   * @param {Property.<number>} chartHeightProperty
    */
-  function EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, zoomProperty, isEnergyBoxExpandedProperty, graphHeightProperty ) {
+  function EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, zoomProperty, isEnergyBoxExpandedProperty, chartHeightProperty ) {
 
     // @private {Property.<number>}
     this.kineticEnergyProperty = kineticEnergyProperty;
     this.potentialEnergyProperty = potentialEnergyProperty;
     this.thermalEnergyProperty = thermalEnergyProperty;
     this.zoomProperty = zoomProperty;
-    this.graphHeightProperty = graphHeightProperty;
+    this.chartHeightProperty = chartHeightProperty;
 
     // @private {Property.<boolean>}
     this.isEnergyBoxExpandedProperty = isEnergyBoxExpandedProperty;
@@ -86,10 +86,13 @@ define( function( require ) {
 
     // create 'x' and 'y' axis
     var axisX = new Line( 0, 0, GRAPH_WIDTH, 0, { stroke: 'black' } );
-    var axisY = new ArrowNode( 0, 0, 0, graphHeightProperty.value, {
+    var axisY = new ArrowNode( 0, 0, 0, chartHeightProperty.value, {
       tailWidth: 2,
       headHeight: 7,
       headWidth: 6
+    } );
+    chartHeightProperty.link( function( height ) {
+      axisY.setTailAndTip( 0, 0, 0, height );
     } );
 
     // @private {Rectangle} - Individual energy bars
@@ -146,7 +149,8 @@ define( function( require ) {
     potentialEnergyProperty.lazyLink( updateListener );
     thermalEnergyProperty.lazyLink( updateListener );
     zoomProperty.lazyLink( updateListener );
-    isEnergyBoxExpandedProperty.link( updateListener );
+    chartHeightProperty.lazyLink( updateListener );
+    isEnergyBoxExpandedProperty.lazyLink( updateListener );
     this.update();
   }
 
@@ -177,7 +181,7 @@ define( function( require ) {
     update: function() {
       if ( this.isEnergyBoxExpandedProperty.value && this.visible ) {
         var energyMultiplier = 40 * this.zoomProperty.value;
-        var maxHeight = this.graphHeightProperty.value;
+        var maxHeight = this.chartHeightProperty.value;
 
         var kineticEnergy = this.kineticEnergyProperty.value * energyMultiplier;
         var potentialEnergy = this.potentialEnergyProperty.value * energyMultiplier;

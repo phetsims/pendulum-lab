@@ -81,7 +81,7 @@ define( function( require ) {
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
     } );
 
-    // @protected
+    // @protected {Node}
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)

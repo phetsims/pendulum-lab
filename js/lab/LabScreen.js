@@ -39,8 +39,7 @@ define( function( require ) {
 
     Screen.call( this,
       function() { return new LabModel(); },
-      //TODO magic number 2
-      function( model ) { return new LabScreenView( model, 195 ); },
+      function( model ) { return new LabScreenView( model ); },
       options
     );
   }

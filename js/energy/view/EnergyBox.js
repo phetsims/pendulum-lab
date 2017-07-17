@@ -19,7 +19,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Property = require( 'AXON/Property' );
   var EnergyBarChartNode = require( 'PENDULUM_LAB/energy/view/EnergyBarChartNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -37,10 +36,10 @@ define( function( require ) {
    * @constructor
    *
    * @param {EnergyModel} model
-   * @param {number} energyGraphHeight - Height tuned number for the energy graph
+   * @param {Property.<number>} chartHeightProperty
    * @param {Object} [options]
    */
-  function EnergyBox( model, energyGraphHeight, options ) {
+  function EnergyBox( model, chartHeightProperty, options ) {
     options = _.extend( {}, PendulumLabConstants.BOX_OPTIONS, {
       expandedProperty: model.isEnergyBoxExpandedProperty,
       buttonXMargin: 10,
@@ -71,7 +70,7 @@ define( function( require ) {
       derive: 'thermalEnergyProperty'
     } );
 
-    var graphNode = new EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, model.energyZoomProperty, model.isEnergyBoxExpandedProperty, new Property( energyGraphHeight ) );
+    var graphNode = new EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, model.energyZoomProperty, model.isEnergyBoxExpandedProperty, chartHeightProperty );
     var content = new VBox( {
       spacing: 4,
       children: [

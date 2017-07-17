@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var EnergyBox = require( 'PENDULUM_LAB/energy/view/EnergyBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
@@ -19,20 +20,22 @@ define( function( require ) {
    * @constructor
    *
    * @param {PendulumLabModel} model
-   * @param {number} energyGraphHeight - Height tuned number for the energy graph
    */
-  function EnergyScreenView( model, energyGraphHeight, options ) {
+  function EnergyScreenView( model, options ) {
 
     PendulumLabScreenView.call( this, model, options );
 
+    // @protected {Property.<number>}
+    this.chartHeightProperty = new NumberProperty( 200 );
+
     // create and add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyBox( model, energyGraphHeight, {
+    var energyGraphNode = new EnergyBox( model, this.chartHeightProperty, {
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
     this.energyGraphLayer.addChild( energyGraphNode );
 
-    // @public {EnergyBox} TODO check if protected is OK
+    // @protected {EnergyBox}
     this.energyGraphNode = energyGraphNode;
 
     // move ruler and stopwatch to the right side
@@ -41,9 +44,24 @@ define( function( require ) {
 
     this.stopwatchNode.left = this.rulerNode.right + 10;
     model.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
+
+    // TODO: This is a problem with AccordionBox not resizing. Once that happens, we won't need the double-call here.
+    this.resizeEnergyGraphToFit();
+    this.resizeEnergyGraphToFit();
   }
 
   pendulumLab.register( 'EnergyScreenView', EnergyScreenView );
 
-  return inherit( PendulumLabScreenView, EnergyScreenView );
+  return inherit( PendulumLabScreenView, EnergyScreenView, {
+    /**
+     * Changes the chart height so that the energy graph fits all available size
+     * @protected
+     */
+    resizeEnergyGraphToFit: function() {
+      var currentSpace = this.toolsControlPanelNode.top - this.energyGraphNode.bottom;
+      var desiredSpace = PendulumLabConstants.PANEL_PADDING;
+
+      this.chartHeightProperty.value += currentSpace - desiredSpace;
+    }
+  } );
 } );
