@@ -50,7 +50,8 @@ define( function( require ) {
       } ),
       titleAlignX: 'left',
       titleXMargin: 10,
-      contentYSpacing: 0
+      contentYSpacing: 0,
+      resize: true
     }, options );
 
     var headerText = new Text( '', {
