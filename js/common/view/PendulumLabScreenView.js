@@ -103,6 +103,7 @@ define( function( require ) {
     var rulerNode = new PendulumLabRulerNode( model.ruler, modelViewTransform, this.layoutBounds );
     rulerNode.left = this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING;
     rulerNode.top = this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING;
+    model.ruler.setInitialLocationValue( rulerNode.center );
 
     // @protected
     this.rulerNode = rulerNode;
@@ -110,7 +111,8 @@ define( function( require ) {
     // create timer node
     var stopwatchNode = new StopwatchNode( model.stopwatch, this.layoutBounds );
     stopwatchNode.bottom = rulerNode.bottom;
-    stopwatchNode.right = toolsControlPanelNode.right;
+    stopwatchNode.right = Math.max( 167.75, toolsControlPanelNode.right ); // If we are only on this screen
+    model.stopwatch.setInitialLocationValue( stopwatchNode.center );
 
     // @protected
     this.stopwatchNode = stopwatchNode;
@@ -165,11 +167,6 @@ define( function( require ) {
     this.addChild( rulerNode );
     this.addChild( this.periodTimerLayer );
     this.addChild( stopwatchNode );
-
-    // set initial value for ruler and stopwatch 'location' property
-    model.ruler.setInitialLocationValue( rulerNode.center );
-    model.stopwatch.setInitialLocationValue( stopwatchNode.center );
-
   }
 
   pendulumLab.register( 'PendulumLabScreenView', PendulumLabScreenView );
