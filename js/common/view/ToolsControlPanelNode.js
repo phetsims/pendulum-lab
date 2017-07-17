@@ -11,9 +11,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -23,6 +22,7 @@ define( function( require ) {
   // strings
   var rulerString = require( 'string!PENDULUM_LAB/ruler' );
   var stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
+  var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
   var periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
 
   // constants
@@ -39,53 +39,38 @@ define( function( require ) {
    * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
    * @param {Property.<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
    * @param {Property.<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
+   * @param {boolean} hasPeriodTimer
    * @param {Object} [options]
    */
-  function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, options ) {
+  function ToolsControlPanelNode( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
 
     // @private
     this._labels = [
       new Text( rulerString, TEXT_OPTIONS ),
       new Text( stopwatchString, TEXT_OPTIONS ),
-      new Text( periodTraceString, TEXT_OPTIONS )
+      new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS )
     ];
 
-    Panel.call( this,
-      new Node( {
-        children: [
-          // necessary to expand panel
-          new HStrut( PANEL_WIDTH ),
+    var items = [ {
+      content: this._labels[ 0 ],
+      property: isRulerProperty
+    }, {
+      content: this._labels[ 1 ],
+      property: isStopwatchProperty
+    }, {
+      content: this._labels[ 2 ],
+      property: isPeriodTraceProperty
+    } ];
 
-          new VerticalCheckBoxGroup( [ {
-            content: this._labels[ 0 ],
-            property: isRulerProperty
-          }, {
-            content: this._labels[ 1 ],
-            property: isStopwatchProperty
-          }, {
-            content: this._labels[ 2 ],
-            property: isPeriodTraceProperty
-          }
-          ], {
-            spacing: 7,
-            boxWidth: this._labels[ 0 ].height
-          } )
-        ]
-      } ), _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
+    var content = new AlignBox( new VerticalCheckBoxGroup( items, {
+      spacing: 7,
+      boxWidth: this._labels[ 0 ].height
+    } ), { group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP } );
+
+    Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
   }
 
   pendulumLab.register( 'ToolsControlPanelNode', ToolsControlPanelNode );
 
-  return inherit( Panel, ToolsControlPanelNode, {
-    /**
-     * Set text of label selected by index.
-     * @public
-     *
-     * @param {number} index - Index of label.
-     * @param {string} text - New text for label.
-     */
-    setLabelText: function( index, text ) {
-      this._labels[ index ].setText( text );
-    }
-  } );
+  return inherit( Panel, ToolsControlPanelNode );
 } );

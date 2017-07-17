@@ -30,6 +30,7 @@ define( function( require ) {
 
     options = _.extend( {
       // {boolean} - Should be false if there is a PeriodTimer handling the trace's visibility.
+      //TODO: consider a name for "hasPeriodTimer/etc"?
       periodTraceRepeatable: true,
 
       // {boolean}

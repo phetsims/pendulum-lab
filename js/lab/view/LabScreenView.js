@@ -16,9 +16,6 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
 
-  // strings
-  var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
-
   /**
    * @constructor
    *
@@ -27,7 +24,8 @@ define( function( require ) {
    */
   function LabScreenView( model, energyGraphHeight ) {
     EnergyScreenView.call( this, model, energyGraphHeight, {
-      includeGravityTweakers: true
+      hasGravityTweakers: true,
+      hasPeriodTimer: true
     } );
 
     // create arrow panel node to the bottom layer
@@ -47,9 +45,6 @@ define( function( require ) {
     periodTimerNode.right = this.slidersPanelNode.left - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING; // move energyGraphNode to the bottom
-
-    // change label for period timer
-    this.toolsControlPanelNode.setLabelText( 2, periodTimerString );
 
     model.periodTimer.setInitialLocationValue( periodTimerNode.center );
 

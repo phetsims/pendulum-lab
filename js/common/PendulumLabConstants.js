@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -47,6 +48,7 @@ define( function( require ) {
 
     PANEL_PADDING: 10,
 
+    // TODO: make fully compatible with spacing for accordion boxes, etc.
     PANEL_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
       fill: PANEL_BACKGROUND_COLOR,
@@ -66,6 +68,9 @@ define( function( require ) {
     THUMB_TOUCH_AREA_Y_DILATION: 4,
     SLIDER_PRECISION: 1,
     TWEAKERS_PRECISION: 2,
+
+    LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
+    RIGHT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
 
     // create a model view transform (assuming the dev view screen is 1024 wide and the 618 high)
     // the height of the screen is 4/3 m = 1.33 m

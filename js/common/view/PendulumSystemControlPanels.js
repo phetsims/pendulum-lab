@@ -57,7 +57,7 @@ define( function( require ) {
       ]
     } ) );
 
-    if ( options.includeGravityTweakers ) {
+    if ( options.hasGravityTweakers ) {
       // add tweakers for gravity slider slider
       this.gravitySlider.addTweakers( pendulumLabModel.gravityProperty, pendulumLabModel.gravityRange );
     }

@@ -40,7 +40,8 @@ define( function( require ) {
     this.model = model;
 
     options = _.extend( {
-      includeGravityTweakers: false
+      hasGravityTweakers: false,
+      hasPeriodTimer: false
     }, options );
 
     var modelViewTransform = PendulumLabConstants.MODEL_VIEW_TRANSFORM;
@@ -66,7 +67,7 @@ define( function( require ) {
     var popupLayer = new Node();
 
     var slidersPanelNode = new PendulumSystemControlPanels( model, popupLayer, {
-      includeGravityTweakers: !!options.includeGravityTweakers,
+      hasGravityTweakers: !!options.hasGravityTweakers,
       right: this.layoutBounds.right - PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
@@ -74,7 +75,7 @@ define( function( require ) {
     this.slidersPanelNode = slidersPanelNode;
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
-    var toolsControlPanelNode = new ToolsControlPanelNode( model.ruler.isVisibleProperty, model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, {
+    var toolsControlPanelNode = new ToolsControlPanelNode( model.ruler.isVisibleProperty, model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, options.hasPeriodTimer, {
       maxWidth: 180,
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
