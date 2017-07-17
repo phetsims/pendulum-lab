@@ -28,26 +28,19 @@ define( function( require ) {
   var accelerationString = require( 'string!PENDULUM_LAB/acceleration' );
   var velocityString = require( 'string!PENDULUM_LAB/velocity' );
 
-  // constants
-  var ARROW_LENGTH = 22;
-  var ARROW_HEAD_WIDTH = 12;
-  var ARROW_TAIL_WIDTH = 6;
-  var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
-  var MAX_TEXT_WIDTH = PANEL_WIDTH * 0.60;  // allows for 60% of the horizontal space in the panel for text.
-
   /**
    * @constructor
    *
-   * @param {Property.<boolean>} isVelocityVisibleProperty - Property to control visibility of velocity arrows.
-   * @param {Property.<boolean>} isAccelerationVisibleProperty - Property to control visibility of acceleration arrows.
-   * @param {Object} [options] for tools control panel node
+   * @param {Property.<boolean>} isVelocityVisibleProperty - Visibility of velocity arrows.
+   * @param {Property.<boolean>} isAccelerationVisibleProperty - Visibility of acceleration arrows.
+   * @param {Object} [options]
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
     var textOptions = {
       font: PendulumLabConstants.TITLE_FONT,
-      maxWidth: MAX_TEXT_WIDTH
+      maxWidth: 80
     };
     var textHeight = new Text( 'not visible', textOptions ).height;
 
@@ -56,11 +49,11 @@ define( function( require ) {
       return new HBox( {
         children: [
           new AlignBox( new Text( velocityString, textOptions ), { group: textGroup, xAlign: 'left' } ),
-          new ArrowNode( 0, 0, ARROW_LENGTH, 0, {
+          new ArrowNode( 0, 0, 22, 0, {
             fill: color,
             centerY: 0,
-            tailWidth: ARROW_TAIL_WIDTH,
-            headWidth: ARROW_HEAD_WIDTH
+            tailWidth: 6,
+            headWidth: 12
           } )
         ],
         pickable: false
@@ -82,14 +75,16 @@ define( function( require ) {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING
     } );
 
-    // TODO: maxWidths on text so things work out?
+    // Whenever the amount of width available changes, we need to recreate the check boxes
     PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( function( width ) {
+      // Properly remove any old check boxes
       content.children.forEach( function( child ) {
         child.dispose();
       } );
 
       var spacing = width - widthWithoutSpacing;
 
+      // Create new check boxes with the proper spacing. CheckBox currently doesn't support resizing content.
       velocityContent.spacing = spacing;
       content.addChild( new CheckBox( velocityContent, isVelocityVisibleProperty, {
         boxWidth: textHeight
