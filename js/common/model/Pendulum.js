@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
@@ -29,17 +30,20 @@ define( function( require ) {
   /**
    * @constructor
    *
+   * @param {number} index - Which pendulum in a system is this?
    * @param {number} mass - mass of pendulum, kg.
    * @param {number} length - length of pendulum, m.
-   * @param {string} color - color of pendulum.
    * @param {boolean} isVisible - Initial visibility of pendulum.
    * @param {Property.<number>} gravityProperty - Property with current gravity value.
    * @param {Property.<number>} frictionProperty - Property with current friction value.
    * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
    * @param {boolean} isPeriodTraceRepeatable
    */
-  function Pendulum( mass, length, color, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ) {
+  function Pendulum( index, mass, length, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ) {
     var self = this;
+
+    // @public {number}
+    this.index = index;
 
     // @public {Property.<number>} - Length of the pendulum (in meters)
     this.lengthProperty = new NumberProperty( length );
@@ -104,7 +108,7 @@ define( function( require ) {
 
     // default color for this pendulum
     // @public (read-only)
-    this.color = color; // {string}
+    this.color = PendulumLabConstants.PENDULUM_COLORS[ index ]; // {string}
 
     // @public {Range} (read-only)
     this.lengthRange = new Range( 0.1, 1.0 );

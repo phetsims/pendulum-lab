@@ -15,7 +15,6 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Property = require( 'AXON/Property' );
   var RangeWithValue = require( 'DOT/RangeWithValue' );
   var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
@@ -67,10 +66,8 @@ define( function( require ) {
 
     // @public {Array.<Pendulum>}
     this.pendula = [
-      new Pendulum( 1, 0.7, PendulumLabConstants.FIRST_PENDULUM_COLOR, true, this.gravityProperty, this.frictionProperty,
-        this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable ),
-      new Pendulum( 0.5, 1.0, PendulumLabConstants.SECOND_PENDULUM_COLOR, false, this.gravityProperty, this.frictionProperty,
-        this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable )
+      new Pendulum( 0, 1, 0.7, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable ),
+      new Pendulum( 1, 0.5, 1.0, false, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable )
     ];
 
     // @public (read-only) possible gravity range 0m/s^2 to 25m/s^2

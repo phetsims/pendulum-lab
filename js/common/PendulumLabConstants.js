@@ -74,5 +74,8 @@ define( function( require ) {
 
   pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );
 
+  // @public {Array.<string>}
+  PendulumLabConstants.PENDULUM_COLORS = [ PendulumLabConstants.FIRST_PENDULUM_COLOR, PendulumLabConstants.SECOND_PENDULUM_COLOR ];
+
   return PendulumLabConstants;
 } );
