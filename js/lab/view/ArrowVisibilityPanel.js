@@ -35,7 +35,7 @@ define( function( require ) {
    * @param {Property.<boolean>} isAccelerationVisibleProperty - Visibility of acceleration arrows.
    * @param {Object} [options]
    */
-  function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
+  function ArrowVisibilityPanel( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
     var textOptions = {
@@ -99,7 +99,7 @@ define( function( require ) {
     Panel.call( this, content, options );
   }
 
-  pendulumLab.register( 'ArrowsPanelNode', ArrowsPanelNode );
+  pendulumLab.register( 'ArrowVisibilityPanel', ArrowVisibilityPanel );
 
-  return inherit( Panel, ArrowsPanelNode );
+  return inherit( Panel, ArrowVisibilityPanel );
 } );

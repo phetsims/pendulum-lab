@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ArrowsPanelNode = require( 'PENDULUM_LAB/lab/view/ArrowsPanelNode' );
+  var ArrowVisibilityPanel = require( 'PENDULUM_LAB/lab/view/ArrowVisibilityPanel' );
   var EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -29,7 +29,7 @@ define( function( require ) {
     } );
 
     // create arrow panel node to the bottom layer
-    var arrowsPanelNode = new ArrowsPanelNode( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
+    var arrowsPanelNode = new ArrowVisibilityPanel( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
