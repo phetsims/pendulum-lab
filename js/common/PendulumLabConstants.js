@@ -75,6 +75,8 @@ define( function( require ) {
     SLIDER_PRECISION: 1,
     TWEAKERS_PRECISION: 2,
 
+    CHECK_RADIO_SPACING: 7,
+
     LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
     RIGHT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
 

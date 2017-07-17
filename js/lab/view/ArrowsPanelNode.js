@@ -45,65 +45,60 @@ define( function( require ) {
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
-    var textGroup = new AlignGroup();
-    var velocityText = new AlignBox( new Text( velocityString, {
+    var textOptions = {
       font: PendulumLabConstants.TITLE_FONT,
       maxWidth: MAX_TEXT_WIDTH
-    } ), { group: textGroup, xAlign: 'left' } );
-    var accelerationText = new AlignBox( new Text( accelerationString, {
-      font: PendulumLabConstants.TITLE_FONT,
-      maxWidth: MAX_TEXT_WIDTH
-    } ), { group: textGroup, xAlign: 'left' } );
+    };
+    var textHeight = new Text( 'not visible', textOptions ).height;
 
-    var velocityArrow = new ArrowNode( 0, 0, ARROW_LENGTH, 0, {
-      fill: PendulumLabConstants.VELOCITY_ARROW_COLOR,
-      centerY: 0,
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
-    } );
-    var accelerationArrow = new ArrowNode( 0, 0, ARROW_LENGTH, 0, {
-      fill: PendulumLabConstants.ACCELERATION_ARROW_COLOR,
-      centerY: 0,
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
-    } );
+    var textGroup = new AlignGroup();
+    function createCheckBoxContent( labelString, color ) {
+      return new HBox( {
+        children: [
+          new AlignBox( new Text( velocityString, textOptions ), { group: textGroup, xAlign: 'left' } ),
+          new ArrowNode( 0, 0, ARROW_LENGTH, 0, {
+            fill: color,
+            centerY: 0,
+            tailWidth: ARROW_TAIL_WIDTH,
+            headWidth: ARROW_HEAD_WIDTH
+          } )
+        ],
+        pickable: false
+      } );
+    }
+    // We'll dynamically adjust the spacings in these, so that the full CheckBox expands to the desired size.
+    var velocityContent = createCheckBoxContent( velocityString, PendulumLabConstants.VELOCITY_ARROW_COLOR );
+    var accelerationContent = createCheckBoxContent( accelerationString, PendulumLabConstants.ACCELERATION_ARROW_COLOR );
 
     // Currently no better way to handle the fluid layout with checkboxes than to determine the amount of additional
-    // space they take up.
-    var tmpContent = new HBox( { children: [ velocityText, velocityArrow ] } );
-    var minContentWidth = tmpContent.width;
-    var checkBoxChromeWidth = new CheckBox( tmpContent, new Property( true ), {
-      boxWidth: velocityText.height
-    } ).width - tmpContent.width;
-    tmpContent.dispose();
-
-    var velocityContent = new HBox( { children: [ velocityText, velocityArrow ], pickable: false } );
-    var accelerationContent = new HBox( { children: [ accelerationText, accelerationArrow ], pickable: false } );
+    // space it takes up when it has no spacing (and then add spacing to fit).
+    var tmpCheckBox = new CheckBox( velocityContent, new Property( true ), {
+      boxWidth: textHeight
+    } );
+    var widthWithoutSpacing = tmpCheckBox.width;
+    tmpCheckBox.dispose();
 
     var content = new VBox( {
-      spacing: 7
+      spacing: PendulumLabConstants.CHECK_RADIO_SPACING
     } );
-
-    var velocityCheckBox;
-    var accelerationCheckBox;
 
     // TODO: maxWidths on text so things work out?
     PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( function( width ) {
-      if ( velocityCheckBox ) {
-        velocityCheckBox.dispose();
-      }
-      if ( accelerationCheckBox ) {
-        accelerationCheckBox.dispose();
-      }
-      velocityContent.spacing = width - checkBoxChromeWidth - minContentWidth;
-      accelerationContent.spacing = width - checkBoxChromeWidth - minContentWidth;
-      velocityCheckBox = new CheckBox( velocityContent, isVelocityVisibleProperty, {
-        boxWidth: velocityText.height
+      content.children.forEach( function( child ) {
+        child.dispose();
       } );
-      accelerationCheckBox = new CheckBox( accelerationContent, isAccelerationVisibleProperty, {
-        boxWidth: accelerationText.height
-      } );
-      content.children = [ velocityCheckBox, accelerationCheckBox ];
+
+      var spacing = width - widthWithoutSpacing;
+
+      velocityContent.spacing = spacing;
+      content.addChild( new CheckBox( velocityContent, isVelocityVisibleProperty, {
+        boxWidth: textHeight
+      } ) );
+
+      accelerationContent.spacing = spacing;
+      content.addChild( new CheckBox( accelerationContent, isAccelerationVisibleProperty, {
+        boxWidth: textHeight
+      } ) );
     } );
 
     Panel.call( this, content, options );
