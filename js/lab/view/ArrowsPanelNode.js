@@ -41,6 +41,8 @@ define( function( require ) {
    * @param {Object} [options] for tools control panel node
    */
   function ArrowsPanelNode( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
+    options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
+
     var labels = [
       new Text( velocityString, { font: PendulumLabConstants.TITLE_FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } ),
       new Text( accelerationString, { font: PendulumLabConstants.TITLE_FONT, centerY: 0, maxWidth: MAX_TEXT_WIDTH } )
@@ -99,9 +101,7 @@ define( function( require ) {
             boxWidth: labels[ 0 ].height
           } )
         ]
-      } ),
-      _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options )
-    );
+      } ), options );
   }
 
   pendulumLab.register( 'ArrowsPanelNode', ArrowsPanelNode );

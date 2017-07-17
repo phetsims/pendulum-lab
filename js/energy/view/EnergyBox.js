@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var AccordionBox = require( 'SUN/AccordionBox' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -40,6 +41,19 @@ define( function( require ) {
    * @param {Object} [options]
    */
   function EnergyBox( model, energyGraphHeight, options ) {
+    options = _.extend( {}, PendulumLabConstants.BOX_OPTIONS, {
+      expandedProperty: model.isEnergyBoxExpandedProperty,
+      buttonXMargin: 10,
+      buttonYMargin: 6,
+      titleNode: new Text( energyGraphString, {
+        font: PendulumLabConstants.TITLE_FONT,
+        maxWidth: GRAPH_WIDTH * 0.90
+      } ),
+      titleAlignX: 'left',
+      titleXMargin: 10,
+      contentYSpacing: 0
+    }, options );
+
     var headerText = new Text( '', {
       font: PendulumLabConstants.ENERGY_HEADER_FONT,
       maxWidth: 122
@@ -115,9 +129,9 @@ define( function( require ) {
     var zoomOutButton = createZoomButton( false );
     var zoomInButton = createZoomButton( true );
 
-    // add accordion box
-    AccordionBox.call( this, new VBox( {
-      spacing: 5, children: [
+    var boxContent = new VBox( {
+      spacing: 5,
+      children: [
         new HBox( {
           spacing: 20,
           children: [
@@ -136,23 +150,10 @@ define( function( require ) {
           ]
         } )
       ]
-    } ),
-    _.extend( {
-      expandedProperty: model.isEnergyBoxExpandedProperty,
-      cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS,
-      fill: PendulumLabConstants.PANEL_BACKGROUND_COLOR,
-      buttonXMargin: 10,
-      buttonYMargin: 6,
-      titleNode: new Text( energyGraphString, {
-        font: PendulumLabConstants.TITLE_FONT,
-        maxWidth: GRAPH_WIDTH * 0.90
-      } ),
-      titleAlignX: 'left',
-      titleXMargin: 10,
-      contentXMargin: 5,
-      contentYMargin: 5,
-      contentYSpacing: 0
-    }, options ) );
+    } );
+
+    // add accordion box
+    AccordionBox.call( this, new AlignBox( boxContent, { group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP } ), options );
   }
 
   pendulumLab.register( 'EnergyBox', EnergyBox );

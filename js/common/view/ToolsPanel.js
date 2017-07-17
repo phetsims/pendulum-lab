@@ -43,6 +43,7 @@ define( function( require ) {
    * @param {Object} [options]
    */
   function ToolsPanel( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
+    options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
     // @private
     this._labels = [
@@ -65,9 +66,12 @@ define( function( require ) {
     var content = new AlignBox( new VerticalCheckBoxGroup( items, {
       spacing: 7,
       boxWidth: this._labels[ 0 ].height
-    } ), { group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP } );
+    } ), {
+      group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP,
+      xAlign: 'left'
+    } );
 
-    Panel.call( this, content, _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options ) );
+    Panel.call( this, content, options );
   }
 
   pendulumLab.register( 'ToolsPanel', ToolsPanel );

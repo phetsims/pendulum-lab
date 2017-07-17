@@ -55,6 +55,12 @@ define( function( require ) {
       xMargin: PANEL_MARGIN,
       yMargin: 8 // TODO: clean this up
     },
+    BOX_OPTIONS: {
+      contentXMargin: PANEL_MARGIN,
+      contentYMargin: 8, // TODO?
+      cornerRadius: PANEL_CORNER_RADIUS,
+      fill: PANEL_BACKGROUND_COLOR
+    },
 
     LEFT_PANELS_MIN_WIDTH: 122,
     PANEL_BACKGROUND_COLOR: PANEL_BACKGROUND_COLOR,
