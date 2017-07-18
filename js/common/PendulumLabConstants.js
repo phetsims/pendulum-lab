@@ -68,15 +68,18 @@ define( function( require ) {
     PANEL_MARGIN: PANEL_MARGIN,
 
     // sliders
-    TRACK_SIZE: new Dimension2( 116, 0.5 ),
+    PENDULUM_TRACK_SIZE: new Dimension2( 116, 0.5 ),
+    GLOBAL_TRACK_SIZE: new Dimension2( 90, 0.5 ),
     THUMB_SIZE: new Dimension2( 11, 20 ),
     THUMB_TOUCH_AREA_X_DILATION: 5,
     THUMB_TOUCH_AREA_Y_DILATION: 4,
     SLIDER_PRECISION: 1,
     TWEAKERS_PRECISION: 2,
 
+    // Spacing between checkboxes, radio buttons, or other items of that nature
     CHECK_RADIO_SPACING: 7,
 
+    // Alignment groups for the left and right panels/boxes
     LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
     RIGHT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
 

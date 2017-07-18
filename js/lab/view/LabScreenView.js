@@ -41,7 +41,7 @@ define( function( require ) {
     this.periodTimerLayer.addChild( periodTimerNode );
 
     // layout the nodes
-    periodTimerNode.right = this.slidersPanelNode.left - 10;
+    periodTimerNode.right = this.rightPanelsContainer.left - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
     this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING; // move energyGraphNode to the bottom
 

@@ -67,10 +67,10 @@ define( function( require ) {
     var sliderValueRange = new RangeWithValue( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
 
     // the slider itself
-    var hSlider = new HSlider( sliderValueProperty, sliderValueRange, {
+    var slider = new HSlider( sliderValueProperty, sliderValueRange, {
       minorTickLength: 5,
       majorTickLength: 10,
-      trackSize: PendulumLabConstants.TRACK_SIZE,
+      trackSize: PendulumLabConstants.GLOBAL_TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE,
       thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
       thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
@@ -83,19 +83,18 @@ define( function( require ) {
 
     // describes the panel box containing the friction slider
     Node.call( this, _.extend( {
-      spacing: 6,
-      children: [ hSlider ]
+      children: [ slider ]
     }, options ) );
 
     // add ticks, we want two major ticks
-    hSlider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
-    hSlider.addMajorTick( sliderValueRange.min / 2 + sliderValueRange.max / 2 );
-    hSlider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( sliderValueRange.min / 2 + sliderValueRange.max / 2 );
+    slider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
 
     // add the minor ticks
     var tickStep = ( sliderValueRange.max - sliderValueRange.min ) / TICK_NUMBER;
     for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
-      hSlider.addMinorTick( i );
+      slider.addMinorTick( i );
     }
   }
 

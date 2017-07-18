@@ -74,7 +74,7 @@ define( function( require ) {
     // create slider for gravity property
     var hSlider = new HSlider( gravityProperty, gravityRange, {
       majorTickLength: 10,
-      trackSize: PendulumLabConstants.TRACK_SIZE,
+      trackSize: PendulumLabConstants.GLOBAL_TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE,
       thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
       thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
@@ -130,7 +130,7 @@ define( function( require ) {
       }, { scale: 0.5 } );
 
       // width of the background box
-      var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
+      var labelBackgroundWidth = PendulumLabConstants.GLOBAL_TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
       // create value label
       var valueLabel = new RichText( StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
@@ -152,7 +152,7 @@ define( function( require ) {
           new Node( {
             pickable: false,
             children: [
-              new Rectangle( 0, 0, PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
+              new Rectangle( 0, 0, PendulumLabConstants.GLOBAL_TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING, arrowButtonMinus.height, 3, 3, {
                 centerY: -1,
                 centerX: 0,
                 fill: '#FFF',

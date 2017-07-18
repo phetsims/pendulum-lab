@@ -42,7 +42,7 @@ define( function( require ) {
    * @param {string} color - Base color for thumb and label text in rgb format.
    * @param {Object} [options]
    */
-  function PendulumOptionSliderNode( trackProperty, trackRange, valuePatternString, color, options ) {
+  function PendulumPropertySlider( trackProperty, trackRange, valuePatternString, color, options ) {
     // create minus button
     var arrowButtonMinus = new ArrowButton( 'left', function() {
       trackProperty.value = Util.toFixedNumber( Math.max( trackRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
@@ -67,7 +67,7 @@ define( function( require ) {
     var sliderProperty = new Property( trackProperty.value );
 
     // sets width for white box containing pendulum length and width
-    var labelBackgroundWidth = PendulumLabConstants.TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
+    var labelBackgroundWidth = PendulumLabConstants.PENDULUM_TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
     // create value label
     var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
@@ -104,7 +104,7 @@ define( function( require ) {
 
         // slider for property
         new HSlider( sliderProperty, trackRange, {
-          trackSize: PendulumLabConstants.TRACK_SIZE,
+          trackSize: PendulumLabConstants.PENDULUM_TRACK_SIZE,
           thumbSize: PendulumLabConstants.THUMB_SIZE,
           thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
           thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
@@ -148,7 +148,7 @@ define( function( require ) {
     } );
   }
 
-  pendulumLab.register( 'PendulumOptionSliderNode', PendulumOptionSliderNode );
+  pendulumLab.register( 'PendulumPropertySlider', PendulumPropertySlider );
 
-  return inherit( VBox, PendulumOptionSliderNode );
+  return inherit( VBox, PendulumPropertySlider );
 } );

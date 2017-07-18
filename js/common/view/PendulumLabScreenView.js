@@ -10,13 +10,14 @@ define( function( require ) {
 
   // modules
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
+  var GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
-  var PendulumSystemControlPanels = require( 'PENDULUM_LAB/common/view/PendulumSystemControlPanels' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var Plane = require( 'SCENERY/nodes/Plane' );
   var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
@@ -26,6 +27,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
   var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @constructor
@@ -66,13 +68,18 @@ define( function( require ) {
     // create a node to keep track of combo box
     var popupLayer = new Node();
 
-    var slidersPanelNode = new PendulumSystemControlPanels( model, popupLayer, {
-      hasGravityTweakers: !!options.hasGravityTweakers,
+    var pendulumControlPanel = new PendulumControlPanel( model.pendula, model.numberOfPendulaProperty );
+    var globalControlPanel = new GlobalControlPanel( model, popupLayer, !!options.hasGravityTweakers );
+    // @protected
+    this.rightPanelsContainer = new VBox( {
+      spacing: PendulumLabConstants.PANEL_PADDING,
+      children: [
+        pendulumControlPanel,
+        globalControlPanel
+      ],
       right: this.layoutBounds.right - PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
-
-    this.slidersPanelNode = slidersPanelNode;
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
     var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty, model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, options.hasPeriodTimer, {
@@ -121,7 +128,7 @@ define( function( require ) {
     var returnButtonNode = new ReturnButtonNode( {
       listener: model.returnPendula.bind( model ),
       maxWidth: 120,
-      left: slidersPanelNode.left,
+      left: this.rightPanelsContainer.left,
       centerY: resetAllButton.centerY
     } );
 
@@ -137,7 +144,7 @@ define( function( require ) {
     } );
     var rightFloatingLayer = new Node( {
       children: [
-        slidersPanelNode,
+        this.rightPanelsContainer,
         resetAllButton,
         returnButtonNode,
         popupLayer
