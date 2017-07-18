@@ -48,7 +48,7 @@ define( function( require ) {
     function createCheckBoxContent( labelString, color ) {
       return new HBox( {
         children: [
-          new AlignBox( new Text( velocityString, textOptions ), { group: textGroup, xAlign: 'left' } ),
+          new AlignBox( new Text( labelString, textOptions ), { group: textGroup, xAlign: 'left' } ),
           new ArrowNode( 0, 0, 22, 0, {
             fill: color,
             centerY: 0,
