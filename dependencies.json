@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.0-dev.12 Tue Jul 11 2017 10:23:46 GMT-0600 (MDT)",
+  "comment": "# pendulum-lab 1.0.0-dev.13 Mon Jul 17 2017 23:22:19 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "b9d822b6162b3a708f04793a5a6584f9b5b72af0",
+    "sha": "80ecc40f74a3f7dce27a53b93bc1a66f99394bbe",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "47e102010e984ef511787a4f10ffbc12de0b416b",
+    "sha": "d4e70ec736d20cc04c072c6b84e47d651eb70977",
     "branch": "master"
   },
   "kite": {
@@ -29,7 +29,7 @@
     "branch": "master"
   },
   "pendulum-lab": {
-    "sha": "cb022cc4eed75bd68ce725f1fa892f675182cf01",
+    "sha": "cb98dfc9d2bcdc6b3f06676e12488e12466d19e9",
     "branch": "master"
   },
   "phet-core": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "4d75499aa211d3663b885483496b3e218260f4dd",
+    "sha": "edf6700db35ecb6dbbe42299f8bbaea8a42a6a89",
     "branch": "master"
   },
   "scenery-phet": {
@@ -57,11 +57,11 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "9b2671c83265ce2d83bf62c785dd89b78f5ac4cd",
+    "sha": "147aa62c4d38fc42ec756ab4be4798c4159eb396",
     "branch": "master"
   },
   "tandem": {
-    "sha": "492dc750b18fb8a672bee9793b520b2ed506800c",
+    "sha": "29cd4f635cd74ace76ffabc575ab92bef491b680",
     "branch": "master"
   }
 }
