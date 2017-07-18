@@ -36,7 +36,7 @@ define( function( require ) {
   function PendulumControlPanel( pendula, numberOfPendulaProperty ) {
 
     var content = new VBox( {
-      spacing: 10
+      spacing: 13
     } );
 
     var separator = new Line( {
@@ -50,7 +50,7 @@ define( function( require ) {
     var pendulumSliderGroups = pendula.map( function( pendulum ) {
       var pendulumNumberString = '' + ( pendulum.index + 1 );
       return new VBox( {
-        spacing: 4,
+        spacing: 7,
         align: 'left',
         children: [
           new Text( StringUtils.fillIn( lengthString, {

@@ -49,7 +49,7 @@ define( function( require ) {
     var self = this;
     var container = new Node();
 
-    VBox.call( this, _.extend( { spacing: 2 }, options ) );
+    VBox.call( this, _.extend( { spacing: 3 }, options ) );
     this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
 
     var comboBoxItems = Body.BODIES.map( function( body ) {
@@ -72,7 +72,7 @@ define( function( require ) {
     } ) );
 
     // create slider for gravity property
-    var hSlider = new HSlider( gravityProperty, gravityRange, {
+    var slider = new HSlider( gravityProperty, gravityRange, {
       majorTickLength: 10,
       trackSize: PendulumLabConstants.GLOBAL_TRACK_SIZE,
       thumbSize: PendulumLabConstants.THUMB_SIZE,
@@ -83,10 +83,10 @@ define( function( require ) {
     } );
 
     // we want two major ticks one at the beginning and the other at the end
-    hSlider.addMajorTick( gravityRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
-    hSlider.addMajorTick( gravityRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( gravityRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( gravityRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
     container.addChild( this.gravityAdjustmentNode );
-    this.gravityAdjustmentNode.addChild( hSlider );
+    this.gravityAdjustmentNode.addChild( slider );
 
     // create question text node instead of slider for planet X
     this.questionNodeBackground = Rectangle.bounds( this.gravityAdjustmentNode.bounds );
