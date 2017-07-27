@@ -22,7 +22,8 @@ define( function( require ) {
    */
   function LabModel( options ) {
     options = _.extend( {
-      periodTraceRepeatable: false
+      periodTraceRepeatable: false,
+      energyBoxExpanded: false
     }, options );
 
     EnergyModel.call( this, options );

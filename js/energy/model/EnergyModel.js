@@ -22,13 +22,14 @@ define( function( require ) {
    */
   function EnergyModel( options ) {
     options = _.extend( {
-      rulerInitiallyVisible: false // Hide the ruler by default on the energy screens
+      rulerInitiallyVisible: false, // Hide the ruler by default on the energy screens
+      energyBoxExpanded: true
     }, options );
 
     PendulumLabModel.call( this, options );
 
     // add energy mode property
-    this.isEnergyBoxExpandedProperty = new BooleanProperty( false );
+    this.isEnergyBoxExpandedProperty = new BooleanProperty( options.energyBoxExpanded );
 
     // @public {Property.<Pendulum>} - The pendulum whose energy will be displayed in the plot.
     this.activeEnergyPendulumProperty = new Property( this.pendula[ 0 ] );
