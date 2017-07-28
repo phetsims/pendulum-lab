@@ -32,24 +32,22 @@ define( function( require ) {
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
-
-    // create period timer node
-    var periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
-
-    // add the various nodes
     this.arrowsPanelLayer.addChild( arrowsPanelNode );
+
+    var periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
     this.periodTimerLayer.addChild( periodTimerNode );
 
     // layout the nodes
     periodTimerNode.right = this.rightPanelsContainer.left - 10;
     periodTimerNode.centerY = this.stopwatchNode.centerY;
-    this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING; // move energyGraphNode to the bottom
+    // move energyGraphNode to the bottom
+    this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING;
 
     model.periodTimer.setInitialLocationValue( periodTimerNode.center );
 
     // set dynamical dragBounds to keep the periodTimer within the visibleBounds
     this.visibleBoundsProperty.link( function( visibleBounds ) {
-      periodTimerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 ) );
+      periodTimerNode.movableDragHandler.dragBounds = visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 );
     } );
 
     this.resizeEnergyGraphToFit();

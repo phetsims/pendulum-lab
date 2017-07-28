@@ -45,8 +45,6 @@ define( function( require ) {
     this.stopwatchNode.left = this.rulerNode.right + 10;
     model.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
 
-    // TODO: This is a problem with AccordionBox not resizing. Once that happens, we won't need the double-call here.
-    this.resizeEnergyGraphToFit();
     this.resizeEnergyGraphToFit();
   }
 
