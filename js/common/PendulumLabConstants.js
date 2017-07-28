@@ -68,8 +68,8 @@ define( function( require ) {
     PANEL_MARGIN: PANEL_MARGIN,
 
     // sliders
-    PENDULUM_TRACK_SIZE: new Dimension2( 116, 0.5 ),
-    GLOBAL_TRACK_SIZE: new Dimension2( 90, 0.5 ),
+    PENDULUM_TRACK_SIZE: new Dimension2( 140, 0.5 ),
+    GLOBAL_TRACK_SIZE: new Dimension2( 115, 0.5 ),
     THUMB_SIZE: new Dimension2( 11, 20 ),
     THUMB_TOUCH_AREA_X_DILATION: 5,
     THUMB_TOUCH_AREA_Y_DILATION: 4,
