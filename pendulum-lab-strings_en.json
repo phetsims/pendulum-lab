@@ -112,5 +112,32 @@
   },
   "whatIsTheValueOfGravity": {
     "value": "What is the value of gravity?"
+  },
+  "energyLegend": {
+    "value": "Energy Legend"
+  },
+  "legend.kineticEnergy": {
+    "value": "Kinetic Energy"
+  },
+  "legend.kineticEnergyAbbreviation": {
+    "value": "KE"
+  },
+  "legend.potentialEnergy": {
+    "value": "Potential Energy"
+  },
+  "legend.potentialEnergyAbbreviation": {
+    "value": "PE"
+  },
+  "legend.thermalEnergy": {
+    "value": "Thermal Energy"
+  },
+  "legend.thermalEnergyAbbreviation": {
+    "value": "E<sub>therm</sub>"
+  },
+  "legend.totalEnergy": {
+    "value": "Total Energy"
+  },
+  "legend.totalEnergyAbbreviation": {
+    "value": "E<sub>total</sub>"
   }
 }

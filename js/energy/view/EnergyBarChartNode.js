@@ -23,23 +23,15 @@ define( function( require ) {
   var RichText = require( 'SCENERY_PHET/RichText' );
 
   // strings
-  var kineticString = require( 'string!PENDULUM_LAB/kinetic' );
-  var potentialString = require( 'string!PENDULUM_LAB/potential' );
-  var thermalString = require( 'string!PENDULUM_LAB/thermal' );
-  var totalString = require( 'string!PENDULUM_LAB/total' );
+  var legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
+  var legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
+  var legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
+  var legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
 
   // constants
   var BAR_WIDTH = 8;
   var BAR_OFFSET = 4;
-
-  var COLORS = {
-    KINETIC: 'rgb( 31, 202, 46 )',
-    POTENTIAL: 'rgb( 55, 132, 213 )',
-    THERMAL: 'rgb( 253, 87, 31 )',
-    TOTAL: 'rgb( 0, 0, 0 )'
-  };
   var SPACING = 4;
-
   var GRAPH_WIDTH = 122;
 
   /**
@@ -79,10 +71,10 @@ define( function( require ) {
       top: SPACING,
       maxWidth: 70
     };
-    var kineticLabel = new RichText( kineticString, _.extend( { fill: COLORS.KINETIC, centerX: kineticCenterX }, barLabelOptions ) );
-    var potentialLabel = new RichText( potentialString, _.extend( { fill: COLORS.POTENTIAL, centerX: potentialCenterX }, barLabelOptions ) );
-    var thermalLabel = new RichText( thermalString, _.extend( { fill: COLORS.THERMAL, centerX: thermalCenterX }, barLabelOptions ) );
-    var totalLabel = new RichText( totalString, _.extend( { fill: COLORS.TOTAL, centerX: totalCenterX }, barLabelOptions ) );
+    var kineticLabel = new RichText( legendKineticEnergyAbbreviationString, _.extend( { fill: PendulumLabConstants.KINETIC_ENERGY_COLOR, centerX: kineticCenterX }, barLabelOptions ) );
+    var potentialLabel = new RichText( legendPotentialEnergyAbbreviationString, _.extend( { fill: PendulumLabConstants.POTENTIAL_ENERGY_COLOR, centerX: potentialCenterX }, barLabelOptions ) );
+    var thermalLabel = new RichText( legendThermalEnergyAbbreviationString, _.extend( { fill: PendulumLabConstants.THERMAL_ENERGY_COLOR, centerX: thermalCenterX }, barLabelOptions ) );
+    var totalLabel = new RichText( legendTotalEnergyAbbreviationString, _.extend( { fill: PendulumLabConstants.TOTAL_ENERGY_COLOR, centerX: totalCenterX }, barLabelOptions ) );
 
     // create 'x' and 'y' axis
     var axisX = new Line( 0, 0, GRAPH_WIDTH, 0, { stroke: 'black' } );
@@ -97,29 +89,29 @@ define( function( require ) {
 
     // @private {Rectangle} - Individual energy bars
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLORS.KINETIC,
+      fill: PendulumLabConstants.KINETIC_ENERGY_COLOR,
       centerX: kineticCenterX
     } );
     this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLORS.POTENTIAL,
+      fill: PendulumLabConstants.POTENTIAL_ENERGY_COLOR,
       centerX: potentialCenterX
     } );
     this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLORS.THERMAL,
+      fill: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       centerX: thermalCenterX
     } );
 
     // @private {Rectangle} - For the combined total bar
     this.totalKineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLORS.KINETIC,
+      fill: PendulumLabConstants.KINETIC_ENERGY_COLOR,
       centerX: totalCenterX
     } );
     this.totalPotentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLORS.POTENTIAL,
+      fill: PendulumLabConstants.POTENTIAL_ENERGY_COLOR,
       centerX: totalCenterX
     } );
     this.totalThermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
-      fill: COLORS.THERMAL,
+      fill: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       centerX: totalCenterX
     } );
 

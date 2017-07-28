@@ -13,13 +13,18 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
+  var EnergyBarChartNode = require( 'PENDULUM_LAB/energy/view/EnergyBarChartNode' );
+  var EnergyLegendDialog = require( 'PENDULUM_LAB/energy/view/EnergyLegendDialog' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var EnergyBarChartNode = require( 'PENDULUM_LAB/energy/view/EnergyBarChartNode' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -126,8 +131,36 @@ define( function( require ) {
       }
     } );
 
+    var panel = new Panel( content, {
+      cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS
+    } );
+
     var zoomOutButton = createZoomButton( false );
     var zoomInButton = createZoomButton( true );
+
+    // Because zoom buttons don't support getting internal size, and other buttons don't resize, we need to do a
+    // hacky workaround to get their content to be the same size.
+    var chromeBounds = new RectangularPushButton( {
+      content: new Node( { localBounds: new Bounds2( 0, 0, 0, 0 ) } )
+    } ).bounds;
+    var icon = new FontAwesomeNode( 'info_circle', {
+      maxWidth: zoomInButton.width - chromeBounds.width,
+      maxHeight: zoomInButton.height - chromeBounds.height
+    } );
+
+    var energyDialog; // lazily created
+    var infoButton = new RectangularPushButton( {
+      content: icon,
+      baseColor: zoomOutButton.baseColor,
+      left: panel.left,
+      listener: function() {
+        // Lazy creation. TODO: Can we do this without having to be lazy?
+        if ( !energyDialog ) {
+          energyDialog = new EnergyLegendDialog();
+        }
+        energyDialog.show();
+      }
+    } );
 
     var boxContent = new VBox( {
       spacing: 5,
@@ -139,16 +172,20 @@ define( function( require ) {
             radioButtonTwo
           ]
         } ),
-        new Panel( content, {
-          cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS
-        } ),
-        new HBox( {
-          spacing: 20,
+        panel,
+        new Node( {
           children: [
-            zoomOutButton,
-            zoomInButton
+            infoButton,
+            new HBox( {
+              spacing: 10,
+              children: [
+                zoomOutButton,
+                zoomInButton
+              ],
+              right: panel.right
+            } )
           ]
-        } )
+        } ),
       ]
     } );
 

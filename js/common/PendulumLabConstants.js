@@ -28,6 +28,11 @@ define( function( require ) {
     ACCELERATION_ARROW_COLOR: 'rgb( 255, 253, 56 )',
     VELOCITY_ARROW_COLOR: 'rgb( 41, 253, 46 )',
 
+    KINETIC_ENERGY_COLOR: 'rgb( 31, 202, 46 )',
+    POTENTIAL_ENERGY_COLOR: 'rgb( 55, 132, 213 )',
+    THERMAL_ENERGY_COLOR: 'rgb( 253, 87, 31 )',
+    TOTAL_ENERGY_COLOR: 'rgb( 0, 0, 0 )',
+
     ICON_PENDULUM_MODE_SIZE: 35,
 
     // TODO: adjust to fit
@@ -45,6 +50,9 @@ define( function( require ) {
     RETURN_BUTTON_FONT: new PhetFont( 14 ),
     ENERGY_HEADER_FONT: new PhetFont( { size: 11, weight: 'bold' } ),
     ENERGY_BAR_FONT: new PhetFont( { size: 11, weight: 'bold' } ),
+    DIALOG_TITLE_FONT: new PhetFont( 22 ),
+    LEGEND_ABBREVIATION_FONT: new PhetFont( { size: 16, weight: 'bold' } ),
+    LEGEND_DESCRIPTION_FONT: new PhetFont( 16 ),
 
     PANEL_PADDING: 10,
 
