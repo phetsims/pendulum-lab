@@ -41,7 +41,7 @@ define( function( require ) {
     }
 
     var content = new VBox( {
-      spacing: 20,
+      spacing: 10,
       children: [
         new VBox( {
           align: 'left',
