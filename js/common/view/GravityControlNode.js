@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
@@ -123,6 +124,7 @@ define( function( require ) {
      * @param {Property} gravityProperty - the gravity value
      * @param {Range} gravityRange - the range gravity can change
      */
+    //TODO: Presumably this can be a constructor parameter?
     addTweakers: function( gravityProperty, gravityRange ) {
       // create minus button
       var arrowButtonMinus = new ArrowButton( 'left', function() {
@@ -146,7 +148,7 @@ define( function( require ) {
         gravityProperty.value = Util.toFixedNumber( Math.min( gravityRange.max, gravityProperty.value + TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
       }, { scale: 0.5 } );
 
-      this.gravityAdjustmentNode.insertChild( 0, new HBox( {
+      var hbox = new HBox( {
         spacing: VALUE_LABEL_SPACING, children: [
           arrowButtonMinus,
           new Node( {
@@ -164,6 +166,10 @@ define( function( require ) {
           } ),
           arrowButtonPlus
         ]
+      } );
+
+      this.gravityAdjustmentNode.insertChild( 0, new AlignBox( hbox, {
+        yMargin: 5
       } ) );
 
       // update the gravity text when the property changes
