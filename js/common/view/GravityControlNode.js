@@ -30,7 +30,7 @@ define( function( require ) {
   // strings
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
   var noneString = require( 'string!PENDULUM_LAB/none' );
-  var pattern0GravityValueGravityUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0gravityValue.gravityUnitsMetric' );
+  var gravitationalAccelerationPatternString = require( 'string!PENDULUM_LAB/gravitationalAccelerationPattern' );
   var whatIsTheValueOfGravityString = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   // constants
@@ -135,13 +135,15 @@ define( function( require ) {
       var labelBackgroundWidth = PendulumLabConstants.GLOBAL_TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
       // create value label
-      var valueLabel = new RichText( StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
-          centerX: 0,
-          centerY: -1,
-          font: PendulumLabConstants.READOUT_FONT,
-          maxWidth: labelBackgroundWidth - 6 // the label has to be smaller than the box
-        } )
-      ;
+      var labelString = StringUtils.fillIn( gravitationalAccelerationPatternString, {
+        gravity: Util.toFixed( gravityProperty.value, PendulumLabConstants.TWEAKERS_PRECISION )
+      } );
+      var valueLabel = new RichText( labelString, {
+        centerX: 0,
+        centerY: -1,
+        font: PendulumLabConstants.READOUT_FONT,
+        maxWidth: labelBackgroundWidth - 6 // the label has to be smaller than the box
+      } );
 
       // create plus button
       var arrowButtonPlus = new ArrowButton( 'right', function() {
@@ -186,7 +188,7 @@ define( function( require ) {
           valuePrecision = 0;
         }
 
-        valueLabel.text = StringUtils.format( pattern0GravityValueGravityUnitsMetricString, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
+        valueLabel.text = StringUtils.format( gravitationalAccelerationPatternString, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
         arrowButtonMinus.enabled = ( value > gravityRange.min );
         arrowButtonPlus.enabled = ( value < gravityRange.max );
 

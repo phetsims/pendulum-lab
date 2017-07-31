@@ -20,7 +20,6 @@ define( function( require ) {
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -38,11 +37,11 @@ define( function( require ) {
    *
    * @param {Property.<number>} trackProperty - Property to update by slider.
    * @param {Range} trackRange - Range of track property.
-   * @param {string} valuePatternString - String pattern for representation current property value in label.
+   * @param {function} valueToString - function( {string} value ) : {string}
    * @param {string} color - Base color for thumb and label text in rgb format.
    * @param {Object} [options]
    */
-  function PendulumPropertySlider( trackProperty, trackRange, valuePatternString, color, options ) {
+  function PendulumPropertySlider( trackProperty, trackRange, valueToString, color, options ) {
     // create minus button
     var arrowButtonMinus = new ArrowButton( 'left', function() {
       trackProperty.value = Util.toFixedNumber( Math.max( trackRange.min, trackProperty.value - TWEAKERS_STEP ), PendulumLabConstants.TWEAKERS_PRECISION );
@@ -70,7 +69,7 @@ define( function( require ) {
     var labelBackgroundWidth = PendulumLabConstants.PENDULUM_TRACK_SIZE.width - 2 * arrowButtonMinus.width - 2 * VALUE_LABEL_SPACING;
 
     // create value label
-    var valueLabel = new Text( StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
+    var valueLabel = new Text( valueToString( Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
       centerX: 0,
       centerY: 0,
       font: PendulumLabConstants.READOUT_FONT,
@@ -142,7 +141,7 @@ define( function( require ) {
       }
 
       // update label and tweakers
-      valueLabel.text = StringUtils.format( valuePatternString, Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) );
+      valueLabel.text = valueToString( Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) );
       arrowButtonMinus.enabled = ( sliderProperty.value > trackRange.min );
       arrowButtonPlus.enabled = ( sliderProperty.value < trackRange.max );
     } );

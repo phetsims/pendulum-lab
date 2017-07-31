@@ -24,8 +24,8 @@ define( function( require ) {
   // strings
   var lengthString = require( 'string!PENDULUM_LAB/length' );
   var massString = require( 'string!PENDULUM_LAB/mass' );
-  var pattern0LengthValueLengthUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0lengthValue.lengthUnitsMetric' );
-  var pattern0MassValueMassUnitsMetricString = require( 'string!PENDULUM_LAB/pattern.0massValue.massUnitsMetric' );
+  var metersPatternString = require( 'string!PENDULUM_LAB/metersPattern' );
+  var kilogramsPatternString = require( 'string!PENDULUM_LAB/kilogramsPattern' );
 
   /**
    * @constructor
@@ -59,7 +59,11 @@ define( function( require ) {
           new AlignBox( new PendulumPropertySlider(
             pendulum.lengthProperty,
             pendulum.lengthRange,
-            pattern0LengthValueLengthUnitsMetricString,
+            function( value ) {
+              return StringUtils.fillIn( metersPatternString, {
+                meters: value
+              } );
+            },
             pendulum.color
           ), { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } ),
           new Text( StringUtils.fillIn( massString, {
@@ -68,7 +72,11 @@ define( function( require ) {
           new AlignBox( new PendulumPropertySlider(
             pendulum.massProperty,
             pendulum.massRange,
-            pattern0MassValueMassUnitsMetricString,
+            function( value ) {
+              return StringUtils.fillIn( kilogramsPatternString, {
+                kilograms: value
+              } );
+            },
             pendulum.color
           ), { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
         ]

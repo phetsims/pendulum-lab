@@ -38,14 +38,14 @@
   "normal": {
     "value": "Normal"
   },
-  "pattern.0gravityValue.gravityUnitsMetric": {
-    "value": "{0} m/s<sup>2</sup>"
+  "gravitationalAccelerationPattern": {
+    "value": "{{gravity}} m/s<sup>2</sup>"
   },
-  "pattern.0lengthValue.lengthUnitsMetric": {
-    "value": "{0} m"
+  "metersPattern": {
+    "value": "{{meters}} m"
   },
-  "pattern.0massValue.massUnitsMetric": {
-    "value": "{0} kg"
+  "kilogramsPattern": {
+    "value": "{{kilograms}} kg"
   },
   "pattern.0numberOfDegrees.degreeSymbol": {
     "value": "{0}°"
