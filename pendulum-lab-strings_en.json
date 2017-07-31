@@ -47,14 +47,14 @@
   "kilogramsPattern": {
     "value": "{{kilograms}} kg"
   },
-  "pattern.0numberOfDegrees.degreeSymbol": {
-    "value": "{0}°"
+  "degreesPattern": {
+    "value": "{{degrees}}°"
   },
-  "pattern.0timeValue.timeUnitsMetric": {
-    "value": "{0} s"
+  "secondsPattern": {
+    "value": "{{seconds}} s"
   },
-  "pattern.energyOf.0pendulumNumber": {
-    "value": "Mass {0}"
+  "pendulumMassPattern": {
+    "value": "Mass {{pendulumNumber}}"
   },
   "pendulum-lab.title": {
     "value": "Pendulum Lab"

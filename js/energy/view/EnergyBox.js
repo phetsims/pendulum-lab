@@ -32,7 +32,7 @@ define( function( require ) {
 
   // strings
   var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
-  var patternEnergyOf0PendulumNumberString = require( 'string!PENDULUM_LAB/pattern.energyOf.0pendulumNumber' );
+  var pendulumMassPatternString = require( 'string!PENDULUM_LAB/pendulumMassPattern' );
 
   // constants
   var GRAPH_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
@@ -65,7 +65,9 @@ define( function( require ) {
     } );
 
     model.activeEnergyPendulumProperty.link( function( pendulum ) {
-      headerText.text = StringUtils.format( patternEnergyOf0PendulumNumberString, '' + ( pendulum.index + 1 ) );
+      headerText.text = StringUtils.fillIn( pendulumMassPatternString, {
+        pendulumNumber: '' + ( pendulum.index + 1 )
+      } );
       headerText.fill = pendulum.color;
     } );
 

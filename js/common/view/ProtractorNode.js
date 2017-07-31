@@ -25,7 +25,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var pattern0NumberOfDegreesDegreeSymbolString = require( 'string!PENDULUM_LAB/pattern.0numberOfDegrees.degreeSymbol' );
+  var degreesPatternString = require( 'string!PENDULUM_LAB/degreesPattern' );
 
   // constants
   var LINE_LENGTH_DEFAULT = 3.6;
@@ -133,7 +133,9 @@ define( function( require ) {
           var degrees = Util.toDegrees( pendulum.angleProperty.value );
           assert && assert( degrees <= 180 && degrees >= -180, 'Out of range angle' );
 
-          degreesText.text = StringUtils.format( pattern0NumberOfDegreesDegreeSymbolString, Util.toFixed( degrees, 0 ) );
+          degreesText.text = StringUtils.fillIn( degreesPatternString, {
+            degrees: Util.toFixed( degrees, 0 )
+          } );
           if ( pendulumIndex === 0 ) {
             degreesText.right = -25;
           }
