@@ -310,8 +310,8 @@ define( function( require ) {
       // radial (centripetal acceleration)
       this.accelerationProperty.value.add( scratchVector.setPolar( this.lengthProperty.value * this.angularVelocityProperty.value * this.angularVelocityProperty.value, this.angleProperty.value + Math.PI / 2 ) );
 
-      this.velocityProperty.notifyObserversStatic();
-      this.accelerationProperty.notifyObserversStatic();
+      this.velocityProperty.notifyListenersStatic();
+      this.accelerationProperty.notifyListenersStatic();
     },
 
     /**
