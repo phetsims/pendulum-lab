@@ -32,6 +32,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var UTurnArrowShape = require( 'SCENERY_PHET/UTurnArrowShape' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var secondsPatternString = require( 'string!PENDULUM_LAB/secondsPattern' );
@@ -53,36 +54,37 @@ define( function( require ) {
     options = _.extend( {
       iconColor: '#333',
       buttonBaseColor: '#DFE0E1',
-      scale: 0.85
+      scale: 0.85,
+      cursor: 'pointer'
     }, options );
 
-    Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
+    Node.call( this, options );
 
     // creates Uturn arrow on the period timer tool
     var uArrowShape = new UTurnArrowShape( 10 );
 
-    // convenience variables for play shape
-    var playPauseHeight = uArrowShape.bounds.height;
-    var playPauseWidth = playPauseHeight;
-    var halfPlayStroke = 0.05 * playPauseWidth;
-    var playOffset = 0.15 * playPauseWidth;
-
     // creates triangle shape on play button by creating three lines at x,y coordinates.
-    var playShape = new Shape().moveTo( playPauseWidth - halfPlayStroke * 0.5 - playOffset, 0 )
-      .lineTo( halfPlayStroke * 1.5 + playOffset, playPauseHeight / 2 - halfPlayStroke - playOffset )
-      .lineTo( halfPlayStroke * 1.5 + playOffset, -playPauseHeight / 2 + halfPlayStroke + playOffset )
+    var playPauseSize = uArrowShape.bounds.height;
+    var halfPlayStroke = 0.05 * playPauseSize;
+    var playOffset = 0.15 * playPauseSize;
+    var playShape = new Shape().moveTo( playPauseSize - halfPlayStroke * 0.5 - playOffset, 0 )
+      .lineTo( halfPlayStroke * 1.5 + playOffset, playPauseSize / 2 - halfPlayStroke - playOffset )
+      .lineTo( halfPlayStroke * 1.5 + playOffset, -playPauseSize / 2 + halfPlayStroke + playOffset )
       .close().getOffsetShape( -playOffset );
 
     // creates playPauseButton
     var playPauseButton = new BooleanRectangularToggleButton(
-      new Path( uArrowShape, { fill: options.iconColor, centerX: 0, centerY: 0, pickable: false } ),
+      new Path( uArrowShape, {
+        fill: options.iconColor,
+        center: Vector2.ZERO,
+        pickable: false
+      } ),
       new Path( playShape, {
         pickable: false,
         stroke: options.iconColor,
         fill: '#eef',
         lineWidth: halfPlayStroke * 2,
-        centerX: 0,
-        centerY: 0
+        center: Vector2.ZERO
       } ), periodTimer.isRunningProperty, {
         baseColor: options.buttonBaseColor,
         minWidth: 40
@@ -109,6 +111,8 @@ define( function( require ) {
           } )
         ]
       } );
+
+      // Don't pad next to the AB switch, but only away from it
       var touchArea = icon.localBounds.dilated( 5 );
       if ( padLeft ) {
         touchArea.maxX = icon.localBounds.maxX;
@@ -133,10 +137,22 @@ define( function( require ) {
     } );
 
     // Switch,Play button, and pendulum icon buttons at the bottom of the period timer tool.
-    var periodTimerPendulaSelector = new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } );
+    var periodTimerPendulaSelector = new HBox( {
+      spacing: 10,
+      children: [ graphUnitsSwitch, playPauseButton ]
+    } );
 
     // Creates time text inside period timer tool.
-    var readoutText = new Text( getTextTime( 0 ), { font: PendulumLabConstants.PERIOD_TIMER_READOUT_FONT, maxWidth: periodTimerPendulaSelector.width * 0.80 } );
+    var readoutText = new Text( '', {
+      font: PendulumLabConstants.PERIOD_TIMER_READOUT_FONT,
+      maxWidth: periodTimerPendulaSelector.width * 0.80
+    } );
+    // present for the lifetime of the sim
+    periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
+      readoutText.text =  StringUtils.fillIn( secondsPatternString, {
+        seconds: Util.toFixed( value, 4 )
+      } );
+    } );
 
     // Creates white background behind the time readout text in period timer tool.
     var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
@@ -149,8 +165,16 @@ define( function( require ) {
       spacing: 5,
       align: 'center',
       children: [
-        new Text( periodString, { font: PendulumLabConstants.PERIOD_TIMER_TITLE_FONT, pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
-        new Node( { children: [ textBackground, readoutText ], pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
+        new Text( periodString, {
+          font: PendulumLabConstants.PERIOD_TIMER_TITLE_FONT,
+          pickable: false,
+          maxWidth: periodTimerPendulaSelector.width
+        } ),
+        new Node( {
+          children: [ textBackground, readoutText ],
+          pickable: false,
+          maxWidth: periodTimerPendulaSelector.width
+        } ),
         periodTimerPendulaSelector
       ]
     } );
@@ -163,11 +187,6 @@ define( function( require ) {
 
     // adds period timer contents on top of yellow background.
     this.addChild( vBox );
-
-    // present for the lifetime of the sim
-    periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
-      readoutText.text = getTextTime( value );
-    } );
 
     // switch to second pendulum when it visible only
     // present for the lifetime of the sim
@@ -186,12 +205,12 @@ define( function( require ) {
     // add drag and drop events
     this.addInputListener( this.movableDragHandler );
 
+    // prevent dragging the PeriodTimer from the playPause Button and graphUnitSwitch
     var doNotStartDragListener = {
       down: function( event ) {
         event.handle();
       }
     };
-    // prevent dragging the PeriodTimer from the playPause Button and graphUnitSwitch
     playPauseButton.addInputListener( doNotStartDragListener );
     graphUnitsSwitch.addInputListener( doNotStartDragListener );
 
@@ -208,17 +227,6 @@ define( function( require ) {
   }
 
   pendulumLab.register( 'PeriodTimerNode', PeriodTimerNode );
-
-  /**
-   * converts the value of time to a string, appending to it the abbreviation for seconds
-   * @param {number} value
-   * @returns {string}
-   */
-  var getTextTime = function( value ) {
-    return StringUtils.fillIn( secondsPatternString, {
-      seconds: Util.toFixed( value, 4 )
-    } );
-  };
 
   return inherit( Node, PeriodTimerNode );
 } );
