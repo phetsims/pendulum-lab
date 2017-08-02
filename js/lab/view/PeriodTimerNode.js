@@ -39,14 +39,6 @@ define( function( require ) {
 
   var periodTimerBackgroundImage = require( 'mipmap!PENDULUM_LAB/period-timer-background.png' );
 
-  // constants
-  var BUTTON_WIDTH = 40;    // play button width on period timer tool
-  var PANEL_PAD = 8;
-  var RECT_SIZE = new Dimension2( 17, 20 );  // pendulum icon dimensions
-  var TOUCH_PADDING_HORIZONTAL = 5;
-  var TOUCH_PADDING_TOP = 5;
-  var TOUCH_PADDING_BOTTOM = 7;
-
   /**
    * @constructor
    *
@@ -63,9 +55,6 @@ define( function( require ) {
       buttonBaseColor: '#DFE0E1',
       scale: 0.85
     }, options );
-
-    var background = new Image( periodTimerBackgroundImage );
-
 
     Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
 
@@ -96,24 +85,19 @@ define( function( require ) {
         centerY: 0
       } ), periodTimer.isRunningProperty, {
         baseColor: options.buttonBaseColor,
-        minWidth: BUTTON_WIDTH
+        minWidth: 40
       } );
+    playPauseButton.touchArea = playPauseButton.localBounds.dilated( 5 );
 
-    // increase touch area of playPauseButton
-    var buttonBounds = playPauseButton.localBounds;
-    playPauseButton.touchArea = new Bounds2( buttonBounds.minX - TOUCH_PADDING_HORIZONTAL,
-      buttonBounds.minY - TOUCH_PADDING_TOP,
-      buttonBounds.maxX + TOUCH_PADDING_HORIZONTAL,
-      buttonBounds.maxY + TOUCH_PADDING_BOTTOM );
-
-    function createPendulumIcon( color, label ) {
+    function createPendulumIcon( color, label, padLeft ) {
       var highlightColor = Color.toColor( color ).colorUtilsBrighter( 0.4 );
-      return new Node( {
+      var rectBounds = new Bounds2( 0, 0, 17, 20 );
+      var icon = new Node( {
         children: [
-          new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
+          Rectangle.bounds( rectBounds, {
             stroke: 'black',
             lineWidth: 0.5,
-            fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, color )
+            fill: new LinearGradient( 0, 0, rectBounds.width, 0 ).addColorStop( 0, color )
                                                                 .addColorStop( 0.6, color )
                                                                 .addColorStop( 0.8, highlightColor )
                                                                 .addColorStop( 1, color )
@@ -121,15 +105,23 @@ define( function( require ) {
           new Text( label, {
             fill: 'white',
             font: new PhetFont( 14 ),
-            centerX: RECT_SIZE.width / 2,
-            centerY: RECT_SIZE.height / 2
+            center: rectBounds.center
           } )
         ]
       } );
+      var touchArea = icon.localBounds.dilated( 5 );
+      if ( padLeft ) {
+        touchArea.maxX = icon.localBounds.maxX;
+      }
+      else {
+        touchArea.minX = icon.localBounds.minX;
+      }
+      icon.touchArea = touchArea;
+      return icon;
     }
 
-    var firstPendulumIcon = createPendulumIcon( PendulumLabConstants.FIRST_PENDULUM_COLOR, '1' );
-    var secondPendulumIcon = createPendulumIcon( PendulumLabConstants.SECOND_PENDULUM_COLOR, '2' );
+    var firstPendulumIcon = createPendulumIcon( PendulumLabConstants.FIRST_PENDULUM_COLOR, '1', true );
+    var secondPendulumIcon = createPendulumIcon( PendulumLabConstants.SECOND_PENDULUM_COLOR, '2', false );
 
     // creates switch icon for choosing the first or second pendulum
     var graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
@@ -139,18 +131,6 @@ define( function( require ) {
       thumbTouchAreaYDilation: 3.5,
       setEnabled: null // Do not highlight the selected mass more than the other
     } );
-
-    // indicates touch areas for pendulum icons
-    var firstBounds = firstPendulumIcon.localBounds;
-    var secondBounds = secondPendulumIcon.localBounds;
-    firstPendulumIcon.touchArea = new Bounds2( firstBounds.minX - TOUCH_PADDING_HORIZONTAL,
-      firstBounds.minY - TOUCH_PADDING_TOP,
-      firstBounds.maxX,
-      firstBounds.maxY + TOUCH_PADDING_BOTTOM );
-    secondPendulumIcon.touchArea = new Bounds2( secondBounds.minX,
-      secondBounds.minY - TOUCH_PADDING_TOP,
-      secondBounds.maxX + TOUCH_PADDING_HORIZONTAL,
-      secondBounds.maxY + TOUCH_PADDING_BOTTOM );
 
     // Switch,Play button, and pendulum icon buttons at the bottom of the period timer tool.
     var periodTimerPendulaSelector = new HBox( { spacing: 10, children: [ graphUnitsSwitch, playPauseButton ] } );
@@ -168,9 +148,6 @@ define( function( require ) {
     var vBox = new VBox( {
       spacing: 5,
       align: 'center',
-      left: PANEL_PAD,
-      top: PANEL_PAD,
-
       children: [
         new Text( periodString, { font: PendulumLabConstants.PERIOD_TIMER_TITLE_FONT, pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
         new Node( { children: [ textBackground, readoutText ], pickable: false, maxWidth: periodTimerPendulaSelector.width } ),
@@ -178,9 +155,11 @@ define( function( require ) {
       ]
     } );
 
-    background.scale( 0.6 );
-    background.center = vBox.center;
-    this.addChild( background );
+    // background image
+    this.addChild( new Image( periodTimerBackgroundImage, {
+      scale: 0.6,
+      center: vBox.center
+    } ) );
 
     // adds period timer contents on top of yellow background.
     this.addChild( vBox );
