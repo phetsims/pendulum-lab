@@ -16,7 +16,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Shape = require( 'KITE/Shape' );
-  var Timer = require( 'PHET_CORE/Timer' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -25,129 +24,115 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {Array.<Pendulum>} pendula - Array of pendulum models.
+   * @param {Pendulum} pendulum
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options] for protractor node
+   * @param {Object} [options]
    */
-  function PeriodTraceNode( pendula, modelViewTransform, options ) {
+  function PeriodTraceNode( pendulum, modelViewTransform, options ) {
     var self = this;
+
     Node.call( this, _.extend( {
       pickable: false,
       rotation: Math.PI / 2,
-      preventFit: true
+      preventFit: true,
+      translation: modelViewTransform.modelToViewPosition( Vector2.ZERO )
     }, options ) );
 
-    var viewOriginPosition = modelViewTransform.modelToViewPosition( new Vector2( 0, 0 ) );
-    this.translation = viewOriginPosition;
+    var isCompleted = false; // flag to control completing of trace view
 
-    // TODO: don't require this
-    this.stepFunctions = [];
+    var baseColor = new Color( pendulum.color );
 
-    pendula.forEach( function( pendulum ) {
-      var intervalId = null; // interval id for fading timer
-      var isCompleted = false; // flag to control completing of trace view
+    // @private {Pendulum}
+    this.pendulum = pendulum;
 
-      var baseColor = new Color( pendulum.color );
-      var currentColor = baseColor.copy();
-      var opacity = 1;
+    // @private {Color}
+    this.traceColor = baseColor.copy();
 
-      // TODO: better
-      var fadeOutSpeed = null;
+    // @private {number} - The opacity of the trace (not using Node opacity for performance reasons)
+    this.colorAlpha = 1;
 
-      // create trace path path
-      var pathNode = new Path( null, { stroke: currentColor, lineWidth: 2 } );
-      self.addChild( pathNode );
+    // @private {number|null} - If a number, the speed at which things fade out.
+    this.fadeOutSpeed = null;
 
-      // reset the path
-      var resetPath = function() {
-        pathNode.setShape( null );
-        isCompleted = false;
-        if ( intervalId ) {
-          Timer.clearInterval( intervalId );
-          intervalId = null;
+    // create trace path path
+    var pathNode = new Path( null, {
+      stroke: this.traceColor,
+      lineWidth: 2
+    } );
+    self.addChild( pathNode );
+
+    // reset the path
+    var resetPath = function() {
+      pathNode.setShape( null );
+      isCompleted = false;
+      self.colorAlpha = 1;
+      self.traceColor.set( baseColor );
+      self.fadeOutSpeed = null;
+    };
+
+    // draw the path based on the state of the pendulum
+    var updateShape = function() {
+      var periodTrace = pendulum.periodTrace;
+      var numberOfPoints = periodTrace.numberOfPointsProperty.value;
+
+      if ( numberOfPoints > 0 ) { // 0 means we just started the trace
+        var shape = new Shape(); // create the new shape
+
+        // trace length is how far away from the pivot the trace will show up.
+        var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.lengthProperty.value * 3.2 / 4 - 0.1 / 2 );
+
+        // traceStep is how the distance between two line of the trace
+        var traceStep = DEFAULT_TRACE_STEP;
+        if ( traceStep * 4 > traceLength ) {
+          traceStep = traceLength / 4;
         }
-        opacity = 1;
-        currentColor.set( baseColor );
-        fadeOutSpeed = null;
-      };
 
-      self.stepFunctions.push( function step( dt ) {
-        if ( fadeOutSpeed ) {
-          opacity = Math.max( 0, opacity - fadeOutSpeed * dt );
-          currentColor.alpha = opacity;
+        // draw first arc
+        if ( numberOfPoints > 1 ) {
+          shape.arc( 0, 0, traceLength, 0, -periodTrace.firstAngle, !periodTrace.counterClockwise );
+          shape.lineTo( ( traceLength - traceStep ) * Math.cos( -periodTrace.firstAngle ), (traceLength - traceStep) * Math.sin( -periodTrace.firstAngle ) );
 
-          // TODO: better way of handling
-          if ( opacity === 0 ) {
-            pendulum.periodTrace.onFaded();
-            fadeOutSpeed = null;
-          }
-        }
-      } );
+          // draw second arc
+          if ( numberOfPoints > 2 ) {
+            shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -periodTrace.secondAngle, periodTrace.counterClockwise );
+            shape.lineTo( ( traceLength - 2 * traceStep ) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * traceStep) * Math.sin( -periodTrace.secondAngle ) );
 
-      // draw the path based on the state of the pendulum
-      var updateShape = function() {
-        var periodTrace = pendulum.periodTrace;
-        var numberOfPoints = periodTrace.numberOfPointsProperty.value;
-
-        if ( numberOfPoints > 0 ) { // 0 means we just started the trace
-          var shape = new Shape(); // create the new shape
-
-          // trace length is how far away from the pivot the trace will show up.
-          var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.lengthProperty.value * 3.2 / 4 - 0.1 / 2 );
-
-          // traceStep is how the distance between two line of the trace
-          var traceStep = DEFAULT_TRACE_STEP;
-          if ( traceStep * 4 > traceLength ) {
-            traceStep = traceLength / 4;
-          }
-
-          // draw first arc
-          if ( numberOfPoints > 1 ) {
-            shape.arc( 0, 0, traceLength, 0, -periodTrace.firstAngle, !periodTrace.counterClockwise );
-            shape.lineTo( ( traceLength - traceStep ) * Math.cos( -periodTrace.firstAngle ), (traceLength - traceStep) * Math.sin( -periodTrace.firstAngle ) );
-
-            // draw second arc
-            if ( numberOfPoints > 2 ) {
-              shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -periodTrace.secondAngle, periodTrace.counterClockwise );
-              shape.lineTo( ( traceLength - 2 * traceStep ) * Math.cos( -periodTrace.secondAngle ), (traceLength - 2 * traceStep) * Math.sin( -periodTrace.secondAngle ) );
-
-              // draw third arc
-              if ( numberOfPoints > 3 ) {
-                shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, 0, !periodTrace.counterClockwise );
-                isCompleted = true;
-                fadeOutSpeed = 1 / ( 3 * pendulum.getApproximatePeriod() / 2 );
-              }
-              else {
-                shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
-              }
+            // draw third arc
+            if ( numberOfPoints > 3 ) {
+              shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, 0, !periodTrace.counterClockwise );
+              isCompleted = true;
+              self.fadeOutSpeed = 1 / ( 3 * pendulum.getApproximatePeriod() / 2 );
             }
             else {
-              shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -pendulum.angleProperty.value, periodTrace.counterClockwise );
+              shape.arc( 0, 0, traceLength - 2 * traceStep, -periodTrace.secondAngle, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
             }
           }
           else {
-            shape.arc( 0, 0, traceLength, 0, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
+            shape.arc( 0, 0, traceLength - traceStep, -periodTrace.firstAngle, -pendulum.angleProperty.value, periodTrace.counterClockwise );
           }
-          pathNode.setShape( shape );
         }
-      };
-
-      // update path shape
-      pendulum.angleProperty.link( function() {
-        if ( pathNode.visible && !isCompleted ) {
-          updateShape();
+        else {
+          shape.arc( 0, 0, traceLength, 0, -pendulum.angleProperty.value, !periodTrace.counterClockwise );
         }
-      } );
+        pathNode.setShape( shape );
+      }
+    };
 
-      // update visibility of path node
-      pendulum.periodTrace.isVisibleProperty.linkAttribute( pathNode, 'visible' );
+    // update path shape
+    pendulum.angleProperty.link( function() {
+      if ( pathNode.visible && !isCompleted ) {
+        updateShape();
+      }
+    } );
 
-      // clear trace if path points were removed
-      pendulum.periodTrace.numberOfPointsProperty.lazyLink( function( numberNew, numberPrev ) {
-        if ( numberNew < numberPrev ) {
-          resetPath();
-        }
-      } );
+    // update visibility of path node
+    pendulum.periodTrace.isVisibleProperty.linkAttribute( pathNode, 'visible' );
+
+    // clear trace if path points were removed
+    pendulum.periodTrace.numberOfPointsProperty.lazyLink( function( numberNew, numberPrev ) {
+      if ( numberNew < numberPrev ) {
+        resetPath();
+      }
     } );
   }
 
@@ -161,8 +146,14 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      for ( var i = 0; i < this.stepFunctions.length; i++ ) {
-        this.stepFunctions[ i ]( dt );
+      if ( this.fadeOutSpeed ) {
+        this.colorAlpha = Math.max( 0, this.colorAlpha - this.fadeOutSpeed * dt );
+        this.traceColor.alpha = this.colorAlpha;
+
+        if ( this.colorAlpha === 0 ) {
+          this.pendulum.periodTrace.onFaded();
+          this.fadeOutSpeed = null;
+        }
       }
     }
   } );

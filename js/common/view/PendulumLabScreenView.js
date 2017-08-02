@@ -60,7 +60,8 @@ define( function( require ) {
     backgroundDragNode.addInputListener( dragListener );
 
     // @private {PeriodTraceNode}
-    this.periodTraceNode = new PeriodTraceNode( model.pendula, modelViewTransform );
+    this.firstPeriodTraceNode = new PeriodTraceNode( model.pendula[ 0 ], modelViewTransform );
+    this.secondPeriodTraceNode = new PeriodTraceNode( model.pendula[ 1 ], modelViewTransform );
 
     // create protractor node
     var protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
@@ -169,7 +170,8 @@ define( function( require ) {
     this.addChild( leftFloatingLayer );
     this.addChild( rightFloatingLayer );
     this.addChild( playbackControls );
-    this.addChild( this.periodTraceNode );
+    this.addChild( this.firstPeriodTraceNode );
+    this.addChild( this.secondPeriodTraceNode );
     this.addChild( pendulaNode );
     this.addChild( rulerNode );
     this.addChild( this.periodTimerLayer );
@@ -187,7 +189,8 @@ define( function( require ) {
      */
     step: function( dt ) {
       if ( this.model.isPlayingProperty.value ) {
-        this.periodTraceNode.step( dt );
+        this.firstPeriodTraceNode.step( dt );
+        this.secondPeriodTraceNode.step( dt );
       }
     }
   } );
