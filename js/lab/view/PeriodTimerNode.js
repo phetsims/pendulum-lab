@@ -13,8 +13,10 @@ define( function( require ) {
   var ABSwitch = require( 'SUN/ABSwitch' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
@@ -23,7 +25,6 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -36,12 +37,12 @@ define( function( require ) {
   var secondsPatternString = require( 'string!PENDULUM_LAB/secondsPattern' );
   var periodString = require( 'string!PENDULUM_LAB/period' );
 
+  var periodTimerBackgroundImage = require( 'mipmap!PENDULUM_LAB/period-timer-background.png' );
+
   // constants
-  var BACKGROUND_IN_COLOR = 'rgb( 245, 217, 73 )';
-  var BACKGROUND_OUT_COLOR = 'rgb( 64, 64, 65 )';
   var BUTTON_WIDTH = 40;    // play button width on period timer tool
   var PANEL_PAD = 8;
-  var RECT_SIZE = new Dimension2( 15, 20 );  // pendulum icon dimensions
+  var RECT_SIZE = new Dimension2( 17, 20 );  // pendulum icon dimensions
   var TOUCH_PADDING_HORIZONTAL = 5;
   var TOUCH_PADDING_TOP = 5;
   var TOUCH_PADDING_BOTTOM = 7;
@@ -62,6 +63,9 @@ define( function( require ) {
       buttonBaseColor: '#DFE0E1',
       scale: 0.85
     }, options );
+
+    var background = new Image( periodTimerBackgroundImage );
+
 
     Node.call( this, _.extend( { cursor: 'pointer' }, options ) );
 
@@ -102,23 +106,30 @@ define( function( require ) {
       buttonBounds.maxX + TOUCH_PADDING_HORIZONTAL,
       buttonBounds.maxY + TOUCH_PADDING_BOTTOM );
 
-    // creates pendulum icon for first pendulum
-    var firstPendulumIcon = new Node( {
-      children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
-        stroke: 'black',
-        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, PendulumLabConstants.FIRST_PENDULUM_COLOR ).addColorStop( 0.6, PendulumLabConstants.FIRST_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.FIRST_PENDULUM_COLOR )
-      } ),
-        new Text( '1', { fill: 'white', font: new PhetFont( 14 ), centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
-    } );
+    function createPendulumIcon( color, label ) {
+      var highlightColor = Color.toColor( color ).colorUtilsBrighter( 0.4 );
+      return new Node( {
+        children: [
+          new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
+            stroke: 'black',
+            lineWidth: 0.5,
+            fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, color )
+                                                                .addColorStop( 0.6, color )
+                                                                .addColorStop( 0.8, highlightColor )
+                                                                .addColorStop( 1, color )
+          } ),
+          new Text( label, {
+            fill: 'white',
+            font: new PhetFont( 14 ),
+            centerX: RECT_SIZE.width / 2,
+            centerY: RECT_SIZE.height / 2
+          } )
+        ]
+      } );
+    }
 
-    // creates pendulum icon for second pendulum
-    var secondPendulumIcon = new Node( {
-      children: [ new Rectangle( 0, 0, RECT_SIZE.width, RECT_SIZE.height, {
-        stroke: 'black',
-        fill: new LinearGradient( 0, 0, RECT_SIZE.width, 0 ).addColorStop( 0, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.6, PendulumLabConstants.SECOND_PENDULUM_COLOR ).addColorStop( 0.8, 'white' ).addColorStop( 1, PendulumLabConstants.SECOND_PENDULUM_COLOR )
-      } ),
-        new Text( '2', { fill: 'white', font: new PhetFont( 14 ), centerX: RECT_SIZE.width / 2, centerY: RECT_SIZE.height / 2 } ) ]
-    } );
+    var firstPendulumIcon = createPendulumIcon( PendulumLabConstants.FIRST_PENDULUM_COLOR, '1' );
+    var secondPendulumIcon = createPendulumIcon( PendulumLabConstants.SECOND_PENDULUM_COLOR, '2' );
 
     // creates switch icon for choosing the first or second pendulum
     var graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
@@ -167,37 +178,9 @@ define( function( require ) {
       ]
     } );
 
-    var backgroundDimension = vBox.bounds.dilated( PANEL_PAD );
-
-    // creates the grey border around the period timer tool.
-    this.addChild( new Rectangle( -PANEL_PAD, -PANEL_PAD, backgroundDimension.width + 2 * PANEL_PAD, backgroundDimension.height + 2 * PANEL_PAD, 20, 20, { fill: BACKGROUND_OUT_COLOR } ) );
-
-    // Creates the grey glare on the upper portion of the period timer tool.
-    this.addChild( new Node( {
-      pickable: false,
-      children: [
-        // creates top part of the glare
-        new Rectangle( 20, -PANEL_PAD, backgroundDimension.width - 30, PANEL_PAD, {
-          fill: new LinearGradient( 0, -PANEL_PAD, 0, 0 )
-            .addColorStop( 0, 'rgba(0,0,0,0)' )
-            .addColorStop( 0.5, 'rgba(255,255,255,0.5)' )
-            .addColorStop( 1, 'rgba(0,0,0,0)' )
-        } ),
-        // creates the curved part of the glare.
-        new Path( Shape.ellipse( 9.1, 2, 7, 14, Math.PI / 4 ), {
-          fill: new RadialGradient( 20, 28, 28, 20, 28, 36 )
-            .addColorStop( 0, 'rgba(0,0,0,0)' )
-            .addColorStop( 0.5, 'rgba(255,255,255,0.5)' )
-            .addColorStop( 1, 'rgba(0,0,0,0)' )
-        } )
-      ]
-    } ) );
-
-    // creates and adds the yellow background of the period timer.
-    this.addChild( new Rectangle( 0, 0, backgroundDimension.width, backgroundDimension.height, 20, 20, {
-      fill: BACKGROUND_IN_COLOR,
-      pickable: false
-    } ) );
+    background.scale( 0.6 );
+    background.center = vBox.center;
+    this.addChild( background );
 
     // adds period timer contents on top of yellow background.
     this.addChild( vBox );

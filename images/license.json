@@ -54,5 +54,13 @@
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Bryce Gruneich and Sam Reid"
+  },
+  "period-timer-background.png": {
+    "text": [
+      "Copyright 2017 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amy Rouinfar"
   }
 }

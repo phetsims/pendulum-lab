@@ -188,7 +188,9 @@ define( function( require ) {
           valuePrecision = 0;
         }
 
-        valueLabel.text = StringUtils.format( gravitationalAccelerationPatternString, Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION ) );
+        valueLabel.text = StringUtils.fillIn( gravitationalAccelerationPatternString, {
+          gravity: Util.toFixed( value, PendulumLabConstants.TWEAKERS_PRECISION )
+        } );
         arrowButtonMinus.enabled = ( value > gravityRange.min );
         arrowButtonPlus.enabled = ( value < gravityRange.max );
 
