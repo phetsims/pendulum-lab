@@ -153,7 +153,7 @@ define( function( require ) {
       baseColor: zoomOutButton.baseColor,
       left: panel.left,
       listener: function() {
-        // Lazy creation. TODO: Can we do this without having to be lazy?
+        // Lazy creation.
         if ( !energyDialog ) {
           energyDialog = new EnergyLegendDialog();
         }

@@ -37,9 +37,9 @@ define( function( require ) {
    * @param {Property.<number>} gravityProperty - Property with current gravity value.
    * @param {Property.<number>} frictionProperty - Property with current friction value.
    * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track check box value of period trace visibility.
-   * @param {boolean} isPeriodTraceRepeatable
+   * @param {boolean} hasPeriodTimer
    */
-  function Pendulum( index, mass, length, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, isPeriodTraceRepeatable ) {
+  function Pendulum( index, mass, length, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, hasPeriodTimer ) {
     var self = this;
 
     // @public {number}
@@ -58,7 +58,7 @@ define( function( require ) {
     this.angularVelocityProperty = new NumberProperty( 0 );
 
     // @public {boolean}
-    this.isPeriodTraceRepeatable = isPeriodTraceRepeatable;
+    this.hasPeriodTimer = hasPeriodTimer;
 
     /*---------------------------------------------------------------------------*
     * Derived variables
@@ -120,7 +120,7 @@ define( function( require ) {
     this.periodTrace = new PeriodTrace( this );
 
     // If it NOT repeatable, the PeriodTimer type will control the visibility.
-    if ( isPeriodTraceRepeatable ) {
+    if ( !hasPeriodTimer ) {
       Property.multilink( [ isPeriodTraceVisibleProperty, this.isVisibleProperty ], function( isPeriodTraceVisible, isVisible ) {
         self.periodTrace.isVisibleProperty.value = isPeriodTraceVisible && isVisible;
       } );

@@ -85,7 +85,10 @@ define( function( require ) {
     } );
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
-    var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty, model.stopwatch.isVisibleProperty, model.isPeriodTraceVisibleProperty, options.hasPeriodTimer, {
+    var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty,
+                                                model.stopwatch.isVisibleProperty,
+                                                model.isPeriodTraceVisibleProperty,
+                                                options.hasPeriodTimer, {
       maxWidth: 180,
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
@@ -95,8 +98,10 @@ define( function( require ) {
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
-    //TODO: pass in model? :P
-    var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty, model.isPlayingProperty, model.timeSpeedProperty, model.stepManual.bind( model ), {
+    var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
+                                                     model.isPlayingProperty,
+                                                     model.timeSpeedProperty,
+                                                     model.stepManual.bind( model ), {
       centerX: this.layoutBounds.centerX,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
     } );

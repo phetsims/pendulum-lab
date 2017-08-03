@@ -29,9 +29,8 @@ define( function( require ) {
     var self = this;
 
     options = _.extend( {
-      // {boolean} - Should be false if there is a PeriodTimer handling the trace's visibility.
-      //TODO: consider a name for "hasPeriodTimer/etc"?
-      periodTraceRepeatable: true,
+      // {boolean} - Should be true if there is a PeriodTimer handling the trace's visibility.
+      hasPeriodTimer: false,
 
       // {boolean}
       rulerInitiallyVisible: true
@@ -67,8 +66,8 @@ define( function( require ) {
 
     // @public {Array.<Pendulum>}
     this.pendula = [
-      new Pendulum( 0, 1, 0.7, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable ),
-      new Pendulum( 1, 0.5, 1.0, false, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.periodTraceRepeatable )
+      new Pendulum( 0, 1, 0.7, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.hasPeriodTimer ),
+      new Pendulum( 1, 0.5, 1.0, false, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.hasPeriodTimer )
     ];
 
     // @public (read-only) possible gravity range 0m/s^2 to 25m/s^2

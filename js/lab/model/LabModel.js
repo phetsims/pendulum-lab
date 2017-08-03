@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function LabModel( options ) {
     options = _.extend( {
-      periodTraceRepeatable: false,
+      hasPeriodTimer: true,
       energyBoxExpanded: false
     }, options );
 

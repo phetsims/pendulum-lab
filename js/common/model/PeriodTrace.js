@@ -111,7 +111,7 @@ define( function( require ) {
       this.isVisibleProperty.value = false;
 
       // show track continuously
-      if ( this.pendulum.isPeriodTraceRepeatable ) {
+      if ( !this.pendulum.hasPeriodTimer ) {
         this.isVisibleProperty.value = true;
       }
     },

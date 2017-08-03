@@ -85,7 +85,7 @@ define( function( require ) {
           node: new Text( slowMotionString, { font: FONT } )
         }
         ], {
-          radius: new Text( 'test', { font: FONT } ).height / 2.2, // TODO: better way?
+          radius: new Text( 'test', { font: FONT } ).height / 2.2,
           spacing: 9,
           touchAreaXDilation: 10,
           radioButtonOptions: { xSpacing: 5 },
