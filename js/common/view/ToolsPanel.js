@@ -26,11 +26,10 @@ define( function( require ) {
   var periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
 
   // constants
-  var PANEL_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
   var TEXT_OPTIONS = {
     font: PendulumLabConstants.TITLE_FONT,
     pickable: false,
-    maxWidth: PANEL_WIDTH * 0.80 // the maximum width of the text is 80% of the panel width
+    maxWidth: 100
   };
 
   /**

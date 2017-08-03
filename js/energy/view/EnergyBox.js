@@ -34,9 +34,6 @@ define( function( require ) {
   var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
   var pendulumMassPatternString = require( 'string!PENDULUM_LAB/pendulumMassPattern' );
 
-  // constants
-  var GRAPH_WIDTH = PendulumLabConstants.LEFT_PANELS_MIN_WIDTH;
-
   /**
    * @constructor
    *
@@ -51,7 +48,7 @@ define( function( require ) {
       buttonYMargin: 6,
       titleNode: new Text( energyGraphString, {
         font: PendulumLabConstants.TITLE_FONT,
-        maxWidth: GRAPH_WIDTH * 0.90
+        maxWidth: 110
       } ),
       titleAlignX: 'left',
       titleXMargin: 10,

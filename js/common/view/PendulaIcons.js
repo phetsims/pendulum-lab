@@ -21,7 +21,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // constants
-  var ICON_SIZE = PendulumLabConstants.ICON_PENDULUM_MODE_SIZE;
+  var ICON_SIZE = 35;
 
   /**
    * Creates a small node showing a single pendulum.

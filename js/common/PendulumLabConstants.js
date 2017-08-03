@@ -18,24 +18,25 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   var PANEL_CORNER_RADIUS = 5;
-  var PANEL_MARGIN = 10;
+  var PANEL_X_MARGIN = 10;
+  var PANEL_Y_MARGIN = 8;
   var PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
 
   var PendulumLabConstants = {
+    // Some other colors
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     FIRST_PENDULUM_COLOR: 'rgb( 0, 0, 255 )',
     SECOND_PENDULUM_COLOR: 'rgb( 255, 0, 0 )',
     ACCELERATION_ARROW_COLOR: 'rgb( 255, 253, 56 )',
     VELOCITY_ARROW_COLOR: 'rgb( 41, 253, 46 )',
 
+    // Energy colors
     KINETIC_ENERGY_COLOR: 'rgb( 31, 202, 46 )',
     POTENTIAL_ENERGY_COLOR: 'rgb( 55, 132, 213 )',
     THERMAL_ENERGY_COLOR: 'rgb( 253, 87, 31 )',
     TOTAL_ENERGY_COLOR: 'rgb( 0, 0, 0 )',
 
-    ICON_PENDULUM_MODE_SIZE: 35,
-
-    // TODO: adjust to fit
+    // Fonts
     TITLE_FONT: new PhetFont( 13 ),
     TITLE_FONT_BOLD: new PhetFont( { size: 13, weight: 'bold' } ),
     TICK_FONT: new PhetFont( 10 ),
@@ -54,26 +55,27 @@ define( function( require ) {
     LEGEND_ABBREVIATION_FONT: new PhetFont( { size: 16, weight: 'bold' } ),
     LEGEND_DESCRIPTION_FONT: new PhetFont( 16 ),
 
+    // Spacing between panels/boxes/sides of layout bounds
     PANEL_PADDING: 10,
 
-    // TODO: make fully compatible with spacing for accordion boxes, etc.
+    // Corner radius of our normal panels
+    PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
+
+    // Options for all top-level Panels
     PANEL_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
       fill: PANEL_BACKGROUND_COLOR,
-      xMargin: PANEL_MARGIN,
-      yMargin: 8 // TODO: clean this up
-    },
-    BOX_OPTIONS: {
-      contentXMargin: PANEL_MARGIN,
-      contentYMargin: 8, // TODO?
-      cornerRadius: PANEL_CORNER_RADIUS,
-      fill: PANEL_BACKGROUND_COLOR
+      xMargin: PANEL_X_MARGIN,
+      yMargin: PANEL_Y_MARGIN
     },
 
-    LEFT_PANELS_MIN_WIDTH: 122,
-    PANEL_BACKGROUND_COLOR: PANEL_BACKGROUND_COLOR,
-    PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
-    PANEL_MARGIN: PANEL_MARGIN,
+    // Options for AccordionBoxes
+    BOX_OPTIONS: {
+      cornerRadius: PANEL_CORNER_RADIUS,
+      fill: PANEL_BACKGROUND_COLOR,
+      contentXMargin: PANEL_X_MARGIN,
+      contentYMargin: PANEL_Y_MARGIN
+    },
 
     // sliders
     PENDULUM_TRACK_SIZE: new Dimension2( 140, 0.5 ),
