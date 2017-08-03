@@ -66,17 +66,22 @@ define( function( require ) {
       }
     } );
 
-    var clearCallback = this.clear.bind( this );
+    this.isVisibleProperty.onValue( false, this.clear.bind( this ) );
 
     // create listeners
     var pathListeners = [];
     pendula.forEach( function( pendulum, pendulumIndex ) {
       pendulum.periodTrace.isVisibleProperty.value = false;
 
-      pendulum.lengthProperty.lazyLink( clearCallback );
-      pendulum.gravityProperty.lazyLink( clearCallback );
-      pendulum.isUserControlledProperty.lazyLink( clearCallback );
-      self.isVisibleProperty.onValue( false, clearCallback );
+      function clearIfActive() {
+        if ( self.activePendulumProperty.value === pendulum ) {
+          self.clear();
+        }
+      }
+
+      pendulum.lengthProperty.lazyLink( clearIfActive );
+      pendulum.gravityProperty.lazyLink( clearIfActive );
+      pendulum.isUserControlledProperty.lazyLink( clearIfActive );
 
       pendulum.periodTrace.elapsedTimeProperty.lazyLink( function( time ) {
         if ( pendulum === self.activePendulumProperty.value && self.isRunningProperty.value ) {
