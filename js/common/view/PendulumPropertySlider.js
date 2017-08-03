@@ -23,6 +23,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var VALUE_LABEL_SPACING = 4;
@@ -70,8 +71,7 @@ define( function( require ) {
 
     // create value label
     var valueLabel = new Text( valueToString( Util.toFixed( trackProperty.value, PendulumLabConstants.TWEAKERS_PRECISION ) ), {
-      centerX: 0,
-      centerY: 0,
+      center: Vector2.ZERO,
       font: PendulumLabConstants.READOUT_FONT,
       maxWidth: labelBackgroundWidth - 6
     } );
@@ -88,11 +88,9 @@ define( function( require ) {
               pickable: false,
               children: [
                 new Rectangle( 0, 0, labelBackgroundWidth, arrowButtonMinus.height, 3, 3, {
-                  centerY: 0,
-                  centerX: 0,
+                  center: Vector2.ZERO,
                   fill: '#FFF',
-                  stroke: 'black',
-                  lineWidth: 1
+                  stroke: 'black'
                 } ),
                 valueLabel
               ]

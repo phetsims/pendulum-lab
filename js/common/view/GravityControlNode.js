@@ -160,8 +160,7 @@ define( function( require ) {
                 centerY: -1,
                 centerX: 0,
                 fill: '#FFF',
-                stroke: 'black',
-                lineWidth: 1
+                stroke: 'black'
               } ),
               valueLabel
             ]

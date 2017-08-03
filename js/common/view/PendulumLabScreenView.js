@@ -56,7 +56,9 @@ define( function( require ) {
     // create drag listener for the pendula
     var backgroundDragNode = new Plane();
     var dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
-    pendulaNode.draggableItems.forEach( function( draggableItem ) { dragListener.addDraggableItem( draggableItem ); } );
+    pendulaNode.draggableItems.forEach( function( draggableItem ) {
+      dragListener.addDraggableItem( draggableItem );
+    } );
     backgroundDragNode.addInputListener( dragListener );
 
     // @private {PeriodTraceNode}
@@ -163,19 +165,19 @@ define( function( require ) {
       stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
     } );
 
-    // render order
-    //TODO: children
-    this.addChild( backgroundDragNode );
-    this.addChild( protractorNode );
-    this.addChild( leftFloatingLayer );
-    this.addChild( rightFloatingLayer );
-    this.addChild( playbackControls );
-    this.addChild( this.firstPeriodTraceNode );
-    this.addChild( this.secondPeriodTraceNode );
-    this.addChild( pendulaNode );
-    this.addChild( rulerNode );
-    this.addChild( this.periodTimerLayer );
-    this.addChild( stopwatchNode );
+    this.children = [
+      backgroundDragNode,
+      protractorNode,
+      leftFloatingLayer,
+      rightFloatingLayer,
+      playbackControls,
+      this.firstPeriodTraceNode,
+      this.secondPeriodTraceNode,
+      pendulaNode,
+      rulerNode,
+      this.periodTimerLayer,
+      stopwatchNode
+    ];
   }
 
   pendulumLab.register( 'PendulumLabScreenView', PendulumLabScreenView );
