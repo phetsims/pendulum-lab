@@ -73,6 +73,7 @@ define( function( require ) {
 
     var pendulumControlPanel = new PendulumControlPanel( model.pendula, model.numberOfPendulaProperty );
     var globalControlPanel = new GlobalControlPanel( model, popupLayer, !!options.hasGravityTweakers );
+
     // @protected
     this.rightPanelsContainer = new VBox( {
       spacing: PendulumLabConstants.PANEL_PADDING,

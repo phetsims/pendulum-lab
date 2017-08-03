@@ -33,7 +33,6 @@ define( function( require ) {
    */
   function GlobalControlPanel( model, popupLayer, hasGravityTweakers ) {
 
-    // TODO: reduce number of parameters
     var gravitySlider = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer );
     var frictionSlider = new FrictionSliderNode( model.frictionProperty, model.frictionRange );
     if ( hasGravityTweakers ) {

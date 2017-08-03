@@ -124,7 +124,6 @@ define( function( require ) {
      * @param {Property} gravityProperty - the gravity value
      * @param {Range} gravityRange - the range gravity can change
      */
-    //TODO: Presumably this can be a constructor parameter?
     addTweakers: function( gravityProperty, gravityRange ) {
       // create minus button
       var arrowButtonMinus = new ArrowButton( 'left', function() {

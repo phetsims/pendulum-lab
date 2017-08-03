@@ -20,7 +20,6 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images
-  //TODO: reduce duplication
   var trashCanImage = require( 'image!PENDULUM_LAB/trash-can.png' );
   var trashCanGrayImage = require( 'image!PENDULUM_LAB/trash-can-disabled.png' );
 
