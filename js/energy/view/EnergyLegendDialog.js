@@ -65,7 +65,8 @@ define( function( require ) {
           children: [
             new AlignBox( new RichText( itemData.abbreviation, {
               font: PendulumLabConstants.LEGEND_ABBREVIATION_FONT,
-              fill: itemData.color
+              fill: itemData.color,
+              maxWidth: 100
             } ), {
               group: abbreviationGroup,
               xAlign: 'left'
@@ -74,7 +75,8 @@ define( function( require ) {
               font: PendulumLabConstants.LEGEND_DESCRIPTION_FONT
             } ), {
               group: descriptionGroup,
-              xAlign: 'left'
+              xAlign: 'left',
+              maxWidth: 500
             } )
           ]
         } );
@@ -84,7 +86,8 @@ define( function( require ) {
     Dialog.call( this, content, {
       modal: true,
       title: new Text( energyLegendString, {
-        font: PendulumLabConstants.DIALOG_TITLE_FONT
+        font: PendulumLabConstants.DIALOG_TITLE_FONT,
+        maxWidth: 700
       } ),
       xMargin: 30,
       yMargin: 20
