@@ -92,7 +92,7 @@ define( function( require ) {
         radius: label.height / 2.2,
         xSpacing: 3
       } );
-      button.touchArea = button.localBounds.dilatedXY( 15, 5 );
+      button.touchArea = button.localBounds.dilatedXY( 10, 5 );
       return button;
     }
 
@@ -158,7 +158,9 @@ define( function( require ) {
           energyDialog = new EnergyLegendDialog();
         }
         energyDialog.show();
-      }
+      },
+      touchAreaXDilation: 10,
+      touchAreaYDilation: 5
     } );
 
     var boxContent = new VBox( {
