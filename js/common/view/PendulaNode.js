@@ -158,6 +158,7 @@ define( function( require ) {
       // add drag events
       var angleOffset;
       var dragListener = new SimpleDragHandler( {
+        allowTouchSnag: true,
 
         // determine the position of where the pendulum is dragged.
         start: function( event ) {
