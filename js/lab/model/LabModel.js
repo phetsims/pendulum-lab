@@ -40,6 +40,17 @@ define( function( require ) {
 
   return inherit( EnergyModel, LabModel, {
     /**
+     * Returns the pendula to rest.
+     * @public
+     * @override
+     */
+    returnPendula: function() {
+      EnergyModel.prototype.returnPendula.call( this );
+
+      this.periodTimer.isRunningProperty.value = false;
+    },
+
+    /**
      * Reset function that resets the pendula, settings, and period timer settings and default location
      * @public
      */
