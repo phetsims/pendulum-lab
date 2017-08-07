@@ -23,8 +23,8 @@ define( function( require ) {
   var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ReturnButtonNode = require( 'PENDULUM_LAB/common/view/ReturnButtonNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var StopButton = require( 'PENDULUM_LAB/common/view/StopButton' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
   var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -134,7 +134,7 @@ define( function( require ) {
     this.stopwatchNode = stopwatchNode;
 
     // create return button
-    var returnButtonNode = new ReturnButtonNode( {
+    var returnButtonNode = new StopButton( {
       listener: model.returnPendula.bind( model ),
       maxWidth: 120,
       left: this.rightPanelsContainer.left,
