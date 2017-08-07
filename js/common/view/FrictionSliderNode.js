@@ -87,9 +87,17 @@ define( function( require ) {
     }, options ) );
 
     // add ticks, we want two major ticks
-    slider.addMajorTick( sliderValueRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( sliderValueRange.min, new Text( noneString, {
+      font: PendulumLabConstants.TICK_FONT,
+      pickable: false,
+      maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
+    } ) );
     slider.addMajorTick( sliderValueRange.min / 2 + sliderValueRange.max / 2 );
-    slider.addMajorTick( sliderValueRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( sliderValueRange.max, new Text( lotsString, {
+      font: PendulumLabConstants.TICK_FONT,
+      pickable: false,
+      maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
+    } ) );
 
     // add the minor ticks
     var tickStep = ( sliderValueRange.max - sliderValueRange.min ) / TICK_NUMBER;

@@ -84,8 +84,16 @@ define( function( require ) {
     } );
 
     // we want two major ticks one at the beginning and the other at the end
-    slider.addMajorTick( gravityRange.min, new Text( noneString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
-    slider.addMajorTick( gravityRange.max, new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, pickable: false } ) );
+    slider.addMajorTick( gravityRange.min, new Text( noneString, {
+      font: PendulumLabConstants.TICK_FONT,
+      pickable: false,
+      maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
+    } ) );
+    slider.addMajorTick( gravityRange.max, new Text( lotsString, {
+      font: PendulumLabConstants.TICK_FONT,
+      pickable: false,
+      maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
+    } ) );
     container.addChild( this.gravityAdjustmentNode );
     this.gravityAdjustmentNode.addChild( slider );
 

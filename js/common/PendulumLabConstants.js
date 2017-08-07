@@ -55,6 +55,9 @@ define( function( require ) {
     LEGEND_ABBREVIATION_FONT: new PhetFont( { size: 16, weight: 'bold' } ),
     LEGEND_DESCRIPTION_FONT: new PhetFont( 16 ),
 
+    TITLE_MAX_WIDTH: 140,
+    TICK_LABEL_MAX_WIDTH: 50,
+
     // Spacing between panels/boxes/sides of layout bounds
     PANEL_PADDING: 10,
 

@@ -45,7 +45,7 @@ define( function( require ) {
         new VBox( {
           align: 'left',
           children: [
-            new Text( gravityString, { font: PendulumLabConstants.TITLE_FONT_BOLD } ),
+            new Text( gravityString, { font: PendulumLabConstants.TITLE_FONT_BOLD, maxWidth: PendulumLabConstants.TITLE_MAX_WIDTH } ),
             new AlignBox( gravitySlider, { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
           ],
           spacing: 4
@@ -53,7 +53,7 @@ define( function( require ) {
         new VBox( {
           align: 'left',
           children: [
-            new Text( frictionString, { font: PendulumLabConstants.TITLE_FONT_BOLD } ),
+            new Text( frictionString, { font: PendulumLabConstants.TITLE_FONT_BOLD, maxWidth: PendulumLabConstants.TITLE_MAX_WIDTH } ),
             new AlignBox( frictionSlider, { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
           ],
           spacing: 4

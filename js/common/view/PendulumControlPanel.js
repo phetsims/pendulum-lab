@@ -55,7 +55,7 @@ define( function( require ) {
         children: [
           new Text( StringUtils.fillIn( lengthString, {
             pendulumNumber: pendulumNumberString
-          } ), { font: PendulumLabConstants.TITLE_FONT_BOLD } ),
+          } ), { font: PendulumLabConstants.TITLE_FONT_BOLD, maxWidth: PendulumLabConstants.TITLE_MAX_WIDTH } ),
           new AlignBox( new PendulumPropertySlider(
             pendulum.lengthProperty,
             pendulum.lengthRange,
@@ -68,7 +68,7 @@ define( function( require ) {
           ), { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } ),
           new Text( StringUtils.fillIn( massString, {
             pendulumNumber: pendulumNumberString
-          } ), { font: PendulumLabConstants.TITLE_FONT_BOLD } ),
+          } ), { font: PendulumLabConstants.TITLE_FONT_BOLD, maxWidth: PendulumLabConstants.TITLE_MAX_WIDTH } ),
           new AlignBox( new PendulumPropertySlider(
             pendulum.massProperty,
             pendulum.massRange,
