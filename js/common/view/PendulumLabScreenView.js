@@ -24,7 +24,6 @@ define( function( require ) {
   var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var StopButton = require( 'PENDULUM_LAB/common/view/StopButton' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
   var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -102,8 +101,9 @@ define( function( require ) {
     var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
                                                      model.isPlayingProperty,
                                                      model.timeSpeedProperty,
-                                                     model.stepManual.bind( model ), {
-      centerX: this.layoutBounds.centerX,
+                                                     model.stepManual.bind( model ),
+                                                     model.returnPendula.bind( model ), {
+      x: this.layoutBounds.centerX,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
     } );
 
@@ -133,14 +133,6 @@ define( function( require ) {
     // @protected
     this.stopwatchNode = stopwatchNode;
 
-    // create return button
-    var returnButtonNode = new StopButton( {
-      listener: model.returnPendula.bind( model ),
-      maxWidth: 120,
-      left: this.rightPanelsContainer.left,
-      centerY: resetAllButton.centerY
-    } );
-
     // @protected
     this.arrowsPanelLayer = new Node();
     this.energyGraphLayer = new Node();
@@ -155,7 +147,6 @@ define( function( require ) {
       children: [
         this.rightPanelsContainer,
         resetAllButton,
-        returnButtonNode,
         popupLayer
       ]
     } );
