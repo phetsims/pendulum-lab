@@ -13,6 +13,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var Property = require( 'AXON/Property' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
@@ -41,11 +42,8 @@ define( function( require ) {
     // @private {Array.<Pendulum>}
     this.pendula = pendula;
 
-    // stop the period timer when it is not visible.
-    this.isVisibleProperty.onValue( false, this.stop.bind( this ) );
-
-    this.isRunningProperty.link( function( isRunning ) {
-      if ( isRunning ) {
+    Property.multilink( [ this.isRunningProperty, this.isVisibleProperty ], function( isRunning, isVisible ) {
+      if ( isRunning && isVisible ) {
         // clear time when timer revert to init state
         self.elapsedTimeProperty.value = 0;
 
@@ -53,7 +51,7 @@ define( function( require ) {
         self.clear();
         self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = true;
       }
-      else {
+      else if ( isVisible ) {
         // clear path if it wasn't finished
         if ( self.activePendulumProperty.value.periodTrace.numberOfPointsProperty.value < 4 ) {
           self.clear();
@@ -64,9 +62,14 @@ define( function( require ) {
           self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
         }
       }
+      else if ( isRunning ) {
+        self.isRunningProperty.value = false;
+      }
+      else {
+        self.clear();
+        self.activePendulumProperty.value.periodTrace.isVisibleProperty.value = false;
+      }
     } );
-
-    this.isVisibleProperty.onValue( false, this.clear.bind( this ) );
 
     // create listeners
     var pathListeners = [];
