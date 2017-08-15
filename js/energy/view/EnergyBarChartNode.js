@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var ClearThermalButton = require( 'PENDULUM_LAB/energy/view/ClearThermalButton' );
+  var ClearThermalButton = require( 'SCENERY_PHET/ClearThermalButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -115,9 +115,14 @@ define( function( require ) {
       centerX: totalCenterX
     } );
 
-    var clearThermalButton = new ClearThermalButton( thermalEnergyProperty, {
+    var clearThermalButton = new ClearThermalButton( {
+      listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       centerX: thermalCenterX,
-      top: thermalLabel.bottom + 5
+      top: thermalLabel.bottom + 5,
+      scale: 0.72
+    } );
+    thermalEnergyProperty.link( function( thermalEnergy ) {
+      clearThermalButton.enabled = thermalEnergy !== 0;
     } );
 
     Node.call( this, {
