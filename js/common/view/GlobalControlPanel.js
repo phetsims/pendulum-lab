@@ -33,7 +33,9 @@ define( function( require ) {
    */
   function GlobalControlPanel( model, popupLayer, hasGravityTweakers ) {
 
-    var gravitySlider = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer );
+    var gravitySlider = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer, {
+      useTextSliderLabels: !hasGravityTweakers
+    } );
     var frictionSlider = new FrictionSliderNode( model.frictionProperty, model.frictionRange );
     if ( hasGravityTweakers ) {
       gravitySlider.addTweakers( model.gravityProperty, model.gravityRange );

@@ -50,6 +50,10 @@ define( function( require ) {
     var self = this;
     var container = new Node();
 
+    options = _.extend( {
+      useTextSliderLabels: true
+    }, options );
+
     VBox.call( this, _.extend( { spacing: 3 }, options ) );
     this.gravityAdjustmentNode = new VBox( { spacing: VALUE_LABEL_SPACING } );
 
@@ -84,12 +88,12 @@ define( function( require ) {
     } );
 
     // we want two major ticks one at the beginning and the other at the end
-    slider.addMajorTick( gravityRange.min, new Text( noneString, {
+    slider.addMajorTick( gravityRange.min, new Text( options.useTextSliderLabels ? noneString : gravityRange.min, {
       font: PendulumLabConstants.TICK_FONT,
       pickable: false,
       maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
     } ) );
-    slider.addMajorTick( gravityRange.max, new Text( lotsString, {
+    slider.addMajorTick( gravityRange.max, new Text( options.useTextSliderLabels ? lotsString : gravityRange.max, {
       font: PendulumLabConstants.TICK_FONT,
       pickable: false,
       maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
