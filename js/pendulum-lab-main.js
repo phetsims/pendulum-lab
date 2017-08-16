@@ -24,8 +24,8 @@ define( function( require ) {
       softwareDevelopment: 'Jonathan Olson, Michael Dubson',
       team: 'Trish Loeblein, Ariel Paul, Kathy Perkins, Amy Rouinfar',
       qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Bryan Yoelin',
-      thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
-              'to convert this simulation to HTML5.'
+      thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this ' +
+              'simulation to HTML5.'
     }
   };
 
