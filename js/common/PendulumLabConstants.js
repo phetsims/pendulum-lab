@@ -50,7 +50,7 @@ define( function( require ) {
     PROTRACTOR_DEGREES_FONT: new PhetFont( { size: 14, weight: 'bold' } ),
     RETURN_BUTTON_FONT: new PhetFont( 14 ),
     ENERGY_HEADER_FONT: new PhetFont( { size: 11, weight: 'bold' } ),
-    ENERGY_BAR_FONT: new PhetFont( { size: 11, weight: 'bold' } ),
+    ENERGY_BAR_FONT: new PhetFont( { size: 13, weight: 'bold' } ),
     DIALOG_TITLE_FONT: new PhetFont( 22 ),
     LEGEND_ABBREVIATION_FONT: new PhetFont( { size: 16, weight: 'bold' } ),
     LEGEND_DESCRIPTION_FONT: new PhetFont( 16 ),
