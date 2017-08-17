@@ -37,8 +37,8 @@ define( function( require ) {
     TOTAL_ENERGY_COLOR: 'rgb( 0, 0, 0 )',
 
     // Fonts
-    TITLE_FONT: new PhetFont( 13 ),
-    TITLE_FONT_BOLD: new PhetFont( { size: 13, weight: 'bold' } ),
+    TITLE_FONT: new PhetFont( 14 ),
+    TITLE_FONT_BOLD: new PhetFont( { size: 14, weight: 'bold' } ),
     TICK_FONT: new PhetFont( 10 ),
     READOUT_FONT: new PhetFont( 10 ),
     RULER_FONT: new PhetFont( 10 ),
