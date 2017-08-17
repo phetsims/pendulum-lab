@@ -54,7 +54,6 @@ define( function( require ) {
     options = _.extend( {
       iconColor: '#333',
       buttonBaseColor: '#DFE0E1',
-      scale: 0.85,
       cursor: 'pointer'
     }, options );
 
