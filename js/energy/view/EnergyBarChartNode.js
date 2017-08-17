@@ -29,7 +29,7 @@ define( function( require ) {
   var legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
 
   // constants
-  var BAR_WIDTH = 8;
+  var BAR_WIDTH = 14;
   var BAR_OFFSET = 4;
   var SPACING = 4;
   var GRAPH_WIDTH = 122;
