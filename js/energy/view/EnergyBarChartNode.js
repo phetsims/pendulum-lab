@@ -69,7 +69,7 @@ define( function( require ) {
       font: PendulumLabConstants.ENERGY_BAR_FONT,
       rotation: -Math.PI / 2,
       top: SPACING,
-      maxWidth: 70
+      maxWidth: 90
     };
     var kineticLabel = new RichText( legendKineticEnergyAbbreviationString, _.extend( { fill: PendulumLabConstants.KINETIC_ENERGY_COLOR, centerX: kineticCenterX }, barLabelOptions ) );
     var potentialLabel = new RichText( legendPotentialEnergyAbbreviationString, _.extend( { fill: PendulumLabConstants.POTENTIAL_ENERGY_COLOR, centerX: potentialCenterX }, barLabelOptions ) );
