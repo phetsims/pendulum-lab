@@ -10,9 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -40,7 +43,7 @@ define( function( require ) {
     TITLE_FONT: new PhetFont( 14 ),
     TITLE_FONT_BOLD: new PhetFont( { size: 14, weight: 'bold' } ),
     TICK_FONT: new PhetFont( 10 ),
-    READOUT_FONT: new PhetFont( 10 ),
+    READOUT_FONT: new PhetFont( 12 ),
     RULER_FONT: new PhetFont( 10 ),
     PERIOD_TIMER_TITLE_FONT: new PhetFont( 14 ),
     PERIOD_TIMER_READOUT_FONT: new PhetFont( 14 ),
@@ -81,7 +84,7 @@ define( function( require ) {
     },
 
     // sliders
-    PENDULUM_TRACK_SIZE: new Dimension2( 140, 0.5 ),
+    PENDULUM_TRACK_SIZE: new Dimension2( 110, 0.5 ),
     GLOBAL_TRACK_SIZE: new Dimension2( 115, 0.5 ),
     THUMB_SIZE: new Dimension2( 11, 20 ),
     THUMB_TOUCH_AREA_X_DILATION: 5,
@@ -98,7 +101,36 @@ define( function( require ) {
 
     // create a model view transform (assuming the dev view screen is 1024 wide and the 618 high)
     // the height of the screen is 4/3 m = 1.33 m
-    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, new Vector2( 1024 / 2, 15 ), 618 / 1.33 )
+    MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, new Vector2( 1024 / 2, 15 ), 618 / 1.33 ),
+
+    NUMBER_CONTROL_LAYOUT: function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      var bottomBox = new HBox( {
+        resize: false, // prevent slider from causing resize?
+        spacing: 5,
+        children: [
+          leftArrowButton,
+          slider,
+          rightArrowButton
+        ]
+      } );
+      var group = new AlignGroup( { matchHorizontal: false } );
+      var titleBox = new AlignBox( titleNode, {
+        group: group
+      } );
+      var numberBox = new AlignBox( numberDisplay, {
+        group: group
+      } );
+      titleBox.bottom = numberBox.bottom = bottomBox.top - 5;
+      titleBox.left = bottomBox.left;
+      numberBox.right = bottomBox.right;
+      return new Node( {
+        children: [
+          bottomBox,
+          titleBox,
+          numberBox
+        ]
+      } );
+    }
   };
 
   pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );
