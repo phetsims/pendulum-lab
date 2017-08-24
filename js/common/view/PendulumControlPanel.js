@@ -10,17 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var Color = require( 'SCENERY/util/Color' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -58,56 +54,15 @@ define( function( require ) {
         pendulumNumber: pendulumNumberString
       } );
 
-      var numberControlOptions = {
-        titleFont: PendulumLabConstants.TITLE_FONT_BOLD,
-        valueFont: PendulumLabConstants.READOUT_FONT,
-        titleMaxWidth: PendulumLabConstants.TITLE_MAX_WIDTH,
-        valueMaxWidth: 80,
-        decimalPlaces: 2,
-        delta: 0.01,
-        layoutFunction: PendulumLabConstants.NUMBER_CONTROL_LAYOUT,
-        majorTickLength: 5,
-        arrowButtonScale: 0.56,
-        constrainValue: function( value ) {
-          return Util.roundSymmetric( value * 10 ) / 10;
-        },
-        trackSize: PendulumLabConstants.PENDULUM_TRACK_SIZE,
-        thumbSize: PendulumLabConstants.THUMB_SIZE,
-        thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
-        thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
-        thumbFillEnabled: pendulum.color,
-        thumbFillHighlighted: Color.toColor( pendulum.color ).colorUtilsBrighter( 0.6 ),
-      };
+      var lengthPattern = StringUtils.fillIn( metersPatternString, { meters: '{0}' } );
+      var massPattern = StringUtils.fillIn( kilogramsPatternString, { kilograms: '{0}' } );
 
       return new VBox( {
         spacing: 10,
         align: 'left',
         children: [
-          new AlignBox( new NumberControl( lengthTitle, pendulum.lengthProperty, pendulum.lengthRange, _.extend( {}, numberControlOptions, {
-            valuePattern: StringUtils.fillIn( metersPatternString, { meters: '{0}' } ),
-            majorTicks: [ {
-              value: pendulum.lengthRange.min,
-              label: new Text( pendulum.lengthRange.min, { font: PendulumLabConstants.TICK_FONT } )
-            }, {
-              value: pendulum.lengthRange.max,
-              label: new Text( pendulum.lengthRange.max, { font: PendulumLabConstants.TICK_FONT } )
-            } ]
-          } ) ), {
-            group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP
-          } ),
-
-          new AlignBox( new NumberControl( massTitle, pendulum.massProperty, pendulum.massRange, _.extend( {}, numberControlOptions, {
-            valuePattern: StringUtils.fillIn( kilogramsPatternString, { kilograms: '{0}' } ),
-            majorTicks: [ {
-              value: pendulum.massRange.min,
-              label: new Text( pendulum.massRange.min, { font: PendulumLabConstants.TICK_FONT } )
-            }, {
-              value: pendulum.massRange.max,
-              label: new Text( pendulum.massRange.max, { font: PendulumLabConstants.TICK_FONT } )
-            } ]
-          } ) ), {
-            group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP
-          } )
+          new PendulumNumberControl( lengthTitle, pendulum.lengthProperty, pendulum.lengthRange, lengthPattern, pendulum.color ),
+          new PendulumNumberControl( massTitle, pendulum.massProperty, pendulum.massRange, massPattern, pendulum.color )
         ]
       } );
     } );

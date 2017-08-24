@@ -22,7 +22,6 @@ define( function( require ) {
 
   // strings
   var frictionString = require( 'string!PENDULUM_LAB/friction' );
-  var gravityString = require( 'string!PENDULUM_LAB/gravity' );
 
   /**
    * @constructor
@@ -33,13 +32,10 @@ define( function( require ) {
    */
   function GlobalControlPanel( model, popupLayer, hasGravityTweakers ) {
 
-    var gravitySlider = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer, {
+    var gravityControlNode = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer, {
       useTextSliderLabels: !hasGravityTweakers
     } );
     var frictionSlider = new FrictionSliderNode( model.frictionProperty, model.frictionRange );
-    if ( hasGravityTweakers ) {
-      gravitySlider.addTweakers( model.gravityProperty, model.gravityRange );
-    }
 
     var content = new VBox( {
       spacing: 10,
@@ -47,8 +43,7 @@ define( function( require ) {
         new VBox( {
           align: 'left',
           children: [
-            new Text( gravityString, { font: PendulumLabConstants.TITLE_FONT_BOLD, maxWidth: PendulumLabConstants.TITLE_MAX_WIDTH } ),
-            new AlignBox( gravitySlider, { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
+            new AlignBox( gravityControlNode, { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
           ],
           spacing: 4
         } ),
