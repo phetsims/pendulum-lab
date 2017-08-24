@@ -122,6 +122,23 @@ define( function( require ) {
       centerX: totalCenterX
     } );
 
+    function createArrow( fill, centerX ) {
+      return new ArrowNode( 0, 0, 0, 18, {
+        fill: fill,
+        stroke: 'black',
+        headHeight: 7,
+        headWidth: 16,
+        tailWidth: 10,
+        centerX: centerX
+      } );
+    }
+
+    // @private {ArrowNode}
+    this.kineticEnergyArrow = createArrow( PendulumLabConstants.KINETIC_ENERGY_COLOR, kineticCenterX );
+    this.potentialEnergyArrow = createArrow( PendulumLabConstants.POTENTIAL_ENERGY_COLOR, potentialCenterX );
+    this.thermalEnergyArrow = createArrow( PendulumLabConstants.THERMAL_ENERGY_COLOR, thermalCenterX );
+    this.totalEnergyArrow = createArrow( '#bbb', totalCenterX );
+
     var clearThermalButton = new ClearThermalButton( {
       listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       centerX: thermalCenterX,
@@ -143,6 +160,7 @@ define( function( require ) {
             this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar,
             this.totalKineticEnergyBar, this.totalPotentialEnergyBar, this.totalThermalEnergyBar,
             this.totalHighlightBar,
+            this.kineticEnergyArrow, this.potentialEnergyArrow, this.thermalEnergyArrow, this.totalEnergyArrow,
             axisX, axisY
           ]
         } )
@@ -188,6 +206,9 @@ define( function( require ) {
         var energyMultiplier = 40 * this.zoomProperty.value;
         var maxHeight = this.chartHeightProperty.value;
 
+        var arrowPadding = 5;
+        maxHeight -= arrowPadding + this.kineticEnergyArrow.height;
+
         var kineticEnergy = this.kineticEnergyProperty.value * energyMultiplier;
         var potentialEnergy = this.potentialEnergyProperty.value * energyMultiplier;
         var thermalEnergy = this.thermalEnergyProperty.value * energyMultiplier;
@@ -207,6 +228,38 @@ define( function( require ) {
         this.totalKineticEnergyBar.rectY = potentialAndThermalHeight;
         this.totalKineticEnergyBar.rectHeight = totalHeight - potentialAndThermalHeight;
         this.totalHighlightBar.rectHeight = totalHeight;
+
+        if ( kineticEnergy >= maxHeight ) {
+          this.kineticEnergyArrow.visible = true;
+          this.kineticEnergyArrow.bottom = this.chartHeightProperty.value;
+        }
+        else {
+          this.kineticEnergyArrow.visible = false;
+        }
+
+        if ( potentialEnergy >= maxHeight ) {
+          this.potentialEnergyArrow.visible = true;
+          this.potentialEnergyArrow.bottom = this.chartHeightProperty.value;
+        }
+        else {
+          this.potentialEnergyArrow.visible = false;
+        }
+
+        if ( thermalEnergy >= maxHeight ) {
+          this.thermalEnergyArrow.visible = true;
+          this.thermalEnergyArrow.bottom = this.chartHeightProperty.value;
+        }
+        else {
+          this.thermalEnergyArrow.visible = false;
+        }
+
+        if ( kineticEnergy + potentialEnergy + thermalEnergy >= maxHeight ) {
+          this.totalEnergyArrow.visible = true;
+          this.totalEnergyArrow.bottom = this.chartHeightProperty.value;
+        }
+        else {
+          this.totalEnergyArrow.visible = false;
+        }
       }
     }
   } );
