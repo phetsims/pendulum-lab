@@ -30,7 +30,7 @@ define( function( require ) {
 
   // constants
   var BAR_WIDTH = 14;
-  var BAR_OFFSET = 4;
+  var BAR_OFFSET = 14;
   var SPACING = 4;
   var GRAPH_WIDTH = 122;
 
@@ -56,7 +56,7 @@ define( function( require ) {
     // @private {Property.<boolean>}
     this.isEnergyBoxExpandedProperty = isEnergyBoxExpandedProperty;
 
-    var BAR_SPACING = GRAPH_WIDTH / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
+    var BAR_SPACING = ( GRAPH_WIDTH - BAR_OFFSET ) / 4 - BAR_WIDTH; // amount of space between bars (half on each side of each bar)
 
     // position of the bars of the energy bar graph
     var kineticCenterX = BAR_OFFSET + 0.5 * BAR_SPACING + 0 * BAR_WIDTH;
