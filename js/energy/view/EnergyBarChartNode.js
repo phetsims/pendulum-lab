@@ -90,15 +90,18 @@ define( function( require ) {
     // @private {Rectangle} - Individual energy bars
     this.kineticEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: PendulumLabConstants.KINETIC_ENERGY_COLOR,
-      centerX: kineticCenterX
+      centerX: kineticCenterX,
+      stroke: 'black'
     } );
     this.potentialEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: PendulumLabConstants.POTENTIAL_ENERGY_COLOR,
-      centerX: potentialCenterX
+      centerX: potentialCenterX,
+      stroke: 'black'
     } );
     this.thermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: PendulumLabConstants.THERMAL_ENERGY_COLOR,
-      centerX: thermalCenterX
+      centerX: thermalCenterX,
+      stroke: 'black'
     } );
 
     // @private {Rectangle} - For the combined total bar
@@ -112,6 +115,10 @@ define( function( require ) {
     } );
     this.totalThermalEnergyBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
       fill: PendulumLabConstants.THERMAL_ENERGY_COLOR,
+      centerX: totalCenterX
+    } );
+    this.totalHighlightBar = new Rectangle( 0, 0, BAR_WIDTH, 0, {
+      stroke: 'black',
       centerX: totalCenterX
     } );
 
@@ -135,6 +142,7 @@ define( function( require ) {
           children: [
             this.kineticEnergyBar, this.potentialEnergyBar, this.thermalEnergyBar,
             this.totalKineticEnergyBar, this.totalPotentialEnergyBar, this.totalThermalEnergyBar,
+            this.totalHighlightBar,
             axisX, axisY
           ]
         } )
@@ -198,6 +206,7 @@ define( function( require ) {
         this.totalPotentialEnergyBar.rectHeight = potentialAndThermalHeight - thermalHeight;
         this.totalKineticEnergyBar.rectY = potentialAndThermalHeight;
         this.totalKineticEnergyBar.rectHeight = totalHeight - potentialAndThermalHeight;
+        this.totalHighlightBar.rectHeight = totalHeight;
       }
     }
   } );
