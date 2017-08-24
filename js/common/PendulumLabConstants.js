@@ -42,7 +42,7 @@ define( function( require ) {
     // Fonts
     TITLE_FONT: new PhetFont( 14 ),
     TITLE_FONT_BOLD: new PhetFont( { size: 14, weight: 'bold' } ),
-    TICK_FONT: new PhetFont( 10 ),
+    TICK_FONT: new PhetFont( 12 ),
     READOUT_FONT: new PhetFont( 12 ),
     RULER_FONT: new PhetFont( 10 ),
     PERIOD_TIMER_TITLE_FONT: new PhetFont( 14 ),
