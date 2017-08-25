@@ -45,9 +45,9 @@ define( function( require ) {
     var numberControlOptions = _.extend( {
       titleFont: PendulumLabConstants.TITLE_FONT_BOLD,
       valueFont: PendulumLabConstants.READOUT_FONT,
-      titleMaxWidth: 90,
+      titleMaxWidth: 70,
       valuePattern: pattern,
-      valueMaxWidth: 80,
+      valueMaxWidth: 100,
       decimalPlaces: 2,
       delta: 0.01,
       layoutFunction: function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
