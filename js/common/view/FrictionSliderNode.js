@@ -9,23 +9,22 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
-  var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
   var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
+  var Range = require( 'DOT/Range' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
 
   // strings
+  var frictionString = require( 'string!PENDULUM_LAB/friction' );
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
   var noneString = require( 'string!PENDULUM_LAB/none' );
-
-  // constants
-  var TICK_NUMBER = 10;
 
   /**
    * Converts the numerical value of the slider to friction, does not assign to friction property
@@ -57,6 +56,7 @@ define( function( require ) {
    * @param {Object} [options]
    */
   function FrictionSliderNode( frictionProperty, frictionRange, options ) {
+
     var sliderValueProperty = new DynamicProperty( new Property( frictionProperty ), {
       bidirectional: true,
       map: frictionToSliderValue,
@@ -64,46 +64,41 @@ define( function( require ) {
     } );
 
     // range the slider can have
-    var sliderValueRange = new RangeWithValue( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ), sliderValueProperty.value );
+    var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ) );
 
-    // the slider itself
-    var slider = new HSlider( sliderValueProperty, sliderValueRange, {
-      minorTickLength: 5,
-      majorTickLength: 10,
-      trackSize: PendulumLabConstants.GLOBAL_TRACK_SIZE,
-      thumbSize: PendulumLabConstants.THUMB_SIZE,
-      thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
-      thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
+    var numberControl = new PendulumNumberControl( frictionString, sliderValueProperty, sliderValueRange, '{0}', 'rgb(50,145,184)', {
+      hasReadoutProperty: new BooleanProperty( false ),
       thumbFillEnabled: '#00C4DF',
       thumbFillHighlighted: '#71EDFF',
+      excludeTweakers: true,
+      sliderPadding: 14, // TODO: refactor out
+
+      minorTickLength: 5,
+      majorTickLength: 10,
       constrainValue: function( value ) {
         return Util.roundSymmetric( value );
-      }
+      },
+
+      majorTicks: [
+        {
+          value: sliderValueRange.min,
+          label: new Text( noneString, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
+        }, {
+          value: sliderValueRange.getCenter(),
+          label: null
+        }, {
+          value: sliderValueRange.max,
+          label: new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
+        }
+      ],
+
+      minorTickSpacing: sliderValueRange.getLength() / 10
     } );
 
     // describes the panel box containing the friction slider
     Node.call( this, _.extend( {
-      children: [ slider ]
+      children: [ numberControl ]
     }, options ) );
-
-    // add ticks, we want two major ticks
-    slider.addMajorTick( sliderValueRange.min, new Text( noneString, {
-      font: PendulumLabConstants.TICK_FONT,
-      pickable: false,
-      maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
-    } ) );
-    slider.addMajorTick( sliderValueRange.min / 2 + sliderValueRange.max / 2 );
-    slider.addMajorTick( sliderValueRange.max, new Text( lotsString, {
-      font: PendulumLabConstants.TICK_FONT,
-      pickable: false,
-      maxWidth: PendulumLabConstants.TICK_LABEL_MAX_WIDTH
-    } ) );
-
-    // add the minor ticks
-    var tickStep = ( sliderValueRange.max - sliderValueRange.min ) / TICK_NUMBER;
-    for ( var i = sliderValueRange.min + tickStep; i < sliderValueRange.max; i += tickStep ) {
-      slider.addMinorTick( i );
-    }
   }
 
   pendulumLab.register( 'FrictionSliderNode', FrictionSliderNode );

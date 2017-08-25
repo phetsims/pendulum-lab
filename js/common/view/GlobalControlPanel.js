@@ -10,18 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
   var GravityControlNode = require( 'PENDULUM_LAB/common/view/GravityControlNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-
-  // strings
-  var frictionString = require( 'string!PENDULUM_LAB/friction' );
 
   /**
    * @constructor
@@ -40,21 +35,8 @@ define( function( require ) {
     var content = new VBox( {
       spacing: 10,
       children: [
-        new VBox( {
-          align: 'left',
-          children: [
-            new AlignBox( gravityControlNode, { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
-          ],
-          spacing: 4
-        } ),
-        new VBox( {
-          align: 'left',
-          children: [
-            new Text( frictionString, { font: PendulumLabConstants.TITLE_FONT_BOLD, maxWidth: PendulumLabConstants.TITLE_MAX_WIDTH } ),
-            new AlignBox( frictionSlider, { group: PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP } )
-          ],
-          spacing: 4
-        } )
+        gravityControlNode,
+        frictionSlider
       ]
     } );
 

@@ -63,7 +63,7 @@ define( function( require ) {
       listYMargin: 3
     } );
 
-    var questionText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT, maxWidth: 150 } );
+    var questionText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT } );
 
     bodyProperty.link( function( body ) {
       questionText.visible = body === Body.PLANET_X;

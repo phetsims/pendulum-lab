@@ -69,6 +69,7 @@ define( function( require ) {
               alternateSlider
             ]
           } );
+          alternateSlider.maxWidth = bottomBox.width;
           alternateSlider.center = bottomBox.center;
           alternateSlider.onStatic( 'visibility', function() {
             bottomBox.visible = !alternateSlider.visible;
@@ -112,13 +113,16 @@ define( function( require ) {
       } ]
     }, options );
 
-    var testWidth = 500;
+    var trackWidth = 500;
     var testControl = new NumberControl( title, property, range, _.extend( {}, numberControlOptions, {
-      trackSize: new Dimension2( testWidth, PendulumLabConstants.TRACK_HEIGHT )
+      trackSize: new Dimension2( trackWidth, PendulumLabConstants.TRACK_HEIGHT )
     } ) );
 
+    var testWidth = testControl.width;
+    testControl.dispose();
+
     NumberControl.call( this, title, property, range, _.extend( {}, numberControlOptions, {
-      trackSize: new Dimension2( testWidth + PendulumLabConstants.RIGHT_CONTENT_WIDTH - testControl.width, PendulumLabConstants.TRACK_HEIGHT )
+      trackSize: new Dimension2( trackWidth + PendulumLabConstants.RIGHT_CONTENT_WIDTH - testWidth, PendulumLabConstants.TRACK_HEIGHT )
     } ) );
   }
 
