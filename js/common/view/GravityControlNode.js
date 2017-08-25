@@ -19,6 +19,7 @@ define( function( require ) {
   var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -79,7 +80,11 @@ define( function( require ) {
       thumbFillHighlighted: '#71EDFF',
       alternateSlider: questionText,
       excludeTweakers: options.useTextSliderLabels,
-      sliderPadding: options.useTextSliderLabels ? 14 : 0
+      sliderPadding: options.useTextSliderLabels ? 14 : 0,
+      // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
+      constrainValue: function( value ) {
+        return Util.roundSymmetric( value * 2 ) / 2;
+      },
     } );
 
     VBox.call( this, _.extend( {
