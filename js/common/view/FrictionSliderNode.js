@@ -71,7 +71,7 @@ define( function( require ) {
       thumbFillEnabled: '#00C4DF',
       thumbFillHighlighted: '#71EDFF',
       excludeTweakers: true,
-      sliderPadding: 14, // TODO: refactor out
+      sliderPadding: 14,
 
       minorTickLength: 5,
       majorTickLength: 10,

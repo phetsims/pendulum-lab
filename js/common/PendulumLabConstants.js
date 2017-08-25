@@ -84,8 +84,6 @@ define( function( require ) {
 
     // sliders
     TRACK_HEIGHT: 0.5,
-    PENDULUM_TRACK_SIZE: new Dimension2( 110, 0.5 ), // TODO: remove
-    GLOBAL_TRACK_SIZE: new Dimension2( 115, 0.5 ), // TODO: remove
     THUMB_SIZE: new Dimension2( 11, 20 ),
     THUMB_TOUCH_AREA_X_DILATION: 5,
     THUMB_TOUCH_AREA_Y_DILATION: 4,
@@ -97,8 +95,6 @@ define( function( require ) {
 
     // Alignment groups for the left and right panels/boxes
     LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
-    //TODO: Remove right align group, since we set with explicit widths?
-    RIGHT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
 
     // create a model view transform (assuming the dev view screen is 1024 wide and the 618 high)
     // the height of the screen is 4/3 m = 1.33 m

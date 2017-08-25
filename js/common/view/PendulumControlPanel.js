@@ -39,10 +39,8 @@ define( function( require ) {
 
     var separator = new Line( {
       stroke: 'rgb(160,160,160)',
-      lineWidth: 0.3
-    } );
-    PendulumLabConstants.RIGHT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( function( width ) {
-      separator.x2 = width;
+      lineWidth: 0.3,
+      x2: PendulumLabConstants.RIGHT_CONTENT_WIDTH
     } );
 
     var pendulumSliderGroups = pendula.map( function( pendulum ) {
