@@ -33,7 +33,14 @@ define( function( require ) {
    * @param {Object} [options]
    */
   function PendulumNumberControl( title, property, range, pattern, color, options ) {
-    options = options || {};
+    options = _.extend( {
+      excludeTweakers: false,
+      alternateSlider: null,
+      hasReadoutProperty: null,
+      minTick: null,
+      maxTick: null,
+      sliderPadding: 0
+    }, options );
 
     var numberControlOptions = _.extend( {
       titleFont: PendulumLabConstants.TITLE_FONT_BOLD,
@@ -47,7 +54,7 @@ define( function( require ) {
         var bottomBox = new HBox( {
           resize: false, // prevent slider from causing resize?
           spacing: 5,
-          children: [
+          children: options.excludeTweakers ? [ slider ] : [
             leftArrowButton,
             slider,
             rightArrowButton
@@ -75,12 +82,12 @@ define( function( require ) {
           group: group
         } );
         titleBox.bottom = numberBox.bottom = bottomContent.top - 5;
-        titleBox.left = bottomContent.left;
-        numberBox.right = bottomContent.right;
+        titleBox.left = bottomContent.left - options.sliderPadding;
+        numberBox.right = bottomContent.right + options.sliderPadding;
         var node = new Node( { children: [ bottomContent, titleBox, numberBox ] } );
         if ( options.hasReadoutProperty ) {
           options.hasReadoutProperty.link( function( hasReadout ) {
-            node.children = hasReadout ? [ bottomContent, titleBox, numberBox ] : [ bottomContent, titleBox ];
+            numberBox.visible = hasReadout;
           } );
         }
         return node;

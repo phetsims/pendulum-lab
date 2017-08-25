@@ -77,7 +77,9 @@ define( function( require ) {
       maxTick: options.useTextSliderLabels ? lotsString : null,
       thumbFillEnabled: '#00C4DF',
       thumbFillHighlighted: '#71EDFF',
-      alternateSlider: questionText
+      alternateSlider: questionText,
+      excludeTweakers: options.useTextSliderLabels,
+      sliderPadding: options.useTextSliderLabels ? 14 : 0
     } );
 
     VBox.call( this, _.extend( {
