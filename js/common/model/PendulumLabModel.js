@@ -203,7 +203,7 @@ define( function( require ) {
      * @public
      */
     stepManual: function() {
-      this.modelStep( 0.05 ); // advances by 50 ms
+      this.modelStep( 0.01 ); // advances by 10 ms, see https://github.com/phetsims/pendulum-lab/issues/182
     },
 
     /**
