@@ -83,7 +83,7 @@ define( function( require ) {
       sliderPadding: options.useTextSliderLabels ? 14 : 0,
       // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
       constrainValue: function( value ) {
-        return Util.roundSymmetric( value );
+        return Util.roundSymmetric( value * 2 ) / 2;
       },
     } );
 
