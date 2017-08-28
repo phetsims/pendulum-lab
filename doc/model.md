@@ -39,7 +39,7 @@ Energy:
 energy of m * g * L * (1 - cos(θ)).
 - Thermal energy: total - kinetic - potential.
 
-The 'step' button will move forward a twentieth of a second (0.05s).
+The 'step' button will move forward 10 milliseconds (0.01s).
 
 The Period Timer will time one period trace for a selected pendulum.
 
