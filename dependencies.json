@@ -1,27 +1,27 @@
 {
-  "comment": "# pendulum-lab 1.0.0-dev.14 Mon Aug 07 2017 15:27:39 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# pendulum-lab 1.0.0-rc.1 Mon Aug 28 2017 17:51:37 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "2dc0e2782c7a5487a6ef2f48d0d04ce9aeaa6491",
+    "sha": "24c942a45d087621bd125e3b5495a17c67dd3ee3",
     "branch": "master"
   },
   "brand": {
-    "sha": "b630f897deb7a4ff95029176dbf5b48a9713d31d",
+    "sha": "cfca902dca800a6e8b80729a46611346c4f16250",
     "branch": "master"
   },
   "chipper": {
-    "sha": "65b58c78cfdc93c93d6a03b1856940d6e61bac58",
+    "sha": "c6ebc753b034d44354757e97ae7b2ee818c02dfa",
     "branch": "master"
   },
   "dot": {
-    "sha": "f7d9de8b5650a10126d3f8755a98cf64a0acc93c",
+    "sha": "db33a2c7fca14980bccd7d9517839c5b8ae7a9ee",
     "branch": "master"
   },
   "joist": {
-    "sha": "6e8a3c5f46c6e497493a70fc7ebdfa081e9d392e",
+    "sha": "18d08df17954b3b9d455a716089bb09f2f63e9f4",
     "branch": "master"
   },
   "kite": {
@@ -29,11 +29,11 @@
     "branch": "master"
   },
   "pendulum-lab": {
-    "sha": "cc60181b914588dc5e850d8b43fe3f467e2b6fa9",
-    "branch": "master"
+    "sha": "9a0fd8f200cb31707c94f6025e87eeda5091eedc",
+    "branch": "1.0"
   },
   "phet-core": {
-    "sha": "d8bec6c12614029cc8635c60f23d20db1904fee6",
+    "sha": "6bfeef5c876a7f4c52ba269412a4c4985bceb2fb",
     "branch": "master"
   },
   "phetcommon": {
@@ -45,23 +45,23 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "6060a0d7cb3a91260486321fda4a311e9a37ada5",
+    "sha": "d539ecd71d78236090201a5a4215f22651741c70",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "37bf8502c5f70a2e3a1fd7adae50020b7546b321",
+    "sha": "7b214b9dc2b05b450dff90786fdfd63fc4a790eb",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "be8e800b7abf955abc99f5bc4d89ae8bcdcff4f3",
+    "sha": "8a5d6d7f7fe731babf3d0c54b357c82740ba4b8e",
     "branch": "master"
   },
   "sun": {
-    "sha": "a1b4c71ca1b2e596afd55253533b93bcacc2d322",
+    "sha": "9820ea3048d1b97debc53fff442040e189d229fd",
     "branch": "master"
   },
   "tandem": {
-    "sha": "e9801a1195d25cee8b7b770d04b1d2e78cb5f09f",
+    "sha": "37243b99c58d4195f7f9302b72bda8456dff307a",
     "branch": "master"
   }
 }
