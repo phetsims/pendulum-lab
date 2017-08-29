@@ -34,7 +34,7 @@ define( function( require ) {
   function PendulumControlPanel( pendula, numberOfPendulaProperty ) {
 
     var content = new VBox( {
-      spacing: 13
+      spacing: 16
     } );
 
     var separator = new Line( {
@@ -56,7 +56,7 @@ define( function( require ) {
       var massPattern = StringUtils.fillIn( kilogramsPatternString, { kilograms: '{0}' } );
 
       return new VBox( {
-        spacing: 10,
+        spacing: 14,
         align: 'left',
         children: [
           new PendulumNumberControl( lengthTitle, pendulum.lengthProperty, pendulum.lengthRange, lengthPattern, pendulum.color ),

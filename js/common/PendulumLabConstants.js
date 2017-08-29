@@ -84,7 +84,7 @@ define( function( require ) {
 
     // sliders
     TRACK_HEIGHT: 0.5,
-    THUMB_SIZE: new Dimension2( 11, 20 ),
+    THUMB_SIZE: new Dimension2( 13, 22 ),
     THUMB_TOUCH_AREA_X_DILATION: 5,
     THUMB_TOUCH_AREA_Y_DILATION: 4,
     SLIDER_PRECISION: 1,
