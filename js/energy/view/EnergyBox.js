@@ -14,6 +14,7 @@ define( function( require ) {
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var ColorConstants = require( 'SUN/ColorConstants' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
   var EnergyBarChartNode = require( 'PENDULUM_LAB/energy/view/EnergyBarChartNode' );
   var EnergyLegendDialog = require( 'PENDULUM_LAB/energy/view/EnergyLegendDialog' );
@@ -109,7 +110,7 @@ define( function( require ) {
           }
         }
       }, {
-        baseColor: '#eee',
+        baseColor: ColorConstants.LIGHT_BLUE,
         radius: 7,
         touchAreaXDilation: 10,
         touchAreaYDilation: 5
@@ -150,7 +151,7 @@ define( function( require ) {
     var energyDialog; // lazily created
     var infoButton = new RectangularPushButton( {
       content: icon,
-      baseColor: zoomOutButton.baseColor,
+      baseColor: '#eee',
       left: panel.left,
       listener: function() {
         // Lazy creation.
@@ -163,16 +164,23 @@ define( function( require ) {
       touchAreaYDilation: 5
     } );
 
+    var radioButtonBox = new HBox( {
+      spacing: 20,
+      children: [
+        radioButtonOne,
+        radioButtonTwo
+      ]
+    } );
+
+    // no need to unlink, present for the lifetime of the sim
+    model.numberOfPendulaProperty.link( function( numberOfPendula ) {
+      radioButtonBox.visible = numberOfPendula === 2;
+    } );
+
     var boxContent = new VBox( {
       spacing: 5,
       children: [
-        new HBox( {
-          spacing: 20,
-          children: [
-            radioButtonOne,
-            radioButtonTwo
-          ]
-        } ),
+        radioButtonBox,
         panel,
         new Node( {
           children: [
