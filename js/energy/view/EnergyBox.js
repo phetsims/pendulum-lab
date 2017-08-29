@@ -25,7 +25,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -140,7 +140,7 @@ define( function( require ) {
 
     // Because zoom buttons don't support getting internal size, and other buttons don't resize, we need to do a
     // hacky workaround to get their content to be the same size.
-    var chromeBounds = new RectangularPushButton( {
+    var chromeBounds = new RoundPushButton( {
       content: new Node( { localBounds: new Bounds2( 0, 0, 0, 0 ) } )
     } ).bounds;
     var icon = new FontAwesomeNode( 'info_circle', {
@@ -149,10 +149,11 @@ define( function( require ) {
     } );
 
     var energyDialog; // lazily created
-    var infoButton = new RectangularPushButton( {
+    var infoButton = new RoundPushButton( {
       content: icon,
       baseColor: '#eee',
       left: panel.left,
+      centerY: zoomOutButton.centerY,
       listener: function() {
         // Lazy creation.
         if ( !energyDialog ) {
