@@ -143,13 +143,18 @@ define( function( require ) {
     var chromeBounds = new RoundPushButton( {
       content: new Node( { localBounds: new Bounds2( 0, 0, 0, 0 ) } )
     } ).bounds;
+
+    var iconPadding = 1;
     var icon = new FontAwesomeNode( 'info_circle', {
-      maxWidth: zoomInButton.width - chromeBounds.width,
-      maxHeight: zoomInButton.height - chromeBounds.height
+      fill: 'hsl(208,60%,40%)',
+      maxWidth: zoomInButton.width - chromeBounds.width - 2 * iconPadding,
+      maxHeight: zoomInButton.height - chromeBounds.height - 2 * iconPadding
     } );
 
     var energyDialog; // lazily created
     var infoButton = new RoundPushButton( {
+      minXMargin: 5 + iconPadding,
+      minYMargin: 5 + iconPadding,
       content: icon,
       baseColor: '#eee',
       left: panel.left,

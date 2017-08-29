@@ -88,7 +88,7 @@ define( function( require ) {
     } );
 
     VBox.call( this, _.extend( {
-      spacing: 3,
+      spacing: 5,
       children: [ numberControl, comboBox ]
     }, options ) );
   }
