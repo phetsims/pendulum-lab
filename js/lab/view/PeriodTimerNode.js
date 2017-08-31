@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   var ABSwitch = require( 'SUN/ABSwitch' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Color = require( 'SCENERY/util/Color' );
@@ -179,19 +180,21 @@ define( function( require ) {
     } );
 
     // background image
-    this.addChild( new Image( periodTimerBackgroundImage, {
+    var background = new Image( periodTimerBackgroundImage, {
       scale: 0.6,
       center: vBox.center
-    } ) );
+    } );
+    this.addChild( background );
 
     // adds period timer contents on top of yellow background.
-    this.addChild( vBox );
+    this.addChild( new AlignBox( vBox, {
+      alignBounds: background.bounds
+    } ) );
 
     // switch to second pendulum when it visible only
     // present for the lifetime of the sim
     secondPendulumIsVisibleProperty.link( function( isVisible ) {
-      graphUnitsSwitch.pickable = isVisible;
-      graphUnitsSwitch.opacity = isVisible ? 1 : 0.5;
+      periodTimerPendulaSelector.children = isVisible ? [ graphUnitsSwitch, playPauseButton ] : [ playPauseButton ];
       if ( !isVisible ) {
         periodTimer.activePendulumIndexProperty.value = 0;
       }
