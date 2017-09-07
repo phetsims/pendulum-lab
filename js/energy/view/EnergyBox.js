@@ -112,7 +112,7 @@ define( function( require ) {
       }, {
         baseColor: ColorConstants.LIGHT_BLUE,
         radius: 7,
-        touchAreaXDilation: 10,
+        touchAreaXDilation: 5,
         touchAreaYDilation: 5
       } ) );
     }
