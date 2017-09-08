@@ -22,8 +22,8 @@ define( function( require ) {
     credits: {
       leadDesign: 'Michael Dubson, Amy Rouinfar',
       softwareDevelopment: 'Jonathan Olson, Michael Dubson',
-      team: 'Trish Loeblein, Ariel Paul, Kathy Perkins, Amy Rouinfar',
-      qualityAssurance: 'Steele Dalton, Elise Morgan, Oliver Orejola, Bryan Yoelin',
+      team: 'Trish Loeblein, Ariel Paul, Kathy Perkins',
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Liam Mulhall, Oliver Orejola, Ben Roberts, Bryan Yoelin',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this ' +
               'simulation to HTML5.'
     }
