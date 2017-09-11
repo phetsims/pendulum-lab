@@ -23,11 +23,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
+  var gravitationalAccelerationPatternString = require( 'string!PENDULUM_LAB/gravitationalAccelerationPattern' );
+  var gravityString = require( 'string!PENDULUM_LAB/gravity' );
   var lotsString = require( 'string!PENDULUM_LAB/lots' );
   var noneString = require( 'string!PENDULUM_LAB/none' );
-  var gravitationalAccelerationPatternString = require( 'string!PENDULUM_LAB/gravitationalAccelerationPattern' );
   var whatIsTheValueOfGravityString = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
-  var gravityString = require( 'string!PENDULUM_LAB/gravity' );
 
   /**
    * @constructor

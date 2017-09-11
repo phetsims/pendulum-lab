@@ -20,10 +20,10 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
+  var kilogramsPatternString = require( 'string!PENDULUM_LAB/kilogramsPattern' );
   var lengthString = require( 'string!PENDULUM_LAB/length' );
   var massString = require( 'string!PENDULUM_LAB/mass' );
   var metersPatternString = require( 'string!PENDULUM_LAB/metersPattern' );
-  var kilogramsPatternString = require( 'string!PENDULUM_LAB/kilogramsPattern' );
 
   /**
    * @constructor

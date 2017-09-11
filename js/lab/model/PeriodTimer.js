@@ -13,8 +13,8 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
-  var Property = require( 'AXON/Property' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var Property = require( 'AXON/Property' );
   var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**

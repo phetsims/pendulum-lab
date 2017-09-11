@@ -23,14 +23,14 @@ define( function( require ) {
 
   // strings
   var energyLegendString = require( 'string!PENDULUM_LAB/energyLegend' );
-  var legendKineticEnergyString = require( 'string!PENDULUM_LAB/legend.kineticEnergy' );
   var legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
-  var legendPotentialEnergyString = require( 'string!PENDULUM_LAB/legend.potentialEnergy' );
+  var legendKineticEnergyString = require( 'string!PENDULUM_LAB/legend.kineticEnergy' );
   var legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
-  var legendThermalEnergyString = require( 'string!PENDULUM_LAB/legend.thermalEnergy' );
+  var legendPotentialEnergyString = require( 'string!PENDULUM_LAB/legend.potentialEnergy' );
   var legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
-  var legendTotalEnergyString = require( 'string!PENDULUM_LAB/legend.totalEnergy' );
+  var legendThermalEnergyString = require( 'string!PENDULUM_LAB/legend.thermalEnergy' );
   var legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
+  var legendTotalEnergyString = require( 'string!PENDULUM_LAB/legend.totalEnergy' );
 
   /**
    * @constructor

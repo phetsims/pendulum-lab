@@ -36,8 +36,8 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var secondsPatternString = require( 'string!PENDULUM_LAB/secondsPattern' );
   var periodString = require( 'string!PENDULUM_LAB/period' );
+  var secondsPatternString = require( 'string!PENDULUM_LAB/secondsPattern' );
 
   var periodTimerBackgroundImage = require( 'mipmap!PENDULUM_LAB/period-timer-background.png' );
 

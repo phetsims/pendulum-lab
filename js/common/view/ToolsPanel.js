@@ -20,10 +20,10 @@ define( function( require ) {
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
   // strings
-  var rulerString = require( 'string!PENDULUM_LAB/ruler' );
-  var stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
   var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
   var periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
+  var rulerString = require( 'string!PENDULUM_LAB/ruler' );
+  var stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
 
   // constants
   var TEXT_OPTIONS = {

@@ -14,9 +14,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
+  var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
   var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
   var Plane = require( 'SCENERY/nodes/Plane' );
