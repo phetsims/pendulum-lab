@@ -10,11 +10,11 @@ define( function( require ) {
 
   // modules
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
-  var GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  // var GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
+  var inherit = require( 'PHET_CORE/inherit' );\
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
-  var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
+  // var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
@@ -25,8 +25,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
-  var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  // var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
+  // var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @constructor
@@ -68,34 +68,34 @@ define( function( require ) {
     var protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
 
     // create a node to keep track of combo box
-    var popupLayer = new Node();
+    // var popupLayer = new Node();
 
-    var pendulumControlPanel = new PendulumControlPanel( model.pendula, model.numberOfPendulaProperty );
-    var globalControlPanel = new GlobalControlPanel( model, popupLayer, !!options.hasGravityTweakers );
+    // var pendulumControlPanel = new PendulumControlPanel( model.pendula, model.numberOfPendulaProperty );
+    // var globalControlPanel = new GlobalControlPanel( model, popupLayer, !!options.hasGravityTweakers );
 
     // @protected
-    this.rightPanelsContainer = new VBox( {
-      spacing: PendulumLabConstants.PANEL_PADDING,
-      children: [
-        pendulumControlPanel,
-        globalControlPanel
-      ],
-      right: this.layoutBounds.right - PendulumLabConstants.PANEL_PADDING,
-      top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
-    } );
+    // this.rightPanelsContainer = new VBox( {
+    //   spacing: PendulumLabConstants.PANEL_PADDING,
+    //   children: [
+    //     pendulumControlPanel,
+    //     globalControlPanel
+    //   ],
+    //   right: this.layoutBounds.right - PendulumLabConstants.PANEL_PADDING,
+    //   top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
+    // } );
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
-    var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty,
-                                                model.stopwatch.isVisibleProperty,
-                                                model.isPeriodTraceVisibleProperty,
-                                                options.hasPeriodTimer, {
-      maxWidth: 180,
-      left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
-      bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
-    } );
+    // var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty,
+    //                                             model.stopwatch.isVisibleProperty,
+    //                                             model.isPeriodTraceVisibleProperty,
+    //                                             options.hasPeriodTimer, {
+    //   maxWidth: 180,
+    //   left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
+    //   bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
+    // } );
 
-    // @protected {Node}
-    this.toolsControlPanelNode = toolsControlPanelNode;
+    // // @protected {Node}
+    // this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
     var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
@@ -127,7 +127,7 @@ define( function( require ) {
     // create timer node
     var stopwatchNode = new StopwatchNode( model.stopwatch, this.layoutBounds );
     stopwatchNode.bottom = rulerNode.bottom;
-    stopwatchNode.right = Math.max( 167.75, toolsControlPanelNode.right ); // If we are only on this screen
+    stopwatchNode.right = 167.75; // If we are only on this screen
     model.stopwatch.setInitialLocationValue( stopwatchNode.center );
 
     // @protected
@@ -138,16 +138,16 @@ define( function( require ) {
     this.energyGraphLayer = new Node();
     this.periodTimerLayer = new Node();
 
-    var leftFloatingLayer = new Node( {
-      children: [
-        this.energyGraphLayer, this.arrowsPanelLayer, toolsControlPanelNode
-      ]
-    } );
+    // var leftFloatingLayer = new Node( {
+    //   children: [
+    //     this.energyGraphLayer, this.arrowsPanelLayer, toolsControlPanelNode
+    //   ]
+    // } );
     var rightFloatingLayer = new Node( {
       children: [
-        this.rightPanelsContainer,
-        resetAllButton,
-        popupLayer
+        // this.rightPanelsContainer,
+        resetAllButton
+        // popupLayer
       ]
     } );
 
@@ -155,7 +155,7 @@ define( function( require ) {
     this.visibleBoundsProperty.lazyLink( function( visibleBounds ) {
       var dx = -visibleBounds.x;
       dx = Math.min( 200, dx );
-      leftFloatingLayer.x = -dx;
+      // leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
       // set the drag bounds of the ruler and stopwatch
       rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
@@ -165,14 +165,14 @@ define( function( require ) {
     this.children = [
       backgroundDragNode,
       protractorNode,
-      leftFloatingLayer,
+      // leftFloatingLayer,
       rightFloatingLayer,
       playbackControls,
-      this.firstPeriodTraceNode,
-      this.secondPeriodTraceNode,
+      // this.firstPeriodTraceNode,
+      // this.secondPeriodTraceNode,
       pendulaNode,
-      rulerNode,
-      this.periodTimerLayer,
+      // rulerNode,
+      // this.periodTimerLayer,
       stopwatchNode
     ];
   }

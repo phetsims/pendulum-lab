@@ -9,9 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var EnergyScreen = require( 'PENDULUM_LAB/energy/EnergyScreen' );
   var IntroScreen = require( 'PENDULUM_LAB/intro/IntroScreen' );
-  var LabScreen = require( 'PENDULUM_LAB/lab/LabScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
@@ -30,7 +28,7 @@ define( function( require ) {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( pendulumLabTitleString, [ new IntroScreen(), new EnergyScreen(), new LabScreen() ], simOptions );
+    var sim = new Sim( pendulumLabTitleString, [ new IntroScreen() ], simOptions );
     sim.start();
   } );
 } );

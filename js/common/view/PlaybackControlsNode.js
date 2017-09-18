@@ -103,10 +103,10 @@ define( function( require ) {
 
     Node.call( this, _.extend( {
       children: [
-        stopButton,
-        pendulaCountButtons,
-        playPauseNode,
-        timeSpeedRadioNode
+        stopButton
+        // pendulaCountButtons,
+        // playPauseNode,
+        // timeSpeedRadioNode
       ]
     }, options ) );
   }

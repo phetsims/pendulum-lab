@@ -23,7 +23,7 @@ define( function( require ) {
   function Stopwatch( initiallyVisible ) {
     assert && assert( typeof initiallyVisible === 'boolean' );
 
-    MovableComponent.call( this, initiallyVisible );
+    MovableComponent.call( this, true );
 
     // @public {Property.<boolean>}
     this.isRunningProperty = new BooleanProperty( false );
