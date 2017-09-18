@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.1.0-dev.1 Mon Sep 18 2017 12:12:40 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# pendulum-lab 1.1.0-dev.2 Mon Sep 18 2017 14:57:36 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -25,11 +25,11 @@
     "branch": "master"
   },
   "kite": {
-    "sha": "aa585660d740c023ee3f2f6f3cc993a096e69804",
+    "sha": "4b2cbdcf93b7c6d53b7f6d1fd17120d35241da59",
     "branch": "master"
   },
   "pendulum-lab": {
-    "sha": "8e1dea79ae0f056e42c4a722ce6bc441d8863d88",
+    "sha": "1157c5f6ead8f50ffee16d59edb47ad0dbbd8f5a",
     "branch": "ubc-study"
   },
   "phet-core": {
