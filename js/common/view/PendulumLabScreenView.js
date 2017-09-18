@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var ClosestDragListener = require( 'SUN/ClosestDragListener' );
   // var GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
-  var inherit = require( 'PHET_CORE/inherit' );\
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
   // var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
