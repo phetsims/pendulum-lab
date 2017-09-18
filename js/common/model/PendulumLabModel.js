@@ -56,7 +56,7 @@ define( function( require ) {
     this.isPlayingProperty = new BooleanProperty( true );
 
     // @public {Property.<number>} - Friction coefficient
-    this.frictionProperty = new NumberProperty( 0 );
+    this.frictionProperty = new NumberProperty( 0.0015 );
 
     // @public {Property.<boolean}
     this.isPeriodTraceVisibleProperty = new BooleanProperty( false );
@@ -66,7 +66,7 @@ define( function( require ) {
 
     // @public {Array.<Pendulum>}
     this.pendula = [
-      new Pendulum( 0, 1, 0.7, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.hasPeriodTimer ),
+      new Pendulum( 0, 0.5, 0.83, true, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.hasPeriodTimer ),
       new Pendulum( 1, 0.5, 1.0, false, this.gravityProperty, this.frictionProperty, this.isPeriodTraceVisibleProperty, options.hasPeriodTimer )
     ];
 
