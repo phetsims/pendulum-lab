@@ -26,6 +26,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -171,8 +172,11 @@ define( function( require ) {
         // set the angle of the pendulum depending on where it is dragged to.
         drag: function( event ) {
           var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
+          var continuousAngle = Pendulum.modAngle( angleOffset + dragAngle );
 
-          pendulum.angleProperty.value = Pendulum.modAngle( angleOffset + dragAngle );
+          // Round angles to nearest degree, see https://github.com/phetsims/pendulum-lab/issues/195
+          var roundedAngle = Util.toRadians( Util.roundSymmetric( Util.toDegrees( continuousAngle ) ) );
+          pendulum.angleProperty.value = roundedAngle;
         },
 
         // release user control
