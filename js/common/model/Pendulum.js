@@ -133,6 +133,9 @@ define( function( require ) {
 
         self.angularVelocityProperty.value = 0;
         self.updateDerivedVariables( false );
+
+        // Clear thermal energy on a drag, see https://github.com/phetsims/pendulum-lab/issues/196
+        self.thermalEnergyProperty.value = 0;
       }
     } );
 
