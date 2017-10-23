@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.1.0-phetiodev.4 Mon Oct 23 2017 12:23:05 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# pendulum-lab 1.1.0-dev.5 Mon Oct 23 2017 12:33:29 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -29,35 +29,11 @@
     "branch": "master"
   },
   "pendulum-lab": {
-    "sha": "b5901b3f002ec4b94b50032f44b5cb12d7a766d1",
+    "sha": "f50d562ac713a2bf084c0d828ea923ff7111cb4d",
     "branch": "ubc-study"
   },
   "phet-core": {
-    "sha": "054b2d6db39f0ce2b76a9ba26a12ec51bce17f98",
-    "branch": "master"
-  },
-  "phet-io": {
-    "sha": "997dec0cbba331981149d8d6a39ff84b222c5760",
-    "branch": "master"
-  },
-  "phet-io-website": {
-    "sha": "6df719330b6b5f151283d968adbd2780ec5d12bb",
-    "branch": "master"
-  },
-  "phet-io-wrapper-classroom-activity": {
-    "sha": "df7b447d41c2eb9467e07fffd0386fc43ad193ee",
-    "branch": "master"
-  },
-  "phet-io-wrapper-lab-book": {
-    "sha": "a2f2739d764e1069870e2892f6aa73dcc2a1385f",
-    "branch": "master"
-  },
-  "phet-io-wrapper-sonification": {
-    "sha": "218ac8f5fa520805086f3c6aadb8a7b12180dbfa",
-    "branch": "master"
-  },
-  "phet-io-wrappers": {
-    "sha": "67ec74e4a3543f5b1e4a4743ce575533c6dfbe33",
+    "sha": "c30d15ed8d869d926ea86fd126e653edea617717",
     "branch": "master"
   },
   "phetcommon": {
