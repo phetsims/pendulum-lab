@@ -77,9 +77,9 @@ define( function( require ) {
       var pendulumRect = new Node( {
         children: [
           new Rectangle( -RECT_SIZE.width / 2, -RECT_SIZE.height / 2, RECT_SIZE.width, RECT_SIZE.height, {
-            fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).addColorStop( 0.3, pendulum.color )
-                                                                                       .addColorStop( 0.8, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.9 ) )
-                                                                                       .addColorStop( 1, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.4 ) )
+            fill: new LinearGradient( -RECT_SIZE.width / 2, 0, RECT_SIZE.width / 2, 0 ).addColorStop( 0, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.4 ) )
+                                                                                       .addColorStop( 0.2, Color.toColor( pendulum.color ).colorUtilsBrighter( 0.9 ) )
+                                                                                       .addColorStop( 0.7, pendulum.color )
           } ),
           new Text( ( pendulumIndex + 1 ).toString(), {
             font: PendulumLabConstants.PENDULUM_LABEL_FONT,

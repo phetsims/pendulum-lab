@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Color = require( 'SCENERY/util/Color' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -35,9 +36,10 @@ define( function( require ) {
    */
   function createMiniPendulum( lineLength, angle, rectHeight, rectColor ) {
     var rectWidth = rectHeight * 0.8;
-    var rectGradient = new LinearGradient( 0, 0, rectWidth, 0 ).addColorStop( 0, rectColor )
-                                                               .addColorStop( 0.8, 'white' )
-                                                               .addColorStop( 1, rectColor );
+    var rectGradient = new LinearGradient( -rectWidth / 2, 0, rectWidth / 2, 0 )
+      .addColorStop( 0, Color.toColor( rectColor ).colorUtilsBrighter( 0.2 ) )
+      .addColorStop( 0.2, Color.toColor( rectColor ).colorUtilsBrighter( 0.7 ) )
+      .addColorStop( 0.7, rectColor );
     return new Node( {
       children: [
         // string
