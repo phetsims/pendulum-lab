@@ -100,8 +100,8 @@ define( function( require ) {
             stroke: 'black',
             lineWidth: 0.5,
             fill: new LinearGradient( 0, 0, rectBounds.width, 0 ).addColorStop( 0, color )
-                                                                .addColorStop( 0.6, color )
-                                                                .addColorStop( 0.8, highlightColor )
+                                                                .addColorStop( 0.2, highlightColor )
+                                                                .addColorStop( 0.4, color )
                                                                 .addColorStop( 1, color )
           } ),
           new Text( label, {
