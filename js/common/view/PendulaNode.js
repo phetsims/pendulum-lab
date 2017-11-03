@@ -175,7 +175,14 @@ define( function( require ) {
           var continuousAngle = Pendulum.modAngle( angleOffset + dragAngle );
 
           // Round angles to nearest degree, see https://github.com/phetsims/pendulum-lab/issues/195
-          var roundedAngle = Util.toRadians( Util.roundSymmetric( Util.toDegrees( continuousAngle ) ) );
+          var roundedAngleDegrees = Util.roundSymmetric( Util.toDegrees( continuousAngle ) );
+
+          // Don't allow snapping to 180, see https://github.com/phetsims/pendulum-lab/issues/195
+          if ( Math.abs( roundedAngleDegrees ) === 180 ) {
+            roundedAngleDegrees = Util.sign( roundedAngleDegrees ) * 179;
+          }
+
+          var roundedAngle = Util.toRadians( roundedAngleDegrees );
           pendulum.angleProperty.value = roundedAngle;
         },
 
