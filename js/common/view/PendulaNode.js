@@ -179,7 +179,7 @@ define( function( require ) {
 
           // Don't allow snapping to 180, see https://github.com/phetsims/pendulum-lab/issues/195
           if ( Math.abs( roundedAngleDegrees ) === 180 ) {
-            roundedAngleDegrees = Util.sign( roundedAngleDegrees ) * 179;
+            roundedAngleDegrees = ( roundedAngleDegrees > 0 ? 1 : -1 ) * 179;
           }
 
           var roundedAngle = Util.toRadians( roundedAngleDegrees );
