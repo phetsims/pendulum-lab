@@ -13,7 +13,8 @@
     "requirejsNamespace": "PENDULUM_LAB",
     "runnable": true,
     "supportedBrands": [
-      "phet"
+      "phet",
+      "adapted-from-phet"
     ],
     "simulation": true
   }
