@@ -2,7 +2,7 @@
 
 /**
  * Tools control panel node in 'Pendulum Lab' simulation.
- * Contains check box buttons to control visibility of ruler, stopwatch and period trace tools.
+ * Contains checkbox buttons to control visibility of ruler, stopwatch and period trace tools.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

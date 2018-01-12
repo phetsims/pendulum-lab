@@ -2,7 +2,7 @@
 
 /**
  * Arrow control panel node in 'Pendulum Lab' simulation.
- * Contains check box buttons to control visibility of velocity and acceleration arrows.
+ * Contains checkbox buttons to control visibility of velocity and acceleration arrows.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -77,16 +77,16 @@ define( function( require ) {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING
     } );
 
-    // Whenever the amount of width available changes, we need to recreate the check boxes
+    // Whenever the amount of width available changes, we need to recreate the checkboxes
     PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( function( width ) {
-      // Properly remove any old check boxes
+      // Properly remove any old checkboxes
       content.children.forEach( function( child ) {
         child.dispose();
       } );
 
       var spacing = width - widthWithoutSpacing;
 
-      // Create new check boxes with the proper spacing. Checkbox currently doesn't support resizing content.
+      // Create new checkboxes with the proper spacing. Checkbox currently doesn't support resizing content.
       velocityContent.spacing = spacing;
       content.addChild( new Checkbox( velocityContent, isVelocityVisibleProperty, {
         boxWidth: textHeight
