@@ -17,7 +17,7 @@ define( function( require ) {
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
+  var VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
 
   // strings
   var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
@@ -62,7 +62,7 @@ define( function( require ) {
       property: isPeriodTraceProperty
     } ];
 
-    var content = new AlignBox( new VerticalCheckBoxGroup( items, {
+    var content = new AlignBox( new VerticalCheckboxGroup( items, {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING,
       boxWidth: this._labels[ 0 ].height
     } ), {

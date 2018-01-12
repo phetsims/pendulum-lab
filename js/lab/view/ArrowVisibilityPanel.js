@@ -14,7 +14,7 @@ define( function( require ) {
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -45,7 +45,8 @@ define( function( require ) {
     var textHeight = new Text( 'not visible', textOptions ).height;
 
     var textGroup = new AlignGroup();
-    function createCheckBoxContent( labelString, color ) {
+
+    function createCheckboxContent( labelString, color ) {
       return new HBox( {
         children: [
           new AlignBox( new Text( labelString, textOptions ), { group: textGroup, xAlign: 'left' } ),
@@ -59,17 +60,18 @@ define( function( require ) {
         pickable: false
       } );
     }
-    // We'll dynamically adjust the spacings in these, so that the full CheckBox expands to the desired size.
-    var velocityContent = createCheckBoxContent( velocityString, PendulumLabConstants.VELOCITY_ARROW_COLOR );
-    var accelerationContent = createCheckBoxContent( accelerationString, PendulumLabConstants.ACCELERATION_ARROW_COLOR );
+
+    // We'll dynamically adjust the spacings in these, so that the full Checkbox expands to the desired size.
+    var velocityContent = createCheckboxContent( velocityString, PendulumLabConstants.VELOCITY_ARROW_COLOR );
+    var accelerationContent = createCheckboxContent( accelerationString, PendulumLabConstants.ACCELERATION_ARROW_COLOR );
 
     // Currently no better way to handle the fluid layout with checkboxes than to determine the amount of additional
     // space it takes up when it has no spacing (and then add spacing to fit).
-    var tmpCheckBox = new CheckBox( velocityContent, new Property( true ), {
+    var tmpCheckbox = new Checkbox( velocityContent, new Property( true ), {
       boxWidth: textHeight
     } );
-    var widthWithoutSpacing = tmpCheckBox.width;
-    tmpCheckBox.dispose();
+    var widthWithoutSpacing = tmpCheckbox.width;
+    tmpCheckbox.dispose();
 
     var content = new VBox( {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING
@@ -84,14 +86,14 @@ define( function( require ) {
 
       var spacing = width - widthWithoutSpacing;
 
-      // Create new check boxes with the proper spacing. CheckBox currently doesn't support resizing content.
+      // Create new check boxes with the proper spacing. Checkbox currently doesn't support resizing content.
       velocityContent.spacing = spacing;
-      content.addChild( new CheckBox( velocityContent, isVelocityVisibleProperty, {
+      content.addChild( new Checkbox( velocityContent, isVelocityVisibleProperty, {
         boxWidth: textHeight
       } ) );
 
       accelerationContent.spacing = spacing;
-      content.addChild( new CheckBox( accelerationContent, isAccelerationVisibleProperty, {
+      content.addChild( new Checkbox( accelerationContent, isAccelerationVisibleProperty, {
         boxWidth: textHeight
       } ) );
     } );
