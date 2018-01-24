@@ -113,7 +113,7 @@ define( function( require ) {
         labelNode: clearThermalButton
       },
       {
-        entries: [ thermalBarEntry, potentialBarEntry, kineticBarEntry ],
+        entries: [ kineticBarEntry, potentialBarEntry, thermalBarEntry ],
         labelString: legendTotalEnergyAbbreviationString,
         offScaleArrowFill: '#bbb'
       }
