@@ -11,6 +11,9 @@
   },
   "phet": {
     "requirejsNamespace": "PENDULUM_LAB",
+    "phetLibs": [
+      "griddle"
+    ],
     "runnable": true,
     "supportedBrands": [
       "phet",

@@ -13,10 +13,12 @@ define( function( require ) {
   var AccordionBox = require( 'SUN/AccordionBox' );
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var BarChartNode = require( 'GRIDDLE/BarChartNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var ClearThermalButton = require( 'SCENERY_PHET/ClearThermalButton' );
   var ColorConstants = require( 'SUN/ColorConstants' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
-  var EnergyBarChartNode = require( 'PENDULUM_LAB/energy/view/EnergyBarChartNode' );
   var EnergyLegendDialog = require( 'PENDULUM_LAB/energy/view/EnergyLegendDialog' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -25,6 +27,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  var Range = require( 'DOT/Range' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -33,7 +36,12 @@ define( function( require ) {
 
   // strings
   var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
+  var legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
+  var legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
+  var legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
+  var legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
   var pendulumMassPatternString = require( 'string!PENDULUM_LAB/pendulumMassPattern' );
+
 
   /**
    * @constructor
@@ -76,12 +84,65 @@ define( function( require ) {
       derive: 'thermalEnergyProperty'
     } );
 
-    var graphNode = new EnergyBarChartNode( kineticEnergyProperty, potentialEnergyProperty, thermalEnergyProperty, model.energyZoomProperty, model.isEnergyBoxExpandedProperty, chartHeightProperty );
+    var clearThermalButton = new ClearThermalButton( {
+      listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
+      scale: 0.72
+    } );
+    thermalEnergyProperty.link( function( thermalEnergy ) {
+      clearThermalButton.enabled = thermalEnergy !== 0;
+    } );
+
+    var chartRangeProperty = new DerivedProperty( [ chartHeightProperty ], function( chartHeight ) {
+      return new Range( 0, chartHeight );
+    } );
+    var kineticBarEntry = { property: kineticEnergyProperty, color: PendulumLabConstants.KINETIC_ENERGY_COLOR };
+    var potentialBarEntry = { property: potentialEnergyProperty, color: PendulumLabConstants.POTENTIAL_ENERGY_COLOR };
+    var thermalBarEntry = { property: thermalEnergyProperty, color: PendulumLabConstants.THERMAL_ENERGY_COLOR };
+    var barChartNode = new BarChartNode( [
+      {
+        entries: [ kineticBarEntry ],
+        labelString: legendKineticEnergyAbbreviationString
+      },
+      {
+        entries: [ potentialBarEntry ],
+        labelString: legendPotentialEnergyAbbreviationString
+      },
+      {
+        entries: [ thermalBarEntry ],
+        labelString: legendThermalEnergyAbbreviationString,
+        labelNode: clearThermalButton
+      },
+      {
+        entries: [ thermalBarEntry, potentialBarEntry, kineticBarEntry ],
+        labelString: legendTotalEnergyAbbreviationString,
+        offScaleArrowFill: '#bbb'
+      }
+    ], chartRangeProperty, {
+      barOptions: {
+        // Apply a scaling correction (so that energyZoomProperty=1 corresponds to 40 * the actual energy amount)
+        scaleProperty: new DerivedProperty( [ model.energyZoomProperty ], function( energyZoom ) { return 40 * energyZoom; } )
+      }
+    } );
+
+    function barChartUpdate() {
+      if ( model.isEnergyBoxExpandedProperty.value ) {
+        barChartNode.update();
+      }
+    }
+
+    kineticEnergyProperty.lazyLink( barChartUpdate );
+    potentialEnergyProperty.lazyLink( barChartUpdate );
+    thermalEnergyProperty.lazyLink( barChartUpdate );
+    model.energyZoomProperty.lazyLink( barChartUpdate );
+    chartRangeProperty.lazyLink( barChartUpdate );
+    model.isEnergyBoxExpandedProperty.lazyLink( barChartUpdate );
+    barChartUpdate();
+
     var content = new VBox( {
       spacing: 4,
       children: [
         headerText,
-        graphNode
+        barChartNode
       ]
     } );
 
