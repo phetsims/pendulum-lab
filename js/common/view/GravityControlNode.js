@@ -14,6 +14,7 @@ define( function( require ) {
   var ComboBox = require( 'SUN/ComboBox' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
@@ -78,7 +79,23 @@ define( function( require ) {
       maxTick: options.useTextSliderLabels ? lotsString : null,
       thumbFillEnabled: '#00C4DF',
       thumbFillHighlighted: '#71EDFF',
-      alternateSlider: questionText,
+      createBottomContent: function( bottomBox ) {
+
+        // Supports Pendulum Lab's questionText where a question is substituted for the slider
+        var bottomContent = new Node( {
+          children: [
+            bottomBox,
+            questionText
+          ]
+        } );
+        questionText.maxWidth = bottomBox.width;
+        questionText.center = bottomBox.center;
+        questionText.onStatic( 'visibility', function() {
+          bottomBox.visible = !questionText.visible;
+        } );
+
+        return bottomContent;
+      },
       excludeTweakers: options.useTextSliderLabels,
       sliderPadding: options.useTextSliderLabels ? 14 : 0,
       // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding

@@ -10,13 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   var Color = require( 'SCENERY/util/Color' );
   var Dimension2 = require( 'DOT/Dimension2' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -29,17 +25,18 @@ define( function( require ) {
    * @param {string} title
    * @param {Property.<number>} property
    * @param {Range} range
+   * @param {string|Color} color
    * @param {string} pattern
    * @param {Object} [options]
    */
   function PendulumNumberControl( title, property, range, pattern, color, options ) {
     options = _.extend( {
       excludeTweakers: false,
-      alternateSlider: null,
       hasReadoutProperty: null,
       minTick: null,
       maxTick: null,
-      sliderPadding: 0
+      sliderPadding: 0,
+      createBottomContent: null
     }, options );
 
     var numberControlOptions = _.extend( {
@@ -50,49 +47,7 @@ define( function( require ) {
       valueMaxWidth: 100,
       decimalPlaces: 2,
       delta: 0.01,
-      layoutFunction: function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-        var bottomBox = new HBox( {
-          resize: false, // prevent slider from causing resize?
-          spacing: 5,
-          children: options.excludeTweakers ? [ slider ] : [
-            leftArrowButton,
-            slider,
-            rightArrowButton
-          ]
-        } );
-        var bottomContent = bottomBox;
-        if ( options.alternateSlider ) {
-          var alternateSlider = options.alternateSlider;
-          bottomContent = new Node( {
-            children: [
-              bottomBox,
-              alternateSlider
-            ]
-          } );
-          alternateSlider.maxWidth = bottomBox.width;
-          alternateSlider.center = bottomBox.center;
-          alternateSlider.onStatic( 'visibility', function() {
-            bottomBox.visible = !alternateSlider.visible;
-          } );
-        }
-        var group = new AlignGroup( { matchHorizontal: false } );
-        var titleBox = new AlignBox( titleNode, {
-          group: group
-        } );
-        var numberBox = new AlignBox( numberDisplay, {
-          group: group
-        } );
-        titleBox.bottom = numberBox.bottom = bottomContent.top - 5;
-        titleBox.left = bottomContent.left - options.sliderPadding;
-        numberBox.right = bottomContent.right + options.sliderPadding;
-        var node = new Node( { children: [ bottomContent, titleBox, numberBox ] } );
-        if ( options.hasReadoutProperty ) {
-          options.hasReadoutProperty.link( function( hasReadout ) {
-            numberBox.visible = hasReadout;
-          } );
-        }
-        return node;
-      },
+      layoutFunction: NumberControl.createLayoutFunction4( options ),
       useRichText: true,
       majorTickLength: 5,
       arrowButtonScale: 0.56,
