@@ -200,6 +200,7 @@ define( function( require ) {
     var energyDialog; // lazily created
 
     var infoButton = new InfoButton( {
+      iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 1.1 * zoomInButton.height,
       left: panel.left,
       centerY: zoomOutButton.centerY,
