@@ -14,21 +14,19 @@ define( function( require ) {
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var BarChartNode = require( 'GRIDDLE/BarChartNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var ClearThermalButton = require( 'SCENERY_PHET/ClearThermalButton' );
   var ColorConstants = require( 'SUN/ColorConstants' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
   var EnergyLegendDialog = require( 'PENDULUM_LAB/energy/view/EnergyLegendDialog' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var InfoButton = require( 'SCENERY_PHET/buttons/InfoButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   var Range = require( 'DOT/Range' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -199,25 +197,10 @@ define( function( require ) {
     var zoomOutButton = createZoomButton( false );
     var zoomInButton = createZoomButton( true );
 
-    // Because zoom buttons don't support getting internal size, and other buttons don't resize, we need to do a
-    // hacky workaround to get their content to be the same size.
-    var chromeBounds = new RoundPushButton( {
-      content: new Node( { localBounds: new Bounds2( 0, 0, 0, 0 ) } )
-    } ).bounds;
-
-    var iconPadding = 1;
-    var icon = new FontAwesomeNode( 'info_circle', {
-      fill: 'hsl(208,60%,40%)',
-      maxWidth: zoomInButton.width - chromeBounds.width - 2 * iconPadding,
-      maxHeight: zoomInButton.height - chromeBounds.height - 2 * iconPadding
-    } );
-
     var energyDialog; // lazily created
-    var infoButton = new RoundPushButton( {
-      minXMargin: 5 + iconPadding,
-      minYMargin: 5 + iconPadding,
-      content: icon,
-      baseColor: '#eee',
+
+    var infoButton = new InfoButton( {
+      maxHeight: 1.1 * zoomInButton.height,
       left: panel.left,
       centerY: zoomOutButton.centerY,
       listener: function() {
@@ -261,7 +244,7 @@ define( function( require ) {
               right: panel.right
             } )
           ]
-        } ),
+        } )
       ]
     } );
 
