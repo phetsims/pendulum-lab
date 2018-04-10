@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  var Dialog = require( 'JOIST/Dialog' );
+  var Dialog = require( 'SUN/Dialog' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
