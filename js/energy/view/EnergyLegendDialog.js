@@ -88,9 +88,7 @@ define( function( require ) {
       title: new Text( energyLegendString, {
         font: PendulumLabConstants.DIALOG_TITLE_FONT,
         maxWidth: 700
-      } ),
-      xMargin: 30,
-      yMargin: 20
+      } )
     } );
   }
 
