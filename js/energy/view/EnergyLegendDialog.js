@@ -58,7 +58,7 @@ define( function( require ) {
           abbreviation: legendTotalEnergyAbbreviationString,
           description: legendTotalEnergyString,
           color: PendulumLabConstants.TOTAL_ENERGY_COLOR
-        },
+        }
       ].map( function( itemData ) {
         return new HBox( {
           spacing: 20,

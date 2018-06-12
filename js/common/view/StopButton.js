@@ -28,7 +28,7 @@ define( function( require ) {
       baseColor: 'rgb( 231, 232, 233 )',
       content: new StopSignNode( {
         scale: 0.4
-      } ),
+      } )
     }, options ) );
   }
 

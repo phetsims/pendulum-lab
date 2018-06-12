@@ -101,7 +101,7 @@ define( function( require ) {
       // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
       constrainValue: function( value ) {
         return Util.roundSymmetric( value * 2 ) / 2;
-      },
+      }
     } );
 
     VBox.call( this, _.extend( {
