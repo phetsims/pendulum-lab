@@ -84,7 +84,7 @@ define( function( require ) {
     } );
 
     Dialog.call( this, content, {
-      modal: true,
+      ySpacing: 20,
       title: new Text( energyLegendString, {
         font: PendulumLabConstants.DIALOG_TITLE_FONT,
         maxWidth: 700
