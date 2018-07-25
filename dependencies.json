@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.3 Wed Jul 25 2018 02:46:16 GMT-0600 (MDT)",
+  "comment": "# pendulum-lab 1.0.4-rc.1 Wed Jul 25 2018 04:37:04 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -14,7 +14,7 @@
   },
   "chipper": {
     "sha": "d509e7bd32a525825ea11ff96cec2bb619ed416d",
-    "branch": "pendulum-lab-1.0"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "db33a2c7fca14980bccd7d9517839c5b8ae7a9ee",
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "b8a4e8a8427cb0c9007eb492e2fbd52f26e83906",
+    "sha": "59d95390112b8d99881dc6cb6699edfe9f90625a",
     "branch": "1.0"
   },
   "phet-core": {
