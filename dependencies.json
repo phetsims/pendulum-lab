@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.4 Thu Aug 09 2018 20:31:25 GMT-0600 (MDT)",
+  "comment": "# pendulum-lab 1.0.4 Thu Aug 09 2018 23:43:39 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -13,8 +13,8 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "d509e7bd32a525825ea11ff96cec2bb619ed416d",
-    "branch": "HEAD"
+    "sha": "7695e5ca42d1f0d95b95526ac1592919232e0bce",
+    "branch": "pendulum-lab-1.0"
   },
   "dot": {
     "sha": "db33a2c7fca14980bccd7d9517839c5b8ae7a9ee",
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "936fbc3ec8a7fb883af33d90384457ab52f9e305",
+    "sha": "3904affb5e39fef39d3a2da34e853804e7839487",
     "branch": "1.0"
   },
   "phet-core": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "7ec5d29971d7faf69f31e028c45b17df040b721b",
-    "branch": "HEAD"
+    "sha": "f9a8c7ef8e8858db1546b65a40c7efdaf8791920",
+    "branch": "pendulum-lab-1.0"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
@@ -46,7 +46,7 @@
   },
   "scenery": {
     "sha": "566ca2e41655236267ea5941631ebdd02bc761a3",
-    "branch": "pendulum-lab-1.0"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "7b214b9dc2b05b450dff90786fdfd63fc4a790eb",
