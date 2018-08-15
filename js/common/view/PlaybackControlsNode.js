@@ -88,10 +88,12 @@ define( function( require ) {
       node: new Text( slowMotionString, { font: FONT } )
     }
     ], {
-      radius: new Text( 'test', { font: FONT } ).height / 2.2,
       spacing: 9,
       touchAreaXDilation: 10,
-      radioButtonOptions: { xSpacing: 5 },
+      radioButtonOptions: {
+        radius: new Text( 'test', { font: FONT } ).height / 2.2,
+        xSpacing: 5
+      },
       maxWidth: 150
     } );
 
