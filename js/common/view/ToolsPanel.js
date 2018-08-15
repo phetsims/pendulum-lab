@@ -64,7 +64,7 @@ define( function( require ) {
 
     var content = new AlignBox( new VerticalCheckboxGroup( items, {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING,
-      boxWidth: this._labels[ 0 ].height
+      checkboxOptions: { boxWidth: this._labels[ 0 ].height }
     } ), {
       group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP,
       xAlign: 'left'
