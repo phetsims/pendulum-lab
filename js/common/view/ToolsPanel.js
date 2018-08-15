@@ -52,13 +52,13 @@ define( function( require ) {
     ];
 
     var items = [ {
-      content: this._labels[ 0 ],
+      node: this._labels[ 0 ],
       property: isRulerProperty
     }, {
-      content: this._labels[ 1 ],
+      node: this._labels[ 1 ],
       property: isStopwatchProperty
     }, {
-      content: this._labels[ 2 ],
+      node: this._labels[ 2 ],
       property: isPeriodTraceProperty
     } ];
 
