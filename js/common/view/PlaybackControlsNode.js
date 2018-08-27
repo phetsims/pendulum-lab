@@ -70,7 +70,7 @@ define( function( require ) {
           touchAreaDilation: 5
         } ),
         new StepForwardButton( {
-          playingProperty: isPlayingProperty,
+          isPlayingProperty: isPlayingProperty,
           listener: stepCallback,
           radius: 15,
           touchAreaDilation: 5
