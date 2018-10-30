@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.5 Wed Aug 15 2018 14:17:58 GMT-0600 (MDT)",
+  "comment": "# pendulum-lab 1.0.5 Tue Oct 30 2018 14:45:33 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,15 +21,15 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "b848d78b389d985167d9207b80976ce38878f1d0",
-    "branch": "HEAD"
+    "sha": "b19ef25f48094bc76682df7cf54a33e3727d76be",
+    "branch": "pendulum-lab-1.0"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "44a99cccd906b09428b119fa165e79fc05ea2faf",
+    "sha": "8bce163c50a02a389cf3673cb6ab20b1f97c61b9",
     "branch": "1.0"
   },
   "phet-core": {
