@@ -15,6 +15,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  var Property = require( 'AXON/Property' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -45,8 +46,8 @@ define( function( require ) {
     // @private {Pendulum}
     this.pendulum = pendulum;
 
-    // @private {Color}
-    this.traceColor = baseColor.copy();
+    // @private {Property.<Color>}
+    this.traceColorProperty = new Property( baseColor );
 
     // @private {number} - The opacity of the trace (not using Node opacity for performance reasons)
     this.colorAlpha = 1;
@@ -56,7 +57,7 @@ define( function( require ) {
 
     // create trace path path
     var pathNode = new Path( null, {
-      stroke: this.traceColor,
+      stroke: this.traceColorProperty,
       lineWidth: 2
     } );
     self.addChild( pathNode );
@@ -66,7 +67,7 @@ define( function( require ) {
       pathNode.setShape( null );
       isCompleted = false;
       self.colorAlpha = 1;
-      self.traceColor.set( baseColor );
+      self.traceColorProperty.value = baseColor;
       self.fadeOutSpeed = null;
     };
 
@@ -148,7 +149,7 @@ define( function( require ) {
     step: function( dt ) {
       if ( this.fadeOutSpeed ) {
         this.colorAlpha = Math.max( 0, this.colorAlpha - this.fadeOutSpeed * dt );
-        this.traceColor.alpha = this.colorAlpha;
+        this.traceColorProperty.value = this.traceColorProperty.value.withAlpha( this.colorAlpha );
 
         if ( this.colorAlpha === 0 ) {
           this.pendulum.periodTrace.onFaded();
