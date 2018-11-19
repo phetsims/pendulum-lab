@@ -1,4 +1,4 @@
-// Copyright 2017, University of Colorado Boulder
+// Copyright 2017-2018, University of Colorado Boulder
 
 /**
  * Stop button node in 'Pendulum Lab' simulation.
