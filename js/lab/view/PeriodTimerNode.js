@@ -70,7 +70,8 @@ define( function( require ) {
     var playShape = new Shape().moveTo( playPauseSize - halfPlayStroke * 0.5 - playOffset, 0 )
       .lineTo( halfPlayStroke * 1.5 + playOffset, playPauseSize / 2 - halfPlayStroke - playOffset )
       .lineTo( halfPlayStroke * 1.5 + playOffset, -playPauseSize / 2 + halfPlayStroke + playOffset )
-      .close().getOffsetShape( -playOffset );
+      .close()
+      .getOffsetShape( -playOffset );
 
     // creates playPauseButton
     var playPauseButton = new BooleanRectangularToggleButton(
