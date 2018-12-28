@@ -50,7 +50,7 @@ define( function( require ) {
       layoutFunction: NumberControl.createLayoutFunction4( options ),
       useRichText: true,
       majorTickLength: 5,
-      arrowButtonScale: 0.56,
+      arrowButtonOptions: { scale: 0.56 },
       constrainValue: function( value ) {
         return Util.roundSymmetric( value * 10 ) / 10;
       },
