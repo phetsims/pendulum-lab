@@ -49,13 +49,10 @@ define( function( require ) {
     } );
 
     var comboBoxItems = Body.BODIES.map( function( body ) {
-      return {
-        node: new Text( body.title, {
+      return ComboBox.createItem( new Text( body.title, {
           font: PendulumLabConstants.GRAVITY_COMBO_FONT,
           maxWidth: 50
-        } ),
-        value: body
-      };
+        } ), body );
     } );
 
     var comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
