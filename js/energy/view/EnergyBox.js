@@ -14,7 +14,6 @@ define( function( require ) {
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var BarChartNode = require( 'GRIDDLE/BarChartNode' );
-  var ClearThermalButton = require( 'SCENERY_PHET/ClearThermalButton' );
   var ColorConstants = require( 'SUN/ColorConstants' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
@@ -22,6 +21,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var InfoButton = require( 'SCENERY_PHET/buttons/InfoButton' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MoveToTrashButton = require( 'SCENERY_PHET/MoveToTrashButton' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -82,7 +82,7 @@ define( function( require ) {
       derive: 'thermalEnergyProperty'
     } );
 
-    var clearThermalButton = new ClearThermalButton( {
+    var clearThermalButton = new MoveToTrashButton( {
       listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       scale: 0.72
     } );
