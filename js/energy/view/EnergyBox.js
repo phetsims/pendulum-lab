@@ -83,6 +83,7 @@ define( function( require ) {
     } );
 
     var clearThermalButton = new MoveToTrashButton( {
+      arrowColor: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       scale: 0.72
     } );
