@@ -56,10 +56,9 @@ define( function( require ) {
     } );
 
     var comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
-      buttonCornerRadius: 3,
-      buttonYMargin: 0,
-      itemYMargin: 3,
-      listYMargin: 3
+      cornerRadius: 3,
+      xMargin: 13,
+      yMargin: 3
     } );
 
     var questionText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT } );
