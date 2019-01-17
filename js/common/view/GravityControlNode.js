@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var Body = require( 'PENDULUM_LAB/common/model/Body' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -49,7 +50,7 @@ define( function( require ) {
     } );
 
     var comboBoxItems = Body.BODIES.map( function( body ) {
-      return ComboBox.createItem( new Text( body.title, {
+      return new ComboBoxItem( new Text( body.title, {
           font: PendulumLabConstants.GRAVITY_COMBO_FONT,
           maxWidth: 50
         } ), body );
@@ -58,7 +59,7 @@ define( function( require ) {
     var comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
       cornerRadius: 3,
       xMargin: 13,
-      yMargin: 3
+      yMargin: 5
     } );
 
     var questionText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT } );
