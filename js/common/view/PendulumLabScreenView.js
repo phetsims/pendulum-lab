@@ -110,7 +110,6 @@ define( function( require ) {
     // create reset all button
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
-      touchAreaDilation: 6,
       right: this.layoutBounds.right - PendulumLabConstants.PANEL_PADDING,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
     } );
