@@ -68,31 +68,32 @@ define( function( require ) {
 
     var numberControl = new PendulumNumberControl( frictionString, sliderValueProperty, sliderValueRange, '{0}', 'rgb(50,145,184)', {
       hasReadoutProperty: new BooleanProperty( false ),
-      thumbFillEnabled: '#00C4DF',
-      thumbFillHighlighted: '#71EDFF',
       excludeTweakers: true,
       sliderPadding: 14,
+      sliderOptions: {
+        thumbFillEnabled: '#00C4DF',
+        thumbFillHighlighted: '#71EDFF',
+        minorTickLength: 5,
+        majorTickLength: 10,
+        constrainValue: function( value ) {
+          return Util.roundSymmetric( value );
+        },
+        
+        majorTicks: [
+          {
+            value: sliderValueRange.min,
+            label: new Text( noneString, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
+          }, {
+            value: sliderValueRange.getCenter(),
+            label: null
+          }, {
+            value: sliderValueRange.max,
+            label: new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
+          }
+        ],
 
-      minorTickLength: 5,
-      majorTickLength: 10,
-      constrainValue: function( value ) {
-        return Util.roundSymmetric( value );
-      },
-
-      majorTicks: [
-        {
-          value: sliderValueRange.min,
-          label: new Text( noneString, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
-        }, {
-          value: sliderValueRange.getCenter(),
-          label: null
-        }, {
-          value: sliderValueRange.max,
-          label: new Text( lotsString, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
-        }
-      ],
-
-      minorTickSpacing: sliderValueRange.getLength() / 10
+        minorTickSpacing: sliderValueRange.getLength() / 10
+      }
     } );
 
     // describes the panel box containing the friction slider

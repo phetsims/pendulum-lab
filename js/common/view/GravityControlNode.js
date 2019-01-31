@@ -74,8 +74,6 @@ define( function( require ) {
       } ),
       minTick: options.useTextSliderLabels ? noneString : null,
       maxTick: options.useTextSliderLabels ? lotsString : null,
-      thumbFillEnabled: '#00C4DF',
-      thumbFillHighlighted: '#71EDFF',
       createBottomContent: function( bottomBox ) {
 
         // Supports Pendulum Lab's questionText where a question is substituted for the slider
@@ -95,9 +93,15 @@ define( function( require ) {
       },
       excludeTweakers: options.useTextSliderLabels,
       sliderPadding: options.useTextSliderLabels ? 14 : 0,
-      // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
-      constrainValue: function( value ) {
-        return Util.roundSymmetric( value * 2 ) / 2;
+
+      // subcomponent options
+      sliderOptions: {
+        thumbFillEnabled: '#00C4DF',
+        thumbFillHighlighted: '#71EDFF',
+        // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
+        constrainValue: function( value ) {
+          return Util.roundSymmetric( value * 2 ) / 2;
+        }
       }
     } );
 

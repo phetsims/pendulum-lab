@@ -40,17 +40,27 @@ define( function( require ) {
     }, options );
 
     var numberControlOptions = _.extend( {
-      titleFont: PendulumLabConstants.TITLE_FONT_BOLD,
-      valueFont: PendulumLabConstants.READOUT_FONT,
-      titleMaxWidth: 70,
-      valuePattern: pattern,
-      valueMaxWidth: 100,
-      decimalPlaces: 2,
       delta: 0.01,
       layoutFunction: NumberControl.createLayoutFunction4( options ),
-      useRichText: true,
-      majorTickLength: 5,
+
+      // subcomponent options
+      titleNodeOptions: {
+        font: PendulumLabConstants.TITLE_FONT_BOLD,
+        maxWidth: 70
+      },
+      numberDisplayOptions: {
+        font: PendulumLabConstants.READOUT_FONT,
+        valuePattern: pattern,
+        maxWidth: 100,
+        decimalPlaces: 2,
+        useRichText: true
+      },
       arrowButtonOptions: { scale: 0.56 },
+      sliderOptions: null
+    }, options );
+
+    var sliderOptions = _.extend( {
+      majorTickLength: 5,
       constrainValue: function( value ) {
         return Util.roundSymmetric( value * 10 ) / 10;
       },
@@ -66,19 +76,22 @@ define( function( require ) {
         value: range.max,
         label: new Text( options.maxTick || range.max, { font: PendulumLabConstants.TICK_FONT, maxWidth: 50 } )
       } ]
-    }, options );
+    }, options.sliderOptions );
 
     var trackWidth = 500;
-    var testControl = new NumberControl( title, property, range, _.extend( {}, numberControlOptions, {
+    var testControlSliderOptions = _.extend( {}, sliderOptions, {
       trackSize: new Dimension2( trackWidth, PendulumLabConstants.TRACK_HEIGHT )
-    } ) );
+    } );
+    numberControlOptions.sliderOptions = testControlSliderOptions;
+    var testControl = new NumberControl( title, property, range, numberControlOptions );
 
     var testWidth = testControl.width;
     testControl.dispose();
-
-    NumberControl.call( this, title, property, range, _.extend( {}, numberControlOptions, {
+    var numberControlSliderOptions = _.extend( {}, sliderOptions, {
       trackSize: new Dimension2( trackWidth + PendulumLabConstants.RIGHT_CONTENT_WIDTH - testWidth, PendulumLabConstants.TRACK_HEIGHT )
-    } ) );
+    } );
+    numberControlOptions.sliderOptions = numberControlSliderOptions;
+    NumberControl.call( this, title, property, range, numberControlOptions );
   }
 
   pendulumLab.register( 'PendulumNumberControl', PendulumNumberControl );
