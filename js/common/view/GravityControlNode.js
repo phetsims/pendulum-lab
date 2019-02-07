@@ -45,6 +45,7 @@ define( function( require ) {
       useTextSliderLabels: true
     }, options );
 
+    //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
     var labelPattern = StringUtils.fillIn( gravitationalAccelerationPatternString, {
       gravity: '{0}'
     } );

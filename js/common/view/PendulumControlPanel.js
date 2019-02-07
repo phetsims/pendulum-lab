@@ -52,6 +52,7 @@ define( function( require ) {
         pendulumNumber: pendulumNumberString
       } );
 
+      //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
       var lengthPattern = StringUtils.fillIn( metersPatternString, { meters: '{0}' } );
       var massPattern = StringUtils.fillIn( kilogramsPatternString, { kilograms: '{0}' } );
 

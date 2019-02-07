@@ -66,6 +66,7 @@ define( function( require ) {
     // range the slider can have
     var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ) );
 
+    //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
     var numberControl = new PendulumNumberControl( frictionString, sliderValueProperty, sliderValueRange, '{0}', 'rgb(50,145,184)', {
       hasReadoutProperty: new BooleanProperty( false ),
       excludeTweakers: true,
