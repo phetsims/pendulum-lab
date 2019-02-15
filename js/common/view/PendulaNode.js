@@ -163,7 +163,7 @@ define( function( require ) {
 
         // determine the position of where the pendulum is dragged.
         start: function( event ) {
-          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
+          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle + Math.PI / 2;
           angleOffset = pendulum.angleProperty.value - dragAngle;
 
           pendulum.isUserControlledProperty.value = true;
@@ -171,7 +171,7 @@ define( function( require ) {
 
         // set the angle of the pendulum depending on where it is dragged to.
         drag: function( event ) {
-          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle() + Math.PI / 2;
+          var dragAngle = modelViewTransform.viewToModelPosition( self.globalToLocalPoint( event.pointer.point ) ).angle + Math.PI / 2;
           var continuousAngle = Pendulum.modAngle( angleOffset + dragAngle );
 
           // Round angles to nearest degree, see https://github.com/phetsims/pendulum-lab/issues/195
