@@ -25,7 +25,7 @@ define( function( require ) {
   var TWO_PI = Math.PI * 2;
 
   // scratch vector for convenience
-  var scratchVector = new Vector2();
+  var scratchVector = new Vector2( 0, 0 );
 
   /**
    * @constructor
