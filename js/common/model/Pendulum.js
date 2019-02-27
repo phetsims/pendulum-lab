@@ -100,10 +100,10 @@ define( function( require ) {
     this.frictionProperty = frictionProperty;
 
     // @public
-    this.stepEmitter = new Emitter();
+    this.stepEmitter = new Emitter( { validationEnabled: false } );
     this.userMovedEmitter = new Emitter();
     this.crossingEmitter = new Emitter( { validationEnabled: false } );
-    this.peakEmitter = new Emitter();
+    this.peakEmitter = new Emitter( { validationEnabled: false } );
     this.resetEmitter = new Emitter();
 
     // default color for this pendulum
@@ -240,7 +240,7 @@ define( function( require ) {
       // update the derived variables, taking into account the transfer to thermal energy if friction is present
       this.updateDerivedVariables( this.frictionProperty.value > 0 );
 
-      this.stepEmitter.emit1( dt );
+      this.stepEmitter.emit( dt );
     },
 
     /**
@@ -274,7 +274,7 @@ define( function( require ) {
     peak: function( oldTheta, newTheta ) {
       // a slightly better estimate is turningAngle =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
       var turningAngle = ( oldTheta + newTheta > 0 ) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
-      this.peakEmitter.emit1( turningAngle );
+      this.peakEmitter.emit( turningAngle );
     },
 
     /**
