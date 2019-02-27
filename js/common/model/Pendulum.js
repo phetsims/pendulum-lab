@@ -102,7 +102,7 @@ define( function( require ) {
     // @public
     this.stepEmitter = new Emitter();
     this.userMovedEmitter = new Emitter();
-    this.crossingEmitter = new Emitter();
+    this.crossingEmitter = new Emitter( { validationEnabled: false } );
     this.peakEmitter = new Emitter();
     this.resetEmitter = new Emitter();
 
@@ -260,7 +260,7 @@ define( function( require ) {
       // to newDT.
       var crossingDT = Util.linear( oldTheta, newTheta, oldDT, newDT, 0 );
 
-      this.crossingEmitter.emit2( crossingDT, isPositiveDirection );
+      this.crossingEmitter.emit( crossingDT, isPositiveDirection );
     },
 
     /**
