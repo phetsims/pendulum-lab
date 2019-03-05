@@ -67,7 +67,7 @@ define( function( require ) {
       thumbSize: PendulumLabConstants.THUMB_SIZE,
       thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,
       thumbTouchAreaYDilation: PendulumLabConstants.THUMB_TOUCH_AREA_Y_DILATION,
-      thumbFillEnabled: color,
+      thumbFill: color,
       thumbFillHighlighted: Color.toColor( color ).colorUtilsBrighter( 0.6 ),
       majorTicks: [ {
         value: range.min,

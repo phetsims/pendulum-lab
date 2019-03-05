@@ -72,7 +72,7 @@ define( function( require ) {
       excludeTweakers: true,
       sliderPadding: 14,
       sliderOptions: {
-        thumbFillEnabled: '#00C4DF',
+        thumbFill: '#00C4DF',
         thumbFillHighlighted: '#71EDFF',
         minorTickLength: 5,
         majorTickLength: 10,

@@ -97,7 +97,7 @@ define( function( require ) {
 
       // subcomponent options
       sliderOptions: {
-        thumbFillEnabled: '#00C4DF',
+        thumbFill: '#00C4DF',
         thumbFillHighlighted: '#71EDFF',
         // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
         constrainValue: function( value ) {
