@@ -101,10 +101,10 @@ define( function( require ) {
     this.frictionProperty = frictionProperty;
 
     // @public
-    this.stepEmitter = new Emitter( { validationEnabled: false } );
+    this.stepEmitter = new Emitter( { validators: [ { valueType: 'number' } ] } );
     this.userMovedEmitter = new Emitter();
-    this.crossingEmitter = new Emitter( { validationEnabled: false } );
-    this.peakEmitter = new Emitter( { validationEnabled: false } );
+    this.crossingEmitter = new Emitter( { validators: [ { valueType: 'number' }, { valueType: 'boolean' } ] } );
+    this.peakEmitter = new Emitter( { validators: [ { valueType: 'number' } ] } );
     this.resetEmitter = new Emitter();
 
     // default color for this pendulum
