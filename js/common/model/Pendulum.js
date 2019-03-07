@@ -20,6 +20,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   var TWO_PI = Math.PI * 2;
@@ -67,14 +68,14 @@ define( function( require ) {
     // @public {Property.<number>} - Angular acceleration in rad/s^2
     this.angularAccelerationProperty = new NumberProperty( 0 );
 
-    // @public {Property.<Vector2>} - Position from the rotation point
-    this.positionProperty = new Property( Vector2.ZERO );
+    // @public - Position from the rotation point
+    this.positionProperty = new Vector2Property( Vector2.ZERO );
 
-    // @public {Property.<Vector2>}
-    this.velocityProperty = new Property( Vector2.ZERO );
+    // @public
+    this.velocityProperty = new Vector2Property( Vector2.ZERO );
 
-    // @public {Property.<Vector2>}
-    this.accelerationProperty = new Property( Vector2.ZERO );
+    // @public
+    this.accelerationProperty = new Vector2Property( Vector2.ZERO );
 
     // @public {Property.<number>} - In Joules
     this.kineticEnergyProperty = new NumberProperty( 0 );
