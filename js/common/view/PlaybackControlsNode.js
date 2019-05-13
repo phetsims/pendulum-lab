@@ -78,15 +78,9 @@ define( function( require ) {
       ]
     } );
 
-    var timeSpeedRadioNode = new VerticalAquaRadioButtonGroup( [ {
-      property: timeSpeedProperty,
-      value: 1,
-      node: new Text( normalString, { font: FONT } )
-    }, {
-      property: timeSpeedProperty,
-      value: 1 / 8,
-      node: new Text( slowMotionString, { font: FONT } )
-    }
+    var timeSpeedRadioNode = new VerticalAquaRadioButtonGroup( timeSpeedProperty, [
+      { value: 1, node: new Text( normalString, { font: FONT } ) },
+      { value: 1 / 8, node: new Text( slowMotionString, { font: FONT } ) }
     ], {
       spacing: 9,
       touchAreaXDilation: 10,
