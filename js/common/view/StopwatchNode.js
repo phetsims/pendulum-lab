@@ -23,7 +23,8 @@ define( function( require ) {
    */
   function StopwatchNode( stopwatch, layoutBounds ) {
     var self = this;
-    TimerNode.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty, { touchAreaDilation: 5 } );
+    TimerNode.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty );
+    this.touchArea = this.localBounds.dilated( 5 );
 
     // @public
     this.movableDragHandler = new MovableDragHandler( stopwatch.locationProperty, {
