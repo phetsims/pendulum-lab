@@ -6,30 +6,30 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Body = require( 'PENDULUM_LAB/common/model/Body' );
-  var ComboBox = require( 'SUN/ComboBox' );
-  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Body = require( 'PENDULUM_LAB/common/model/Body' );
+  const ComboBox = require( 'SUN/ComboBox' );
+  const ComboBoxItem = require( 'SUN/ComboBoxItem' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var gravitationalAccelerationPatternString = require( 'string!PENDULUM_LAB/gravitationalAccelerationPattern' );
-  var gravityString = require( 'string!PENDULUM_LAB/gravity' );
-  var lotsString = require( 'string!PENDULUM_LAB/lots' );
-  var noneString = require( 'string!PENDULUM_LAB/none' );
-  var whatIsTheValueOfGravityString = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
+  const gravitationalAccelerationPatternString = require( 'string!PENDULUM_LAB/gravitationalAccelerationPattern' );
+  const gravityString = require( 'string!PENDULUM_LAB/gravity' );
+  const lotsString = require( 'string!PENDULUM_LAB/lots' );
+  const noneString = require( 'string!PENDULUM_LAB/none' );
+  const whatIsTheValueOfGravityString = require( 'string!PENDULUM_LAB/whatIsTheValueOfGravity' );
 
   /**
    * @constructor

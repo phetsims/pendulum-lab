@@ -5,14 +5,14 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var StopSignNode = require( 'SCENERY_PHET/StopSignNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  const StopSignNode = require( 'SCENERY_PHET/StopSignNode' );
 
   /**
    * @constructor

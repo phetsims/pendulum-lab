@@ -6,18 +6,18 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
 
   /**
    * @constructor

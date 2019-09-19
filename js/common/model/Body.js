@@ -5,18 +5,18 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
 
   // strings
-  var customString = require( 'string!PENDULUM_LAB/custom' );
-  var earthString = require( 'string!PENDULUM_LAB/earth' );
-  var jupiterString = require( 'string!PENDULUM_LAB/jupiter' );
-  var moonString = require( 'string!PENDULUM_LAB/moon' );
-  var planetXString = require( 'string!PENDULUM_LAB/planetX' );
+  const customString = require( 'string!PENDULUM_LAB/custom' );
+  const earthString = require( 'string!PENDULUM_LAB/earth' );
+  const jupiterString = require( 'string!PENDULUM_LAB/jupiter' );
+  const moonString = require( 'string!PENDULUM_LAB/moon' );
+  const planetXString = require( 'string!PENDULUM_LAB/planetX' );
 
   /**
    * @constructor

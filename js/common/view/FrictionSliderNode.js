@@ -5,26 +5,26 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var DynamicProperty = require( 'AXON/DynamicProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DynamicProperty = require( 'AXON/DynamicProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
 
   // strings
-  var frictionString = require( 'string!PENDULUM_LAB/friction' );
-  var lotsString = require( 'string!PENDULUM_LAB/lots' );
-  var noneString = require( 'string!PENDULUM_LAB/none' );
+  const frictionString = require( 'string!PENDULUM_LAB/friction' );
+  const lotsString = require( 'string!PENDULUM_LAB/lots' );
+  const noneString = require( 'string!PENDULUM_LAB/none' );
 
   /**
    * Converts the numerical value of the slider to friction, does not assign to friction property

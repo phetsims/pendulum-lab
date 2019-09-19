@@ -5,20 +5,20 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Body = require( 'PENDULUM_LAB/common/model/Body' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var Property = require( 'AXON/Property' );
-  var RangeWithValue = require( 'DOT/RangeWithValue' );
-  var Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
-  var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
+  const Body = require( 'PENDULUM_LAB/common/model/Body' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const Property = require( 'AXON/Property' );
+  const RangeWithValue = require( 'DOT/RangeWithValue' );
+  const Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
+  const Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**
    * @constructor

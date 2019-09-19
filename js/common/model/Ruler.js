@@ -5,13 +5,13 @@
  *
  * @author Andrey Zelenkov (MLearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableComponent = require( 'PENDULUM_LAB/common/model/MovableComponent' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableComponent = require( 'PENDULUM_LAB/common/model/MovableComponent' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
 
   /**
    * @constructor

@@ -6,17 +6,17 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
-  var GravityControlNode = require( 'PENDULUM_LAB/common/view/GravityControlNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const FrictionSliderNode = require( 'PENDULUM_LAB/common/view/FrictionSliderNode' );
+  const GravityControlNode = require( 'PENDULUM_LAB/common/view/GravityControlNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @constructor

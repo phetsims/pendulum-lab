@@ -5,25 +5,25 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
-  var PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
+  const PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenIntroString = require( 'string!PENDULUM_LAB/screen.intro' );
+  const screenIntroString = require( 'string!PENDULUM_LAB/screen.intro' );
 
   // images
-  var introNavbarImage = require( 'mipmap!PENDULUM_LAB/intro-navbar-icon.png' );
-  var introScreenImage = require( 'mipmap!PENDULUM_LAB/intro-screen-icon.png' );
+  const introNavbarImage = require( 'mipmap!PENDULUM_LAB/intro-navbar-icon.png' );
+  const introScreenImage = require( 'mipmap!PENDULUM_LAB/intro-screen-icon.png' );
 
   /**
    * @constructor

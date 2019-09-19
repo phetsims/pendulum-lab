@@ -5,16 +5,16 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EnergyBox = require( 'PENDULUM_LAB/energy/view/EnergyBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
+  const EnergyBox = require( 'PENDULUM_LAB/energy/view/EnergyBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
 
   /**
    * @constructor

@@ -7,27 +7,27 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Property = require( 'AXON/Property' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ARROW_HEAD_WIDTH = 12;

@@ -5,14 +5,14 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
 
   /**
    * @constructor

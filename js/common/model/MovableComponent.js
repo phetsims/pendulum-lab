@@ -7,14 +7,14 @@
  * @author Andrey Zelenkov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var Property = require( 'AXON/Property' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const Property = require( 'AXON/Property' );
 
   /**
    * @constructor

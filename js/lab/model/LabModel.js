@@ -5,15 +5,15 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
 
   /**
    * @constructor

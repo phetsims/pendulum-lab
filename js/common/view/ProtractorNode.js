@@ -6,26 +6,26 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Property = require( 'AXON/Property' );
-  var Shape = require( 'KITE/Shape' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Property = require( 'AXON/Property' );
+  const Shape = require( 'KITE/Shape' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var degreesPatternString = require( 'string!PENDULUM_LAB/degreesPattern' );
+  const degreesPatternString = require( 'string!PENDULUM_LAB/degreesPattern' );
 
   // constants
   var LINE_LENGTH_DEFAULT = 3.6;

@@ -7,26 +7,26 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PendulaIcons = require( 'PENDULUM_LAB/common/view/PendulaIcons' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var StopButton = require( 'PENDULUM_LAB/common/view/StopButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PendulaIcons = require( 'PENDULUM_LAB/common/view/PendulaIcons' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  const StopButton = require( 'PENDULUM_LAB/common/view/StopButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
-  var normalString = require( 'string!PENDULUM_LAB/normal' );
-  var slowMotionString = require( 'string!PENDULUM_LAB/slowMotion' );
+  const normalString = require( 'string!PENDULUM_LAB/normal' );
+  const slowMotionString = require( 'string!PENDULUM_LAB/slowMotion' );
 
   // constants
   var FONT = PendulumLabConstants.TITLE_FONT;

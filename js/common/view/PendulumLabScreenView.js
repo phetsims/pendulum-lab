@@ -5,28 +5,28 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ClosestDragListener = require( 'SUN/ClosestDragListener' );
-  var GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
-  var PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
-  var PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
-  var Plane = require( 'SCENERY/nodes/Plane' );
-  var PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
-  var ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
-  var ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const ClosestDragListener = require( 'SUN/ClosestDragListener' );
+  const GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
+  const PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PendulumLabRulerNode = require( 'PENDULUM_LAB/common/view/PendulumLabRulerNode' );
+  const PeriodTraceNode = require( 'PENDULUM_LAB/common/view/PeriodTraceNode' );
+  const Plane = require( 'SCENERY/nodes/Plane' );
+  const PlaybackControlsNode = require( 'PENDULUM_LAB/common/view/PlaybackControlsNode' );
+  const ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
+  const ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @constructor

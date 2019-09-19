@@ -7,23 +7,23 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
 
   // strings
-  var periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
-  var periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
-  var rulerString = require( 'string!PENDULUM_LAB/ruler' );
-  var stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
+  const periodTimerString = require( 'string!PENDULUM_LAB/periodTimer' );
+  const periodTraceString = require( 'string!PENDULUM_LAB/periodTrace' );
+  const rulerString = require( 'string!PENDULUM_LAB/ruler' );
+  const stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
 
   // constants
   var TEXT_OPTIONS = {

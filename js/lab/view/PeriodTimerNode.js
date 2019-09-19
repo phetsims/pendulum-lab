@@ -6,40 +6,40 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ABSwitch = require( 'SUN/ABSwitch' );
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var UTurnArrowShape = require( 'SCENERY_PHET/UTurnArrowShape' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const ABSwitch = require( 'SUN/ABSwitch' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const BooleanRectangularToggleButton = require( 'SUN/buttons/BooleanRectangularToggleButton' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const UTurnArrowShape = require( 'SCENERY_PHET/UTurnArrowShape' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var periodString = require( 'string!PENDULUM_LAB/period' );
-  var secondsPatternString = require( 'string!PENDULUM_LAB/secondsPattern' );
+  const periodString = require( 'string!PENDULUM_LAB/period' );
+  const secondsPatternString = require( 'string!PENDULUM_LAB/secondsPattern' );
 
-  var periodTimerBackgroundImage = require( 'mipmap!PENDULUM_LAB/period-timer-background.png' );
+  const periodTimerBackgroundImage = require( 'mipmap!PENDULUM_LAB/period-timer-background.png' );
 
   /**
    * @constructor

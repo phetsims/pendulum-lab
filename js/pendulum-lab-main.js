@@ -5,18 +5,18 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EnergyScreen = require( 'PENDULUM_LAB/energy/EnergyScreen' );
-  var IntroScreen = require( 'PENDULUM_LAB/intro/IntroScreen' );
-  var LabScreen = require( 'PENDULUM_LAB/lab/LabScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
+  const EnergyScreen = require( 'PENDULUM_LAB/energy/EnergyScreen' );
+  const IntroScreen = require( 'PENDULUM_LAB/intro/IntroScreen' );
+  const LabScreen = require( 'PENDULUM_LAB/lab/LabScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var pendulumLabTitleString = require( 'string!PENDULUM_LAB/pendulum-lab.title' );
+  const pendulumLabTitleString = require( 'string!PENDULUM_LAB/pendulum-lab.title' );
 
   var simOptions = {
     credits: {

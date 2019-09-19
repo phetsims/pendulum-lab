@@ -6,31 +6,31 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  var Dialog = require( 'SUN/Dialog' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  const Dialog = require( 'SUN/Dialog' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var energyLegendString = require( 'string!PENDULUM_LAB/energyLegend' );
-  var legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
-  var legendKineticEnergyString = require( 'string!PENDULUM_LAB/legend.kineticEnergy' );
-  var legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
-  var legendPotentialEnergyString = require( 'string!PENDULUM_LAB/legend.potentialEnergy' );
-  var legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
-  var legendThermalEnergyString = require( 'string!PENDULUM_LAB/legend.thermalEnergy' );
-  var legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
-  var legendTotalEnergyString = require( 'string!PENDULUM_LAB/legend.totalEnergy' );
+  const energyLegendString = require( 'string!PENDULUM_LAB/energyLegend' );
+  const legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
+  const legendKineticEnergyString = require( 'string!PENDULUM_LAB/legend.kineticEnergy' );
+  const legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
+  const legendPotentialEnergyString = require( 'string!PENDULUM_LAB/legend.potentialEnergy' );
+  const legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
+  const legendThermalEnergyString = require( 'string!PENDULUM_LAB/legend.thermalEnergy' );
+  const legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
+  const legendTotalEnergyString = require( 'string!PENDULUM_LAB/legend.totalEnergy' );
 
   /**
    * @constructor

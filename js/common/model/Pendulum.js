@@ -5,22 +5,22 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Emitter = require( 'AXON/Emitter' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Vector2Property = require( 'DOT/Vector2Property' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Emitter = require( 'AXON/Emitter' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   var TWO_PI = Math.PI * 2;

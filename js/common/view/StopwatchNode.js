@@ -6,14 +6,14 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var TimerNode = require( 'SCENERY_PHET/TimerNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const TimerNode = require( 'SCENERY_PHET/TimerNode' );
 
   /**
    * @constructor

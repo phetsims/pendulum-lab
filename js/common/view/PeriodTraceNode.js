@@ -6,18 +6,18 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var Property = require( 'AXON/Property' );
-  var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Color = require( 'SCENERY/util/Color' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const Property = require( 'AXON/Property' );
+  const Shape = require( 'KITE/Shape' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...

@@ -6,20 +6,20 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Util = require( 'DOT/Util' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Util = require( 'DOT/Util' );
 
   // constants
   var ICON_SIZE = 35;

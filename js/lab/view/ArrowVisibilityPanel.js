@@ -7,26 +7,26 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Checkbox = require( 'SUN/Checkbox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Property = require( 'AXON/Property' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Property = require( 'AXON/Property' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var accelerationString = require( 'string!PENDULUM_LAB/acceleration' );
-  var velocityString = require( 'string!PENDULUM_LAB/velocity' );
+  const accelerationString = require( 'string!PENDULUM_LAB/acceleration' );
+  const velocityString = require( 'string!PENDULUM_LAB/velocity' );
 
   /**
    * @constructor

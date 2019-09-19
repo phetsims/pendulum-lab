@@ -5,24 +5,24 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
-  var EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
+  const EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenEnergyString = require( 'string!PENDULUM_LAB/screen.energy' );
+  const screenEnergyString = require( 'string!PENDULUM_LAB/screen.energy' );
 
   // images
-  var energyImage = require( 'mipmap!PENDULUM_LAB/energy-screen-icon.png' );
+  const energyImage = require( 'mipmap!PENDULUM_LAB/energy-screen-icon.png' );
 
   /**
    * @constructor

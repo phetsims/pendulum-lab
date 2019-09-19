@@ -6,16 +6,16 @@
  *
  * @author Andrey Zelenkov (MLearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var Property = require( 'AXON/Property' );
-  var Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const Property = require( 'AXON/Property' );
+  const Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
 
   /**
    * @constructor

@@ -6,24 +6,24 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Panel = require( 'SUN/Panel' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Panel = require( 'SUN/Panel' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var kilogramsPatternString = require( 'string!PENDULUM_LAB/kilogramsPattern' );
-  var lengthString = require( 'string!PENDULUM_LAB/length' );
-  var massString = require( 'string!PENDULUM_LAB/mass' );
-  var metersPatternString = require( 'string!PENDULUM_LAB/metersPattern' );
+  const kilogramsPatternString = require( 'string!PENDULUM_LAB/kilogramsPattern' );
+  const lengthString = require( 'string!PENDULUM_LAB/length' );
+  const massString = require( 'string!PENDULUM_LAB/mass' );
+  const metersPatternString = require( 'string!PENDULUM_LAB/metersPattern' );
 
   /**
    * @constructor

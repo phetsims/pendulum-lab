@@ -5,16 +5,16 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ArrowVisibilityPanel = require( 'PENDULUM_LAB/lab/view/ArrowVisibilityPanel' );
-  var EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
+  const ArrowVisibilityPanel = require( 'PENDULUM_LAB/lab/view/ArrowVisibilityPanel' );
+  const EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const PeriodTimerNode = require( 'PENDULUM_LAB/lab/view/PeriodTimerNode' );
 
   /**
    * @constructor

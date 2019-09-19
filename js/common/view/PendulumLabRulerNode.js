@@ -7,18 +7,18 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var RulerNode = require( 'SCENERY_PHET/RulerNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const RulerNode = require( 'SCENERY_PHET/RulerNode' );
 
   // strings
-  var rulerUnitsString = require( 'string!PENDULUM_LAB/rulerUnits' );
+  const rulerUnitsString = require( 'string!PENDULUM_LAB/rulerUnits' );
 
   // constants
   var RULER_HEIGHT = 34;

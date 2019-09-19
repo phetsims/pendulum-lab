@@ -6,39 +6,39 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AccordionBox = require( 'SUN/AccordionBox' );
-  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var BarChartNode = require( 'GRIDDLE/BarChartNode' );
-  var ColorConstants = require( 'SUN/ColorConstants' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var DynamicProperty = require( 'AXON/DynamicProperty' );
-  var EnergyLegendDialog = require( 'PENDULUM_LAB/energy/view/EnergyLegendDialog' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var InfoButton = require( 'SCENERY_PHET/buttons/InfoButton' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MoveToTrashButton = require( 'SCENERY_PHET/MoveToTrashButton' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  var Range = require( 'DOT/Range' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
+  const AccordionBox = require( 'SUN/AccordionBox' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const BarChartNode = require( 'GRIDDLE/BarChartNode' );
+  const ColorConstants = require( 'SUN/ColorConstants' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const DynamicProperty = require( 'AXON/DynamicProperty' );
+  const EnergyLegendDialog = require( 'PENDULUM_LAB/energy/view/EnergyLegendDialog' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const InfoButton = require( 'SCENERY_PHET/buttons/InfoButton' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MoveToTrashButton = require( 'SCENERY_PHET/MoveToTrashButton' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
+  const Range = require( 'DOT/Range' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // strings
-  var energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
-  var legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
-  var legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
-  var legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
-  var legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
-  var pendulumMassPatternString = require( 'string!PENDULUM_LAB/pendulumMassPattern' );
+  const energyGraphString = require( 'string!PENDULUM_LAB/energyGraph' );
+  const legendKineticEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.kineticEnergyAbbreviation' );
+  const legendPotentialEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.potentialEnergyAbbreviation' );
+  const legendThermalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.thermalEnergyAbbreviation' );
+  const legendTotalEnergyAbbreviationString = require( 'string!PENDULUM_LAB/legend.totalEnergyAbbreviation' );
+  const pendulumMassPatternString = require( 'string!PENDULUM_LAB/pendulumMassPattern' );
 
 
   /**

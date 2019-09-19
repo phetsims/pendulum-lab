@@ -6,16 +6,16 @@
  * @author Andrey Zelenkov (MLearner)
  */
 
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   var PANEL_CORNER_RADIUS = 5;
   var PANEL_X_MARGIN = 10;

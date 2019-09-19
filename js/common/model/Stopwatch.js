@@ -5,15 +5,15 @@
  *
  * @author Andrey Zelenkov (MLearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MovableComponent = require( 'PENDULUM_LAB/common/model/MovableComponent' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MovableComponent = require( 'PENDULUM_LAB/common/model/MovableComponent' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
 
   /**
    * @constructor
