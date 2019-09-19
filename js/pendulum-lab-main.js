@@ -18,7 +18,7 @@ define( require => {
   // strings
   const pendulumLabTitleString = require( 'string!PENDULUM_LAB/pendulum-lab.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Amy Rouinfar',
       softwareDevelopment: 'Jonathan Olson, Michael Dubson',
@@ -30,7 +30,7 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( pendulumLabTitleString, [ new IntroScreen(), new EnergyScreen(), new LabScreen() ], simOptions );
+    const sim = new Sim( pendulumLabTitleString, [ new IntroScreen(), new EnergyScreen(), new LabScreen() ], simOptions );
     sim.start();
   } );
 } );

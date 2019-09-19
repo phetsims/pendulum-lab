@@ -30,7 +30,7 @@ define( require => {
    */
   function IntroScreen() {
 
-    var options = {
+    const options = {
       name: screenIntroString,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( introScreenImage ),

@@ -24,7 +24,7 @@ define( require => {
    * @param {Property.<boolean>} isVisibleProperty
    */
   function PeriodTimer( pendula, isVisibleProperty ) {
-    var self = this;
+    const self = this;
 
     Stopwatch.call( this, isVisibleProperty.value );
 
@@ -72,7 +72,7 @@ define( require => {
     } );
 
     // create listeners
-    var pathListeners = [];
+    const pathListeners = [];
     pendula.forEach( function( pendulum, pendulumIndex ) {
       pendulum.periodTrace.isVisibleProperty.value = false;
 

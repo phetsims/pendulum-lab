@@ -33,28 +33,28 @@ define( require => {
    */
   function PendulumControlPanel( pendula, numberOfPendulaProperty ) {
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 16
     } );
 
-    var separator = new Line( {
+    const separator = new Line( {
       stroke: 'rgb(160,160,160)',
       lineWidth: 0.3,
       x2: PendulumLabConstants.RIGHT_CONTENT_WIDTH
     } );
 
-    var pendulumSliderGroups = pendula.map( function( pendulum ) {
-      var pendulumNumberString = '' + ( pendulum.index + 1 );
-      var lengthTitle = StringUtils.fillIn( lengthString, {
+    const pendulumSliderGroups = pendula.map( function( pendulum ) {
+      const pendulumNumberString = '' + ( pendulum.index + 1 );
+      const lengthTitle = StringUtils.fillIn( lengthString, {
         pendulumNumber: pendulumNumberString
       } );
-      var massTitle = StringUtils.fillIn( massString, {
+      const massTitle = StringUtils.fillIn( massString, {
         pendulumNumber: pendulumNumberString
       } );
 
       //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
-      var lengthPattern = StringUtils.fillIn( metersPatternString, { meters: '{0}' } );
-      var massPattern = StringUtils.fillIn( kilogramsPatternString, { kilograms: '{0}' } );
+      const lengthPattern = StringUtils.fillIn( metersPatternString, { meters: '{0}' } );
+      const massPattern = StringUtils.fillIn( kilogramsPatternString, { kilograms: '{0}' } );
 
       return new VBox( {
         spacing: 14,

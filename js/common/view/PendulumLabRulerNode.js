@@ -21,8 +21,8 @@ define( require => {
   const rulerUnitsString = require( 'string!PENDULUM_LAB/rulerUnits' );
 
   // constants
-  var RULER_HEIGHT = 34;
-  var TICK_INTERVAL = 5; // tick interval in cm
+  const RULER_HEIGHT = 34;
+  const TICK_INTERVAL = 5; // tick interval in cm
 
   /**
    * @constructor
@@ -32,12 +32,12 @@ define( require => {
    * @param {Bounds2} layoutBounds - Bounds of screen view
    */
   function PendulumLabRulerNode( ruler, modelViewTransform, layoutBounds ) {
-    var self = this;
+    const self = this;
 
     // create tick labels
-    var tickLabel;
-    var rulerTicks = [ '' ]; // zero tick is not labeled
-    for ( var currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
+    let tickLabel;
+    const rulerTicks = [ '' ]; // zero tick is not labeled
+    for ( let currentTick = TICK_INTERVAL; currentTick < ruler.length * 100; currentTick += TICK_INTERVAL ) {
       // if the current tick is a multiple of twice the Tick interval then label it as such otherwise it is not labeled.
       tickLabel = currentTick % ( 2 * TICK_INTERVAL ) ? '' : currentTick.toString();
       rulerTicks.push( tickLabel );
@@ -45,8 +45,8 @@ define( require => {
     rulerTicks.push( '' ); // last tick is not labeled
 
     // define ruler params in view coordinates
-    var rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
-    var tickWidth = rulerWidth / ( rulerTicks.length - 1 );
+    const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
+    const tickWidth = rulerWidth / ( rulerTicks.length - 1 );
 
     RulerNode.call( this, rulerWidth, RULER_HEIGHT, tickWidth, rulerTicks, rulerUnitsString, {
       backgroundFill: 'rgb( 237, 225, 121 )',

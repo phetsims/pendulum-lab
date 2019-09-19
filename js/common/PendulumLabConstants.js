@@ -17,12 +17,12 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  var PANEL_CORNER_RADIUS = 5;
-  var PANEL_X_MARGIN = 10;
-  var PANEL_Y_MARGIN = 8;
-  var PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
+  const PANEL_CORNER_RADIUS = 5;
+  const PANEL_X_MARGIN = 10;
+  const PANEL_Y_MARGIN = 8;
+  const PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
 
-  var PendulumLabConstants = {
+  const PendulumLabConstants = {
     // Some other colors
     BACKGROUND_COLOR: 'rgb( 255, 255, 255 )',
     FIRST_PENDULUM_COLOR: 'rgb( 0, 0, 255 )',

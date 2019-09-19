@@ -50,7 +50,7 @@ define( require => {
    * @param {Object} [options]
    */
   function PeriodTimerNode( periodTimer, secondPendulumIsVisibleProperty, layoutBounds, options ) {
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       iconColor: '#333',
@@ -61,20 +61,20 @@ define( require => {
     Node.call( this, options );
 
     // creates Uturn arrow on the period timer tool
-    var uArrowShape = new UTurnArrowShape( 10 );
+    const uArrowShape = new UTurnArrowShape( 10 );
 
     // creates triangle shape on play button by creating three lines at x,y coordinates.
-    var playPauseSize = uArrowShape.bounds.height;
-    var halfPlayStroke = 0.05 * playPauseSize;
-    var playOffset = 0.15 * playPauseSize;
-    var playShape = new Shape().moveTo( playPauseSize - halfPlayStroke * 0.5 - playOffset, 0 )
+    const playPauseSize = uArrowShape.bounds.height;
+    const halfPlayStroke = 0.05 * playPauseSize;
+    const playOffset = 0.15 * playPauseSize;
+    const playShape = new Shape().moveTo( playPauseSize - halfPlayStroke * 0.5 - playOffset, 0 )
       .lineTo( halfPlayStroke * 1.5 + playOffset, playPauseSize / 2 - halfPlayStroke - playOffset )
       .lineTo( halfPlayStroke * 1.5 + playOffset, -playPauseSize / 2 + halfPlayStroke + playOffset )
       .close()
       .getOffsetShape( -playOffset );
 
     // creates playPauseButton
-    var playPauseButton = new BooleanRectangularToggleButton(
+    const playPauseButton = new BooleanRectangularToggleButton(
       new Path( uArrowShape, {
         fill: options.iconColor,
         center: Vector2.ZERO,
@@ -93,9 +93,9 @@ define( require => {
     playPauseButton.touchArea = playPauseButton.localBounds.dilated( 5 );
 
     function createPendulumIcon( color, label, padLeft ) {
-      var highlightColor = Color.toColor( color ).colorUtilsBrighter( 0.4 );
-      var rectBounds = new Bounds2( 0, 0, 17, 20 );
-      var icon = new Node( {
+      const highlightColor = Color.toColor( color ).colorUtilsBrighter( 0.4 );
+      const rectBounds = new Bounds2( 0, 0, 17, 20 );
+      const icon = new Node( {
         children: [
           Rectangle.bounds( rectBounds, {
             stroke: 'black',
@@ -114,7 +114,7 @@ define( require => {
       } );
 
       // Don't pad next to the AB switch, but only away from it
-      var touchArea = icon.localBounds.dilated( 5 );
+      const touchArea = icon.localBounds.dilated( 5 );
       if ( padLeft ) {
         touchArea.maxX = icon.localBounds.maxX;
       }
@@ -125,11 +125,11 @@ define( require => {
       return icon;
     }
 
-    var firstPendulumIcon = createPendulumIcon( PendulumLabConstants.FIRST_PENDULUM_COLOR, '1', true );
-    var secondPendulumIcon = createPendulumIcon( PendulumLabConstants.SECOND_PENDULUM_COLOR, '2', false );
+    const firstPendulumIcon = createPendulumIcon( PendulumLabConstants.FIRST_PENDULUM_COLOR, '1', true );
+    const secondPendulumIcon = createPendulumIcon( PendulumLabConstants.SECOND_PENDULUM_COLOR, '2', false );
 
     // creates switch icon for choosing the first or second pendulum
-    var graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
+    const graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
       xSpacing: 3,
       switchSize: new Dimension2( 25, 12.5 ),
       thumbTouchAreaXDilation: 3.5,
@@ -138,13 +138,13 @@ define( require => {
     } );
 
     // Switch,Play button, and pendulum icon buttons at the bottom of the period timer tool.
-    var periodTimerPendulaSelector = new HBox( {
+    const periodTimerPendulaSelector = new HBox( {
       spacing: 10,
       children: [ graphUnitsSwitch, playPauseButton ]
     } );
 
     // Creates time text inside period timer tool.
-    var readoutText = new Text( '', {
+    const readoutText = new Text( '', {
       font: PendulumLabConstants.PERIOD_TIMER_READOUT_FONT,
       maxWidth: periodTimerPendulaSelector.width * 0.80
     } );
@@ -156,13 +156,13 @@ define( require => {
     } );
 
     // Creates white background behind the time readout text in period timer tool.
-    var textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
+    const textBackground = Rectangle.roundedBounds( readoutText.bounds.dilatedXY( 20, 2 ), 5, 5, {
       fill: '#fff',
       stroke: 'rgba(0,0,0,0.5)'
     } );
 
     // Creates the title, time readout, and period timer pendulum selector as one box in period timer tool.
-    var vBox = new VBox( {
+    const vBox = new VBox( {
       spacing: 5,
       align: 'center',
       children: [
@@ -181,7 +181,7 @@ define( require => {
     } );
 
     // background image
-    var background = new Image( periodTimerBackgroundImage, {
+    const background = new Image( periodTimerBackgroundImage, {
       scale: 0.6,
       center: vBox.center
     } );
@@ -209,7 +209,7 @@ define( require => {
     this.addInputListener( this.movableDragHandler );
 
     // prevent dragging the PeriodTimer from the playPause Button and graphUnitSwitch
-    var doNotStartDragListener = {
+    const doNotStartDragListener = {
       down: function( event ) {
         event.handle();
       }

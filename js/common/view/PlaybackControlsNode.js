@@ -29,8 +29,8 @@ define( require => {
   const slowMotionString = require( 'string!PENDULUM_LAB/slowMotion' );
 
   // constants
-  var FONT = PendulumLabConstants.TITLE_FONT;
-  var RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
+  const FONT = PendulumLabConstants.TITLE_FONT;
+  const RECTANGULAR_BUTTON_BASE_COLOR = 'rgb( 230, 231, 232 )';
 
   /**
    * @constructor
@@ -44,11 +44,11 @@ define( require => {
    */
   function PlaybackControlsNode( numberOfPendulaProperty, isPlayingProperty, timeSpeedProperty, stepCallback, stopCallback, options ) {
 
-    var stopButton = new StopButton( {
+    const stopButton = new StopButton( {
       listener: stopCallback
     } );
 
-    var pendulaCountButtons = new RadioButtonGroup( numberOfPendulaProperty, [
+    const pendulaCountButtons = new RadioButtonGroup( numberOfPendulaProperty, [
       { node: PendulaIcons.ONE_PENDULUM_ICON, value: 1 },
       { node: PendulaIcons.TWO_PENDULA_ICON, value: 2 }
     ], {
@@ -62,7 +62,7 @@ define( require => {
       touchAreaYDilation: 8
     } );
 
-    var playPauseNode = new HBox( {
+    const playPauseNode = new HBox( {
       spacing: 10,
       children: [
         new PlayPauseButton( isPlayingProperty, {
@@ -78,7 +78,7 @@ define( require => {
       ]
     } );
 
-    var timeSpeedRadioNode = new VerticalAquaRadioButtonGroup( timeSpeedProperty, [
+    const timeSpeedRadioNode = new VerticalAquaRadioButtonGroup( timeSpeedProperty, [
       { value: 1, node: new Text( normalString, { font: FONT } ) },
       { value: 1 / 8, node: new Text( slowMotionString, { font: FONT } ) }
     ], {

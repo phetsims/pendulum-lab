@@ -26,7 +26,7 @@ define( require => {
    * @param {Object} [options]
    */
   function PendulumLabModel( options ) {
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       // {boolean} - Should be true if there is a PeriodTimer handling the trace's visibility.
@@ -158,7 +158,7 @@ define( require => {
     step: function( dt ) {
       if ( this.isPlayingProperty.value ) {
         // pick a number as irrational (in the mathematical sense) as possible so that the last digits on the period timer do get stuck to a number
-        var periodTimerOffsetFactor = 1.007;
+        const periodTimerOffsetFactor = 1.007;
 
         // For our accuracy guarantees, we cap our DT fairly low. Otherwise the fixed-step model may become inaccurate
         // enough for getting an accurate period timer or speed loss on Jupiter with the shortest length.
@@ -181,13 +181,13 @@ define( require => {
       }
 
       // loop over the pendula
-      for ( var i = 0; i < this.numberOfPendulaProperty.value; i++ ) {
-        var pendulum = this.pendula[ i ]; // get the pendulum from the array
+      for ( let i = 0; i < this.numberOfPendulaProperty.value; i++ ) {
+        const pendulum = this.pendula[ i ]; // get the pendulum from the array
 
         // if the pendulum is moving
         if ( !pendulum.isStationary() ) {
           // prevent infinite motion after friction.
-          var dampMotion = ( Math.abs( pendulum.angleProperty.value ) < 1e-3 ) && ( Math.abs( pendulum.angularAccelerationProperty.value ) < 1e-3 ) && ( Math.abs( pendulum.angularVelocityProperty.value ) < 1e-3 );
+          const dampMotion = ( Math.abs( pendulum.angleProperty.value ) < 1e-3 ) && ( Math.abs( pendulum.angularAccelerationProperty.value ) < 1e-3 ) && ( Math.abs( pendulum.angularVelocityProperty.value ) < 1e-3 );
           if ( dampMotion ) {
             pendulum.angleProperty.value = 0;
             pendulum.angularVelocityProperty.value = 0;

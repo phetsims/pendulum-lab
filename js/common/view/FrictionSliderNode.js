@@ -57,17 +57,17 @@ define( require => {
    */
   function FrictionSliderNode( frictionProperty, frictionRange, options ) {
 
-    var sliderValueProperty = new DynamicProperty( new Property( frictionProperty ), {
+    const sliderValueProperty = new DynamicProperty( new Property( frictionProperty ), {
       bidirectional: true,
       map: frictionToSliderValue,
       inverseMap: sliderValueToFriction
     } );
 
     // range the slider can have
-    var sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ) );
+    const sliderValueRange = new Range( frictionToSliderValue( frictionRange.min ), frictionToSliderValue( frictionRange.max ) );
 
     //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
-    var numberControl = new PendulumNumberControl( frictionString, sliderValueProperty, sliderValueRange, '{0}', 'rgb(50,145,184)', {
+    const numberControl = new PendulumNumberControl( frictionString, sliderValueProperty, sliderValueRange, '{0}', 'rgb(50,145,184)', {
       hasReadoutProperty: new BooleanProperty( false ),
       excludeTweakers: true,
       sliderPadding: 14,

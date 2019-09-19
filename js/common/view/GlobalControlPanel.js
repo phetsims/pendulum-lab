@@ -27,12 +27,12 @@ define( require => {
    */
   function GlobalControlPanel( model, popupLayer, hasGravityTweakers ) {
 
-    var gravityControlNode = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer, {
+    const gravityControlNode = new GravityControlNode( model.gravityProperty, model.gravityRange, model.bodyProperty, popupLayer, {
       useTextSliderLabels: !hasGravityTweakers
     } );
-    var frictionSlider = new FrictionSliderNode( model.frictionProperty, model.frictionRange );
+    const frictionSlider = new FrictionSliderNode( model.frictionProperty, model.frictionRange );
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 10,
       children: [
         gravityControlNode,

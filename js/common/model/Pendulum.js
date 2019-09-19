@@ -23,10 +23,10 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  var TWO_PI = Math.PI * 2;
+  const TWO_PI = Math.PI * 2;
 
   // scratch vector for convenience
-  var scratchVector = new Vector2( 0, 0 );
+  const scratchVector = new Vector2( 0, 0 );
 
   /**
    * @constructor
@@ -41,7 +41,7 @@ define( require => {
    * @param {boolean} hasPeriodTimer
    */
   function Pendulum( index, mass, length, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, hasPeriodTimer ) {
-    var self = this;
+    const self = this;
 
     // @public {number}
     this.index = index;
@@ -196,27 +196,27 @@ define( require => {
      * @param {number} dt
      */
     step: function( dt ) {
-      var theta = this.angleProperty.value;
+      let theta = this.angleProperty.value;
 
-      var omega = this.angularVelocityProperty.value;
+      let omega = this.angularVelocityProperty.value;
 
-      var numSteps = Math.max( 7, dt * 120 );
+      const numSteps = Math.max( 7, dt * 120 );
 
       // 10 iterations typically maintains about ~11 digits of precision for total energy
-      for ( var i = 0; i < numSteps; i++ ) {
-        var step = dt / numSteps;
+      for ( let i = 0; i < numSteps; i++ ) {
+        const step = dt / numSteps;
 
         // Runge Kutta (order 4), where the derivative of theta is omega.
-        var k1 = omega * step;
-        var l1 = this.omegaDerivative( theta, omega ) * step;
-        var k2 = ( omega + 0.5 * l1 ) * step;
-        var l2 = this.omegaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * step;
-        var k3 = ( omega + 0.5 * l2 ) * step;
-        var l3 = this.omegaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
-        var k4 = ( omega + l3 ) * step;
-        var l4 = this.omegaDerivative( theta + k3, omega + l3 ) * step;
-        var newTheta = Pendulum.modAngle( theta + ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6 );
-        var newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
+        const k1 = omega * step;
+        const l1 = this.omegaDerivative( theta, omega ) * step;
+        const k2 = ( omega + 0.5 * l1 ) * step;
+        const l2 = this.omegaDerivative( theta + 0.5 * k1, omega + 0.5 * l1 ) * step;
+        const k3 = ( omega + 0.5 * l2 ) * step;
+        const l3 = this.omegaDerivative( theta + 0.5 * k2, omega + 0.5 * l2 ) * step;
+        const k4 = ( omega + l3 ) * step;
+        const l4 = this.omegaDerivative( theta + k3, omega + l3 ) * step;
+        const newTheta = Pendulum.modAngle( theta + ( k1 + 2 * k2 + 2 * k3 + k4 ) / 6 );
+        const newOmega = omega + ( l1 + 2 * l2 + 2 * l3 + l4 ) / 6;
 
         // did the pendulum crossed the vertical axis (from below)
         // is the pendulum going from left to right or vice versa, or (is the pendulum on the vertical axis and changed position )
@@ -259,7 +259,7 @@ define( require => {
     cross: function( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
       // If we crossed near oldTheta, our crossing DT is near oldDT. If we crossed near newTheta, our crossing DT is close
       // to newDT.
-      var crossingDT = Util.linear( oldTheta, newTheta, oldDT, newDT, 0 );
+      const crossingDT = Util.linear( oldTheta, newTheta, oldDT, newDT, 0 );
 
       this.crossingEmitter.emit( crossingDT, isPositiveDirection );
     },
@@ -274,7 +274,7 @@ define( require => {
      */
     peak: function( oldTheta, newTheta ) {
       // a slightly better estimate is turningAngle =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
-      var turningAngle = ( oldTheta + newTheta > 0 ) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
+      const turningAngle = ( oldTheta + newTheta > 0 ) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
       this.peakEmitter.emit( turningAngle );
     },
 
@@ -287,15 +287,15 @@ define( require => {
      * @param {boolean} energyChangeToThermal - is Friction present in the model
      */
     updateDerivedVariables: function( energyChangeToThermal ) {
-      var speed = Math.abs( this.angularVelocityProperty.value ) * this.lengthProperty.value;
+      const speed = Math.abs( this.angularVelocityProperty.value ) * this.lengthProperty.value;
 
       this.angularAccelerationProperty.value = this.omegaDerivative( this.angleProperty.value, this.angularVelocityProperty.value );
-      var height = this.lengthProperty.value * ( 1 - Math.cos( this.angleProperty.value ) );
+      const height = this.lengthProperty.value * ( 1 - Math.cos( this.angleProperty.value ) );
 
-      var oldKineticEnergy = this.kineticEnergyProperty.value;
+      const oldKineticEnergy = this.kineticEnergyProperty.value;
       this.kineticEnergyProperty.value = 0.5 * this.massProperty.value * speed * speed;
 
-      var oldPotentialEnergy = this.potentialEnergyProperty.value;
+      const oldPotentialEnergy = this.potentialEnergyProperty.value;
       this.potentialEnergyProperty.value = this.massProperty.value * this.gravityProperty.value * height;
 
       if ( energyChangeToThermal ) {

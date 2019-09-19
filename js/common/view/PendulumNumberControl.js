@@ -39,7 +39,7 @@ define( require => {
       createBottomContent: null
     }, options );
 
-    var numberControlOptions = _.extend( {
+    const numberControlOptions = _.extend( {
       delta: 0.01,
       layoutFunction: NumberControl.createLayoutFunction4( options ),
 
@@ -59,7 +59,7 @@ define( require => {
       sliderOptions: null
     }, options );
 
-    var sliderOptions = _.extend( {
+    const sliderOptions = _.extend( {
       majorTickLength: 5,
       constrainValue: function( value ) {
         return Util.roundSymmetric( value * 10 ) / 10;
@@ -78,16 +78,16 @@ define( require => {
       } ]
     }, options.sliderOptions );
 
-    var trackWidth = 500;
-    var testControlSliderOptions = _.extend( {}, sliderOptions, {
+    const trackWidth = 500;
+    const testControlSliderOptions = _.extend( {}, sliderOptions, {
       trackSize: new Dimension2( trackWidth, PendulumLabConstants.TRACK_HEIGHT )
     } );
     numberControlOptions.sliderOptions = testControlSliderOptions;
-    var testControl = new NumberControl( title, property, range, numberControlOptions );
+    const testControl = new NumberControl( title, property, range, numberControlOptions );
 
-    var testWidth = testControl.width;
+    const testWidth = testControl.width;
     testControl.dispose();
-    var numberControlSliderOptions = _.extend( {}, sliderOptions, {
+    const numberControlSliderOptions = _.extend( {}, sliderOptions, {
       trackSize: new Dimension2( trackWidth + PendulumLabConstants.RIGHT_CONTENT_WIDTH - testWidth, PendulumLabConstants.TRACK_HEIGHT )
     } );
     numberControlOptions.sliderOptions = numberControlSliderOptions;

@@ -46,30 +46,30 @@ define( require => {
     }, options );
 
     //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
-    var labelPattern = StringUtils.fillIn( gravitationalAccelerationPatternString, {
+    const labelPattern = StringUtils.fillIn( gravitationalAccelerationPatternString, {
       gravity: '{0}'
     } );
 
-    var comboBoxItems = Body.BODIES.map( function( body ) {
+    const comboBoxItems = Body.BODIES.map( function( body ) {
       return new ComboBoxItem( new Text( body.title, {
           font: PendulumLabConstants.GRAVITY_COMBO_FONT,
           maxWidth: 50
         } ), body );
     } );
 
-    var comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
+    const comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
       cornerRadius: 3,
       xMargin: 13,
       yMargin: 5
     } );
 
-    var questionText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT } );
+    const questionText = new Text( whatIsTheValueOfGravityString, { font: PendulumLabConstants.VALUE_OF_GRAVITY_FONT } );
 
     bodyProperty.link( function( body ) {
       questionText.visible = body === Body.PLANET_X;
     } );
 
-    var numberControl = new PendulumNumberControl( gravityString, gravityProperty, gravityRange, labelPattern, 'rgb(50,145,184)', {
+    const numberControl = new PendulumNumberControl( gravityString, gravityProperty, gravityRange, labelPattern, 'rgb(50,145,184)', {
       hasReadoutProperty: new DerivedProperty( [ bodyProperty ], function( body ) {
         return !options.useTextSliderLabels && body !== Body.PLANET_X;
       } ),
@@ -78,7 +78,7 @@ define( require => {
       createBottomContent: function( bottomBox ) {
 
         // Supports Pendulum Lab's questionText where a question is substituted for the slider
-        var bottomContent = new Node( {
+        const bottomContent = new Node( {
           children: [
             bottomBox,
             questionText

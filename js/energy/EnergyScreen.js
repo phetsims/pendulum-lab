@@ -29,7 +29,7 @@ define( require => {
    */
   function EnergyScreen() {
 
-    var options = {
+    const options = {
       name: screenEnergyString,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new Image( energyImage )

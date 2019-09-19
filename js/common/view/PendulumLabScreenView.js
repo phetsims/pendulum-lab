@@ -45,16 +45,16 @@ define( require => {
       hasPeriodTimer: false
     }, options );
 
-    var modelViewTransform = PendulumLabConstants.MODEL_VIEW_TRANSFORM;
+    const modelViewTransform = PendulumLabConstants.MODEL_VIEW_TRANSFORM;
 
-    var pendulaNode = new PendulaNode( model.pendula, modelViewTransform, {
+    const pendulaNode = new PendulaNode( model.pendula, modelViewTransform, {
       isAccelerationVisibleProperty: model.isAccelerationVisibleProperty,
       isVelocityVisibleProperty: model.isVelocityVisibleProperty
     } );
 
     // create drag listener for the pendula
-    var backgroundDragNode = new Plane();
-    var dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
+    const backgroundDragNode = new Plane();
+    const dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
     pendulaNode.draggableItems.forEach( function( draggableItem ) {
       dragListener.addDraggableItem( draggableItem );
     } );
@@ -65,13 +65,13 @@ define( require => {
     this.secondPeriodTraceNode = new PeriodTraceNode( model.pendula[ 1 ], modelViewTransform );
 
     // create protractor node
-    var protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
+    const protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
 
     // create a node to keep track of combo box
-    var popupLayer = new Node();
+    const popupLayer = new Node();
 
-    var pendulumControlPanel = new PendulumControlPanel( model.pendula, model.numberOfPendulaProperty );
-    var globalControlPanel = new GlobalControlPanel( model, popupLayer, !!options.hasGravityTweakers );
+    const pendulumControlPanel = new PendulumControlPanel( model.pendula, model.numberOfPendulaProperty );
+    const globalControlPanel = new GlobalControlPanel( model, popupLayer, !!options.hasGravityTweakers );
 
     // @protected
     this.rightPanelsContainer = new VBox( {
@@ -85,7 +85,7 @@ define( require => {
     } );
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
-    var toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty,
+    const toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty,
                                                 model.stopwatch.isVisibleProperty,
                                                 model.isPeriodTraceVisibleProperty,
                                                 options.hasPeriodTimer, {
@@ -98,7 +98,7 @@ define( require => {
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
-    var playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
+    const playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
                                                      model.isPlayingProperty,
                                                      model.timeSpeedProperty,
                                                      model.stepManual.bind( model ),
@@ -108,14 +108,14 @@ define( require => {
     } );
 
     // create reset all button
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       right: this.layoutBounds.right - PendulumLabConstants.PANEL_PADDING,
       bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
     } );
 
     // create ruler node
-    var rulerNode = new PendulumLabRulerNode( model.ruler, modelViewTransform, this.layoutBounds );
+    const rulerNode = new PendulumLabRulerNode( model.ruler, modelViewTransform, this.layoutBounds );
     rulerNode.left = this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING;
     rulerNode.top = this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING;
     model.ruler.setInitialLocationValue( rulerNode.center );
@@ -124,7 +124,7 @@ define( require => {
     this.rulerNode = rulerNode;
 
     // create timer node
-    var stopwatchNode = new StopwatchNode( model.stopwatch, this.layoutBounds );
+    const stopwatchNode = new StopwatchNode( model.stopwatch, this.layoutBounds );
     stopwatchNode.bottom = rulerNode.bottom;
     stopwatchNode.right = Math.max( 167.75, toolsControlPanelNode.right ); // If we are only on this screen
     model.stopwatch.setInitialLocationValue( stopwatchNode.center );
@@ -137,12 +137,12 @@ define( require => {
     this.energyGraphLayer = new Node();
     this.periodTimerLayer = new Node();
 
-    var leftFloatingLayer = new Node( {
+    const leftFloatingLayer = new Node( {
       children: [
         this.energyGraphLayer, this.arrowsPanelLayer, toolsControlPanelNode
       ]
     } );
-    var rightFloatingLayer = new Node( {
+    const rightFloatingLayer = new Node( {
       children: [
         this.rightPanelsContainer,
         resetAllButton,
@@ -152,7 +152,7 @@ define( require => {
 
     // Layout for https://github.com/phetsims/pendulum-lab/issues/98
     this.visibleBoundsProperty.lazyLink( function( visibleBounds ) {
-      var dx = -visibleBounds.x;
+      let dx = -visibleBounds.x;
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;

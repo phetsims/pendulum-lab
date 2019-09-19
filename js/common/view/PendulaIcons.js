@@ -22,7 +22,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
 
   // constants
-  var ICON_SIZE = 35;
+  const ICON_SIZE = 35;
 
   /**
    * Creates a small node showing a single pendulum.
@@ -35,8 +35,8 @@ define( require => {
    * @returns {Node}
    */
   function createMiniPendulum( lineLength, angle, rectHeight, rectColor ) {
-    var rectWidth = rectHeight * 0.8;
-    var rectGradient = new LinearGradient( -rectWidth / 2, 0, rectWidth / 2, 0 )
+    const rectWidth = rectHeight * 0.8;
+    const rectGradient = new LinearGradient( -rectWidth / 2, 0, rectWidth / 2, 0 )
       .addColorStop( 0, Color.toColor( rectColor ).colorUtilsBrighter( 0.2 ) )
       .addColorStop( 0.2, Color.toColor( rectColor ).colorUtilsBrighter( 0.7 ) )
       .addColorStop( 0.7, rectColor );
@@ -57,11 +57,11 @@ define( require => {
     } );
   }
 
-  var firstPendulumNode = createMiniPendulum( ICON_SIZE * 0.6, Util.toRadians( -10 ), ICON_SIZE * 0.4, PendulumLabConstants.FIRST_PENDULUM_COLOR );
-  var secondPendulumNode = createMiniPendulum( ICON_SIZE * 0.5, Util.toRadians( 20 ), ICON_SIZE * 0.25, PendulumLabConstants.SECOND_PENDULUM_COLOR );
-  var iconBounds = new Bounds2( 0, 0, ICON_SIZE, ICON_SIZE );
+  const firstPendulumNode = createMiniPendulum( ICON_SIZE * 0.6, Util.toRadians( -10 ), ICON_SIZE * 0.4, PendulumLabConstants.FIRST_PENDULUM_COLOR );
+  const secondPendulumNode = createMiniPendulum( ICON_SIZE * 0.5, Util.toRadians( 20 ), ICON_SIZE * 0.25, PendulumLabConstants.SECOND_PENDULUM_COLOR );
+  const iconBounds = new Bounds2( 0, 0, ICON_SIZE, ICON_SIZE );
 
-  var PendulaIcons = {
+  const PendulaIcons = {
     // @public {Node} - Icon with just one pendulum
     ONE_PENDULUM_ICON: new AlignBox( new Node( {
       children: [ firstPendulumNode ]

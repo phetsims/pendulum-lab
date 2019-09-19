@@ -20,7 +20,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
+  const DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
 
   /**
    * @constructor
@@ -30,7 +30,7 @@ define( require => {
    * @param {Object} [options]
    */
   function PeriodTraceNode( pendulum, modelViewTransform, options ) {
-    var self = this;
+    const self = this;
 
     Node.call( this, _.extend( {
       pickable: false,
@@ -39,9 +39,9 @@ define( require => {
       translation: modelViewTransform.modelToViewPosition( Vector2.ZERO )
     }, options ) );
 
-    var isCompleted = false; // flag to control completing of trace view
+    let isCompleted = false; // flag to control completing of trace view
 
-    var baseColor = new Color( pendulum.color );
+    const baseColor = new Color( pendulum.color );
 
     // @private {Pendulum}
     this.pendulum = pendulum;
@@ -56,14 +56,14 @@ define( require => {
     this.fadeOutSpeed = null;
 
     // create trace path path
-    var pathNode = new Path( null, {
+    const pathNode = new Path( null, {
       stroke: this.traceColorProperty,
       lineWidth: 2
     } );
     self.addChild( pathNode );
 
     // reset the path
-    var resetPath = function() {
+    const resetPath = function() {
       pathNode.setShape( null );
       isCompleted = false;
       self.colorAlpha = 1;
@@ -72,18 +72,18 @@ define( require => {
     };
 
     // draw the path based on the state of the pendulum
-    var updateShape = function() {
-      var periodTrace = pendulum.periodTrace;
-      var numberOfPoints = periodTrace.numberOfPointsProperty.value;
+    const updateShape = function() {
+      const periodTrace = pendulum.periodTrace;
+      const numberOfPoints = periodTrace.numberOfPointsProperty.value;
 
       if ( numberOfPoints > 0 ) { // 0 means we just started the trace
-        var shape = new Shape(); // create the new shape
+        const shape = new Shape(); // create the new shape
 
         // trace length is how far away from the pivot the trace will show up.
-        var traceLength = modelViewTransform.modelToViewDeltaX( pendulum.lengthProperty.value * 3.2 / 4 - 0.1 / 2 );
+        const traceLength = modelViewTransform.modelToViewDeltaX( pendulum.lengthProperty.value * 3.2 / 4 - 0.1 / 2 );
 
         // traceStep is how the distance between two line of the trace
-        var traceStep = DEFAULT_TRACE_STEP;
+        let traceStep = DEFAULT_TRACE_STEP;
         if ( traceStep * 4 > traceLength ) {
           traceStep = traceLength / 4;
         }

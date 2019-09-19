@@ -20,7 +20,7 @@ define( require => {
    * @param {Pendulum} pendulum
    */
   function PeriodTrace( pendulum ) {
-    var self = this;
+    const self = this;
 
     // @private {Pendulum}
     this.pendulum = pendulum;
@@ -92,7 +92,7 @@ define( require => {
     } );
 
     // clear pendulum path
-    var resetPathPoints = this.resetPathPoints.bind( this );
+    const resetPathPoints = this.resetPathPoints.bind( this );
     pendulum.gravityProperty.lazyLink( resetPathPoints );
     pendulum.lengthProperty.lazyLink( resetPathPoints );
     pendulum.isUserControlledProperty.lazyLink( resetPathPoints );

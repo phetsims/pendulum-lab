@@ -63,7 +63,7 @@ define( require => {
       resize: true
     }, options );
 
-    var headerText = new Text( '', {
+    const headerText = new Text( '', {
       font: PendulumLabConstants.ENERGY_HEADER_FONT,
       maxWidth: 122
     } );
@@ -75,14 +75,14 @@ define( require => {
       headerText.fill = pendulum.color;
     } );
 
-    var kineticEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, { derive: 'kineticEnergyProperty' } );
-    var potentialEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, { derive: 'potentialEnergyProperty' } );
-    var thermalEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, {
+    const kineticEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, { derive: 'kineticEnergyProperty' } );
+    const potentialEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, { derive: 'potentialEnergyProperty' } );
+    const thermalEnergyProperty = new DynamicProperty( model.activeEnergyPendulumProperty, {
       bidirectional: true,
       derive: 'thermalEnergyProperty'
     } );
 
-    var clearThermalButton = new MoveToTrashButton( {
+    const clearThermalButton = new MoveToTrashButton( {
       arrowColor: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       scale: 0.72
@@ -91,13 +91,13 @@ define( require => {
       clearThermalButton.enabled = thermalEnergy !== 0;
     } );
 
-    var chartRangeProperty = new DerivedProperty( [ chartHeightProperty ], function( chartHeight ) {
+    const chartRangeProperty = new DerivedProperty( [ chartHeightProperty ], function( chartHeight ) {
       return new Range( 0, chartHeight );
     } );
-    var kineticBarEntry = { property: kineticEnergyProperty, color: PendulumLabConstants.KINETIC_ENERGY_COLOR };
-    var potentialBarEntry = { property: potentialEnergyProperty, color: PendulumLabConstants.POTENTIAL_ENERGY_COLOR };
-    var thermalBarEntry = { property: thermalEnergyProperty, color: PendulumLabConstants.THERMAL_ENERGY_COLOR };
-    var barChartNode = new BarChartNode( [
+    const kineticBarEntry = { property: kineticEnergyProperty, color: PendulumLabConstants.KINETIC_ENERGY_COLOR };
+    const potentialBarEntry = { property: potentialEnergyProperty, color: PendulumLabConstants.POTENTIAL_ENERGY_COLOR };
+    const thermalBarEntry = { property: thermalEnergyProperty, color: PendulumLabConstants.THERMAL_ENERGY_COLOR };
+    const barChartNode = new BarChartNode( [
       {
         entries: [ kineticBarEntry ],
         labelString: legendKineticEnergyAbbreviationString
@@ -137,7 +137,7 @@ define( require => {
     model.isEnergyBoxExpandedProperty.lazyLink( barChartUpdate );
     barChartUpdate();
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 4,
       children: [
         headerText,
@@ -146,10 +146,10 @@ define( require => {
     } );
 
     function createRadioButton( pendulum ) {
-      var label = new Text( pendulum.index + 1, {
+      const label = new Text( pendulum.index + 1, {
         font: PendulumLabConstants.TITLE_FONT
       } );
-      var button = new AquaRadioButton( model.activeEnergyPendulumProperty, pendulum, label, {
+      const button = new AquaRadioButton( model.activeEnergyPendulumProperty, pendulum, label, {
         radius: label.height / 2.2,
         xSpacing: 3
       } );
@@ -161,7 +161,7 @@ define( require => {
       return new ZoomButton( _.extend( {
         in: isIn,
         listener: function() {
-          var zoomMultiplier = 1.3;
+          const zoomMultiplier = 1.3;
           if ( isIn ) {
             model.energyZoomProperty.value *= zoomMultiplier;
           }
@@ -177,8 +177,8 @@ define( require => {
       } ) );
     }
 
-    var radioButtonOne = createRadioButton( model.pendula[ 0 ] );
-    var radioButtonTwo = createRadioButton( model.pendula[ 1 ] );
+    const radioButtonOne = createRadioButton( model.pendula[ 0 ] );
+    const radioButtonTwo = createRadioButton( model.pendula[ 1 ] );
 
     // no need to unlink, present for the lifetime of the sim
     model.numberOfPendulaProperty.link( function( numberOfPendula ) {
@@ -191,16 +191,16 @@ define( require => {
       }
     } );
 
-    var panel = new Panel( content, {
+    const panel = new Panel( content, {
       cornerRadius: PendulumLabConstants.PANEL_CORNER_RADIUS
     } );
 
-    var zoomOutButton = createZoomButton( false );
-    var zoomInButton = createZoomButton( true );
+    const zoomOutButton = createZoomButton( false );
+    const zoomInButton = createZoomButton( true );
 
-    var energyDialog; // lazily created
+    let energyDialog; // lazily created
 
-    var infoButton = new InfoButton( {
+    const infoButton = new InfoButton( {
       iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 1.1 * zoomInButton.height,
       left: panel.left,
@@ -216,7 +216,7 @@ define( require => {
       touchAreaYDilation: 5
     } );
 
-    var radioButtonBox = new HBox( {
+    const radioButtonBox = new HBox( {
       spacing: 20,
       children: [
         radioButtonOne,
@@ -229,7 +229,7 @@ define( require => {
       radioButtonBox.visible = numberOfPendula === 2;
     } );
 
-    var boxContent = new VBox( {
+    const boxContent = new VBox( {
       spacing: 5,
       children: [
         radioButtonBox,

@@ -29,7 +29,7 @@ define( require => {
     this.chartHeightProperty = new NumberProperty( 200 );
 
     // create and add energy graph node to the bottom layer
-    var energyGraphNode = new EnergyBox( model, this.chartHeightProperty, {
+    const energyGraphNode = new EnergyBox( model, this.chartHeightProperty, {
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
@@ -56,8 +56,8 @@ define( require => {
      * @protected
      */
     resizeEnergyGraphToFit: function() {
-      var currentSpace = this.toolsControlPanelNode.top - this.energyGraphNode.bottom;
-      var desiredSpace = PendulumLabConstants.PANEL_PADDING;
+      const currentSpace = this.toolsControlPanelNode.top - this.energyGraphNode.bottom;
+      const desiredSpace = PendulumLabConstants.PANEL_PADDING;
 
       this.chartHeightProperty.value += currentSpace - desiredSpace;
     }

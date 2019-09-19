@@ -22,7 +22,7 @@ define( require => {
    * @param {Bounds2} layoutBounds - Bounds of screen view.
    */
   function StopwatchNode( stopwatch, layoutBounds ) {
-    var self = this;
+    const self = this;
     TimerNode.call( this, stopwatch.elapsedTimeProperty, stopwatch.isRunningProperty );
     this.touchArea = this.localBounds.dilated( 5 );
 

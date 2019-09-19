@@ -26,7 +26,7 @@ define( require => {
   const stopwatchString = require( 'string!PENDULUM_LAB/stopwatch' );
 
   // constants
-  var TEXT_OPTIONS = {
+  const TEXT_OPTIONS = {
     font: PendulumLabConstants.TITLE_FONT,
     pickable: false,
     maxWidth: 100
@@ -51,7 +51,7 @@ define( require => {
       new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS )
     ];
 
-    var items = [ {
+    const items = [ {
       node: this._labels[ 0 ],
       property: isRulerProperty
     }, {
@@ -62,7 +62,7 @@ define( require => {
       property: isPeriodTraceProperty
     } ];
 
-    var content = new AlignBox( new VerticalCheckboxGroup( items, {
+    const content = new AlignBox( new VerticalCheckboxGroup( items, {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING,
       checkboxOptions: { boxWidth: this._labels[ 0 ].height }
     } ), {

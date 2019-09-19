@@ -28,13 +28,13 @@ define( require => {
     } );
 
     // create arrow panel node to the bottom layer
-    var arrowsPanelNode = new ArrowVisibilityPanel( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
+    const arrowsPanelNode = new ArrowVisibilityPanel( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
       left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
       top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
     } );
     this.arrowsPanelLayer.addChild( arrowsPanelNode );
 
-    var periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
+    const periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
     this.periodTimerLayer.addChild( periodTimerNode );
 
     // layout the nodes

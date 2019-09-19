@@ -36,10 +36,10 @@ define( require => {
    * @constructor
    */
   function EnergyLegendDialog() {
-    var abbreviationGroup = new AlignGroup();
-    var descriptionGroup = new AlignGroup();
+    const abbreviationGroup = new AlignGroup();
+    const descriptionGroup = new AlignGroup();
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: 15,
       children: [
         {

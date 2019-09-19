@@ -38,13 +38,13 @@ define( require => {
   function ArrowVisibilityPanel( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
     options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
-    var textOptions = {
+    const textOptions = {
       font: PendulumLabConstants.TITLE_FONT,
       maxWidth: 80
     };
-    var textHeight = new Text( 'not visible', textOptions ).height;
+    const textHeight = new Text( 'not visible', textOptions ).height;
 
-    var textGroup = new AlignGroup();
+    const textGroup = new AlignGroup();
 
     function createCheckboxContent( labelString, color ) {
       return new HBox( {
@@ -62,18 +62,18 @@ define( require => {
     }
 
     // We'll dynamically adjust the spacings in these, so that the full Checkbox expands to the desired size.
-    var velocityContent = createCheckboxContent( velocityString, PendulumLabConstants.VELOCITY_ARROW_COLOR );
-    var accelerationContent = createCheckboxContent( accelerationString, PendulumLabConstants.ACCELERATION_ARROW_COLOR );
+    const velocityContent = createCheckboxContent( velocityString, PendulumLabConstants.VELOCITY_ARROW_COLOR );
+    const accelerationContent = createCheckboxContent( accelerationString, PendulumLabConstants.ACCELERATION_ARROW_COLOR );
 
     // Currently no better way to handle the fluid layout with checkboxes than to determine the amount of additional
     // space it takes up when it has no spacing (and then add spacing to fit).
-    var tmpCheckbox = new Checkbox( velocityContent, new Property( true ), {
+    const tmpCheckbox = new Checkbox( velocityContent, new Property( true ), {
       boxWidth: textHeight
     } );
-    var widthWithoutSpacing = tmpCheckbox.width;
+    const widthWithoutSpacing = tmpCheckbox.width;
     tmpCheckbox.dispose();
 
-    var content = new VBox( {
+    const content = new VBox( {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING
     } );
 
@@ -84,7 +84,7 @@ define( require => {
         child.dispose();
       } );
 
-      var spacing = width - widthWithoutSpacing;
+      const spacing = width - widthWithoutSpacing;
 
       // Create new checkboxes with the proper spacing. Checkbox currently doesn't support resizing content.
       velocityContent.spacing = spacing;
