@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+  const PhysicalConstants = require( 'PHET_CORE/PhysicalConstants' );
 
   // strings
   const customString = require( 'string!PENDULUM_LAB/custom' );
@@ -35,7 +36,7 @@ define( require => {
   pendulumLab.register( 'Body', Body );
 
   Body.MOON = new Body( moonString, 1.62 );
-  Body.EARTH = new Body( earthString, 9.81 );
+  Body.EARTH = new Body( earthString, PhysicalConstants.GRAVITY_ON_EARTH );
   Body.JUPITER = new Body( jupiterString, 24.79 );
   Body.PLANET_X = new Body( planetXString, 14.2 );
   Body.CUSTOM = new Body( customString, null );
