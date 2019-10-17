@@ -18,6 +18,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -45,7 +46,7 @@ define( require => {
   function PendulaNode( pendula, modelViewTransform, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       preventFit: true
     }, options );
 

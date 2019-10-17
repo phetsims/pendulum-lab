@@ -12,6 +12,7 @@ define( require => {
   const Body = require( 'PENDULUM_LAB/common/model/Body' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Pendulum = require( 'PENDULUM_LAB/common/model/Pendulum' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -28,7 +29,7 @@ define( require => {
   function PendulumLabModel( options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       // {boolean} - Should be true if there is a PeriodTimer handling the trace's visibility.
       hasPeriodTimer: false,
 

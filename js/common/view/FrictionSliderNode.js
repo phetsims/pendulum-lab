@@ -12,6 +12,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const DynamicProperty = require( 'AXON/DynamicProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -98,7 +99,7 @@ define( require => {
     } );
 
     // describes the panel box containing the friction slider
-    Node.call( this, _.extend( {
+    Node.call( this, merge( {
       children: [ numberControl ]
     }, options ) );
   }

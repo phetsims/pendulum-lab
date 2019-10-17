@@ -17,6 +17,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -36,7 +37,7 @@ define( require => {
    * @param {Object} [options]
    */
   function ArrowVisibilityPanel( isVelocityVisibleProperty, isAccelerationVisibleProperty, options ) {
-    options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
+    options = merge( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
     const textOptions = {
       font: PendulumLabConstants.TITLE_FONT,

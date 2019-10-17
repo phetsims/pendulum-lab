@@ -15,6 +15,7 @@ define( require => {
   const ComboBoxItem = require( 'SUN/ComboBoxItem' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -41,7 +42,7 @@ define( require => {
    * @param {Object} [options]
    */
   function GravityControlNode( gravityProperty, gravityRange, bodyProperty, popupLayer, options ) {
-    options = _.extend( {
+    options = merge( {
       useTextSliderLabels: true
     }, options );
 
@@ -106,7 +107,7 @@ define( require => {
       }
     } );
 
-    VBox.call( this, _.extend( {
+    VBox.call( this, merge( {
       spacing: 5,
       children: [ numberControl, comboBox ]
     }, options ) );

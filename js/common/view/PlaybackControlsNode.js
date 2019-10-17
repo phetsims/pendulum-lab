@@ -13,6 +13,7 @@ define( require => {
   // modules
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PendulaIcons = require( 'PENDULUM_LAB/common/view/PendulaIcons' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -97,7 +98,7 @@ define( require => {
     playPauseNode.left = stopButton.right + 80;
     timeSpeedRadioNode.left = playPauseNode.right + 40;
 
-    Node.call( this, _.extend( {
+    Node.call( this, merge( {
       children: [
         stopButton,
         pendulaCountButtons,

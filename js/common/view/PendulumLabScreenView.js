@@ -12,6 +12,7 @@ define( require => {
   const ClosestDragListener = require( 'SUN/ClosestDragListener' );
   const GlobalControlPanel = require( 'PENDULUM_LAB/common/view/GlobalControlPanel' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PendulaNode = require( 'PENDULUM_LAB/common/view/PendulaNode' );
   const PendulumControlPanel = require( 'PENDULUM_LAB/common/view/PendulumControlPanel' );
@@ -40,7 +41,7 @@ define( require => {
     // @private {PendulumLabModel}
     this.model = model;
 
-    options = _.extend( {
+    options = merge( {
       hasGravityTweakers: false,
       hasPeriodTimer: false
     }, options );

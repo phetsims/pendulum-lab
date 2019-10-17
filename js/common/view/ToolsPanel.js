@@ -13,6 +13,7 @@ define( require => {
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -42,7 +43,7 @@ define( require => {
    * @param {Object} [options]
    */
   function ToolsPanel( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
-    options = _.extend( {}, PendulumLabConstants.PANEL_OPTIONS, options );
+    options = merge( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
     // @private
     this._labels = [

@@ -13,6 +13,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
@@ -30,7 +31,7 @@ define( require => {
    * @param {Object} [options]
    */
   function PendulumNumberControl( title, property, range, pattern, color, options ) {
-    options = _.extend( {
+    options = merge( {
       excludeTweakers: false,
       hasReadoutProperty: null,
       minTick: null,
@@ -39,7 +40,7 @@ define( require => {
       createBottomContent: null
     }, options );
 
-    const numberControlOptions = _.extend( {
+    const numberControlOptions = merge( {
       delta: 0.01,
       layoutFunction: NumberControl.createLayoutFunction4( options ),
 
@@ -59,7 +60,7 @@ define( require => {
       sliderOptions: null
     }, options );
 
-    const sliderOptions = _.extend( {
+    const sliderOptions = merge( {
       majorTickLength: 5,
       constrainValue: function( value ) {
         return Util.roundSymmetric( value * 10 ) / 10;
@@ -79,7 +80,7 @@ define( require => {
     }, options.sliderOptions );
 
     const trackWidth = 500;
-    const testControlSliderOptions = _.extend( {}, sliderOptions, {
+    const testControlSliderOptions = merge( {}, sliderOptions, {
       trackSize: new Dimension2( trackWidth, PendulumLabConstants.TRACK_HEIGHT )
     } );
     numberControlOptions.sliderOptions = testControlSliderOptions;
@@ -87,7 +88,7 @@ define( require => {
 
     const testWidth = testControl.width;
     testControl.dispose();
-    const numberControlSliderOptions = _.extend( {}, sliderOptions, {
+    const numberControlSliderOptions = merge( {}, sliderOptions, {
       trackSize: new Dimension2( trackWidth + PendulumLabConstants.RIGHT_CONTENT_WIDTH - testWidth, PendulumLabConstants.TRACK_HEIGHT )
     } );
     numberControlOptions.sliderOptions = numberControlSliderOptions;

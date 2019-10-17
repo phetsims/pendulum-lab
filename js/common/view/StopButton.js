@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   const StopSignNode = require( 'SCENERY_PHET/StopSignNode' );
@@ -20,7 +21,7 @@ define( require => {
    * @param {Object} [options]
    */
   function StopButton( options ) {
-    RectangularPushButton.call( this, _.extend( {
+    RectangularPushButton.call( this, merge( {
       xMargin: 7,
       yMargin: 3,
       touchAreaXDilation: 6,

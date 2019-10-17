@@ -12,6 +12,7 @@ define( require => {
   // modules
   const Color = require( 'SCENERY/util/Color' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -32,7 +33,7 @@ define( require => {
   function PeriodTraceNode( pendulum, modelViewTransform, options ) {
     const self = this;
 
-    Node.call( this, _.extend( {
+    Node.call( this, merge( {
       pickable: false,
       rotation: Math.PI / 2,
       preventFit: true,

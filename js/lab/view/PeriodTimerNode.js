@@ -20,6 +20,7 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -52,7 +53,7 @@ define( require => {
   function PeriodTimerNode( periodTimer, secondPendulumIsVisibleProperty, layoutBounds, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       iconColor: '#333',
       buttonBaseColor: '#DFE0E1',
       cursor: 'pointer'

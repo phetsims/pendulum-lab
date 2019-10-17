@@ -11,6 +11,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
   const Property = require( 'AXON/Property' );
@@ -21,7 +22,7 @@ define( require => {
    * @param {Object} [options]
    */
   function EnergyModel( options ) {
-    options = _.extend( {
+    options = merge( {
       rulerInitiallyVisible: false, // Hide the ruler by default on the energy screens
       energyBoxExpanded: true
     }, options );

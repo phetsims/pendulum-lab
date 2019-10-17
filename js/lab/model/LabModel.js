@@ -12,6 +12,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PeriodTimer = require( 'PENDULUM_LAB/lab/model/PeriodTimer' );
 
@@ -21,7 +22,7 @@ define( require => {
    * @param {Object} [options]
    */
   function LabModel( options ) {
-    options = _.extend( {
+    options = merge( {
       hasPeriodTimer: true,
       energyBoxExpanded: false
     }, options );

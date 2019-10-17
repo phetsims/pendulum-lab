@@ -13,6 +13,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
@@ -85,7 +86,7 @@ define( require => {
     // Layer for degrees labels
     const degreesLayer = new Node();
 
-    Node.call( this, _.extend( {
+    Node.call( this, merge( {
       pickable: false,
       translation: modelViewTransform.modelToViewPosition( Vector2.ZERO ),
       children: [

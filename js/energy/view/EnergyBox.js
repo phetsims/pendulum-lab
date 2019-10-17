@@ -21,6 +21,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const InfoButton = require( 'SCENERY_PHET/buttons/InfoButton' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MoveToTrashButton = require( 'SCENERY_PHET/MoveToTrashButton' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -49,7 +50,7 @@ define( require => {
    * @param {Object} [options]
    */
   function EnergyBox( model, chartHeightProperty, options ) {
-    options = _.extend( {}, PendulumLabConstants.BOX_OPTIONS, {
+    options = merge( {}, PendulumLabConstants.BOX_OPTIONS, {
       expandedProperty: model.isEnergyBoxExpandedProperty,
       buttonXMargin: 10,
       buttonYMargin: 6,
@@ -158,7 +159,7 @@ define( require => {
     }
 
     function createZoomButton( isIn ) {
-      return new ZoomButton( _.extend( {
+      return new ZoomButton( merge( {
         in: isIn,
         listener: function() {
           const zoomMultiplier = 1.3;
