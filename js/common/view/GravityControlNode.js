@@ -53,9 +53,9 @@ define( require => {
 
     const comboBoxItems = Body.BODIES.map( function( body ) {
       return new ComboBoxItem( new Text( body.title, {
-          font: PendulumLabConstants.GRAVITY_COMBO_FONT,
-          maxWidth: 50
-        } ), body );
+        font: PendulumLabConstants.GRAVITY_COMBO_FONT,
+        maxWidth: 50
+      } ), body );
     } );
 
     const comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {

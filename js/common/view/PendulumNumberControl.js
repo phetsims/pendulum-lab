@@ -32,7 +32,6 @@ define( require => {
    */
   function PendulumNumberControl( title, property, range, pattern, color, options ) {
     options = merge( {
-      excludeTweakers: false,
       hasReadoutProperty: null,
       minTick: null,
       maxTick: null,
