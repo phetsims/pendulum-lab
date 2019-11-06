@@ -93,7 +93,7 @@ define( require => {
 
         return bottomContent;
       },
-      excludeTweakers: options.useTextSliderLabels,
+      includeArrowButtons: !options.useTextSliderLabels,
       sliderPadding: options.useTextSliderLabels ? 14 : 0,
 
       // subcomponent options
