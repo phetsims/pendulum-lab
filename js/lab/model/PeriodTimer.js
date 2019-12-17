@@ -26,6 +26,8 @@ define( require => {
   function PeriodTimer( pendula, isVisibleProperty ) {
     const self = this;
 
+    // TODO: https://github.com/phetsims/gas-properties/issues/170 should this class be renamed, eliminated
+    // TODO: Should this use SCENERY_PHET/Stopwatch instead of its own Stopwatch which has similar features?
     Stopwatch.call( this, isVisibleProperty.value );
 
     // Forward our invisibleProperty over to the MovableComponent visibility.

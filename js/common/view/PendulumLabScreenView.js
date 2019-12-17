@@ -25,15 +25,16 @@ define( require => {
   const ProtractorNode = require( 'PENDULUM_LAB/common/view/ProtractorNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const StopwatchNode = require( 'PENDULUM_LAB/common/view/StopwatchNode' );
+  const StopwatchNode = require( 'SCENERY_PHET/StopwatchNode' );
   const ToolsPanel = require( 'PENDULUM_LAB/common/view/ToolsPanel' );
   const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @constructor
    *
    * @param {PendulumLabModel} model
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
    */
   function PendulumLabScreenView( model, options ) {
     ScreenView.call( this );
@@ -87,26 +88,26 @@ define( require => {
 
     // create tools control panel (which controls the visibility of the ruler and stopwatch)
     const toolsControlPanelNode = new ToolsPanel( model.ruler.isVisibleProperty,
-                                                model.stopwatch.isVisibleProperty,
-                                                model.isPeriodTraceVisibleProperty,
-                                                options.hasPeriodTimer, {
-      maxWidth: 180,
-      left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
-      bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
-    } );
+      model.stopwatch.isVisibleProperty,
+      model.isPeriodTraceVisibleProperty,
+      options.hasPeriodTimer, {
+        maxWidth: 180,
+        left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
+        bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
+      } );
 
     // @protected {Node}
     this.toolsControlPanelNode = toolsControlPanelNode;
 
     // create pendulum system control panel (controls the length and mass of the pendula)
     const playbackControls = new PlaybackControlsNode( model.numberOfPendulaProperty,
-                                                     model.isPlayingProperty,
-                                                     model.timeSpeedProperty,
-                                                     model.stepManual.bind( model ),
-                                                     model.returnPendula.bind( model ), {
-      x: this.layoutBounds.centerX,
-      bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
-    } );
+      model.isPlayingProperty,
+      model.timeSpeedProperty,
+      model.stepManual.bind( model ),
+      model.returnPendula.bind( model ), {
+        x: this.layoutBounds.centerX,
+        bottom: this.layoutBounds.bottom - PendulumLabConstants.PANEL_PADDING
+      } );
 
     // create reset all button
     const resetAllButton = new ResetAllButton( {
@@ -125,13 +126,14 @@ define( require => {
     this.rulerNode = rulerNode;
 
     // create timer node
-    const stopwatchNode = new StopwatchNode( model.stopwatch, this.layoutBounds );
-    stopwatchNode.bottom = rulerNode.bottom;
-    stopwatchNode.right = Math.max( 167.75, toolsControlPanelNode.right ); // If we are only on this screen
-    model.stopwatch.setInitialLocationValue( stopwatchNode.center );
+    const stopwatchNode = new StopwatchNode( model.stopwatch, {
+      visibleBoundsProperty: this.visibleBoundsProperty
+    } );
 
     // @protected
     this.stopwatchNode = stopwatchNode;
+
+    this.setStopwatchInitialPosition();
 
     // @protected
     this.arrowsPanelLayer = new Node();
@@ -157,9 +159,8 @@ define( require => {
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
-      // set the drag bounds of the ruler and stopwatch
+      // set the drag bounds of the ruler
       rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
-      stopwatchNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( stopwatchNode.width / 2, stopwatchNode.height / 2 ) );
     } );
 
     this.children = [
@@ -180,6 +181,19 @@ define( require => {
   pendulumLab.register( 'PendulumLabScreenView', PendulumLabScreenView );
 
   return inherit( ScreenView, PendulumLabScreenView, {
+
+    /**
+     * Position the stopwatch next to the ruler.
+     * @protected
+     */
+    setStopwatchInitialPosition() {
+      const stopwatchInitialPosition = new Vector2(
+        this.rulerNode.right + 10,
+        this.rulerNode.bottom - this.stopwatchNode.height
+      );
+      this.model.stopwatch.positionProperty.value = stopwatchInitialPosition;
+      this.model.stopwatch.positionProperty.setInitialValue( stopwatchInitialPosition );
+    },
     /**
      * Steps the view.
      * @public

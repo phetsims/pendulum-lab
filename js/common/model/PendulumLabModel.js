@@ -19,7 +19,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const RangeWithValue = require( 'DOT/RangeWithValue' );
   const Ruler = require( 'PENDULUM_LAB/common/model/Ruler' );
-  const Stopwatch = require( 'PENDULUM_LAB/common/model/Stopwatch' );
+  const Stopwatch = require( 'SCENERY_PHET/Stopwatch' );
 
   /**
    * @constructor
@@ -81,7 +81,7 @@ define( require => {
     this.ruler = new Ruler( options.rulerInitiallyVisible );
 
     // @public (read-only) model for stopwatch
-    this.stopwatch = new Stopwatch( false );
+    this.stopwatch = new Stopwatch();
 
     // change gravity if body was changed
     this.bodyProperty.lazyLink( function( body, oldBody ) {
@@ -176,10 +176,9 @@ define( require => {
      * @param {number} dt - change in time measured in seconds
      */
     modelStep: function( dt ) {
+
       // add time to the stopwatch if it is running
-      if ( this.stopwatch.isRunningProperty.value ) {
-        this.stopwatch.elapsedTimeProperty.value += dt;
-      }
+      this.stopwatch.step( dt );
 
       // loop over the pendula
       for ( let i = 0; i < this.numberOfPendulaProperty.value; i++ ) {

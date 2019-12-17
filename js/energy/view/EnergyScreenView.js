@@ -42,8 +42,7 @@ define( require => {
     this.rulerNode.centerX += ( energyGraphNode.width + 10 );
     model.ruler.setInitialLocationValue( this.rulerNode.center );
 
-    this.stopwatchNode.left = this.rulerNode.right + 10;
-    model.stopwatch.setInitialLocationValue( this.stopwatchNode.center );
+    this.setStopwatchInitialPosition();
 
     this.resizeEnergyGraphToFit();
   }
