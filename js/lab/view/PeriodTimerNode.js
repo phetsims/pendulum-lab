@@ -31,7 +31,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const UTurnArrowShape = require( 'SCENERY_PHET/UTurnArrowShape' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -152,7 +152,7 @@ define( require => {
     // present for the lifetime of the sim
     periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
       readoutText.text =  StringUtils.fillIn( secondsPatternString, {
-        seconds: Util.toFixed( value, 4 )
+        seconds: Utils.toFixed( value, 4 )
       } );
     } );
 

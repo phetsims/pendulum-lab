@@ -20,7 +20,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // strings
   const frictionString = require( 'string!PENDULUM_LAB/friction' );
@@ -46,7 +46,7 @@ define( require => {
    * @returns {number}
    */
   function frictionToSliderValue( friction ) {
-    return Util.roundSymmetric( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
+    return Utils.roundSymmetric( Math.log( friction / 0.0005 + 1 ) / Math.LN2 );
   }
 
   /**
@@ -78,7 +78,7 @@ define( require => {
         minorTickLength: 5,
         majorTickLength: 10,
         constrainValue: function( value ) {
-          return Util.roundSymmetric( value );
+          return Utils.roundSymmetric( value );
         },
         
         majorTicks: [

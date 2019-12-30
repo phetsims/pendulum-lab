@@ -22,7 +22,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -56,7 +56,7 @@ define( require => {
       var tickLength;
 
       // calculate the angle in radians
-      const currentAngle = Util.toRadians( currentAngleDegrees );
+      const currentAngle = Utils.toRadians( currentAngleDegrees );
 
       // if the angle is a multiple of 10 then make the tick the longest length
       if ( currentAngleDegrees % 10 === 0 ) {
@@ -131,11 +131,11 @@ define( require => {
 
       const updateDegreesText = function() {
         if ( pendulum.isUserControlledProperty.value ) {
-          const degrees = Util.toDegrees( pendulum.angleProperty.value );
+          const degrees = Utils.toDegrees( pendulum.angleProperty.value );
           assert && assert( degrees <= 180 && degrees >= -180, 'Out of range angle' );
 
           degreesText.text = StringUtils.fillIn( degreesPatternString, {
-            degrees: Util.toFixed( degrees, 0 )
+            degrees: Utils.toFixed( degrees, 0 )
           } );
           if ( pendulumIndex === 0 ) {
             degreesText.right = -25;

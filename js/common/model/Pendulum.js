@@ -18,7 +18,7 @@ define( require => {
   const PeriodTrace = require( 'PENDULUM_LAB/common/model/PeriodTrace' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
 
@@ -259,7 +259,7 @@ define( require => {
     cross: function( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
       // If we crossed near oldTheta, our crossing DT is near oldDT. If we crossed near newTheta, our crossing DT is close
       // to newDT.
-      const crossingDT = Util.linear( oldTheta, newTheta, oldDT, newDT, 0 );
+      const crossingDT = Utils.linear( oldTheta, newTheta, oldDT, newDT, 0 );
 
       this.crossingEmitter.emit( crossingDT, isPositiveDirection );
     },

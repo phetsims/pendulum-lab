@@ -18,7 +18,7 @@ define( require => {
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * @constructor
@@ -62,7 +62,7 @@ define( require => {
     const sliderOptions = merge( {
       majorTickLength: 5,
       constrainValue: function( value ) {
-        return Util.roundSymmetric( value * 10 ) / 10;
+        return Utils.roundSymmetric( value * 10 ) / 10;
       },
       thumbSize: PendulumLabConstants.THUMB_SIZE,
       thumbTouchAreaXDilation: PendulumLabConstants.THUMB_TOUCH_AREA_X_DILATION,

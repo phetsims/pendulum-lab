@@ -22,7 +22,7 @@ define( require => {
   const PendulumNumberControl = require( 'PENDULUM_LAB/common/view/PendulumNumberControl' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -102,7 +102,7 @@ define( require => {
         thumbFillHighlighted: '#71EDFF',
         // See https://github.com/phetsims/pendulum-lab/issues/183 for rounding
         constrainValue: function( value ) {
-          return Util.roundSymmetric( value * 2 ) / 2;
+          return Utils.roundSymmetric( value * 2 ) / 2;
         }
       }
     } );

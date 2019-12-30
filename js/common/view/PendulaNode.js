@@ -27,7 +27,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -176,14 +176,14 @@ define( require => {
           const continuousAngle = Pendulum.modAngle( angleOffset + dragAngle );
 
           // Round angles to nearest degree, see https://github.com/phetsims/pendulum-lab/issues/195
-          let roundedAngleDegrees = Util.roundSymmetric( Util.toDegrees( continuousAngle ) );
+          let roundedAngleDegrees = Utils.roundSymmetric( Utils.toDegrees( continuousAngle ) );
 
           // Don't allow snapping to 180, see https://github.com/phetsims/pendulum-lab/issues/195
           if ( Math.abs( roundedAngleDegrees ) === 180 ) {
-            roundedAngleDegrees = Util.sign( roundedAngleDegrees ) * 179;
+            roundedAngleDegrees = Utils.sign( roundedAngleDegrees ) * 179;
           }
 
-          const roundedAngle = Util.toRadians( roundedAngleDegrees );
+          const roundedAngle = Utils.toRadians( roundedAngleDegrees );
           pendulum.angleProperty.value = roundedAngle;
         },
 

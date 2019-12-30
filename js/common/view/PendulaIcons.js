@@ -19,7 +19,7 @@ define( require => {
   const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
   const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // constants
   const ICON_SIZE = 35;
@@ -57,8 +57,8 @@ define( require => {
     } );
   }
 
-  const firstPendulumNode = createMiniPendulum( ICON_SIZE * 0.6, Util.toRadians( -10 ), ICON_SIZE * 0.4, PendulumLabConstants.FIRST_PENDULUM_COLOR );
-  const secondPendulumNode = createMiniPendulum( ICON_SIZE * 0.5, Util.toRadians( 20 ), ICON_SIZE * 0.25, PendulumLabConstants.SECOND_PENDULUM_COLOR );
+  const firstPendulumNode = createMiniPendulum( ICON_SIZE * 0.6, Utils.toRadians( -10 ), ICON_SIZE * 0.4, PendulumLabConstants.FIRST_PENDULUM_COLOR );
+  const secondPendulumNode = createMiniPendulum( ICON_SIZE * 0.5, Utils.toRadians( 20 ), ICON_SIZE * 0.25, PendulumLabConstants.SECOND_PENDULUM_COLOR );
   const iconBounds = new Bounds2( 0, 0, ICON_SIZE, ICON_SIZE );
 
   const PendulaIcons = {
