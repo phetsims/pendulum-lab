@@ -84,7 +84,7 @@ define( require => {
       { value: 1 / 8, node: new Text( slowMotionString, { font: FONT } ) }
     ], {
       spacing: 9,
-      touchAreaXDilation: 10,
+      touchAreaDilation: 10,
       radioButtonOptions: {
         radius: new Text( 'test', { font: FONT } ).height / 2.2,
         xSpacing: 5
