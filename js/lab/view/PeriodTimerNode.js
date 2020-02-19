@@ -132,10 +132,12 @@ define( require => {
     // creates switch icon for choosing the first or second pendulum
     const graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
       xSpacing: 3,
-      switchSize: new Dimension2( 25, 12.5 ),
-      thumbTouchAreaXDilation: 3.5,
-      thumbTouchAreaYDilation: 3.5,
-      setEnabled: null // Do not highlight the selected mass more than the other
+      setEnabled: null, // Do not highlight the selected mass more than the other
+      toggleSwitchOptions: {
+        size: new Dimension2( 25, 12.5 ),
+        thumbTouchAreaXDilation: 3.5,
+        thumbTouchAreaYDilation: 3.5
+      }
     } );
 
     // Switch,Play button, and pendulum icon buttons at the bottom of the period timer tool.
