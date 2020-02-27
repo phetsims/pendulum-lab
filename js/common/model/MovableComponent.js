@@ -7,57 +7,53 @@
  * @author Andrey Zelenkov (MLearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  const Property = require( 'AXON/Property' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import pendulumLab from '../../pendulumLab.js';
+
+/**
+ * @constructor
+ *
+ * @param {boolean} isInitiallyVisible
+ */
+function MovableComponent( isInitiallyVisible ) {
+  // @public {Property.<Vector2|null>} - Initial value will be set in view, after calculating all bounds of nodes
+  this.locationProperty = new Property( null );
+
+  // @public {Property.<boolean>} flag to determine stopwatch state
+  this.isVisibleProperty = new BooleanProperty( isInitiallyVisible );
+}
+
+pendulumLab.register( 'MovableComponent', MovableComponent );
+
+export default inherit( Object, MovableComponent, {
+  /**
+   * Function that sets the initial location of a movable object and keeps an internal copy of it.
+   * @public
+   *
+   * @param {Vector2} initialLocation
+   */
+  setInitialLocationValue: function( initialLocation ) {
+
+    // position to use for resetting
+    // make a copy of the initial location vector
+    this.initialLocation = initialLocation.copy();
+
+    // set the location to the initial location
+    this.locationProperty.value = this.initialLocation.copy();
+  },
 
   /**
-   * @constructor
-   *
-   * @param {boolean} isInitiallyVisible
+   * Reset function
+   * @public
    */
-  function MovableComponent( isInitiallyVisible ) {
-    // @public {Property.<Vector2|null>} - Initial value will be set in view, after calculating all bounds of nodes
-    this.locationProperty = new Property( null );
+  reset: function() {
 
-    // @public {Property.<boolean>} flag to determine stopwatch state
-    this.isVisibleProperty = new BooleanProperty( isInitiallyVisible );
+    // Reset the location to the initial location
+    this.locationProperty.value = this.initialLocation ? this.initialLocation.copy() : null;
+
+    this.isVisibleProperty.reset();
   }
-
-  pendulumLab.register( 'MovableComponent', MovableComponent );
-
-  return inherit( Object, MovableComponent, {
-    /**
-     * Function that sets the initial location of a movable object and keeps an internal copy of it.
-     * @public
-     *
-     * @param {Vector2} initialLocation
-     */
-    setInitialLocationValue: function( initialLocation ) {
-
-      // position to use for resetting
-      // make a copy of the initial location vector
-      this.initialLocation = initialLocation.copy();
-
-      // set the location to the initial location
-      this.locationProperty.value = this.initialLocation.copy();
-    },
-
-    /**
-     * Reset function
-     * @public
-     */
-    reset: function() {
-
-      // Reset the location to the initial location
-      this.locationProperty.value = this.initialLocation ? this.initialLocation.copy() : null;
-
-      this.isVisibleProperty.reset();
-    }
-  } );
 } );

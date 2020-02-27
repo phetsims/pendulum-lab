@@ -5,46 +5,42 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const LabModel = require( 'PENDULUM_LAB/lab/model/LabModel' );
-  const LabScreenView = require( 'PENDULUM_LAB/lab/view/LabScreenView' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import labNavbarImage from '../../mipmaps/lab-navbar-icon_png.js';
+import labScreenImage from '../../mipmaps/lab-screen-icon_png.js';
+import PendulumLabConstants from '../common/PendulumLabConstants.js';
+import pendulumLabStrings from '../pendulum-lab-strings.js';
+import pendulumLab from '../pendulumLab.js';
+import LabModel from './model/LabModel.js';
+import LabScreenView from './view/LabScreenView.js';
 
-  // strings
-  const screenLabString = require( 'string!PENDULUM_LAB/screen.lab' );
+const screenLabString = pendulumLabStrings.screen.lab;
 
-  // images
-  const labNavbarImage = require( 'mipmap!PENDULUM_LAB/lab-navbar-icon.png' );
-  const labScreenImage = require( 'mipmap!PENDULUM_LAB/lab-screen-icon.png' );
 
-  /**
-   * @constructor
-   */
-  function LabScreen() {
+/**
+ * @constructor
+ */
+function LabScreen() {
 
-    const options = {
-      name: screenLabString,
-      backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new Image( labScreenImage ),
-      navigationBarIcon: new Image( labNavbarImage )
-    };
+  const options = {
+    name: screenLabString,
+    backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
+    homeScreenIcon: new Image( labScreenImage ),
+    navigationBarIcon: new Image( labNavbarImage )
+  };
 
-    Screen.call( this,
-      function() { return new LabModel(); },
-      function( model ) { return new LabScreenView( model ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new LabModel(); },
+    function( model ) { return new LabScreenView( model ); },
+    options
+  );
+}
 
-  pendulumLab.register( 'LabScreen', LabScreen );
+pendulumLab.register( 'LabScreen', LabScreen );
 
-  return inherit( Screen, LabScreen );
-} );
+inherit( Screen, LabScreen );
+export default LabScreen;

@@ -5,48 +5,44 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  const PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
-  const Property = require( 'AXON/Property' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PendulumLabModel from '../../common/model/PendulumLabModel.js';
+import pendulumLab from '../../pendulumLab.js';
 
+/**
+ * @constructor
+ *
+ * @param {Object} [options]
+ */
+function EnergyModel( options ) {
+  options = merge( {
+    rulerInitiallyVisible: false, // Hide the ruler by default on the energy screens
+    energyBoxExpanded: true
+  }, options );
+
+  PendulumLabModel.call( this, options );
+
+  // add energy mode property
+  this.isEnergyBoxExpandedProperty = new BooleanProperty( options.energyBoxExpanded );
+
+  // @public {Property.<Pendulum>} - The pendulum whose energy will be displayed in the plot.
+  this.activeEnergyPendulumProperty = new Property( this.pendula[ 0 ] );
+}
+
+pendulumLab.register( 'EnergyModel', EnergyModel );
+
+export default inherit( PendulumLabModel, EnergyModel, {
   /**
-   * @constructor
-   *
-   * @param {Object} [options]
+   * Function that resets all the property associated with the energy model
+   * @public
    */
-  function EnergyModel( options ) {
-    options = merge( {
-      rulerInitiallyVisible: false, // Hide the ruler by default on the energy screens
-      energyBoxExpanded: true
-    }, options );
-
-    PendulumLabModel.call( this, options );
-
-    // add energy mode property
-    this.isEnergyBoxExpandedProperty = new BooleanProperty( options.energyBoxExpanded );
-
-    // @public {Property.<Pendulum>} - The pendulum whose energy will be displayed in the plot.
-    this.activeEnergyPendulumProperty = new Property( this.pendula[ 0 ] );
+  reset: function() {
+    PendulumLabModel.prototype.reset.call( this );
+    this.isEnergyBoxExpandedProperty.reset();
+    this.activeEnergyPendulumProperty.reset();
   }
-
-  pendulumLab.register( 'EnergyModel', EnergyModel );
-
-  return inherit( PendulumLabModel, EnergyModel, {
-    /**
-     * Function that resets all the property associated with the energy model
-     * @public
-     */
-    reset: function() {
-      PendulumLabModel.prototype.reset.call( this );
-      this.isEnergyBoxExpandedProperty.reset();
-      this.activeEnergyPendulumProperty.reset();
-    }
-  } );
 } );

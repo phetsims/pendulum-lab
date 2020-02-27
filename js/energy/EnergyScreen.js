@@ -5,44 +5,40 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const EnergyModel = require( 'PENDULUM_LAB/energy/model/EnergyModel' );
-  const EnergyScreenView = require( 'PENDULUM_LAB/energy/view/EnergyScreenView' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import energyImage from '../../mipmaps/energy-screen-icon_png.js';
+import PendulumLabConstants from '../common/PendulumLabConstants.js';
+import pendulumLabStrings from '../pendulum-lab-strings.js';
+import pendulumLab from '../pendulumLab.js';
+import EnergyModel from './model/EnergyModel.js';
+import EnergyScreenView from './view/EnergyScreenView.js';
 
-  // strings
-  const screenEnergyString = require( 'string!PENDULUM_LAB/screen.energy' );
+const screenEnergyString = pendulumLabStrings.screen.energy;
 
-  // images
-  const energyImage = require( 'mipmap!PENDULUM_LAB/energy-screen-icon.png' );
 
-  /**
-   * @constructor
-   */
-  function EnergyScreen() {
+/**
+ * @constructor
+ */
+function EnergyScreen() {
 
-    const options = {
-      name: screenEnergyString,
-      backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new Image( energyImage )
-    };
+  const options = {
+    name: screenEnergyString,
+    backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
+    homeScreenIcon: new Image( energyImage )
+  };
 
-    Screen.call( this,
-      function() { return new EnergyModel(); },
-      function( model ) { return new EnergyScreenView( model ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new EnergyModel(); },
+    function( model ) { return new EnergyScreenView( model ); },
+    options
+  );
+}
 
-  pendulumLab.register( 'EnergyScreen', EnergyScreen );
+pendulumLab.register( 'EnergyScreen', EnergyScreen );
 
-  return inherit( Screen, EnergyScreen );
-} );
+inherit( Screen, EnergyScreen );
+export default EnergyScreen;

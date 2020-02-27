@@ -5,27 +5,24 @@
  *
  * @author Andrey Zelenkov (MLearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MovableComponent = require( 'PENDULUM_LAB/common/model/MovableComponent' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import pendulumLab from '../../pendulumLab.js';
+import MovableComponent from './MovableComponent.js';
 
-  /**
-   * @constructor
-   *
-   * @param {boolean} isInitiallyVisible
-   */
-  function Ruler( isInitiallyVisible ) {
-    MovableComponent.call( this, isInitiallyVisible );
+/**
+ * @constructor
+ *
+ * @param {boolean} isInitiallyVisible
+ */
+function Ruler( isInitiallyVisible ) {
+  MovableComponent.call( this, isInitiallyVisible );
 
-    // @public (read-only) - Meters
-    this.length = 1;
-  }
+  // @public (read-only) - Meters
+  this.length = 1;
+}
 
-  pendulumLab.register( 'Ruler', Ruler );
+pendulumLab.register( 'Ruler', Ruler );
 
-  return inherit( MovableComponent, Ruler );
-} );
+inherit( MovableComponent, Ruler );
+export default Ruler;

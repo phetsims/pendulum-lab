@@ -5,46 +5,42 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Image = require( 'SCENERY/nodes/Image' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
-  const PendulumLabConstants = require( 'PENDULUM_LAB/common/PendulumLabConstants' );
-  const PendulumLabModel = require( 'PENDULUM_LAB/common/model/PendulumLabModel' );
-  const PendulumLabScreenView = require( 'PENDULUM_LAB/common/view/PendulumLabScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import Image from '../../../scenery/js/nodes/Image.js';
+import introNavbarImage from '../../mipmaps/intro-navbar-icon_png.js';
+import introScreenImage from '../../mipmaps/intro-screen-icon_png.js';
+import PendulumLabModel from '../common/model/PendulumLabModel.js';
+import PendulumLabConstants from '../common/PendulumLabConstants.js';
+import PendulumLabScreenView from '../common/view/PendulumLabScreenView.js';
+import pendulumLabStrings from '../pendulum-lab-strings.js';
+import pendulumLab from '../pendulumLab.js';
 
-  // strings
-  const screenIntroString = require( 'string!PENDULUM_LAB/screen.intro' );
+const screenIntroString = pendulumLabStrings.screen.intro;
 
-  // images
-  const introNavbarImage = require( 'mipmap!PENDULUM_LAB/intro-navbar-icon.png' );
-  const introScreenImage = require( 'mipmap!PENDULUM_LAB/intro-screen-icon.png' );
 
-  /**
-   * @constructor
-   */
-  function IntroScreen() {
+/**
+ * @constructor
+ */
+function IntroScreen() {
 
-    const options = {
-      name: screenIntroString,
-      backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new Image( introScreenImage ),
-      navigationBarIcon: new Image( introNavbarImage )
-    };
+  const options = {
+    name: screenIntroString,
+    backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
+    homeScreenIcon: new Image( introScreenImage ),
+    navigationBarIcon: new Image( introNavbarImage )
+  };
 
-    Screen.call( this,
-      function() { return new PendulumLabModel(); },
-      function( model ) { return new PendulumLabScreenView( model ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new PendulumLabModel(); },
+    function( model ) { return new PendulumLabScreenView( model ); },
+    options
+  );
+}
 
-  pendulumLab.register( 'IntroScreen', IntroScreen );
+pendulumLab.register( 'IntroScreen', IntroScreen );
 
-  return inherit( Screen, IntroScreen );
-} );
+inherit( Screen, IntroScreen );
+export default IntroScreen;

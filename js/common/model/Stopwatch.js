@@ -5,45 +5,41 @@
  *
  * @author Andrey Zelenkov (MLearner)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const MovableComponent = require( 'PENDULUM_LAB/common/model/MovableComponent' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const pendulumLab = require( 'PENDULUM_LAB/pendulumLab' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import pendulumLab from '../../pendulumLab.js';
+import MovableComponent from './MovableComponent.js';
 
+/**
+ * @constructor
+ *
+ * @param {boolean} initiallyVisible
+ */
+function Stopwatch( initiallyVisible ) {
+  assert && assert( typeof initiallyVisible === 'boolean' );
+
+  MovableComponent.call( this, initiallyVisible );
+
+  // @public {Property.<boolean>}
+  this.isRunningProperty = new BooleanProperty( false );
+
+  // @public {Property.<number>} passed time
+  this.elapsedTimeProperty = new NumberProperty( 0 );
+}
+
+pendulumLab.register( 'Stopwatch', Stopwatch );
+
+export default inherit( MovableComponent, Stopwatch, {
   /**
-   * @constructor
-   *
-   * @param {boolean} initiallyVisible
+   * Resets the stopwatch
+   * @public
    */
-  function Stopwatch( initiallyVisible ) {
-    assert && assert( typeof initiallyVisible === 'boolean' );
+  reset: function() {
+    MovableComponent.prototype.reset.call( this );
 
-    MovableComponent.call( this, initiallyVisible );
-
-    // @public {Property.<boolean>}
-    this.isRunningProperty = new BooleanProperty( false );
-
-    // @public {Property.<number>} passed time
-    this.elapsedTimeProperty = new NumberProperty( 0 );
+    this.isRunningProperty.reset();
+    this.elapsedTimeProperty.reset();
   }
-
-  pendulumLab.register( 'Stopwatch', Stopwatch );
-
-  return inherit( MovableComponent, Stopwatch, {
-    /**
-     * Resets the stopwatch
-     * @public
-     */
-    reset: function() {
-      MovableComponent.prototype.reset.call( this );
-
-      this.isRunningProperty.reset();
-      this.elapsedTimeProperty.reset();
-    }
-  } );
 } );
