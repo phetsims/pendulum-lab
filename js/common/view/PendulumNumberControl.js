@@ -45,7 +45,9 @@ function PendulumNumberControl( title, property, range, pattern, color, options 
       maxWidth: 70
     },
     numberDisplayOptions: {
-      font: PendulumLabConstants.READOUT_FONT,
+      textOptions: {
+        font: PendulumLabConstants.READOUT_FONT
+      },
       valuePattern: pattern,
       maxWidth: 100,
       decimalPlaces: 2,
