@@ -10,7 +10,7 @@
 import inherit from '../../../../phet-core/js/inherit.js';
 import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 

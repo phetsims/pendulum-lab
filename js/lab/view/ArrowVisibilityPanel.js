@@ -19,7 +19,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 
 const accelerationString = pendulumLabStrings.acceleration;

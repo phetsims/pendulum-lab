@@ -11,7 +11,7 @@ import SimLauncher from '../../joist/js/SimLauncher.js';
 import EnergyScreen from './energy/EnergyScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import pendulumLabStrings from './pendulum-lab-strings.js';
+import pendulumLabStrings from './pendulumLabStrings.js';
 
 const pendulumLabTitleString = pendulumLabStrings[ 'pendulum-lab' ].title;
 

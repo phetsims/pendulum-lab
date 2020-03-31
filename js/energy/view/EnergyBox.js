@@ -26,7 +26,7 @@ import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ColorConstants from '../../../../sun/js/ColorConstants.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 import EnergyLegendDialog from './EnergyLegendDialog.js';
 

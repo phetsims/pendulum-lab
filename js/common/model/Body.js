@@ -7,7 +7,7 @@
  */
 
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 
 const customString = pendulumLabStrings.custom;

@@ -15,7 +15,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 
 const energyLegendString = pendulumLabStrings.energyLegend;

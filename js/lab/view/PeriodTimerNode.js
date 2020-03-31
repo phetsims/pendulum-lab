@@ -31,7 +31,7 @@ import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import periodTimerBackgroundImage from '../../../mipmaps/period-timer-background_png.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 
 const periodString = pendulumLabStrings.period;

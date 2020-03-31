@@ -11,7 +11,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import pendulumLabStrings from '../../pendulum-lab-strings.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulumNumberControl from './PendulumNumberControl.js';

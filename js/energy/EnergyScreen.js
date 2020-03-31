@@ -12,7 +12,7 @@ import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import energyImage from '../../mipmaps/energy-screen-icon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../pendulum-lab-strings.js';
+import pendulumLabStrings from '../pendulumLabStrings.js';
 import pendulumLab from '../pendulumLab.js';
 import EnergyModel from './model/EnergyModel.js';
 import EnergyScreenView from './view/EnergyScreenView.js';

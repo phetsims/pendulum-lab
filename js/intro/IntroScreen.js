@@ -15,7 +15,7 @@ import introScreenImage from '../../mipmaps/intro-screen-icon_png.js';
 import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
 import PendulumLabScreenView from '../common/view/PendulumLabScreenView.js';
-import pendulumLabStrings from '../pendulum-lab-strings.js';
+import pendulumLabStrings from '../pendulumLabStrings.js';
 import pendulumLab from '../pendulumLab.js';
 
 const screenIntroString = pendulumLabStrings.screen.intro;

@@ -13,7 +13,7 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import labNavbarImage from '../../mipmaps/lab-navbar-icon_png.js';
 import labScreenImage from '../../mipmaps/lab-screen-icon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../pendulum-lab-strings.js';
+import pendulumLabStrings from '../pendulumLabStrings.js';
 import pendulumLab from '../pendulumLab.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
