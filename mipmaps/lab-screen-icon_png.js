@@ -1,5 +1,5 @@
 /* eslint-disable */
-var mipmaps = [
+const mipmaps = [
   {
     "width": 694,
     "height": 472,
@@ -26,14 +26,14 @@ var mipmaps = [
     "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAeCAYAAABXNvynAAAAAklEQVR4AewaftIAAAM+SURBVNXBT2hbdQDA8e/7vV+a9/rnJattY9oszZpS32RgL6XgwUvBzXmwHqbDk5eBXuYOO+nJoScvnrwOcehJLIxBYTAVh38mFap1VtImJWt5S0lNu7ylLy9/nvZQkLEt/1v6+Sjefzg6vhAcMYI2yechlfKoVOgoQZtUq1Vu3bpONpulkwRtks2mOH9+hlwuy+bmJp0iaJN8Pk9PTw+mabK9vY1lWXSCoA1s28YwDPZNTExQKBTY2Nig3QRtkEwmicVi/F88HqdUKpFOp2knQYs8z8PzPIQQPCoWi7FnbW2NdhG0aH19ndHRUZ4kGo0ipWR1dZUncVyH93/8AOsfi1oELdra2iIYDPI0kUiE7u5uEokEjyo4BT5a/JjXI7MMBYaoRdCCYrGIruvUIxwOYxgGy8vL7HFsm/xung9/v8IbI+eYik6hqiq1SFqwkkjwnGlSr1AohCoEf177ksD1z/nk0knePfEO5rMm9ZK0oFypIKWkHo6zi+vep+Qu8Yx5k28Cf3HhmkPksp9GSJqUyWQIh8M8TqGQp1y2gDSwQqGwhM9n4POdotcYI3P3VV5OvUbA+x61r49GSJpkWRaTk5Psse0UpdKvCLHBw4d/o+sRVPUkEENRZhkcvICqquzrmamy7l9Af/sKutFHIyRNKJfL+Hw+9lUqRTwvihAzhMP9KIrC0wghiL40RTMkTVhZWWF8fJx9gYDJQRE0wXEc/H4/h0HQoFwux8DAAIdFUAfP87CsHTzPI51OMzIywmGR1CGdtrlxow9Ny6NpvcTjRXTdx87OLyhKP8eOmRwUSR1u3/YIhQTz8wYLC35c9zvOnPkan28KXT/HQZLUYNsOyaTG8DC4z8/x2cWr3F99i2DwUzStm4MmqeHOHZd43GBxscoPcoivfprllci3/PbHXSYDLzDeO87xvuMEe4PsURSFTpLUUCqVUZQiyaSf0s8vMliZ4urSm/g1j3v5eyTtJPOZeVYfpDjRE+O9UxfRNZ1OkdRw+nQ/u7suY2MPmJuDoaEq/f1B9pjdJmbI5CxnqVQqZHIZNL9GJ0nqoOtdTE93MT0NruvyOKqqMjwwTKcJGtTV1cVhksBNjo6lfwGg9h6IwB7DXgAAAABJRU5ErkJggg=="
   }
 ];
-mipmaps.forEach( function( mipmap ) {
+mipmaps.forEach( mipmap => {
   mipmap.img = new Image();
   window.phetImages.push( mipmap.img ); // make sure it's loaded before the sim launches
   mipmap.img.src = mipmap.url; // trigger the loading of the image for its level
   mipmap.canvas = document.createElement( 'canvas' );
   mipmap.canvas.width = mipmap.width;
   mipmap.canvas.height = mipmap.height;
-  var context = mipmap.canvas.getContext( '2d' );
+  const context = mipmap.canvas.getContext( '2d' );
   mipmap.updateCanvas = function() {
     if ( mipmap.img.complete && ( typeof mipmap.img.naturalWidth === 'undefined' || mipmap.img.naturalWidth > 0 ) ) {
       context.drawImage( mipmap.img, 0, 0 );

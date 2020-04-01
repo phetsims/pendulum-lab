@@ -1,5 +1,5 @@
 /* eslint-disable */
-var mipmaps = [
+const mipmaps = [
   {
     "width": 694,
     "height": 472,
@@ -26,14 +26,14 @@ var mipmaps = [
     "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAeCAYAAABXNvynAAAAAklEQVR4AewaftIAAAGnSURBVNXBy24SYRiA4ff//hmkEWQqJnUDLSTSG+hKl41cSve66QV5Ga67Y1d6iCyA0MQ0LadEkMyBX1k0MZO6GJnPhOcx7jd2xxdhxwgKHh5gtUKFoODq6juLBSqEnIVhSKk0pVpFhZCzXq9Hs9lCi5Aj5xxRFFEsemgRcjQcDmk2GsQxaoQczaZTXlUqeB5qhJzMZjNeV6tsJAlqhJwMBgNqtRobIqgRchBFEQXfxxjDhnOoEXLQ+9bjXavFE2NQI2zJOUcYhvi+zxPnUCNsaTQacdQ44k/GoEbY0mQyIQgC/hdhC/P5nP0gIM051Ahb6Pf71A8PSTMGNUJG6/Way8sxy+US3/cxxpC2XqNGyOj29gedTpXz84hu94DxeEGatagRMrq4AGvh5qbC2dkbOp2YtCRBjUcG9/cLVquX9Ptwdwf1esiH9y9IsxY1QgajUUhQSbi+hsdH+PxpRalcJC2OUeORwcnJPsfHPzl4O6dQMHxsG57jeajxyKhc3qPd3uP0NMFay3PiGDXCP7LW8je+jxpBQZKgRlBQKqFG2DEe8JXd0f0FmyyHAUU/0L0AAAAASUVORK5CYII="
   }
 ];
-mipmaps.forEach( function( mipmap ) {
+mipmaps.forEach( mipmap => {
   mipmap.img = new Image();
   window.phetImages.push( mipmap.img ); // make sure it's loaded before the sim launches
   mipmap.img.src = mipmap.url; // trigger the loading of the image for its level
   mipmap.canvas = document.createElement( 'canvas' );
   mipmap.canvas.width = mipmap.width;
   mipmap.canvas.height = mipmap.height;
-  var context = mipmap.canvas.getContext( '2d' );
+  const context = mipmap.canvas.getContext( '2d' );
   mipmap.updateCanvas = function() {
     if ( mipmap.img.complete && ( typeof mipmap.img.naturalWidth === 'undefined' || mipmap.img.naturalWidth > 0 ) ) {
       context.drawImage( mipmap.img, 0, 0 );
