@@ -84,7 +84,7 @@ function GravityControlNode( gravityProperty, gravityRange, bodyProperty, popupL
       } );
       questionText.maxWidth = bottomBox.width;
       questionText.center = bottomBox.center;
-      questionText.onStatic( 'visibility', function() {
+      questionText.visibleProperty.lazyLink( function() {
         bottomBox.visible = !questionText.visible;
       } );
 
