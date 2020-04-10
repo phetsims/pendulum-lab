@@ -228,6 +228,7 @@ function EnergyBox( model, chartHeightProperty, options ) {
 
   const boxContent = new VBox( {
     spacing: 5,
+    excludeInvisibleChildrenFromBounds: false,
     children: [
       radioButtonBox,
       panel,
