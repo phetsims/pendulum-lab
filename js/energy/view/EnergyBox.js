@@ -91,21 +91,33 @@ function EnergyBox( model, chartHeightProperty, options ) {
   const chartRangeProperty = new DerivedProperty( [ chartHeightProperty ], function( chartHeight ) {
     return new Range( 0, chartHeight );
   } );
-  const kineticBarEntry = { property: kineticEnergyProperty, color: PendulumLabConstants.KINETIC_ENERGY_COLOR };
-  const potentialBarEntry = { property: potentialEnergyProperty, color: PendulumLabConstants.POTENTIAL_ENERGY_COLOR };
-  const thermalBarEntry = { property: thermalEnergyProperty, color: PendulumLabConstants.THERMAL_ENERGY_COLOR };
+  const kineticBarEntry = {
+    property: kineticEnergyProperty,
+    color: PendulumLabConstants.KINETIC_ENERGY_COLOR
+  };
+  const potentialBarEntry = {
+    property: potentialEnergyProperty,
+    color: PendulumLabConstants.POTENTIAL_ENERGY_COLOR
+  };
+  const thermalBarEntry = {
+    property: thermalEnergyProperty,
+    color: PendulumLabConstants.THERMAL_ENERGY_COLOR
+  };
   const barChartNode = new BarChartNode( [
     {
       entries: [ kineticBarEntry ],
-      labelString: legendKineticEnergyAbbreviationString
+      labelString: legendKineticEnergyAbbreviationString,
+      labelColor: PendulumLabConstants.KINETIC_ENERGY_COLOR
     },
     {
       entries: [ potentialBarEntry ],
-      labelString: legendPotentialEnergyAbbreviationString
+      labelString: legendPotentialEnergyAbbreviationString,
+      labelColor: PendulumLabConstants.POTENTIAL_ENERGY_COLOR
     },
     {
       entries: [ thermalBarEntry ],
       labelString: legendThermalEnergyAbbreviationString,
+      labelColor: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       labelNode: clearThermalButton
     },
     {
