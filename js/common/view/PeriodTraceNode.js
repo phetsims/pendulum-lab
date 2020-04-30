@@ -136,7 +136,7 @@ function PeriodTraceNode( pendulum, modelViewTransform, options ) {
 
 pendulumLab.register( 'PeriodTraceNode', PeriodTraceNode );
 
-export default inherit( Node, PeriodTraceNode, {
+inherit( Node, PeriodTraceNode, {
   /**
    * Steps the view.
    * @public
@@ -155,3 +155,5 @@ export default inherit( Node, PeriodTraceNode, {
     }
   }
 } );
+
+export default PeriodTraceNode;

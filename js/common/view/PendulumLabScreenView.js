@@ -177,7 +177,7 @@ function PendulumLabScreenView( model, options ) {
 
 pendulumLab.register( 'PendulumLabScreenView', PendulumLabScreenView );
 
-export default inherit( ScreenView, PendulumLabScreenView, {
+inherit( ScreenView, PendulumLabScreenView, {
 
   /**
    * Position the stopwatch next to the ruler.
@@ -204,3 +204,5 @@ export default inherit( ScreenView, PendulumLabScreenView, {
     }
   }
 } );
+
+export default PendulumLabScreenView;

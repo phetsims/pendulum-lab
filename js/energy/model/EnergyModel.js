@@ -35,7 +35,7 @@ function EnergyModel( options ) {
 
 pendulumLab.register( 'EnergyModel', EnergyModel );
 
-export default inherit( PendulumLabModel, EnergyModel, {
+inherit( PendulumLabModel, EnergyModel, {
   /**
    * Function that resets all the property associated with the energy model
    * @public
@@ -46,3 +46,5 @@ export default inherit( PendulumLabModel, EnergyModel, {
     this.activeEnergyPendulumProperty.reset();
   }
 } );
+
+export default EnergyModel;

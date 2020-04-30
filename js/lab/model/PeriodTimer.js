@@ -112,7 +112,7 @@ function PeriodTimer( pendula, isVisibleProperty ) {
 
 pendulumLab.register( 'PeriodTimer', PeriodTimer );
 
-export default inherit( Stopwatch, PeriodTimer, {
+inherit( Stopwatch, PeriodTimer, {
   /**
    * Resets the PeriodTimer
    * @public
@@ -148,3 +148,5 @@ export default inherit( Stopwatch, PeriodTimer, {
     }
   }
 } );
+
+export default PeriodTimer;

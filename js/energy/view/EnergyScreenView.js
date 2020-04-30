@@ -46,7 +46,7 @@ function EnergyScreenView( model, options ) {
 
 pendulumLab.register( 'EnergyScreenView', EnergyScreenView );
 
-export default inherit( PendulumLabScreenView, EnergyScreenView, {
+inherit( PendulumLabScreenView, EnergyScreenView, {
   /**
    * Changes the chart height so that the energy graph fits all available size
    * @protected
@@ -58,3 +58,5 @@ export default inherit( PendulumLabScreenView, EnergyScreenView, {
     this.chartHeightProperty.value += currentSpace - desiredSpace;
   }
 } );
+
+export default EnergyScreenView;

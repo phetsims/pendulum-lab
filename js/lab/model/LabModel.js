@@ -36,7 +36,7 @@ function LabModel( options ) {
 
 pendulumLab.register( 'LabModel', LabModel );
 
-export default inherit( EnergyModel, LabModel, {
+inherit( EnergyModel, LabModel, {
   /**
    * Returns the pendula to rest.
    * @public
@@ -62,3 +62,5 @@ export default inherit( EnergyModel, LabModel, {
     this.periodTimer.reset();
   }
 } );
+
+export default LabModel;

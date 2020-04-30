@@ -158,7 +158,7 @@ function Pendulum( index, mass, length, isVisible, gravityProperty, frictionProp
 
 pendulumLab.register( 'Pendulum', Pendulum );
 
-export default inherit( Object, Pendulum, {
+inherit( Object, Pendulum, {
   /**
    * Function that returns the instantaneous angular acceleration
    * @private
@@ -408,3 +408,5 @@ export default inherit( Object, Pendulum, {
     return angle;
   }
 } );
+
+export default Pendulum;

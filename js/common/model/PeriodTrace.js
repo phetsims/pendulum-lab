@@ -99,7 +99,7 @@ function PeriodTrace( pendulum ) {
 
 pendulumLab.register( 'PeriodTrace', PeriodTrace );
 
-export default inherit( Object, PeriodTrace, {
+inherit( Object, PeriodTrace, {
   /**
    * Called when the trace has fully faded away.
    * @public
@@ -134,3 +134,5 @@ export default inherit( Object, PeriodTrace, {
     this.elapsedTimeProperty.reset();
   }
 } );
+
+export default PeriodTrace;

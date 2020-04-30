@@ -28,7 +28,7 @@ function MovableComponent( isInitiallyVisible ) {
 
 pendulumLab.register( 'MovableComponent', MovableComponent );
 
-export default inherit( Object, MovableComponent, {
+inherit( Object, MovableComponent, {
   /**
    * Function that sets the initial location of a movable object and keeps an internal copy of it.
    * @public
@@ -57,3 +57,5 @@ export default inherit( Object, MovableComponent, {
     this.isVisibleProperty.reset();
   }
 } );
+
+export default MovableComponent;

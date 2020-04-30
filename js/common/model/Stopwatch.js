@@ -31,7 +31,7 @@ function Stopwatch( initiallyVisible ) {
 
 pendulumLab.register( 'Stopwatch', Stopwatch );
 
-export default inherit( MovableComponent, Stopwatch, {
+inherit( MovableComponent, Stopwatch, {
   /**
    * Resets the stopwatch
    * @public
@@ -43,3 +43,5 @@ export default inherit( MovableComponent, Stopwatch, {
     this.elapsedTimeProperty.reset();
   }
 } );
+
+export default Stopwatch;

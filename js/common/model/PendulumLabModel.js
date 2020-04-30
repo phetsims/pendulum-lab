@@ -119,7 +119,7 @@ function PendulumLabModel( options ) {
 
 pendulumLab.register( 'PendulumLabModel', PendulumLabModel );
 
-export default inherit( Object, PendulumLabModel, {
+inherit( Object, PendulumLabModel, {
   /**
    * Resets the model.
    * @public
@@ -220,3 +220,5 @@ export default inherit( Object, PendulumLabModel, {
     }
   }
 } );
+
+export default PendulumLabModel;
