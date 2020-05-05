@@ -26,8 +26,8 @@ import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ColorConstants from '../../../../sun/js/ColorConstants.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import EnergyLegendDialog from './EnergyLegendDialog.js';
 
 const energyGraphString = pendulumLabStrings.energyGraph;
@@ -106,18 +106,15 @@ function EnergyBox( model, chartHeightProperty, options ) {
   const barChartNode = new BarChartNode( [
     {
       entries: [ kineticBarEntry ],
-      labelString: legendKineticEnergyAbbreviationString,
-      labelColor: PendulumLabConstants.KINETIC_ENERGY_COLOR
+      labelString: legendKineticEnergyAbbreviationString
     },
     {
       entries: [ potentialBarEntry ],
-      labelString: legendPotentialEnergyAbbreviationString,
-      labelColor: PendulumLabConstants.POTENTIAL_ENERGY_COLOR
+      labelString: legendPotentialEnergyAbbreviationString
     },
     {
       entries: [ thermalBarEntry ],
       labelString: legendThermalEnergyAbbreviationString,
-      labelColor: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       labelNode: clearThermalButton
     },
     {
