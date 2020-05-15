@@ -200,7 +200,7 @@ function PeriodTimerNode( periodTimer, secondPendulumIsVisibleProperty, layoutBo
     }
   } );
 
-  this.movableDragHandler = new MovableDragHandler( periodTimer.locationProperty, {
+  this.movableDragHandler = new MovableDragHandler( periodTimer.positionProperty, {
     dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 ),
     allowTouchSnag: false
   } );
@@ -216,11 +216,11 @@ function PeriodTimerNode( periodTimer, secondPendulumIsVisibleProperty, layoutBo
   playPauseButton.addInputListener( doNotStartDragListener );
   graphUnitsSwitch.addInputListener( doNotStartDragListener );
 
-  // add update of node location
-  periodTimer.locationProperty.lazyLink( function( location ) {
-    // Because location is initialized to be null
-    if ( location ) {
-      self.center = location;
+  // add update of node position
+  periodTimer.positionProperty.lazyLink( function( position ) {
+    // Because position is initialized to be null
+    if ( position ) {
+      self.center = position;
     }
   } );
 

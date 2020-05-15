@@ -117,7 +117,7 @@ function PendulumLabScreenView( model, options ) {
   const rulerNode = new PendulumLabRulerNode( model.ruler, modelViewTransform, this.layoutBounds );
   rulerNode.left = this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING;
   rulerNode.top = this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING;
-  model.ruler.setInitialLocationValue( rulerNode.center );
+  model.ruler.setInitialPositionValue( rulerNode.center );
 
   // @protected
   this.rulerNode = rulerNode;

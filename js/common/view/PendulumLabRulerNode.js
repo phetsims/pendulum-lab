@@ -61,18 +61,18 @@ function PendulumLabRulerNode( ruler, modelViewTransform, layoutBounds ) {
   this.rotate( Math.PI / 2 );
 
   // @public
-  this.movableDragHandler = new MovableDragHandler( ruler.locationProperty, {
+  this.movableDragHandler = new MovableDragHandler( ruler.positionProperty, {
     dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
   } );
 
   // add drag and drop events
   this.addInputListener( this.movableDragHandler );
 
-  // add update of node location
-  ruler.locationProperty.lazyLink( function( location ) {
+  // add update of node position
+  ruler.positionProperty.lazyLink( function( position ) {
     // because it's initially null, and will be null on a reset
-    if ( location ) {
-      self.center = location;
+    if ( position ) {
+      self.center = position;
     }
   } );
 

@@ -40,7 +40,7 @@ function LabScreenView( model ) {
   // move energyGraphNode to the bottom
   this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING;
 
-  model.periodTimer.setInitialLocationValue( periodTimerNode.center );
+  model.periodTimer.setInitialPositionValue( periodTimerNode.center );
 
   // set dynamical dragBounds to keep the periodTimer within the visibleBounds
   this.visibleBoundsProperty.link( function( visibleBounds ) {

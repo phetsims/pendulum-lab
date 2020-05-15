@@ -49,7 +49,7 @@ inherit( EnergyModel, LabModel, {
   },
 
   /**
-   * Reset function that resets the pendula, settings, and period timer settings and default location
+   * Reset function that resets the pendula, settings, and period timer settings and default positions
    * @public
    */
   reset: function() {

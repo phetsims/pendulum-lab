@@ -20,7 +20,7 @@ import pendulumLab from '../../pendulumLab.js';
  */
 function MovableComponent( isInitiallyVisible ) {
   // @public {Property.<Vector2|null>} - Initial value will be set in view, after calculating all bounds of nodes
-  this.locationProperty = new Property( null );
+  this.positionProperty = new Property( null );
 
   // @public {Property.<boolean>} flag to determine stopwatch state
   this.isVisibleProperty = new BooleanProperty( isInitiallyVisible );
@@ -30,19 +30,19 @@ pendulumLab.register( 'MovableComponent', MovableComponent );
 
 inherit( Object, MovableComponent, {
   /**
-   * Function that sets the initial location of a movable object and keeps an internal copy of it.
+   * Function that sets the initial position of a movable object and keeps an internal copy of it.
    * @public
    *
-   * @param {Vector2} initialLocation
+   * @param {Vector2} initialPosition
    */
-  setInitialLocationValue: function( initialLocation ) {
+  setInitialPositionValue: function( initialPosition ) {
 
     // position to use for resetting
-    // make a copy of the initial location vector
-    this.initialLocation = initialLocation.copy();
+    // make a copy of the initial position vector
+    this.initialPosition = initialPosition.copy();
 
-    // set the location to the initial location
-    this.locationProperty.value = this.initialLocation.copy();
+    // set the position to the initial position
+    this.positionProperty.value = this.initialPosition.copy();
   },
 
   /**
@@ -51,8 +51,8 @@ inherit( Object, MovableComponent, {
    */
   reset: function() {
 
-    // Reset the location to the initial location
-    this.locationProperty.value = this.initialLocation ? this.initialLocation.copy() : null;
+    // Reset the position to the initial position
+    this.positionProperty.value = this.initialPosition ? this.initialPosition.copy() : null;
 
     this.isVisibleProperty.reset();
   }

@@ -37,7 +37,7 @@ function EnergyScreenView( model, options ) {
 
   // move ruler and stopwatch to the right side
   this.rulerNode.centerX += ( energyGraphNode.width + 10 );
-  model.ruler.setInitialLocationValue( this.rulerNode.center );
+  model.ruler.setInitialPositionValue( this.rulerNode.center );
 
   this.setStopwatchInitialPosition();
 
