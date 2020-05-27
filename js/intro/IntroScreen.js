@@ -8,18 +8,18 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import introNavbarImage from '../../mipmaps/intro-navbar-icon_png.js';
 import introScreenImage from '../../mipmaps/intro-screen-icon_png.js';
-import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
+import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabScreenView from '../common/view/PendulumLabScreenView.js';
-import pendulumLabStrings from '../pendulumLabStrings.js';
 import pendulumLab from '../pendulumLab.js';
+import pendulumLabStrings from '../pendulumLabStrings.js';
 
 const screenIntroString = pendulumLabStrings.screen.intro;
-
 
 /**
  * @constructor
@@ -29,8 +29,14 @@ function IntroScreen() {
   const options = {
     name: screenIntroString,
     backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
-    homeScreenIcon: new Image( introScreenImage ),
-    navigationBarIcon: new Image( introNavbarImage )
+    homeScreenIcon: new ScreenIcon( new Image( introScreenImage ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
+    navigationBarIcon: new ScreenIcon( new Image( introNavbarImage ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } )
   };
 
   Screen.call( this,
