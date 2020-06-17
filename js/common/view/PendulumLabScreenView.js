@@ -21,10 +21,10 @@ import PendulumLabConstants from '../PendulumLabConstants.js';
 import GlobalControlPanel from './GlobalControlPanel.js';
 import PendulaNode from './PendulaNode.js';
 import PendulumControlPanel from './PendulumControlPanel.js';
+import PendulumLabProtractorNode from './PendulumLabProtractorNode.js';
 import PendulumLabRulerNode from './PendulumLabRulerNode.js';
 import PeriodTraceNode from './PeriodTraceNode.js';
 import PlaybackControlsNode from './PlaybackControlsNode.js';
-import ProtractorNode from './ProtractorNode.js';
 import ToolsPanel from './ToolsPanel.js';
 
 /**
@@ -64,7 +64,7 @@ function PendulumLabScreenView( model, options ) {
   this.secondPeriodTraceNode = new PeriodTraceNode( model.pendula[ 1 ], modelViewTransform );
 
   // create protractor node
-  const protractorNode = new ProtractorNode( model.pendula, modelViewTransform );
+  const protractorNode = new PendulumLabProtractorNode( model.pendula, modelViewTransform );
 
   // create a node to keep track of combo box
   const popupLayer = new Node();

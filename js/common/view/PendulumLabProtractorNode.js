@@ -18,8 +18,8 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
 const degreesPatternString = pendulumLabStrings.degreesPattern;
@@ -38,7 +38,7 @@ const TICK_10_LENGTH = 11;
  * @param {ModelViewTransform2} modelViewTransform
  * @param {Object} [options] for protractor node.
  */
-function ProtractorNode( pendula, modelViewTransform, options ) {
+function PendulumLabProtractorNode( pendula, modelViewTransform, options ) {
   const centralDashLine = new Line( 0, 0, 0, modelViewTransform.modelToViewDeltaX( pendula[ 0 ].lengthRange.max ), {
     stroke: PendulumLabConstants.FIRST_PENDULUM_COLOR,
     lineDash: [ 4, 7 ]
@@ -165,7 +165,7 @@ function ProtractorNode( pendula, modelViewTransform, options ) {
   } );
 }
 
-pendulumLab.register( 'ProtractorNode', ProtractorNode );
+pendulumLab.register( 'PendulumLabProtractorNode', PendulumLabProtractorNode );
 
-inherit( Node, ProtractorNode );
-export default ProtractorNode;
+inherit( Node, PendulumLabProtractorNode );
+export default PendulumLabProtractorNode;
