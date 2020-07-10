@@ -176,7 +176,7 @@ function PendulaNode( pendula, modelViewTransform, options ) {
 
         // Don't allow snapping to 180, see https://github.com/phetsims/pendulum-lab/issues/195
         if ( Math.abs( roundedAngleDegrees ) === 180 ) {
-          roundedAngleDegrees = Utils.sign( roundedAngleDegrees ) * 179;
+          roundedAngleDegrees = Math.sign( roundedAngleDegrees ) * 179;
         }
 
         const roundedAngle = Utils.toRadians( roundedAngleDegrees );
