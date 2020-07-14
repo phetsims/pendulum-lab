@@ -78,7 +78,11 @@ function PendulumLabModel( options ) {
   this.ruler = new Ruler( options.rulerInitiallyVisible );
 
   // @public (read-only) model for stopwatch
-  this.stopwatch = new Stopwatch();
+  this.stopwatch = new Stopwatch({
+    timePropertyOptions: {
+      range: Stopwatch.ZERO_TO_ALMOST_SIXTY
+    }
+  });
 
   // change gravity if body was changed
   this.bodyProperty.lazyLink( function( body, oldBody ) {
