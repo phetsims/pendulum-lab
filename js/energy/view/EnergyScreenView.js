@@ -11,7 +11,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import PendulumLabScreenView from '../../common/view/PendulumLabScreenView.js';
 import pendulumLab from '../../pendulumLab.js';
-import EnergyBox from './EnergyBox.js';
+import EnergyGraphAccordionBox from './EnergyGraphAccordionBox.js';
 
 /**
  * @constructor
@@ -26,17 +26,17 @@ function EnergyScreenView( model, options ) {
   this.chartHeightProperty = new NumberProperty( 200 );
 
   // create and add energy graph node to the bottom layer
-  const energyGraphNode = new EnergyBox( model, this.chartHeightProperty, {
+  const energyGraphAccordionBox = new EnergyGraphAccordionBox( model, this.chartHeightProperty, {
     left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
     top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
   } );
-  this.energyGraphLayer.addChild( energyGraphNode );
+  this.energyGraphLayer.addChild( energyGraphAccordionBox );
 
-  // @protected {EnergyBox}
-  this.energyGraphNode = energyGraphNode;
+  // @protected {EnergyGraphAccordionBox}
+  this.energyGraphAccordionBox = energyGraphAccordionBox;
 
   // move ruler and stopwatch to the right side
-  this.rulerNode.centerX += ( energyGraphNode.width + 10 );
+  this.rulerNode.centerX += ( energyGraphAccordionBox.width + 10 );
   model.ruler.setInitialPositionValue( this.rulerNode.center );
 
   this.setStopwatchInitialPosition();
@@ -52,7 +52,7 @@ inherit( PendulumLabScreenView, EnergyScreenView, {
    * @protected
    */
   resizeEnergyGraphToFit: function() {
-    const currentSpace = this.toolsControlPanelNode.top - this.energyGraphNode.bottom;
+    const currentSpace = this.toolsControlPanelNode.top - this.energyGraphAccordionBox.bottom;
     const desiredSpace = PendulumLabConstants.PANEL_PADDING;
 
     this.chartHeightProperty.value += currentSpace - desiredSpace;

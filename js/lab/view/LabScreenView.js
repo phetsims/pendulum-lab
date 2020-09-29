@@ -37,8 +37,8 @@ function LabScreenView( model ) {
   // layout the nodes
   periodTimerNode.right = this.rightPanelsContainer.left - 10;
   periodTimerNode.centerY = this.stopwatchNode.centerY;
-  // move energyGraphNode to the bottom
-  this.energyGraphNode.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING;
+  // move energyGraphAccordionBox to the bottom
+  this.energyGraphAccordionBox.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING;
 
   model.periodTimer.setInitialPositionValue( periodTimerNode.center );
 

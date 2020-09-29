@@ -36,7 +36,7 @@ const legendThermalEnergyAbbreviationString = pendulumLabStrings.legend.thermalE
 const legendTotalEnergyAbbreviationString = pendulumLabStrings.legend.totalEnergyAbbreviation;
 const pendulumMassPatternString = pendulumLabStrings.pendulumMassPattern;
 
-class EnergyBox extends AccordionBox {
+class EnergyGraphAccordionBox extends AccordionBox {
 
   /**
    * @param {EnergyModel} model
@@ -260,5 +260,5 @@ class EnergyBox extends AccordionBox {
   }
 }
 
-pendulumLab.register( 'EnergyBox', EnergyBox );
-export default EnergyBox;
+pendulumLab.register( 'EnergyGraphAccordionBox', EnergyGraphAccordionBox );
+export default EnergyGraphAccordionBox;
