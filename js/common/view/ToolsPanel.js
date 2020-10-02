@@ -7,14 +7,13 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
 const periodTimerString = pendulumLabStrings.periodTimer;
@@ -29,48 +28,45 @@ const TEXT_OPTIONS = {
   maxWidth: 100
 };
 
-/**
- * @constructor
- *
- * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
- * @param {Property.<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
- * @param {Property.<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
- * @param {boolean} hasPeriodTimer
- * @param {Object} [options]
- */
-function ToolsPanel( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
-  options = merge( {}, PendulumLabConstants.PANEL_OPTIONS, options );
+class ToolsPanel extends Panel {
 
-  // @private
-  this._labels = [
-    new Text( rulerString, TEXT_OPTIONS ),
-    new Text( stopwatchString, TEXT_OPTIONS ),
-    new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS )
-  ];
+  /**
+   * @param {Property.<boolean>} isRulerProperty - property to control visibility of ruler.
+   * @param {Property.<boolean>} isStopwatchProperty - property to control visibility of stopwatch.
+   * @param {Property.<boolean>} isPeriodTraceProperty - property to control visibility of period trace tool.
+   * @param {boolean} hasPeriodTimer
+   * @param {Object} [options]
+   */
+  constructor( isRulerProperty, isStopwatchProperty, isPeriodTraceProperty, hasPeriodTimer, options ) {
 
-  const items = [ {
-    node: this._labels[ 0 ],
-    property: isRulerProperty
-  }, {
-    node: this._labels[ 1 ],
-    property: isStopwatchProperty
-  }, {
-    node: this._labels[ 2 ],
-    property: isPeriodTraceProperty
-  } ];
+    options = merge( {}, PendulumLabConstants.PANEL_OPTIONS, options );
 
-  const content = new AlignBox( new VerticalCheckboxGroup( items, {
-    spacing: PendulumLabConstants.CHECK_RADIO_SPACING,
-    checkboxOptions: { boxWidth: this._labels[ 0 ].height }
-  } ), {
-    group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP,
-    xAlign: 'left'
-  } );
+    const items = [
+      {
+        node: new Text( rulerString, TEXT_OPTIONS ),
+        property: isRulerProperty
+      },
+      {
+        node: new Text( stopwatchString, TEXT_OPTIONS ),
+        property: isStopwatchProperty
+      },
+      {
+        node: new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS ),
+        property: isPeriodTraceProperty
+      }
+    ];
 
-  Panel.call( this, content, options );
+    const content = new AlignBox( new VerticalCheckboxGroup( items, {
+      spacing: PendulumLabConstants.CHECK_RADIO_SPACING,
+      checkboxOptions: { boxWidth: items[ 0 ].node.height }
+    } ), {
+      group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP,
+      xAlign: 'left'
+    } );
+
+    super( content, options );
+  }
 }
 
 pendulumLab.register( 'ToolsPanel', ToolsPanel );
-
-inherit( Panel, ToolsPanel );
 export default ToolsPanel;
