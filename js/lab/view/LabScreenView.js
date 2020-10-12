@@ -6,51 +6,49 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import EnergyScreenView from '../../energy/view/EnergyScreenView.js';
 import pendulumLab from '../../pendulumLab.js';
 import ArrowVisibilityPanel from './ArrowVisibilityPanel.js';
 import PeriodTimerNode from './PeriodTimerNode.js';
 
-/**
- * @constructor
- *
- * @param {PendulumLabModel} model
- */
-function LabScreenView( model ) {
-  EnergyScreenView.call( this, model, {
-    hasGravityTweakers: true,
-    hasPeriodTimer: true
-  } );
+class LabScreenView extends EnergyScreenView {
 
-  // create arrow panel node to the bottom layer
-  const arrowsPanelNode = new ArrowVisibilityPanel( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
-    left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
-    top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
-  } );
-  this.arrowsPanelLayer.addChild( arrowsPanelNode );
+  /**
+   * @param {PendulumLabModel} model
+   */
+  constructor( model ) {
+    super( model, {
+      hasGravityTweakers: true,
+      hasPeriodTimer: true
+    } );
 
-  const periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
-  this.periodTimerLayer.addChild( periodTimerNode );
+    // create arrow panel node to the bottom layer
+    const arrowsPanelNode = new ArrowVisibilityPanel( model.isVelocityVisibleProperty, model.isAccelerationVisibleProperty, {
+      left: this.layoutBounds.left + PendulumLabConstants.PANEL_PADDING,
+      top: this.layoutBounds.top + PendulumLabConstants.PANEL_PADDING
+    } );
+    this.arrowsPanelLayer.addChild( arrowsPanelNode );
 
-  // layout the nodes
-  periodTimerNode.right = this.rightPanelsContainer.left - 10;
-  periodTimerNode.centerY = this.stopwatchNode.centerY;
-  // move energyGraphAccordionBox to the bottom
-  this.energyGraphAccordionBox.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING;
+    const periodTimerNode = new PeriodTimerNode( model.periodTimer, model.pendula[ 1 ].isVisibleProperty, this.layoutBounds );
+    this.periodTimerLayer.addChild( periodTimerNode );
 
-  model.periodTimer.setInitialPositionValue( periodTimerNode.center );
+    // layout the nodes
+    periodTimerNode.right = this.rightPanelsContainer.left - 10;
+    periodTimerNode.centerY = this.stopwatchNode.centerY;
+    // move energyGraphAccordionBox to the bottom
+    this.energyGraphAccordionBox.top = arrowsPanelNode.bottom + PendulumLabConstants.PANEL_PADDING;
 
-  // set dynamical dragBounds to keep the periodTimer within the visibleBounds
-  this.visibleBoundsProperty.link( function( visibleBounds ) {
-    periodTimerNode.movableDragHandler.dragBounds = visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 );
-  } );
+    model.periodTimer.setInitialPositionValue( periodTimerNode.center );
 
-  this.resizeEnergyGraphToFit();
+    // set dynamical dragBounds to keep the periodTimer within the visibleBounds
+    this.visibleBoundsProperty.link( function( visibleBounds ) {
+      periodTimerNode.movableDragHandler.dragBounds = visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 );
+    } );
+
+    this.resizeEnergyGraphToFit();
+  }
 }
 
 pendulumLab.register( 'LabScreenView', LabScreenView );
-
-inherit( EnergyScreenView, LabScreenView );
 export default LabScreenView;
