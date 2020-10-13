@@ -8,40 +8,37 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import pendulumLab from '../../pendulumLab.js';
 import MovableComponent from './MovableComponent.js';
 
-/**
- * @constructor
- *
- * @param {boolean} initiallyVisible
- */
-function Stopwatch( initiallyVisible ) {
-  assert && assert( typeof initiallyVisible === 'boolean' );
+class Stopwatch extends MovableComponent {
+  /**
+   * @param {boolean} initiallyVisible
+   */
+  constructor( initiallyVisible ) {
+    assert && assert( typeof initiallyVisible === 'boolean' );
 
-  MovableComponent.call( this, initiallyVisible );
+    super( initiallyVisible );
 
-  // @public {Property.<boolean>}
-  this.isRunningProperty = new BooleanProperty( false );
+    // @public {Property.<boolean>}
+    this.isRunningProperty = new BooleanProperty( false );
 
-  // @public {Property.<number>} passed time
-  this.elapsedTimeProperty = new NumberProperty( 0 );
-}
+    // @public {Property.<number>} passed time
+    this.elapsedTimeProperty = new NumberProperty( 0 );
+  }
 
-pendulumLab.register( 'Stopwatch', Stopwatch );
-
-inherit( MovableComponent, Stopwatch, {
   /**
    * Resets the stopwatch
    * @public
    */
-  reset: function() {
-    MovableComponent.prototype.reset.call( this );
+  reset() {
+    super.reset();
 
     this.isRunningProperty.reset();
     this.elapsedTimeProperty.reset();
   }
-} );
+}
+
+pendulumLab.register( 'Stopwatch', Stopwatch );
 
 export default Stopwatch;

@@ -7,8 +7,8 @@
  */
 
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
 import pendulumLab from '../../pendulumLab.js';
+import pendulumLabStrings from '../../pendulumLabStrings.js';
 
 const customString = pendulumLabStrings.custom;
 const earthString = pendulumLabStrings.earth;
@@ -16,18 +16,18 @@ const jupiterString = pendulumLabStrings.jupiter;
 const moonString = pendulumLabStrings.moon;
 const planetXString = pendulumLabStrings.planetX;
 
-/**
- * @constructor
- *
- * @param {string} title
- * @param {number|null} gravity - Gravitational acceleration on body (m/s^2) if defined.
- */
-function Body( title, gravity ) {
-  // @public {string} (read-only)
-  this.title = title;
+class Body {
+  /**
+   * @param {string} title
+   * @param {number|null} gravity - Gravitational acceleration on body (m/s^2) if defined.
+   */
+  constructor( title, gravity ) {
+    // @public {string} (read-only)
+    this.title = title;
 
-  // @public {number|null} (read-only) - Gravitation acceleration (if available) in meters/second^2
-  this.gravity = gravity;
+    // @public {number|null} (read-only) - Gravitation acceleration (if available) in meters/second^2
+    this.gravity = gravity;
+  }
 }
 
 pendulumLab.register( 'Body', Body );

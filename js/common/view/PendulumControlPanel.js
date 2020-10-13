@@ -38,7 +38,7 @@ class PendulumControlPanel extends Panel {
       x2: PendulumLabConstants.RIGHT_CONTENT_WIDTH
     } );
 
-    const pendulumSliderGroups = pendula.map( function( pendulum ) {
+    const pendulumSliderGroups = pendula.map( pendulum => {
       const pendulumNumberString = '' + ( pendulum.index + 1 );
       const lengthTitle = StringUtils.fillIn( lengthString, {
         pendulumNumber: pendulumNumberString
@@ -61,7 +61,7 @@ class PendulumControlPanel extends Panel {
       } );
     } );
 
-    numberOfPendulaProperty.link( function( numberOfPendula ) {
+    numberOfPendulaProperty.link( numberOfPendula => {
       content.children = numberOfPendula === 1 ? [
         pendulumSliderGroups[ 0 ]
       ] : [

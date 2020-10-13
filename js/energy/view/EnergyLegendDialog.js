@@ -52,28 +52,26 @@ class EnergyLegendDialog extends Dialog {
           description: legendTotalEnergyString,
           color: PendulumLabConstants.TOTAL_ENERGY_COLOR
         }
-      ].map( function( itemData ) {
-        return new HBox( {
-          spacing: 20,
-          children: [
-            new AlignBox( new RichText( itemData.abbreviation, {
-              font: PendulumLabConstants.LEGEND_ABBREVIATION_FONT,
-              fill: itemData.color,
-              maxWidth: 100
-            } ), {
-              group: abbreviationGroup,
-              xAlign: 'left'
-            } ),
-            new AlignBox( new Text( itemData.description, {
-              font: PendulumLabConstants.LEGEND_DESCRIPTION_FONT
-            } ), {
-              group: descriptionGroup,
-              xAlign: 'left',
-              maxWidth: 500
-            } )
-          ]
-        } );
-      } )
+      ].map( itemData => new HBox( {
+        spacing: 20,
+        children: [
+          new AlignBox( new RichText( itemData.abbreviation, {
+            font: PendulumLabConstants.LEGEND_ABBREVIATION_FONT,
+            fill: itemData.color,
+            maxWidth: 100
+          } ), {
+            group: abbreviationGroup,
+            xAlign: 'left'
+          } ),
+          new AlignBox( new Text( itemData.description, {
+            font: PendulumLabConstants.LEGEND_DESCRIPTION_FONT
+          } ), {
+            group: descriptionGroup,
+            xAlign: 'left',
+            maxWidth: 500
+          } )
+        ]
+      } ) )
     } );
 
     super( content, {

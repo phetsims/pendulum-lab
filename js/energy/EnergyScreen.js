@@ -30,8 +30,8 @@ class EnergyScreen extends Screen {
     };
 
     super(
-      function() { return new EnergyModel(); },
-      function( model ) { return new EnergyScreenView( model ); },
+      () => new EnergyModel(),
+      model => new EnergyScreenView( model ),
       options
     );
   }

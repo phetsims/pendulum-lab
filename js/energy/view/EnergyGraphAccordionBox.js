@@ -12,9 +12,9 @@ import Range from '../../../../dot/js/Range.js';
 import BarChartNode from '../../../../griddle/js/BarChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import MoveToTrashButton from '../../../../scenery-phet/js/MoveToTrashButton.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ZoomButton from '../../../../scenery-phet/js/buttons/ZoomButton.js';
-import MoveToTrashButton from '../../../../scenery-phet/js/MoveToTrashButton.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -64,7 +64,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
       maxWidth: 122
     } );
 
-    model.activeEnergyPendulumProperty.link( function( pendulum ) {
+    model.activeEnergyPendulumProperty.link( pendulum => {
       headerText.text = StringUtils.fillIn( pendulumMassPatternString, {
         pendulumNumber: '' + ( pendulum.index + 1 )
       } );
@@ -83,13 +83,11 @@ class EnergyGraphAccordionBox extends AccordionBox {
       listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       scale: 0.72
     } );
-    thermalEnergyProperty.link( function( thermalEnergy ) {
+    thermalEnergyProperty.link( thermalEnergy => {
       clearThermalButton.enabled = thermalEnergy !== 0;
     } );
 
-    const chartRangeProperty = new DerivedProperty( [ chartHeightProperty ], function( chartHeight ) {
-      return new Range( 0, chartHeight );
-    } );
+    const chartRangeProperty = new DerivedProperty( [ chartHeightProperty ], chartHeight => new Range( 0, chartHeight ) );
     const kineticBarEntry = {
       property: kineticEnergyProperty,
       color: PendulumLabConstants.KINETIC_ENERGY_COLOR
@@ -124,7 +122,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
     ], chartRangeProperty, {
       barOptions: {
         // Apply a scaling correction (so that energyZoomProperty=1 corresponds to 40 * the actual energy amount)
-        scaleProperty: new DerivedProperty( [ model.energyZoomProperty ], function( energyZoom ) { return 40 * energyZoom; } )
+        scaleProperty: new DerivedProperty( [ model.energyZoomProperty ], energyZoom => 40 * energyZoom )
       }
     } );
 
@@ -165,7 +163,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
     function createZoomButton( isIn ) {
       return new ZoomButton( merge( {
         in: isIn,
-        listener: function() {
+        listener: () => {
           const zoomMultiplier = 1.3;
           if ( isIn ) {
             model.energyZoomProperty.value *= zoomMultiplier;
@@ -186,7 +184,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
     const radioButtonTwo = createRadioButton( model.pendula[ 1 ] );
 
     // no need to unlink, present for the lifetime of the sim
-    model.numberOfPendulaProperty.link( function( numberOfPendula ) {
+    model.numberOfPendulaProperty.link( numberOfPendula => {
       if ( numberOfPendula === 1 ) {
         model.activeEnergyPendulumProperty.value = model.pendula[ 0 ];
         radioButtonTwo.setEnabled( false );
@@ -210,7 +208,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
       maxHeight: 1.1 * zoomInButton.height,
       left: panel.left,
       centerY: zoomOutButton.centerY,
-      listener: function() {
+      listener: () => {
         // Lazy creation.
         if ( !energyDialog ) {
           energyDialog = new EnergyLegendDialog();
@@ -230,7 +228,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
     } );
 
     // no need to unlink, present for the lifetime of the sim
-    model.numberOfPendulaProperty.link( function( numberOfPendula ) {
+    model.numberOfPendulaProperty.link( numberOfPendula => {
       radioButtonBox.visible = numberOfPendula === 2;
     } );
 

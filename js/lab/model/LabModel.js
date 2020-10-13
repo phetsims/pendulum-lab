@@ -7,53 +7,48 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EnergyModel from '../../energy/model/EnergyModel.js';
 import pendulumLab from '../../pendulumLab.js';
 import PeriodTimer from './PeriodTimer.js';
 
-/**
- * @constructor
- *
- * @param {Object} [options]
- */
-function LabModel( options ) {
-  options = merge( {
-    hasPeriodTimer: true,
-    energyBoxExpanded: false
-  }, options );
+class LabModel extends EnergyModel {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
+    options = merge( {
+      hasPeriodTimer: true,
+      energyBoxExpanded: false
+    }, options );
 
-  EnergyModel.call( this, options );
+    super( options );
 
-  // add properties to control visibility of arrows
-  this.isVelocityVisibleProperty = new BooleanProperty( false );
-  this.isAccelerationVisibleProperty = new BooleanProperty( false );
+    // add properties to control visibility of arrows
+    this.isVelocityVisibleProperty = new BooleanProperty( false );
+    this.isAccelerationVisibleProperty = new BooleanProperty( false );
 
-  // model for period trace
-  this.periodTimer = new PeriodTimer( this.pendula, this.isPeriodTraceVisibleProperty );
-}
+    // model for period trace
+    this.periodTimer = new PeriodTimer( this.pendula, this.isPeriodTraceVisibleProperty );
+  }
 
-pendulumLab.register( 'LabModel', LabModel );
-
-inherit( EnergyModel, LabModel, {
   /**
    * Returns the pendula to rest.
    * @public
    * @override
    */
-  returnPendula: function() {
-    EnergyModel.prototype.returnPendula.call( this );
+  returnPendula() {
+    super.returnPendula();
 
     this.periodTimer.isRunningProperty.value = false;
-  },
+  }
 
   /**
    * Reset function that resets the pendula, settings, and period timer settings and default positions
    * @public
    */
-  reset: function() {
-    EnergyModel.prototype.reset.call( this );
+  reset() {
+    super.reset();
 
     this.isVelocityVisibleProperty.reset();
     this.isAccelerationVisibleProperty.reset();
@@ -61,6 +56,8 @@ inherit( EnergyModel, LabModel, {
     // reset period trace model
     this.periodTimer.reset();
   }
-} );
+}
+
+pendulumLab.register( 'LabModel', LabModel );
 
 export default LabModel;

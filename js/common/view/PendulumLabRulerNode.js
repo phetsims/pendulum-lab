@@ -7,8 +7,8 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
+import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
@@ -20,7 +20,6 @@ const RULER_HEIGHT = 34;
 const TICK_INTERVAL = 5; // tick interval in cm
 
 class PendulumLabRulerNode extends RulerNode {
-
   /**
    * @param {Ruler} ruler - Model for ruler.
    * @param {ModelViewTransform2} modelViewTransform

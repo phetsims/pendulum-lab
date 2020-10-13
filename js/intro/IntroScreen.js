@@ -12,8 +12,8 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import introNavbarImage from '../../mipmaps/intro-navbar-icon_png.js';
 import introScreenImage from '../../mipmaps/intro-screen-icon_png.js';
-import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
+import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabScreenView from '../common/view/PendulumLabScreenView.js';
 import pendulumLab from '../pendulumLab.js';
 import pendulumLabStrings from '../pendulumLabStrings.js';
@@ -35,8 +35,8 @@ class IntroScreen extends Screen {
     };
 
     super(
-      function() { return new PendulumLabModel(); },
-      function( model ) { return new PendulumLabScreenView( model ); },
+      () => new PendulumLabModel(),
+      model => new PendulumLabScreenView( model ),
       options
     );
   }

@@ -9,8 +9,8 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
-import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
+import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Plane from '../../../../scenery/js/nodes/Plane.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
@@ -53,7 +53,7 @@ class PendulumLabScreenView extends ScreenView {
     // create drag listener for the pendula
     const backgroundDragNode = new Plane();
     const dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
-    pendulaNode.draggableItems.forEach( function( draggableItem ) {
+    pendulaNode.draggableItems.forEach( draggableItem => {
       dragListener.addDraggableItem( draggableItem );
     } );
     backgroundDragNode.addInputListener( dragListener );
@@ -150,7 +150,7 @@ class PendulumLabScreenView extends ScreenView {
     } );
 
     // Layout for https://github.com/phetsims/pendulum-lab/issues/98
-    this.visibleBoundsProperty.lazyLink( function( visibleBounds ) {
+    this.visibleBoundsProperty.lazyLink( visibleBounds => {
       let dx = -visibleBounds.x;
       dx = Math.min( 200, dx );
       leftFloatingLayer.x = -dx;

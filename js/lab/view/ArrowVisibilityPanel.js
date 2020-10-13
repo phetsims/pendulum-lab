@@ -74,9 +74,9 @@ class ArrowVisibilityPanel extends Panel {
     } );
 
     // Whenever the amount of width available changes, we need to recreate the checkboxes
-    PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( function( width ) {
+    PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP.maxWidthProperty.link( width => {
       // Properly remove any old checkboxes
-      content.children.forEach( function( child ) {
+      content.children.forEach( child => {
         child.dispose();
       } );
 

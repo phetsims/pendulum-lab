@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PeriodTrace from './PeriodTrace.js';
@@ -25,140 +24,135 @@ const TWO_PI = Math.PI * 2;
 // scratch vector for convenience
 const scratchVector = new Vector2( 0, 0 );
 
-/**
- * @constructor
- *
- * @param {number} index - Which pendulum in a system is this?
- * @param {number} mass - mass of pendulum, kg.
- * @param {number} length - length of pendulum, m.
- * @param {boolean} isVisible - Initial visibility of pendulum.
- * @param {Property.<number>} gravityProperty - Property with current gravity value.
- * @param {Property.<number>} frictionProperty - Property with current friction value.
- * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track checkbox value of period trace visibility.
- * @param {boolean} hasPeriodTimer
- */
-function Pendulum( index, mass, length, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, hasPeriodTimer ) {
-  const self = this;
+class Pendulum {
+  /**
+   * @param {number} index - Which pendulum in a system is this?
+   * @param {number} mass - mass of pendulum, kg.
+   * @param {number} length - length of pendulum, m.
+   * @param {boolean} isVisible - Initial visibility of pendulum.
+   * @param {Property.<number>} gravityProperty - Property with current gravity value.
+   * @param {Property.<number>} frictionProperty - Property with current friction value.
+   * @param {Property.<boolean>} isPeriodTraceVisibleProperty - Flag property to track checkbox value of period trace visibility.
+   * @param {boolean} hasPeriodTimer
+   */
+  constructor( index, mass, length, isVisible, gravityProperty, frictionProperty, isPeriodTraceVisibleProperty, hasPeriodTimer ) {
 
-  // @public {number}
-  this.index = index;
+    // @public {number}
+    this.index = index;
 
-  // @public {Property.<number>} - Length of the pendulum (in meters)
-  this.lengthProperty = new NumberProperty( length );
+    // @public {Property.<number>} - Length of the pendulum (in meters)
+    this.lengthProperty = new NumberProperty( length );
 
-  // @public {Property.<number>} - Mass of the pendulum (in kilograms)
-  this.massProperty = new NumberProperty( mass );
+    // @public {Property.<number>} - Mass of the pendulum (in kilograms)
+    this.massProperty = new NumberProperty( mass );
 
-  // @public {Property.<number>} - Angle in radians (0 is straight down, positive is to the right)
-  this.angleProperty = new NumberProperty( 0 );
+    // @public {Property.<number>} - Angle in radians (0 is straight down, positive is to the right)
+    this.angleProperty = new NumberProperty( 0 );
 
-  // @public {Property.<number>} - Angular velocity (in radians/second)
-  this.angularVelocityProperty = new NumberProperty( 0 );
+    // @public {Property.<number>} - Angular velocity (in radians/second)
+    this.angularVelocityProperty = new NumberProperty( 0 );
 
-  // @public {boolean}
-  this.hasPeriodTimer = hasPeriodTimer;
+    // @public {boolean}
+    this.hasPeriodTimer = hasPeriodTimer;
 
-  /*---------------------------------------------------------------------------*
-  * Derived variables
-  *----------------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------------*
+    * Derived variables
+    *----------------------------------------------------------------------------*/
 
-  // @public {Property.<number>} - Angular acceleration in rad/s^2
-  this.angularAccelerationProperty = new NumberProperty( 0 );
+    // @public {Property.<number>} - Angular acceleration in rad/s^2
+    this.angularAccelerationProperty = new NumberProperty( 0 );
 
-  // @public - Position from the rotation point
-  this.positionProperty = new Vector2Property( Vector2.ZERO );
+    // @public - Position from the rotation point
+    this.positionProperty = new Vector2Property( Vector2.ZERO );
 
-  // @public
-  this.velocityProperty = new Vector2Property( Vector2.ZERO );
+    // @public
+    this.velocityProperty = new Vector2Property( Vector2.ZERO );
 
-  // @public
-  this.accelerationProperty = new Vector2Property( Vector2.ZERO );
+    // @public
+    this.accelerationProperty = new Vector2Property( Vector2.ZERO );
 
-  // @public {Property.<number>} - In Joules
-  this.kineticEnergyProperty = new NumberProperty( 0 );
+    // @public {Property.<number>} - In Joules
+    this.kineticEnergyProperty = new NumberProperty( 0 );
 
-  // @public {Property.<number>} - In Joules
-  this.potentialEnergyProperty = new NumberProperty( 0 );
+    // @public {Property.<number>} - In Joules
+    this.potentialEnergyProperty = new NumberProperty( 0 );
 
-  // @public {Property.<number>} - In Joules
-  this.thermalEnergyProperty = new NumberProperty( 0 );
+    // @public {Property.<number>} - In Joules
+    this.thermalEnergyProperty = new NumberProperty( 0 );
 
-  // @public {Property.<boolean>} - Whether the pendulum is currently being dragged.
-  this.isUserControlledProperty = new BooleanProperty( false );
+    // @public {Property.<boolean>} - Whether the pendulum is currently being dragged.
+    this.isUserControlledProperty = new BooleanProperty( false );
 
-  // @public {Property.<boolean>} - Whether the pendulum tick is visible on the protractor.
-  this.isTickVisibleProperty = new BooleanProperty( false );
+    // @public {Property.<boolean>} - Whether the pendulum tick is visible on the protractor.
+    this.isTickVisibleProperty = new BooleanProperty( false );
 
-  // @public {Property.<boolean>} - Whether the entire pendulum is visible or not
-  this.isVisibleProperty = new BooleanProperty( false );
+    // @public {Property.<boolean>} - Whether the entire pendulum is visible or not
+    this.isVisibleProperty = new BooleanProperty( false );
 
-  // save link to global properties
-  // @private
-  this.gravityProperty = gravityProperty;
-  this.frictionProperty = frictionProperty;
+    // save link to global properties
+    // @private
+    this.gravityProperty = gravityProperty;
+    this.frictionProperty = frictionProperty;
 
-  // @public
-  this.stepEmitter = new Emitter( { parameters: [ { valueType: 'number' } ] } );
-  this.userMovedEmitter = new Emitter();
-  this.crossingEmitter = new Emitter( { parameters: [ { valueType: 'number' }, { valueType: 'boolean' } ] } );
-  this.peakEmitter = new Emitter( { parameters: [ { valueType: 'number' } ] } );
-  this.resetEmitter = new Emitter();
+    // @public
+    this.stepEmitter = new Emitter( { parameters: [ { valueType: 'number' } ] } );
+    this.userMovedEmitter = new Emitter();
+    this.crossingEmitter = new Emitter( { parameters: [ { valueType: 'number' }, { valueType: 'boolean' } ] } );
+    this.peakEmitter = new Emitter( { parameters: [ { valueType: 'number' } ] } );
+    this.resetEmitter = new Emitter();
 
-  // default color for this pendulum
-  // @public (read-only)
-  this.color = PendulumLabConstants.PENDULUM_COLORS[ index ]; // {string}
+    // default color for this pendulum
+    // @public (read-only)
+    this.color = PendulumLabConstants.PENDULUM_COLORS[ index ]; // {string}
 
-  // @public {Range} (read-only)
-  this.lengthRange = new Range( 0.1, 1.0 );
+    // @public {Range} (read-only)
+    this.lengthRange = new Range( 0.1, 1.0 );
 
-  // @public {Range} (read-only)
-  this.massRange = new Range( 0.1, 1.50 );
+    // @public {Range} (read-only)
+    this.massRange = new Range( 0.1, 1.50 );
 
-  // @public {PeriodTrace}
-  this.periodTrace = new PeriodTrace( this );
+    // @public {PeriodTrace}
+    this.periodTrace = new PeriodTrace( this );
 
-  // If it NOT repeatable, the PeriodTimer type will control the visibility.
-  if ( !hasPeriodTimer ) {
-    Property.multilink( [ isPeriodTraceVisibleProperty, this.isVisibleProperty ], function( isPeriodTraceVisible, isVisible ) {
-      self.periodTrace.isVisibleProperty.value = isPeriodTraceVisible && isVisible;
+    // If it NOT repeatable, the PeriodTimer type will control the visibility.
+    if ( !hasPeriodTimer ) {
+      Property.multilink( [ isPeriodTraceVisibleProperty, this.isVisibleProperty ], ( isPeriodTraceVisible, isVisible ) => {
+        this.periodTrace.isVisibleProperty.value = isPeriodTraceVisible && isVisible;
+      } );
+    }
+
+    // make tick on protractor visible after first drag
+    this.isUserControlledProperty.lazyLink( isUserControlled => {
+      if ( isUserControlled ) {
+        this.isTickVisibleProperty.value = true; // Seems like an UI-specific issue, not model
+
+        this.angularVelocityProperty.value = 0;
+        this.updateDerivedVariables( false );
+
+        // Clear thermal energy on a drag, see https://github.com/phetsims/pendulum-lab/issues/196
+        this.thermalEnergyProperty.value = 0;
+      }
     } );
+
+    // make the angle value visible after the first drag
+    this.angleProperty.lazyLink( () => {
+      if ( this.isUserControlledProperty.value ) {
+        this.updateDerivedVariables( false );
+        this.userMovedEmitter.emit();
+      }
+    } );
+
+    // update the angular velocity when the length changes
+    this.lengthProperty.lazyLink( ( newLength, oldLength ) => {
+      this.angularVelocityProperty.value = this.angularVelocityProperty.value * oldLength / newLength;
+      this.updateDerivedVariables( false ); // preserve thermal energy
+    } );
+
+    this.updateListener = this.updateDerivedVariables.bind( this, false ); // don't add thermal energy on these callbacks
+    this.massProperty.lazyLink( this.updateListener );
+    gravityProperty.lazyLink( this.updateListener );
   }
 
-  // make tick on protractor visible after first drag
-  this.isUserControlledProperty.lazyLink( function( isUserControlled ) {
-    if ( isUserControlled ) {
-      self.isTickVisibleProperty.value = true; // Seems like an UI-specific issue, not model
-
-      self.angularVelocityProperty.value = 0;
-      self.updateDerivedVariables( false );
-
-      // Clear thermal energy on a drag, see https://github.com/phetsims/pendulum-lab/issues/196
-      self.thermalEnergyProperty.value = 0;
-    }
-  } );
-
-  // make the angle value visible after the first drag
-  this.angleProperty.lazyLink( function() {
-    if ( self.isUserControlledProperty.value ) {
-      self.updateDerivedVariables( false );
-      self.userMovedEmitter.emit();
-    }
-  } );
-
-  // update the angular velocity when the length changes
-  this.lengthProperty.lazyLink( function( newLength, oldLength ) {
-    self.angularVelocityProperty.value = self.angularVelocityProperty.value * oldLength / newLength;
-    self.updateDerivedVariables( false ); // preserve thermal energy
-  } );
-
-  this.updateListener = this.updateDerivedVariables.bind( this, false ); // don't add thermal energy on these callbacks
-  this.massProperty.lazyLink( this.updateListener );
-  gravityProperty.lazyLink( this.updateListener );
-}
-
-pendulumLab.register( 'Pendulum', Pendulum );
-
-inherit( Object, Pendulum, {
   /**
    * Function that returns the instantaneous angular acceleration
    * @private
@@ -167,9 +161,9 @@ inherit( Object, Pendulum, {
    * @param {number} omega - angular velocity
    * @returns {number}
    */
-  omegaDerivative: function( theta, omega ) {
+  omegaDerivative( theta, omega ) {
     return -this.frictionTerm( omega ) - ( this.gravityProperty.value / this.lengthProperty.value ) * Math.sin( theta );
-  },
+  }
 
   /**
    * Function that returns the tangential drag force on the pendulum per unit mass per unit length
@@ -180,10 +174,10 @@ inherit( Object, Pendulum, {
    * @param {number} omega - the angular velocity of the pendulum
    * @returns {number}
    */
-  frictionTerm: function( omega ) {
+  frictionTerm( omega ) {
     return this.frictionProperty.value * this.lengthProperty.value / Math.pow( this.massProperty.value, 1 / 3 ) * omega * Math.abs( omega ) +
            this.frictionProperty.value / Math.pow( this.massProperty.value, 2 / 3 ) * omega;
-  },
+  }
 
   /**
    * Stepper function for the pendulum model.
@@ -192,7 +186,7 @@ inherit( Object, Pendulum, {
    *
    * @param {number} dt
    */
-  step: function( dt ) {
+  step( dt ) {
     let theta = this.angleProperty.value;
 
     let omega = this.angularVelocityProperty.value;
@@ -239,7 +233,7 @@ inherit( Object, Pendulum, {
     this.updateDerivedVariables( this.frictionProperty.value > 0 );
 
     this.stepEmitter.emit( dt );
-  },
+  }
 
   /**
    * Function that emits when the pendulum is crossing the equilibrium point (theta=0)
@@ -253,13 +247,13 @@ inherit( Object, Pendulum, {
    * @param {number} oldTheta
    * @param {number} newTheta
    */
-  cross: function( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
+  cross( oldDT, newDT, isPositiveDirection, oldTheta, newTheta ) {
     // If we crossed near oldTheta, our crossing DT is near oldDT. If we crossed near newTheta, our crossing DT is close
     // to newDT.
     const crossingDT = Utils.linear( oldTheta, newTheta, oldDT, newDT, 0 );
 
     this.crossingEmitter.emit( crossingDT, isPositiveDirection );
-  },
+  }
 
   /**
    * Sends a signal that the peak angle (turning angle) has been reached
@@ -269,11 +263,11 @@ inherit( Object, Pendulum, {
    * @param {number} oldTheta
    * @param {number} newTheta
    */
-  peak: function( oldTheta, newTheta ) {
+  peak( oldTheta, newTheta ) {
     // a slightly better estimate is turningAngle =  ( oldTheta + newTheta ) / 2 + (dt/2)*(oldOmega^2+newOmega^2)/(oldOmega-newOmega)
     const turningAngle = ( oldTheta + newTheta > 0 ) ? Math.max( oldTheta, newTheta ) : Math.min( oldTheta, newTheta );
     this.peakEmitter.emit( turningAngle );
-  },
+  }
 
   /**
    * Given the angular position and velocity, this function updates derived variables :
@@ -283,7 +277,7 @@ inherit( Object, Pendulum, {
    *
    * @param {boolean} energyChangeToThermal - is Friction present in the model
    */
-  updateDerivedVariables: function( energyChangeToThermal ) {
+  updateDerivedVariables( energyChangeToThermal ) {
     const speed = Math.abs( this.angularVelocityProperty.value ) * this.lengthProperty.value;
 
     this.angularAccelerationProperty.value = this.omegaDerivative( this.angleProperty.value, this.angularVelocityProperty.value );
@@ -313,13 +307,13 @@ inherit( Object, Pendulum, {
 
     this.velocityProperty.notifyListenersStatic();
     this.accelerationProperty.notifyListenersStatic();
-  },
+  }
 
   /**
    * Reset all the properties of this model.
    * @public
    */
-  reset: function() {
+  reset() {
     // Note: We don't reset isVisibleProperty, since it is controlled externally.
     this.lengthProperty.reset();
     this.massProperty.reset();
@@ -336,7 +330,7 @@ inherit( Object, Pendulum, {
     this.isTickVisibleProperty.reset();
 
     this.updateDerivedVariables( false );
-  },
+  }
 
   /**
    * Function that determines if the pendulum is stationary, i.e. is controlled by the user or not moving
@@ -344,11 +338,11 @@ inherit( Object, Pendulum, {
    *
    * @returns {boolean}
    */
-  isStationary: function() {
+  isStationary() {
     return this.isUserControlledProperty.value || ( this.angleProperty.value === 0 &&
                                                     this.angularVelocityProperty.value === 0 &&
                                                     this.angularAccelerationProperty.value === 0 );
-  },
+  }
 
   /**
    * Functions returns an approximate period of the pendulum
@@ -358,15 +352,15 @@ inherit( Object, Pendulum, {
    *
    * @returns {number}
    */
-  getApproximatePeriod: function() {
+  getApproximatePeriod() {
     return 2 * Math.PI * Math.sqrt( this.lengthProperty.value / this.gravityProperty.value );
-  },
+  }
 
   /**
    * Resets the motion of the Pendulum
    * @public
    */
-  resetMotion: function() {
+  resetMotion() {
     this.angleProperty.reset();
     this.angularVelocityProperty.reset();
 
@@ -378,16 +372,16 @@ inherit( Object, Pendulum, {
     this.updateDerivedVariables( false );
 
     this.resetEmitter.emit();
-  },
+  }
 
   /**
    * Resets the thermal energy to zero
    * @public
    */
-  resetThermalEnergy: function() {
+  resetThermalEnergy() {
     this.thermalEnergyProperty.reset();
   }
-}, {
+
   /**
    * Takes our angle modulo 2pi between -pi and pi.
    * @public
@@ -395,7 +389,7 @@ inherit( Object, Pendulum, {
    * @param {number} angle
    * @returns {number}
    */
-  modAngle: function( angle ) {
+  static modAngle( angle ) {
     angle = angle % TWO_PI;
 
     if ( angle < -Math.PI ) {
@@ -407,6 +401,8 @@ inherit( Object, Pendulum, {
 
     return angle;
   }
-} );
+}
+
+pendulumLab.register( 'Pendulum', Pendulum );
 
 export default Pendulum;

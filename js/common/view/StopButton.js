@@ -12,7 +12,6 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import pendulumLab from '../../pendulumLab.js';
 
 class StopButton extends RectangularPushButton {
-
   /**
    * @param {Object} [options]
    */
