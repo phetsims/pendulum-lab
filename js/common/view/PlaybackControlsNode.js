@@ -14,7 +14,7 @@ import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
@@ -43,7 +43,7 @@ class PlaybackControlsNode extends Node {
       listener: stopCallback
     } );
 
-    const pendulaCountButtons = new RadioButtonGroup( numberOfPendulaProperty, [
+    const pendulaCountRadioButtonGroup = new RectangularRadioButtonGroup( numberOfPendulaProperty, [
       { node: PendulaIcons.ONE_PENDULUM_ICON, value: 1 },
       { node: PendulaIcons.TWO_PENDULA_ICON, value: 2 }
     ], {
@@ -86,16 +86,16 @@ class PlaybackControlsNode extends Node {
       maxWidth: 150
     } );
 
-    stopButton.centerY = pendulaCountButtons.centerY = playPauseNode.centerY = timeSpeedRadioNode.centerY = 0;
+    stopButton.centerY = pendulaCountRadioButtonGroup.centerY = playPauseNode.centerY = timeSpeedRadioNode.centerY = 0;
     stopButton.centerX = 0;
-    pendulaCountButtons.right = stopButton.left - 80;
+    pendulaCountRadioButtonGroup.right = stopButton.left - 80;
     playPauseNode.left = stopButton.right + 80;
     timeSpeedRadioNode.left = playPauseNode.right + 40;
 
     super( merge( {
       children: [
         stopButton,
-        pendulaCountButtons,
+        pendulaCountRadioButtonGroup,
         playPauseNode,
         timeSpeedRadioNode
       ]
