@@ -50,7 +50,6 @@ class PlaybackControlsNode extends Node {
       spacing: 9,
       orientation: 'horizontal',
       baseColor: RECTANGULAR_BUTTON_BASE_COLOR,
-      disabledBaseColor: RECTANGULAR_BUTTON_BASE_COLOR,
       buttonContentXMargin: 3,
       buttonContentYMargin: 3,
       touchAreaXDilation: 5,
