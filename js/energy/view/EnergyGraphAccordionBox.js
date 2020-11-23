@@ -174,7 +174,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
         }
       }, {
         baseColor: ColorConstants.LIGHT_BLUE,
-        radius: 7,
+        magnifyingGlassRadius: 7,
         touchAreaXDilation: 5,
         touchAreaYDilation: 5
       } ) );
