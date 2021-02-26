@@ -129,6 +129,7 @@ class PeriodTimer extends Stopwatch {
       pendulum.periodTrace.resetPathPoints();
     } );
   }
+
   /**
    * Stops the period timer and clear the trace
    * @public

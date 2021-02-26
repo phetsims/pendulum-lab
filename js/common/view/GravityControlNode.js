@@ -47,9 +47,9 @@ class GravityControlNode extends VBox {
     } );
 
     const comboBoxItems = Body.BODIES.map( body => new ComboBoxItem( new Text( body.title, {
-        font: PendulumLabConstants.GRAVITY_COMBO_FONT,
-        maxWidth: 50
-      } ), body ) );
+      font: PendulumLabConstants.GRAVITY_COMBO_FONT,
+      maxWidth: 50
+    } ), body ) );
 
     const comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
       cornerRadius: 3,
