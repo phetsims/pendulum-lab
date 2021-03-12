@@ -144,7 +144,7 @@ class PeriodTimerNode extends Node {
       maxWidth: periodTimerPendulaSelector.width * 0.80
     } );
     // present for the lifetime of the sim
-    periodTimer.elapsedTimeProperty.link( function updateTime( value ) {
+    periodTimer.elapsedTimeProperty.link( value => {
       readoutText.text = StringUtils.fillIn( secondsPatternString, {
         seconds: Utils.toFixed( value, 4 )
       } );
