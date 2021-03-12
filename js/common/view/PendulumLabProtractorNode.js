@@ -47,7 +47,7 @@ class PendulumLabProtractorNode extends Node {
     // create background ticks
     const protractorShape = new Shape();
     for ( let currentAngleDegrees = 0; currentAngleDegrees <= 180; currentAngleDegrees += 1 ) {
-      var tickLength;
+      let tickLength;
 
       // calculate the angle in radians
       const currentAngle = Utils.toRadians( currentAngleDegrees );
