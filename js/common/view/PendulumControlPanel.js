@@ -39,7 +39,7 @@ class PendulumControlPanel extends Panel {
     } );
 
     const pendulumSliderGroups = pendula.map( pendulum => {
-      const pendulumNumberString = '' + ( pendulum.index + 1 );
+      const pendulumNumberString = `${pendulum.index + 1}`;
       const lengthTitle = StringUtils.fillIn( lengthString, {
         pendulumNumber: pendulumNumberString
       } );
