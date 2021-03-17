@@ -123,7 +123,7 @@ class PendulumLabScreenView extends ScreenView {
 
     // create timer node
     const stopwatchNode = new StopwatchNode( model.stopwatch, {
-      visibleBoundsProperty: this.visibleBoundsProperty
+      dragBoundsProperty: this.visibleBoundsProperty
     } );
 
     // @protected
