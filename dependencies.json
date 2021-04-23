@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.15 Thu Apr 22 2021 15:36:16 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# pendulum-lab 1.0.16-rc.1 Fri Apr 23 2021 15:01:22 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "7cb41ad15b181abab6f527c8c958c5011be232fe",
+    "sha": "a5e1a2af4d1bdb7c7bbf7ffbb81e23c3981779ef",
     "branch": "1.0"
   },
   "phet-core": {
@@ -50,7 +50,7 @@
   },
   "scenery": {
     "sha": "6ca4c92d1feb8c6d40d95f258e82873327268c49",
-    "branch": "pendulum-lab-1.0"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "2a808690f87850b5b07f344abee9b37f35cee0d6",
