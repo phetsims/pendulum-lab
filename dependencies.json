@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.16-rc.1 Mon May 10 2021 11:47:48 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# pendulum-lab 1.0.16-rc.1 Mon May 10 2021 16:15:45 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "84e07cc9e9f99f36bf02a920e69bc934e6869363",
+    "sha": "5f7e5f5d4a6b5f93ba8dcd61a475b6bfd7062d4d",
     "branch": "1.0"
   },
   "phet-core": {
@@ -42,15 +42,15 @@
   },
   "phetmarks": {
     "sha": "a9ad33f2be05b094e134a189391baa52a6c860ab",
-    "branch": "pendulum-lab-1.0"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "6ca4c92d1feb8c6d40d95f258e82873327268c49",
-    "branch": "HEAD"
+    "sha": "68fc9aecb5a7f27d5808650b5d0740e8a11929c8",
+    "branch": "pendulum-lab-1.0"
   },
   "scenery-phet": {
     "sha": "2a808690f87850b5b07f344abee9b37f35cee0d6",
