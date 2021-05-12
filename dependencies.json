@@ -28,10 +28,7 @@
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
     "branch": "HEAD"
   },
-  "pendulum-lab": {
-    "sha": "5f7e5f5d4a6b5f93ba8dcd61a475b6bfd7062d4d",
-    "branch": "1.0"
-  },
+  "pendulum-lab": "f6852ed89b3cdca81c8884a32760b36b3a720c71",
   "phet-core": {
     "sha": "574e21cea6572c2c9f5c75d8cf51560024145c67",
     "branch": "HEAD"
@@ -49,7 +46,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "68fc9aecb5a7f27d5808650b5d0740e8a11929c8",
+    "sha": "b9d024f424db7a2ec072dacc19def889c3d00b7c",
     "branch": "pendulum-lab-1.0"
   },
   "scenery-phet": {
