@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "edcb1f19602d2b179195a9eaaf9e09928e8d5d5c",
+    "sha": "0c1239d6685bebf4f1f50db932e06bc6d7db57f5",
     "branch": "1.0"
   },
   "phet-core": {
@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "b9d024f424db7a2ec072dacc19def889c3d00b7c",
+    "sha": "71320fd55154b55a7f7ea8d4891b54551c4bb34e",
     "branch": "pendulum-lab-1.0"
   },
   "scenery-phet": {
