@@ -12,7 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import BarChartNode from '../../../../griddle/js/BarChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import MoveToTrashButton from '../../../../scenery-phet/js/MoveToTrashButton.js';
+import MoveToTrashButton from '../../../../scenery-phet/js/buttons/MoveToTrashButton.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
 import ZoomButton from '../../../../scenery-phet/js/buttons/ZoomButton.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
