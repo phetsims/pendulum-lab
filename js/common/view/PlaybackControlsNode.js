@@ -7,6 +7,7 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PlayPauseButton from '../../../../scenery-phet/js/buttons/PlayPauseButton.js';
 import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
@@ -64,7 +65,7 @@ class PlaybackControlsNode extends Node {
           touchAreaDilation: 5
         } ),
         new StepForwardButton( {
-          isPlayingProperty: isPlayingProperty,
+          enabledProperty: DerivedProperty.not( isPlayingProperty ),
           listener: stepCallback,
           radius: 15,
           touchAreaDilation: 5
