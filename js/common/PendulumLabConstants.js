@@ -10,7 +10,7 @@ import Dimension2 from '../../../dot/js/Dimension2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import AlignGroup from '../../../scenery/js/nodes/AlignGroup.js';
+import { AlignGroup } from '../../../scenery/js/imports.js';
 import pendulumLab from '../pendulumLab.js';
 
 const PANEL_CORNER_RADIUS = 5;

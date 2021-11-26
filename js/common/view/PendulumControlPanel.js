@@ -7,8 +7,8 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import { Line } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
