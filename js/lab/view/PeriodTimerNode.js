@@ -28,7 +28,7 @@ import { Color } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
-import periodTimerBackgroundImage from '../../../mipmaps/period-timer-background_png.js';
+import periodTimerBackground_png from '../../../mipmaps/periodTimerBackground_png.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
@@ -176,7 +176,7 @@ class PeriodTimerNode extends Node {
     } );
 
     // background image
-    const background = new Image( periodTimerBackgroundImage, {
+    const background = new Image( periodTimerBackground_png, {
       scale: 0.6,
       center: vBox.center
     } );

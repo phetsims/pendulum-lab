@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import energyImage from '../../mipmaps/energy-screen-icon_png.js';
+import energyScreenIcon_png from '../../mipmaps/energyScreenIcon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
 import pendulumLab from '../pendulumLab.js';
 import pendulumLabStrings from '../pendulumLabStrings.js';
@@ -23,7 +23,7 @@ class EnergyScreen extends Screen {
     const options = {
       name: pendulumLabStrings.screen.energy,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new ScreenIcon( new Image( energyImage ), {
+      homeScreenIcon: new ScreenIcon( new Image( energyScreenIcon_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } )

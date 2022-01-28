@@ -10,8 +10,8 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import { Image } from '../../../scenery/js/imports.js';
-import labNavbarImage from '../../mipmaps/lab-navbar-icon_png.js';
-import labScreenImage from '../../mipmaps/lab-screen-icon_png.js';
+import labNavbarIcon_png from '../../mipmaps/labNavbarIcon_png.js';
+import labScreenIcon_png from '../../mipmaps/labScreenIcon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
 import pendulumLab from '../pendulumLab.js';
 import pendulumLabStrings from '../pendulumLabStrings.js';
@@ -24,11 +24,11 @@ class LabScreen extends Screen {
     const options = {
       name: pendulumLabStrings.screen.lab,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
-      homeScreenIcon: new ScreenIcon( new Image( labScreenImage ), {
+      homeScreenIcon: new ScreenIcon( new Image( labScreenIcon_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } ),
-      navigationBarIcon: new ScreenIcon( new Image( labNavbarImage ), {
+      navigationBarIcon: new ScreenIcon( new Image( labNavbarIcon_png ), {
         maxIconWidthProportion: 1,
         maxIconHeightProportion: 1
       } )
