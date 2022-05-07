@@ -11,11 +11,9 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PlayPauseButton from '../../../../scenery-phet/js/buttons/PlayPauseButton.js';
 import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
+import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
@@ -45,8 +43,8 @@ class PlaybackControlsNode extends Node {
     } );
 
     const pendulaCountRadioButtonGroup = new RectangularRadioButtonGroup( numberOfPendulaProperty, [
-      { node: PendulaIcons.ONE_PENDULUM_ICON, value: 1 },
-      { node: PendulaIcons.TWO_PENDULA_ICON, value: 2 }
+      { node: new Node( { children: [ PendulaIcons.ONE_PENDULUM_ICON ] } ), value: 1 },
+      { node: new Node( { children: [ PendulaIcons.TWO_PENDULA_ICON ] } ), value: 2 }
     ], {
       spacing: 9,
       orientation: 'horizontal',
