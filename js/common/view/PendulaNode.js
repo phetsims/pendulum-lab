@@ -7,7 +7,7 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -107,7 +107,7 @@ class PendulaNode extends Node {
         velocityArrows.push( velocityArrow );
 
         // no need to unlink, present for the lifetime of the sim
-        Property.multilink( [ pendulum.isVisibleProperty, options.isVelocityVisibleProperty, pendulum.velocityProperty ], ( pendulumVisible, velocityVisible, velocity ) => {
+        Multilink.multilink( [ pendulum.isVisibleProperty, options.isVelocityVisibleProperty, pendulum.velocityProperty ], ( pendulumVisible, velocityVisible, velocity ) => {
           velocityArrow.visible = pendulumVisible && velocityVisible;
           // update the size of the arrow
           if ( velocityArrow.visible ) {
@@ -133,7 +133,7 @@ class PendulaNode extends Node {
         accelerationArrows.push( accelerationArrow );
 
         // no need to unlink, present for the lifetime of the sim
-        Property.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty, pendulum.accelerationProperty ], ( pendulumVisible, accelerationVisible, acceleration ) => {
+        Multilink.multilink( [ pendulum.isVisibleProperty, options.isAccelerationVisibleProperty, pendulum.accelerationProperty ], ( pendulumVisible, accelerationVisible, acceleration ) => {
           accelerationArrow.visible = pendulumVisible && accelerationVisible;
           if ( accelerationArrow.visible ) {
             const position = modelViewTransform.modelToViewPosition( pendulum.positionProperty.value );

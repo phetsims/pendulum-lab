@@ -6,7 +6,7 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
@@ -148,7 +148,7 @@ class PendulumLabProtractorNode extends Node {
       } );
 
       // set ticks visibility observer, present for the lifetime of the sim
-      Property.multilink( [ pendulum.isTickVisibleProperty, pendulum.isVisibleProperty ], ( isTickVisible, isVisible ) => {
+      Multilink.multilink( [ pendulum.isTickVisibleProperty, pendulum.isVisibleProperty ], ( isTickVisible, isVisible ) => {
         tickNodeLeft.visible = isTickVisible && isVisible;
         tickNodeRight.visible = isTickVisible && isVisible;
         updateTicksPosition();

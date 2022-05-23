@@ -9,7 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Stopwatch from '../../common/model/Stopwatch.js';
 import pendulumLab from '../../pendulumLab.js';
 
@@ -34,7 +34,7 @@ class PeriodTimer extends Stopwatch {
     // @private {Array.<Pendulum>}
     this.pendula = pendula;
 
-    Property.multilink( [ this.isRunningProperty, this.isVisibleProperty ], ( isRunning, isVisible ) => {
+    Multilink.multilink( [ this.isRunningProperty, this.isVisibleProperty ], ( isRunning, isVisible ) => {
       if ( isRunning && isVisible ) {
         // clear time when timer revert to init state
         this.elapsedTimeProperty.value = 0;
