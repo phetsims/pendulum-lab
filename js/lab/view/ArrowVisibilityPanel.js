@@ -63,7 +63,7 @@ class ArrowVisibilityPanel extends Panel {
 
     // Currently no better way to handle the fluid layout with checkboxes than to determine the amount of additional
     // space it takes up when it has no spacing (and then add spacing to fit).
-    const tmpCheckbox = new Checkbox( velocityContent, new Property( true ), {
+    const tmpCheckbox = new Checkbox( new Property( true ), velocityContent, {
       boxWidth: textHeight
     } );
     const widthWithoutSpacing = tmpCheckbox.width;
@@ -84,12 +84,12 @@ class ArrowVisibilityPanel extends Panel {
 
       // Create new checkboxes with the proper spacing. Checkbox currently doesn't support resizing content.
       velocityContent.spacing = spacing;
-      content.addChild( new Checkbox( velocityContent, isVelocityVisibleProperty, {
+      content.addChild( new Checkbox( isVelocityVisibleProperty, velocityContent, {
         boxWidth: textHeight
       } ) );
 
       accelerationContent.spacing = spacing;
-      content.addChild( new Checkbox( accelerationContent, isAccelerationVisibleProperty, {
+      content.addChild( new Checkbox( isAccelerationVisibleProperty, accelerationContent, {
         boxWidth: textHeight
       } ) );
     } );
