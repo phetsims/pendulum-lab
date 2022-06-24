@@ -67,22 +67,20 @@ class PeriodTimerNode extends Node {
       .getOffsetShape( -playOffset );
 
     // creates playPauseButton
-    const playPauseButton = new BooleanRectangularToggleButton(
-      new Path( uArrowShape, {
-        fill: options.iconColor,
-        center: Vector2.ZERO,
-        pickable: false
-      } ),
-      new Path( playShape, {
-        pickable: false,
-        stroke: options.iconColor,
-        fill: '#eef',
-        lineWidth: halfPlayStroke * 2,
-        center: Vector2.ZERO
-      } ), periodTimer.isRunningProperty, {
-        baseColor: options.buttonBaseColor,
-        minWidth: 40
-      } );
+    const playPauseButton = new BooleanRectangularToggleButton( periodTimer.isRunningProperty, new Path( uArrowShape, {
+      fill: options.iconColor,
+      center: Vector2.ZERO,
+      pickable: false
+    } ), new Path( playShape, {
+      pickable: false,
+      stroke: options.iconColor,
+      fill: '#eef',
+      lineWidth: halfPlayStroke * 2,
+      center: Vector2.ZERO
+    } ), {
+      baseColor: options.buttonBaseColor,
+      minWidth: 40
+    } );
     playPauseButton.touchArea = playPauseButton.localBounds.dilated( 5 );
 
     function createPendulumIcon( color, label, padLeft ) {
