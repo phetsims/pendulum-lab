@@ -51,7 +51,7 @@ class GravityControlNode extends VBox {
       maxWidth: 50
     } ), body ) );
 
-    const comboBox = new ComboBox( comboBoxItems, bodyProperty, popupLayer, {
+    const comboBox = new ComboBox( bodyProperty, comboBoxItems, popupLayer, {
       cornerRadius: 3,
       xMargin: 13,
       yMargin: 5
