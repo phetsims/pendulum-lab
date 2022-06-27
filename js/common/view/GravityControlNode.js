@@ -11,15 +11,12 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
-import PendulumLabConstants from '../PendulumLabConstants.js';
 import Body from '../model/Body.js';
+import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulumNumberControl from './PendulumNumberControl.js';
 
 const gravitationalAccelerationPatternString = pendulumLabStrings.gravitationalAccelerationPattern;
@@ -46,10 +43,15 @@ class GravityControlNode extends VBox {
       gravity: '{0}'
     } );
 
-    const comboBoxItems = Body.BODIES.map( body => new ComboBoxItem( new Text( body.title, {
-      font: PendulumLabConstants.GRAVITY_COMBO_FONT,
-      maxWidth: 50
-    } ), body ) );
+    const comboBoxItems = Body.BODIES.map( body => {
+      return {
+        value: body,
+        node: new Text( body.title, {
+          font: PendulumLabConstants.GRAVITY_COMBO_FONT,
+          maxWidth: 50
+        } )
+      };
+    } );
 
     const comboBox = new ComboBox( bodyProperty, comboBoxItems, popupLayer, {
       cornerRadius: 3,
