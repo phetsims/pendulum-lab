@@ -7,8 +7,8 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
+import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';

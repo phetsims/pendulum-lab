@@ -6,12 +6,7 @@
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
 
-import { AlignBox } from '../../../../scenery/js/imports.js';
-import { AlignGroup } from '../../../../scenery/js/imports.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { RichText } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import pendulumLab from '../../pendulumLab.js';

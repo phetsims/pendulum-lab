@@ -14,16 +14,10 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
-import { Line } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import { Color, Line, LinearGradient, Node, Rectangle, SimpleDragHandler, Text } from '../../../../scenery/js/imports.js';
 import pendulumLab from '../../pendulumLab.js';
-import PendulumLabConstants from '../PendulumLabConstants.js';
 import Pendulum from '../model/Pendulum.js';
+import PendulumLabConstants from '../PendulumLabConstants.js';
 
 // constants
 const ARROW_HEAD_WIDTH = 12;
