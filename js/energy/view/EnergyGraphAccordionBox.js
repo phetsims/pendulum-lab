@@ -13,7 +13,7 @@ import BarChartNode from '../../../../griddle/js/BarChartNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import InfoButton from '../../../../scenery-phet/js/buttons/InfoButton.js';
-import MoveToTrashButton from '../../../../scenery-phet/js/buttons/MoveToTrashButton.js';
+import MoveToTrashLegendButton from '../../../../scenery-phet/js/buttons/MoveToTrashLegendButton.js';
 import ZoomButton from '../../../../scenery-phet/js/buttons/ZoomButton.js';
 import { AlignBox, HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import AccordionBox from '../../../../sun/js/AccordionBox.js';
@@ -74,7 +74,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
       derive: 'thermalEnergyProperty'
     } );
 
-    const clearThermalButton = new MoveToTrashButton( {
+    const clearThermalButton = new MoveToTrashLegendButton( {
       arrowColor: PendulumLabConstants.THERMAL_ENERGY_COLOR,
       listener: thermalEnergyProperty.reset.bind( thermalEnergyProperty ),
       scale: 0.72
