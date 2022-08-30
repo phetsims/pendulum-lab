@@ -7,8 +7,9 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
+import { DragListener } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
 import pendulumLab from '../../pendulumLab.js';
 import pendulumLabStrings from '../../pendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
@@ -58,12 +59,14 @@ class PendulumLabRulerNode extends RulerNode {
     this.rotate( Math.PI / 2 );
 
     // @public
-    this.movableDragHandler = new MovableDragHandler( ruler.positionProperty, {
-      dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 )
+    this.dragListener = new DragListener( {
+      positionProperty: ruler.positionProperty,
+      useParentOffset: true,
+      dragBoundsProperty: new Property( layoutBounds.erodedXY( this.width / 2, this.height / 2 ) )
     } );
 
     // add drag and drop events
-    this.addInputListener( this.movableDragHandler );
+    this.addInputListener( this.dragListener );
 
     // add update of node position
     ruler.positionProperty.lazyLink( position => {

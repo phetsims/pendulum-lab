@@ -43,7 +43,7 @@ class LabScreenView extends EnergyScreenView {
 
     // set dynamical dragBounds to keep the periodTimer within the visibleBounds
     this.visibleBoundsProperty.link( visibleBounds => {
-      periodTimerNode.movableDragHandler.dragBounds = visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 );
+      periodTimerNode.dragListener.dragBoundsProperty = visibleBounds.erodedXY( periodTimerNode.width / 2, periodTimerNode.height / 2 );
     } );
 
     this.resizeEnergyGraphToFit();

@@ -13,10 +13,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import MovableDragHandler from '../../../../scenery-phet/js/input/MovableDragHandler.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import UTurnArrowShape from '../../../../scenery-phet/js/UTurnArrowShape.js';
-import { AlignBox, Color, HBox, Image, LinearGradient, Node, Path, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, Color, DragListener, HBox, Image, LinearGradient, Node, Path, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
+import Property from '../../../../axon/js/Property.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import periodTimerBackground_png from '../../../mipmaps/periodTimerBackground_png.js';
@@ -185,12 +185,14 @@ class PeriodTimerNode extends Node {
       }
     } );
 
-    this.movableDragHandler = new MovableDragHandler( periodTimer.positionProperty, {
-      dragBounds: layoutBounds.erodedXY( this.width / 2, this.height / 2 ),
+    this.dragListener = new DragListener( {
+      positionProperty: periodTimer.positionProperty,
+      useParentOffset: true,
+      dragBoundsProperty: new Property( layoutBounds.erodedXY( this.width / 2, this.height / 2 ) ),
       allowTouchSnag: false
     } );
     // add drag and drop events
-    this.addInputListener( this.movableDragHandler );
+    this.addInputListener( this.dragListener );
 
     // prevent dragging the PeriodTimer from the playPause Button and graphUnitSwitch
     const doNotStartDragListener = {

@@ -154,7 +154,7 @@ class PendulumLabScreenView extends ScreenView {
       leftFloatingLayer.x = -dx;
       rightFloatingLayer.x = dx;
       // set the drag bounds of the ruler
-      rulerNode.movableDragHandler.setDragBounds( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
+      rulerNode.dragListener.dragBounds.set( visibleBounds.erodedXY( rulerNode.width / 2, rulerNode.height / 2 ) );
     } );
 
     this.children = [
