@@ -13,7 +13,7 @@ import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import pendulumLabStrings from './pendulumLabStrings.js';
 
-const pendulumLabTitleString = pendulumLabStrings[ 'pendulum-lab' ].title;
+const pendulumLabTitleStringProperty = pendulumLabStrings[ 'pendulum-lab' ].titleStringProperty;
 
 const simOptions = {
   credits: {
@@ -27,6 +27,6 @@ const simOptions = {
 };
 
 simLauncher.launch( () => {
-  const sim = new Sim( pendulumLabTitleString, [ new IntroScreen(), new EnergyScreen(), new LabScreen() ], simOptions );
+  const sim = new Sim( pendulumLabTitleStringProperty, [ new IntroScreen(), new EnergyScreen(), new LabScreen() ], simOptions );
   sim.start();
 } );
