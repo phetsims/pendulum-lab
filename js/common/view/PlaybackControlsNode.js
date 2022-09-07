@@ -15,13 +15,13 @@ import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulaIcons from './PendulaIcons.js';
 import StopButton from './StopButton.js';
 
-const normalString = pendulumLabStrings.normal;
-const slowMotionString = pendulumLabStrings.slowMotion;
+const normalString = PendulumLabStrings.normal;
+const slowMotionString = PendulumLabStrings.slowMotion;
 
 // constants
 const FONT = PendulumLabConstants.TITLE_FONT;

@@ -14,10 +14,10 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Circle, Line, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
-const degreesPatternString = pendulumLabStrings.degreesPattern;
+const degreesPatternString = PendulumLabStrings.degreesPattern;
 
 // constants
 const LINE_LENGTH_DEFAULT = 3.6;

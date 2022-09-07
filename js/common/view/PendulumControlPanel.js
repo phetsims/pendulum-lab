@@ -10,14 +10,14 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Line, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulumNumberControl from './PendulumNumberControl.js';
 
-const kilogramsPatternString = pendulumLabStrings.kilogramsPattern;
-const lengthString = pendulumLabStrings.length;
-const massString = pendulumLabStrings.mass;
-const metersPatternString = pendulumLabStrings.metersPattern;
+const kilogramsPatternString = PendulumLabStrings.kilogramsPattern;
+const lengthString = PendulumLabStrings.length;
+const massString = PendulumLabStrings.mass;
+const metersPatternString = PendulumLabStrings.metersPattern;
 
 class PendulumControlPanel extends Panel {
 

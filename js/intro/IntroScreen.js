@@ -16,13 +16,13 @@ import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
 import PendulumLabScreenView from '../common/view/PendulumLabScreenView.js';
 import pendulumLab from '../pendulumLab.js';
-import pendulumLabStrings from '../pendulumLabStrings.js';
+import PendulumLabStrings from '../PendulumLabStrings.js';
 
 class IntroScreen extends Screen {
   constructor() {
 
     const options = {
-      name: pendulumLabStrings.screen.intro,
+      name: PendulumLabStrings.screen.intro,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( introScreenIcon_png ), {
         maxIconWidthProportion: 1,

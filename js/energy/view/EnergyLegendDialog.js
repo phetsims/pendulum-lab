@@ -10,17 +10,17 @@ import { AlignBox, AlignGroup, HBox, RichText, Text, VBox } from '../../../../sc
 import Dialog from '../../../../sun/js/Dialog.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 
-const energyLegendString = pendulumLabStrings.energyLegend;
-const legendKineticEnergyAbbreviationString = pendulumLabStrings.legend.kineticEnergyAbbreviation;
-const legendKineticEnergyString = pendulumLabStrings.legend.kineticEnergy;
-const legendPotentialEnergyAbbreviationString = pendulumLabStrings.legend.potentialEnergyAbbreviation;
-const legendPotentialEnergyString = pendulumLabStrings.legend.potentialEnergy;
-const legendThermalEnergyAbbreviationString = pendulumLabStrings.legend.thermalEnergyAbbreviation;
-const legendThermalEnergyString = pendulumLabStrings.legend.thermalEnergy;
-const legendTotalEnergyAbbreviationString = pendulumLabStrings.legend.totalEnergyAbbreviation;
-const legendTotalEnergyString = pendulumLabStrings.legend.totalEnergy;
+const energyLegendString = PendulumLabStrings.energyLegend;
+const legendKineticEnergyAbbreviationString = PendulumLabStrings.legend.kineticEnergyAbbreviation;
+const legendKineticEnergyString = PendulumLabStrings.legend.kineticEnergy;
+const legendPotentialEnergyAbbreviationString = PendulumLabStrings.legend.potentialEnergyAbbreviation;
+const legendPotentialEnergyString = PendulumLabStrings.legend.potentialEnergy;
+const legendThermalEnergyAbbreviationString = PendulumLabStrings.legend.thermalEnergyAbbreviation;
+const legendThermalEnergyString = PendulumLabStrings.legend.thermalEnergy;
+const legendTotalEnergyAbbreviationString = PendulumLabStrings.legend.totalEnergyAbbreviation;
+const legendTotalEnergyString = PendulumLabStrings.legend.totalEnergy;
 
 class EnergyLegendDialog extends Dialog {
   constructor() {

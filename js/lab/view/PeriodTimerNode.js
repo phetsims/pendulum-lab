@@ -22,10 +22,10 @@ import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRe
 import periodTimerBackground_png from '../../../mipmaps/periodTimerBackground_png.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 
-const periodString = pendulumLabStrings.period;
-const secondsPatternString = pendulumLabStrings.secondsPattern;
+const periodString = PendulumLabStrings.period;
+const secondsPatternString = PendulumLabStrings.secondsPattern;
 
 class PeriodTimerNode extends Node {
   /**

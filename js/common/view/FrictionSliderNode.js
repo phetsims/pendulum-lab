@@ -14,13 +14,13 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulumNumberControl from './PendulumNumberControl.js';
 
-const frictionString = pendulumLabStrings.friction;
-const lotsString = pendulumLabStrings.lots;
-const noneString = pendulumLabStrings.none;
+const frictionString = PendulumLabStrings.friction;
+const lotsString = PendulumLabStrings.lots;
+const noneString = PendulumLabStrings.none;
 
 /**
  * Converts the numerical value of the slider to friction, does not assign to friction property

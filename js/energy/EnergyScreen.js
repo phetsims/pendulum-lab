@@ -13,7 +13,7 @@ import { Image } from '../../../scenery/js/imports.js';
 import energyScreenIcon_png from '../../mipmaps/energyScreenIcon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
 import pendulumLab from '../pendulumLab.js';
-import pendulumLabStrings from '../pendulumLabStrings.js';
+import PendulumLabStrings from '../PendulumLabStrings.js';
 import EnergyModel from './model/EnergyModel.js';
 import EnergyScreenView from './view/EnergyScreenView.js';
 
@@ -21,7 +21,7 @@ class EnergyScreen extends Screen {
   constructor() {
 
     const options = {
-      name: pendulumLabStrings.screen.energy,
+      name: PendulumLabStrings.screen.energy,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( energyScreenIcon_png ), {
         maxIconWidthProportion: 1,

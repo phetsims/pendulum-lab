@@ -15,10 +15,10 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 
-const accelerationString = pendulumLabStrings.acceleration;
-const velocityString = pendulumLabStrings.velocity;
+const accelerationString = PendulumLabStrings.acceleration;
+const velocityString = PendulumLabStrings.velocity;
 
 class ArrowVisibilityPanel extends Panel {
 

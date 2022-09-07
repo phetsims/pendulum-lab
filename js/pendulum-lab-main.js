@@ -11,9 +11,9 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import EnergyScreen from './energy/EnergyScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import pendulumLabStrings from './pendulumLabStrings.js';
+import PendulumLabStrings from './PendulumLabStrings.js';
 
-const pendulumLabTitleStringProperty = pendulumLabStrings[ 'pendulum-lab' ].titleStringProperty;
+const pendulumLabTitleStringProperty = PendulumLabStrings[ 'pendulum-lab' ].titleStringProperty;
 
 const simOptions = {
   credits: {

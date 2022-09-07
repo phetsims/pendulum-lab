@@ -22,15 +22,15 @@ import ColorConstants from '../../../../sun/js/ColorConstants.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import EnergyLegendDialog from './EnergyLegendDialog.js';
 
-const energyGraphString = pendulumLabStrings.energyGraph;
-const legendKineticEnergyAbbreviationString = pendulumLabStrings.legend.kineticEnergyAbbreviation;
-const legendPotentialEnergyAbbreviationString = pendulumLabStrings.legend.potentialEnergyAbbreviation;
-const legendThermalEnergyAbbreviationString = pendulumLabStrings.legend.thermalEnergyAbbreviation;
-const legendTotalEnergyAbbreviationString = pendulumLabStrings.legend.totalEnergyAbbreviation;
-const pendulumMassPatternString = pendulumLabStrings.pendulumMassPattern;
+const energyGraphString = PendulumLabStrings.energyGraph;
+const legendKineticEnergyAbbreviationString = PendulumLabStrings.legend.kineticEnergyAbbreviation;
+const legendPotentialEnergyAbbreviationString = PendulumLabStrings.legend.potentialEnergyAbbreviation;
+const legendThermalEnergyAbbreviationString = PendulumLabStrings.legend.thermalEnergyAbbreviation;
+const legendTotalEnergyAbbreviationString = PendulumLabStrings.legend.totalEnergyAbbreviation;
+const pendulumMassPatternString = PendulumLabStrings.pendulumMassPattern;
 
 class EnergyGraphAccordionBox extends AccordionBox {
 

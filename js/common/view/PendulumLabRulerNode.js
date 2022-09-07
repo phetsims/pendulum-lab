@@ -11,10 +11,10 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener } from '../../../../scenery/js/imports.js';
 import Property from '../../../../axon/js/Property.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
-const rulerUnitsString = pendulumLabStrings.rulerUnits;
+const rulerUnitsString = PendulumLabStrings.rulerUnits;
 
 // constants
 const RULER_HEIGHT = 34;

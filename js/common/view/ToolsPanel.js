@@ -12,13 +12,13 @@ import { AlignBox, Text } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
-const periodTimerString = pendulumLabStrings.periodTimer;
-const periodTraceString = pendulumLabStrings.periodTrace;
-const rulerString = pendulumLabStrings.ruler;
-const stopwatchString = pendulumLabStrings.stopwatch;
+const periodTimerString = PendulumLabStrings.periodTimer;
+const periodTraceString = PendulumLabStrings.periodTrace;
+const rulerString = PendulumLabStrings.ruler;
+const stopwatchString = PendulumLabStrings.stopwatch;
 
 // constants
 const TEXT_OPTIONS = {

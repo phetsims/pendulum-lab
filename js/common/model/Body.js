@@ -8,13 +8,13 @@
 
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
 import pendulumLab from '../../pendulumLab.js';
-import pendulumLabStrings from '../../pendulumLabStrings.js';
+import PendulumLabStrings from '../../PendulumLabStrings.js';
 
-const customString = pendulumLabStrings.custom;
-const earthString = pendulumLabStrings.earth;
-const jupiterString = pendulumLabStrings.jupiter;
-const moonString = pendulumLabStrings.moon;
-const planetXString = pendulumLabStrings.planetX;
+const customString = PendulumLabStrings.custom;
+const earthString = PendulumLabStrings.earth;
+const jupiterString = PendulumLabStrings.jupiter;
+const moonString = PendulumLabStrings.moon;
+const planetXString = PendulumLabStrings.planetX;
 
 class Body {
   /**
