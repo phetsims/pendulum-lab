@@ -21,7 +21,7 @@ class EnergyScreen extends Screen {
   constructor() {
 
     const options = {
-      name: PendulumLabStrings.screen.energy,
+      name: PendulumLabStrings.screen.energyStringProperty,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( energyScreenIcon_png ), {
         maxIconWidthProportion: 1,

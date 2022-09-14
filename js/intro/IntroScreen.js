@@ -22,7 +22,7 @@ class IntroScreen extends Screen {
   constructor() {
 
     const options = {
-      name: PendulumLabStrings.screen.intro,
+      name: PendulumLabStrings.screen.introStringProperty,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( introScreenIcon_png ), {
         maxIconWidthProportion: 1,

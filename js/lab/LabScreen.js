@@ -22,7 +22,7 @@ class LabScreen extends Screen {
   constructor() {
 
     const options = {
-      name: PendulumLabStrings.screen.lab,
+      name: PendulumLabStrings.screen.labStringProperty,
       backgroundColorProperty: new Property( PendulumLabConstants.BACKGROUND_COLOR ),
       homeScreenIcon: new ScreenIcon( new Image( labScreenIcon_png ), {
         maxIconWidthProportion: 1,
