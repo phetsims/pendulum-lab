@@ -42,22 +42,22 @@ class ToolsPanel extends Panel {
 
     const items = [
       {
-        node: new Text( rulerString, TEXT_OPTIONS ),
+        createNode: tandem => new Text( rulerString, TEXT_OPTIONS ),
         property: isRulerProperty
       },
       {
-        node: new Text( stopwatchString, TEXT_OPTIONS ),
+        createNode: tandem => new Text( stopwatchString, TEXT_OPTIONS ),
         property: isStopwatchProperty
       },
       {
-        node: new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS ),
+        createNode: tandem => new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS ),
         property: isPeriodTraceProperty
       }
     ];
 
     const content = new AlignBox( new VerticalCheckboxGroup( items, {
       spacing: PendulumLabConstants.CHECK_RADIO_SPACING,
-      checkboxOptions: { boxWidth: items[ 0 ].node.height }
+      checkboxOptions: { boxWidth: new Text( rulerString, TEXT_OPTIONS ).height }
     } ), {
       group: PendulumLabConstants.LEFT_CONTENT_ALIGN_GROUP,
       xAlign: 'left'

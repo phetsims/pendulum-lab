@@ -74,8 +74,8 @@ class PlaybackControlsNode extends Node {
     } );
 
     const timeSpeedRadioNode = new VerticalAquaRadioButtonGroup( timeSpeedProperty, [
-      { value: 1, node: new Text( normalString, { font: FONT } ) },
-      { value: 1 / 8, node: new Text( slowMotionString, { font: FONT } ) }
+      { value: 1, createNode: tandem => new Text( normalString, { font: FONT } ) },
+      { value: 1 / 8, createNode: tandem => new Text( slowMotionString, { font: FONT } ) }
     ], {
       spacing: 9,
       touchAreaXDilation: 10,
