@@ -43,8 +43,8 @@ class PlaybackControlsNode extends Node {
     } );
 
     const pendulaCountRadioButtonGroup = new RectangularRadioButtonGroup( numberOfPendulaProperty, [
-      { node: new Node( { children: [ PendulaIcons.ONE_PENDULUM_ICON ] } ), value: 1 },
-      { node: new Node( { children: [ PendulaIcons.TWO_PENDULA_ICON ] } ), value: 2 }
+      { createNode: tandem => new Node( { children: [ PendulaIcons.ONE_PENDULUM_ICON ] } ), value: 1 },
+      { createNode: tandem => new Node( { children: [ PendulaIcons.TWO_PENDULA_ICON ] } ), value: 2 }
     ], {
       spacing: 9,
       orientation: 'horizontal',
