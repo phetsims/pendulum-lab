@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "a2357034245447007631cb06cdae239238cbd25b",
+    "sha": "604a126ba7ed04ae1a1f703ddd0d267897047489",
     "branch": "HEAD"
   },
   "dot": {
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "da9af67ed9efbdfc4658132b81c86d688a3560fe",
+    "sha": "b2b544663b7c68745a8f9ff824b6ee004843e61b",
     "branch": "1.0"
   },
   "phet-core": {
