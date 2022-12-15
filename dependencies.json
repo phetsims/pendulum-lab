@@ -1,5 +1,5 @@
 {
-  "comment": "# pendulum-lab 1.0.19-rc.1 Wed Dec 14 2022 21:58:56 GMT-0700 (Mountain Standard Time)",
+  "comment": "# pendulum-lab 1.0.19 Wed Dec 14 2022 21:59:39 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "d5037ab8954b8ddf6b7549417a25f314c7627c9f",
+    "sha": "9164a72c830a3210be48fd2d520dade4cca8bfad",
     "branch": "1.0"
   },
   "phet-core": {
