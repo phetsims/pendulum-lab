@@ -42,15 +42,15 @@ class ToolsPanel extends Panel {
 
     const items = [
       {
-        createNode: tandem => new Text( rulerString, TEXT_OPTIONS ),
+        createNode: () => new Text( rulerString, TEXT_OPTIONS ),
         property: isRulerProperty
       },
       {
-        createNode: tandem => new Text( stopwatchString, TEXT_OPTIONS ),
+        createNode: () => new Text( stopwatchString, TEXT_OPTIONS ),
         property: isStopwatchProperty
       },
       {
-        createNode: tandem => new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS ),
+        createNode: () => new Text( hasPeriodTimer ? periodTimerString : periodTraceString, TEXT_OPTIONS ),
         property: isPeriodTraceProperty
       }
     ];

@@ -43,8 +43,8 @@ class PlaybackControlsNode extends Node {
     } );
 
     const pendulaCountRadioButtonGroup = new RectangularRadioButtonGroup( numberOfPendulaProperty, [
-      { createNode: tandem => new Node( { children: [ PendulaIcons.ONE_PENDULUM_ICON ] } ), value: 1 },
-      { createNode: tandem => new Node( { children: [ PendulaIcons.TWO_PENDULA_ICON ] } ), value: 2 }
+      { createNode: () => new Node( { children: [ PendulaIcons.ONE_PENDULUM_ICON ] } ), value: 1 },
+      { createNode: () => new Node( { children: [ PendulaIcons.TWO_PENDULA_ICON ] } ), value: 2 }
     ], {
       spacing: 9,
       orientation: 'horizontal',
@@ -74,8 +74,8 @@ class PlaybackControlsNode extends Node {
     } );
 
     const timeSpeedRadioNode = new VerticalAquaRadioButtonGroup( timeSpeedProperty, [
-      { value: 1, createNode: tandem => new Text( normalString, { font: FONT } ) },
-      { value: 1 / 8, createNode: tandem => new Text( slowMotionString, { font: FONT } ) }
+      { value: 1, createNode: () => new Text( normalString, { font: FONT } ) },
+      { value: 1 / 8, createNode: () => new Text( slowMotionString, { font: FONT } ) }
     ], {
       spacing: 9,
       touchAreaXDilation: 10,
