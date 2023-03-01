@@ -134,7 +134,7 @@ class PeriodTimerNode extends Node {
     } );
     // present for the lifetime of the sim
     periodTimer.elapsedTimeProperty.link( value => {
-      readoutText.text = StringUtils.fillIn( secondsPatternString, {
+      readoutText.string = StringUtils.fillIn( secondsPatternString, {
         seconds: Utils.toFixed( value, 4 )
       } );
     } );

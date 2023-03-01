@@ -124,7 +124,7 @@ class PendulumLabProtractorNode extends Node {
           const degrees = Utils.toDegrees( pendulum.angleProperty.value );
           assert && assert( degrees <= 180 && degrees >= -180, 'Out of range angle' );
 
-          degreesText.text = StringUtils.fillIn( degreesPatternString, {
+          degreesText.string = StringUtils.fillIn( degreesPatternString, {
             degrees: Utils.toFixed( degrees, 0 )
           } );
           if ( pendulumIndex === 0 ) {

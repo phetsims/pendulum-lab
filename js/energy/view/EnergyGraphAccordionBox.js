@@ -61,7 +61,7 @@ class EnergyGraphAccordionBox extends AccordionBox {
     } );
 
     model.activeEnergyPendulumProperty.link( pendulum => {
-      headerText.text = StringUtils.fillIn( pendulumMassPatternString, {
+      headerText.string = StringUtils.fillIn( pendulumMassPatternString, {
         pendulumNumber: `${pendulum.index + 1}`
       } );
       headerText.fill = pendulum.color;
