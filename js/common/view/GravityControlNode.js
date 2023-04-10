@@ -46,7 +46,7 @@ class GravityControlNode extends VBox {
     const comboBoxItems = Body.BODIES.map( body => {
       return {
         value: body,
-        node: new Text( body.title, {
+        createNode: () => new Text( body.title, {
           font: PendulumLabConstants.GRAVITY_COMBO_FONT,
           maxWidth: 50
         } )
