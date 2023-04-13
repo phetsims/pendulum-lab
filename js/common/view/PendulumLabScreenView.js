@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import { Node, Plane, VBox } from '../../../../scenery/js/imports.js';
-import ClosestDragListener from '../../../../sun/js/ClosestDragListener.js';
+import ClosestDragForwardingListener from '../../../../sun/js/ClosestDragForwardingListener.js';
 import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import GlobalControlPanel from './GlobalControlPanel.js';
@@ -50,7 +50,7 @@ class PendulumLabScreenView extends ScreenView {
 
     // create drag listener for the pendula
     const backgroundDragNode = new Plane();
-    const dragListener = new ClosestDragListener( 0.15, 0 ); // 15cm from mass is OK for touch
+    const dragListener = new ClosestDragForwardingListener( 0.15, 0 ); // 15cm from mass is OK for touch
     pendulaNode.draggableItems.forEach( draggableItem => {
       dragListener.addDraggableItem( draggableItem );
     } );
