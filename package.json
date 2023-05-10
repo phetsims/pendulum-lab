@@ -10,6 +10,11 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "PENDULUM_LAB"
+    "requirejsNamespace": "PENDULUM_LAB",
+    "screenNameKeys": [
+      "PENDULUM_LAB/screen.intro",
+      "PENDULUM_LAB/screen.energy",
+      "PENDULUM_LAB/screen.lab"
+    ]
   }
 }
