@@ -113,7 +113,7 @@ class PeriodTimerNode extends Node {
     // creates switch icon for choosing the first or second pendulum
     const graphUnitsSwitch = new ABSwitch( periodTimer.activePendulumIndexProperty, 0, firstPendulumIcon, 1, secondPendulumIcon, {
       spacing: 3,
-      setEnabled: null, // Do not highlight the selected mass more than the other
+      setLabelEnabled: () => {}, // Do not highlight the selected mass more than the other
       toggleSwitchOptions: {
         size: new Dimension2( 25, 12.5 ),
         thumbTouchAreaXDilation: 3.5,
