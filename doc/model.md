@@ -23,8 +23,8 @@ Given θ (the angle of the pendulum from the resting position, in radians), ther
 - Gravity (mg)
 - Tension (centripetal force, mv^2/L)
 - Drag (c * v^2 * m^(2/3))
-  http://fy.chalmers.se/~f7xiz/TIF081C/pendulum.pdf notes squared velocity due to Reynolds number
-  surface area increases by m^(2/3), and 'c' is the drag coefficient
+  http://fy.chalmers.se/~f7xiz/TIF081C/pendulum.pdf notes squared velocity due to Reynolds number surface area increases
+  by m^(2/3), and 'c' is the drag coefficient
 
 The net tangential force = -m * g * sin( θ ) - c * v^2 * m^(2/3)<br>
 = -m * g * sin( θ ) - c * L^2 * (θ')^2 * m^(2/3)   -- expansion of v = θ' * L <br>
