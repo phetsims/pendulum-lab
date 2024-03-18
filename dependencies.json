@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "e25e259afdfded9af778a476403eb4320edc73a1",
+    "sha": "50c6e8676d8c3cc2a35738d41278e02be2dd6afa",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "6ad7152e1f4d807e44a1c61302fdfbc2da871849",
+    "sha": "e7ba8b5ce4a2538334cd6115e56780b62f6993fd",
     "branch": "HEAD"
   },
   "kite": {
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "568218eb006017213120632cd9bda94339c4eeec",
+    "sha": "0b12499cb2c0bf0abc2cec089731ac039ddca9f5",
     "branch": "1.0"
   },
   "phet-core": {
