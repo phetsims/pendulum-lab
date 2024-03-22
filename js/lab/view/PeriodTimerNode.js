@@ -6,6 +6,7 @@
  * @author Andrey Zelenkov (Mlearner)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -16,7 +17,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import UTurnArrowShape from '../../../../scenery-phet/js/UTurnArrowShape.js';
 import { AlignBox, Color, DragListener, HBox, Image, LinearGradient, Node, Path, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
-import Property from '../../../../axon/js/Property.js';
 import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import periodTimerBackground_png from '../../../mipmaps/periodTimerBackground_png.js';
