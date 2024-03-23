@@ -1,4 +1,4 @@
-// Copyright 2014-2020, University of Colorado Boulder
+// Copyright 2014-2024, University of Colorado Boulder
 
 /**
  * Main model constructor for Lab screen in 'Pendulum Lab' simulation.
