@@ -25,7 +25,6 @@ class PendulumNumberControl extends NumberControl {
    */
   constructor( title, property, range, pattern, color, options ) {
     options = merge( {
-      hasReadoutProperty: null,
       minTick: null,
       maxTick: null,
       sliderPadding: 0,

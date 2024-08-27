@@ -66,7 +66,10 @@ class GravityControlNode extends VBox {
     } );
 
     const numberControl = new PendulumNumberControl( gravityString, gravityProperty, gravityRange, labelPattern, 'rgb(50,145,184)', {
-      hasReadoutProperty: new DerivedProperty( [ bodyProperty ], body => !options.useTextSliderLabels && body !== Body.PLANET_X ),
+      numberDisplayParentNodeOptions: {
+        visibleProperty:
+          new DerivedProperty( [ bodyProperty ], body => !options.useTextSliderLabels && body !== Body.PLANET_X )
+      },
       minTick: options.useTextSliderLabels ? noneString : null,
       maxTick: options.useTextSliderLabels ? lotsString : null,
       createBottomContent: bottomBox => {

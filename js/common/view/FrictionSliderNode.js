@@ -63,7 +63,7 @@ class FrictionSliderNode extends Node {
 
     //TODO #210 replace '{0}' with SunConstants.VALUE_NAMED_PLACEHOLDER
     const numberControl = new PendulumNumberControl( frictionString, sliderValueProperty, sliderValueRange, '{0}', 'rgb(50,145,184)', {
-      hasReadoutProperty: new BooleanProperty( false ),
+      numberDisplayParentNodeOptions: { visibleProperty: new BooleanProperty( false ) },
       includeArrowButtons: false,
       sliderPadding: 14,
       sliderOptions: {
