@@ -202,7 +202,6 @@ class EnergyGraphAccordionBox extends AccordionBox {
     let energyDialog; // lazily created
 
     const infoButton = new InfoButton( {
-      iconFill: 'rgb( 41, 106, 163 )',
       maxHeight: 1.1 * zoomInButton.height,
       left: panel.left,
       centerY: zoomOutButton.centerY,
