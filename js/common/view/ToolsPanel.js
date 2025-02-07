@@ -8,7 +8,8 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, Text } from '../../../../scenery/js/imports.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import pendulumLab from '../../pendulumLab.js';

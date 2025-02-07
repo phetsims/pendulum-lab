@@ -9,7 +9,7 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import { Image } from '../../../scenery/js/imports.js';
+import Image from '../../../scenery/js/nodes/Image.js';
 import introNavbarIcon_png from '../../mipmaps/introNavbarIcon_png.js';
 import introScreenIcon_png from '../../mipmaps/introScreenIcon_png.js';
 import PendulumLabModel from '../common/model/PendulumLabModel.js';

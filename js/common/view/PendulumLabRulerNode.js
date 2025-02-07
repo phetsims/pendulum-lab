@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
