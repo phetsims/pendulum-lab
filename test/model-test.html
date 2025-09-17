@@ -6,15 +6,14 @@
 
   <title>Model Testing</title>
 
-  <!-- jQuery and LoDash are dependencies -->
-  <script src="../../sherpa/lib/jquery-2.1.0.min.js"></script>
+  <!-- LoDash (if needed) -->
   <script src="../../sherpa/lib/lodash-4.17.4.min.js"></script>
 
   <script src="../../scenery/build/production/scenery.min.js"></script>
   <!-- eslint-disable --> <!--TODO: fix lint https://github.com/phetsims/chipper/issues/1405-->
 
   <script>
-    $( document ).ready( function() {
+    window.addEventListener( 'load', function() {
       var line = new scenery.Line( 0, 0, 0, 200, { stroke: 'black' } );
       var scene = new scenery.Node( { children: [
         new scenery.Node( { x: 256, y: 256, children: [ line ] } )
