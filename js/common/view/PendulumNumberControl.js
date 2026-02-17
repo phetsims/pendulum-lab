@@ -3,7 +3,7 @@
 /**
  * NumberControl with custom Pendulum Lab options
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';

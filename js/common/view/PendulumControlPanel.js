@@ -3,7 +3,7 @@
 /**
  * Panel with length/mass controls for all available pendula
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';

@@ -3,7 +3,7 @@
 /**
  * Legend dialog for the energy labels
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu>
+ * @author Jonathan Olson (PhET Interactive Simulations)
  */
 
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
