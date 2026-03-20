@@ -14,7 +14,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Dialog from '../../../../sun/js/Dialog.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 
 const energyLegendString = PendulumLabStrings.energyLegend;
@@ -84,5 +83,4 @@ class EnergyLegendDialog extends Dialog {
   }
 }
 
-pendulumLab.register( 'EnergyLegendDialog', EnergyLegendDialog );
 export default EnergyLegendDialog;

@@ -18,7 +18,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 
 const accelerationString = PendulumLabStrings.acceleration;
@@ -98,5 +97,4 @@ class ArrowVisibilityPanel extends Panel {
   }
 }
 
-pendulumLab.register( 'ArrowVisibilityPanel', ArrowVisibilityPanel );
 export default ArrowVisibilityPanel;

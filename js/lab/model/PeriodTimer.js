@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Stopwatch from '../../common/model/Stopwatch.js';
-import pendulumLab from '../../pendulumLab.js';
 
 class PeriodTimer extends Stopwatch {
   /**
@@ -140,7 +139,5 @@ class PeriodTimer extends Stopwatch {
     }
   }
 }
-
-pendulumLab.register( 'PeriodTimer', PeriodTimer );
 
 export default PeriodTimer;

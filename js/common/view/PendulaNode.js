@@ -21,7 +21,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import pendulumLab from '../../pendulumLab.js';
 import Pendulum from '../model/Pendulum.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
@@ -229,7 +228,5 @@ class PendulaNode extends Node {
     this.children = pendulumNodes.concat( velocityArrows ).concat( accelerationArrows );
   }
 }
-
-pendulumLab.register( 'PendulaNode', PendulaNode );
 
 export default PendulaNode;

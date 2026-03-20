@@ -8,7 +8,6 @@
 
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import EnergyScreenView from '../../energy/view/EnergyScreenView.js';
-import pendulumLab from '../../pendulumLab.js';
 import ArrowVisibilityPanel from './ArrowVisibilityPanel.js';
 import PeriodTimerNode from './PeriodTimerNode.js';
 
@@ -50,5 +49,4 @@ class LabScreenView extends EnergyScreenView {
   }
 }
 
-pendulumLab.register( 'LabScreenView', LabScreenView );
 export default LabScreenView;

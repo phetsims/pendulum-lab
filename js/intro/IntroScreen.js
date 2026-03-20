@@ -15,7 +15,6 @@ import introScreenIcon_png from '../../mipmaps/introScreenIcon_png.js';
 import PendulumLabModel from '../common/model/PendulumLabModel.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
 import PendulumLabScreenView from '../common/view/PendulumLabScreenView.js';
-import pendulumLab from '../pendulumLab.js';
 import PendulumLabStrings from '../PendulumLabStrings.js';
 
 class IntroScreen extends Screen {
@@ -42,5 +41,4 @@ class IntroScreen extends Screen {
   }
 }
 
-pendulumLab.register( 'IntroScreen', IntroScreen );
 export default IntroScreen;

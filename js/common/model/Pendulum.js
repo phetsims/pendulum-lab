@@ -14,7 +14,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PeriodTrace from './PeriodTrace.js';
 
@@ -402,7 +401,5 @@ class Pendulum {
     return angle;
   }
 }
-
-pendulumLab.register( 'Pendulum', Pendulum );
 
 export default Pendulum;

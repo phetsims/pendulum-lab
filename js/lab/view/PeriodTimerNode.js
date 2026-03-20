@@ -31,7 +31,6 @@ import ABSwitch from '../../../../sun/js/ABSwitch.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import periodTimerBackground_png from '../../../mipmaps/periodTimerBackground_png.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 
 const periodString = PendulumLabStrings.period;
@@ -225,7 +224,5 @@ class PeriodTimerNode extends Node {
     periodTimer.isVisibleProperty.linkAttribute( this, 'visible' );
   }
 }
-
-pendulumLab.register( 'PeriodTimerNode', PeriodTimerNode );
 
 export default PeriodTimerNode;

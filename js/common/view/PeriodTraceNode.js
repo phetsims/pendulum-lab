@@ -13,7 +13,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import pendulumLab from '../../pendulumLab.js';
 
 // constants
 const DEFAULT_TRACE_STEP = 10; // in pixels - JO: No it's not pixels. At all...
@@ -149,7 +148,5 @@ class PeriodTraceNode extends Node {
     }
   }
 }
-
-pendulumLab.register( 'PeriodTraceNode', PeriodTraceNode );
 
 export default PeriodTraceNode;

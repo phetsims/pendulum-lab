@@ -15,7 +15,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import Body from '../model/Body.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
@@ -109,7 +108,5 @@ class GravityControlNode extends VBox {
     }, options ) );
   }
 }
-
-pendulumLab.register( 'GravityControlNode', GravityControlNode );
 
 export default GravityControlNode;

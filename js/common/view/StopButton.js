@@ -9,7 +9,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import StopSignNode from '../../../../scenery-phet/js/StopSignNode.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import pendulumLab from '../../pendulumLab.js';
 
 class StopButton extends RectangularPushButton {
   /**
@@ -29,5 +28,4 @@ class StopButton extends RectangularPushButton {
   }
 }
 
-pendulumLab.register( 'StopButton', StopButton );
 export default StopButton;

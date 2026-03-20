@@ -6,7 +6,6 @@
  * @author Andrey Zelenkov (MLearner)
  */
 
-import pendulumLab from '../../pendulumLab.js';
 import MovableComponent from './MovableComponent.js';
 
 class Ruler extends MovableComponent {
@@ -20,7 +19,5 @@ class Ruler extends MovableComponent {
     this.length = 1;
   }
 }
-
-pendulumLab.register( 'Ruler', Ruler );
 
 export default Ruler;

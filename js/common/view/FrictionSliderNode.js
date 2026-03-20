@@ -14,7 +14,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulumNumberControl from './PendulumNumberControl.js';
@@ -97,7 +96,5 @@ class FrictionSliderNode extends Node {
     }, options ) );
   }
 }
-
-pendulumLab.register( 'FrictionSliderNode', FrictionSliderNode );
 
 export default FrictionSliderNode;

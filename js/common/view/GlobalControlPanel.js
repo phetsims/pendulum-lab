@@ -8,7 +8,6 @@
 
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import FrictionSliderNode from './FrictionSliderNode.js';
 import GravityControlNode from './GravityControlNode.js';
@@ -39,5 +38,4 @@ class GlobalControlPanel extends Panel {
   }
 }
 
-pendulumLab.register( 'GlobalControlPanel', GlobalControlPanel );
 export default GlobalControlPanel;

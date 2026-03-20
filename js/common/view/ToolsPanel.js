@@ -12,7 +12,6 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
@@ -68,5 +67,4 @@ class ToolsPanel extends Panel {
   }
 }
 
-pendulumLab.register( 'ToolsPanel', ToolsPanel );
 export default ToolsPanel;

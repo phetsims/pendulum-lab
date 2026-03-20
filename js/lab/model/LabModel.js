@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EnergyModel from '../../energy/model/EnergyModel.js';
-import pendulumLab from '../../pendulumLab.js';
 import PeriodTimer from './PeriodTimer.js';
 
 class LabModel extends EnergyModel {
@@ -57,7 +56,5 @@ class LabModel extends EnergyModel {
     this.periodTimer.reset();
   }
 }
-
-pendulumLab.register( 'LabModel', LabModel );
 
 export default LabModel;

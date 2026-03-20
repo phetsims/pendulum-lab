@@ -7,7 +7,6 @@
  */
 
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 
 const customString = PendulumLabStrings.custom;
@@ -29,8 +28,6 @@ class Body {
     this.gravity = gravity;
   }
 }
-
-pendulumLab.register( 'Body', Body );
 
 Body.MOON = new Body( moonString, 1.62 );
 Body.EARTH = new Body( earthString, PhysicalConstants.GRAVITY_ON_EARTH );

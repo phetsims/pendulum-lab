@@ -11,7 +11,6 @@ import Vector2 from '../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import AlignGroup from '../../../scenery/js/layout/constraints/AlignGroup.js';
-import pendulumLab from '../pendulumLab.js';
 
 const PANEL_CORNER_RADIUS = 5;
 const PANEL_X_MARGIN = 10;
@@ -95,8 +94,6 @@ const PendulumLabConstants = {
   // the height of the screen is 4/3 m = 1.33 m
   MODEL_VIEW_TRANSFORM: ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, new Vector2( 1024 / 2, 15 ), 618 / 1.33 )
 };
-
-pendulumLab.register( 'PendulumLabConstants', PendulumLabConstants );
 
 // @public {Array.<string>}
 PendulumLabConstants.PENDULUM_COLORS = [ PendulumLabConstants.FIRST_PENDULUM_COLOR, PendulumLabConstants.SECOND_PENDULUM_COLOR ];

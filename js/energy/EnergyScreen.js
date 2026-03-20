@@ -12,7 +12,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Image from '../../../scenery/js/nodes/Image.js';
 import energyScreenIcon_png from '../../mipmaps/energyScreenIcon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
-import pendulumLab from '../pendulumLab.js';
 import PendulumLabStrings from '../PendulumLabStrings.js';
 import EnergyModel from './model/EnergyModel.js';
 import EnergyScreenView from './view/EnergyScreenView.js';
@@ -37,5 +36,4 @@ class EnergyScreen extends Screen {
   }
 }
 
-pendulumLab.register( 'EnergyScreen', EnergyScreen );
 export default EnergyScreen;

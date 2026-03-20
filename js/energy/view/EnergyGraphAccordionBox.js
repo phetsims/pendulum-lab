@@ -25,7 +25,6 @@ import AquaRadioButton from '../../../../sun/js/AquaRadioButton.js';
 import ColorConstants from '../../../../sun/js/ColorConstants.js';
 import Panel from '../../../../sun/js/Panel.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import EnergyLegendDialog from './EnergyLegendDialog.js';
 
@@ -259,5 +258,4 @@ class EnergyGraphAccordionBox extends AccordionBox {
   }
 }
 
-pendulumLab.register( 'EnergyGraphAccordionBox', EnergyGraphAccordionBox );
 export default EnergyGraphAccordionBox;

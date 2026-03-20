@@ -10,7 +10,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import pendulumLab from '../../pendulumLab.js';
 
 class MovableComponent {
   /**
@@ -51,7 +50,5 @@ class MovableComponent {
     this.isVisibleProperty.reset();
   }
 }
-
-pendulumLab.register( 'MovableComponent', MovableComponent );
 
 export default MovableComponent;

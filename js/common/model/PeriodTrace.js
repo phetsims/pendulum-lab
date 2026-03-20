@@ -8,7 +8,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import pendulumLab from '../../pendulumLab.js';
 
 class PeriodTrace {
   /**
@@ -128,7 +127,5 @@ class PeriodTrace {
     this.elapsedTimeProperty.reset();
   }
 }
-
-pendulumLab.register( 'PeriodTrace', PeriodTrace );
 
 export default PeriodTrace;

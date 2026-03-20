@@ -12,7 +12,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
 class PendulumNumberControl extends NumberControl {
@@ -87,7 +86,5 @@ class PendulumNumberControl extends NumberControl {
     super( title, property, range, numberControlOptions );
   }
 }
-
-pendulumLab.register( 'PendulumNumberControl', PendulumNumberControl );
 
 export default PendulumNumberControl;

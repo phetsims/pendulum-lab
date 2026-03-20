@@ -16,7 +16,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import PendulaIcons from './PendulaIcons.js';
@@ -104,7 +103,5 @@ class PlaybackControlsNode extends Node {
     }, options ) );
   }
 }
-
-pendulumLab.register( 'PlaybackControlsNode', PlaybackControlsNode );
 
 export default PlaybackControlsNode;

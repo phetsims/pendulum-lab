@@ -14,7 +14,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
 // constants
@@ -73,7 +72,5 @@ const PendulaIcons = {
     pickable: false
   } )
 };
-
-pendulumLab.register( 'PendulaIcons', PendulaIcons );
 
 export default PendulaIcons;

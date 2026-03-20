@@ -17,7 +17,6 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabStrings from '../../PendulumLabStrings.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 
@@ -163,7 +162,5 @@ class PendulumLabProtractorNode extends Node {
     } );
   }
 }
-
-pendulumLab.register( 'PendulumLabProtractorNode', PendulumLabProtractorNode );
 
 export default PendulumLabProtractorNode;

@@ -15,7 +15,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Plane from '../../../../scenery/js/nodes/Plane.js';
 import ClosestDragForwardingListener from '../../../../sun/js/ClosestDragForwardingListener.js';
-import pendulumLab from '../../pendulumLab.js';
 import PendulumLabConstants from '../PendulumLabConstants.js';
 import GlobalControlPanel from './GlobalControlPanel.js';
 import PendulaNode from './PendulaNode.js';
@@ -201,5 +200,4 @@ class PendulumLabScreenView extends ScreenView {
   }
 }
 
-pendulumLab.register( 'PendulumLabScreenView', PendulumLabScreenView );
 export default PendulumLabScreenView;

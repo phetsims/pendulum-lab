@@ -8,7 +8,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import pendulumLab from '../../pendulumLab.js';
 import MovableComponent from './MovableComponent.js';
 
 class Stopwatch extends MovableComponent {
@@ -38,7 +37,5 @@ class Stopwatch extends MovableComponent {
     this.elapsedTimeProperty.reset();
   }
 }
-
-pendulumLab.register( 'Stopwatch', Stopwatch );
 
 export default Stopwatch;

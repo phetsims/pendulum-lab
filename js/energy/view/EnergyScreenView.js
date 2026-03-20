@@ -9,7 +9,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PendulumLabConstants from '../../common/PendulumLabConstants.js';
 import PendulumLabScreenView from '../../common/view/PendulumLabScreenView.js';
-import pendulumLab from '../../pendulumLab.js';
 import EnergyGraphAccordionBox from './EnergyGraphAccordionBox.js';
 
 class EnergyScreenView extends PendulumLabScreenView {
@@ -54,5 +53,4 @@ class EnergyScreenView extends PendulumLabScreenView {
   }
 }
 
-pendulumLab.register( 'EnergyScreenView', EnergyScreenView );
 export default EnergyScreenView;

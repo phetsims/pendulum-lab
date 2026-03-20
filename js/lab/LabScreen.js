@@ -13,7 +13,6 @@ import Image from '../../../scenery/js/nodes/Image.js';
 import labNavbarIcon_png from '../../mipmaps/labNavbarIcon_png.js';
 import labScreenIcon_png from '../../mipmaps/labScreenIcon_png.js';
 import PendulumLabConstants from '../common/PendulumLabConstants.js';
-import pendulumLab from '../pendulumLab.js';
 import PendulumLabStrings from '../PendulumLabStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
@@ -42,5 +41,4 @@ class LabScreen extends Screen {
   }
 }
 
-pendulumLab.register( 'LabScreen', LabScreen );
 export default LabScreen;

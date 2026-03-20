@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PendulumLabModel from '../../common/model/PendulumLabModel.js';
-import pendulumLab from '../../pendulumLab.js';
 
 class EnergyModel extends PendulumLabModel {
   /**
@@ -41,7 +40,5 @@ class EnergyModel extends PendulumLabModel {
     this.activeEnergyPendulumProperty.reset();
   }
 }
-
-pendulumLab.register( 'EnergyModel', EnergyModel );
 
 export default EnergyModel;

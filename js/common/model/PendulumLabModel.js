@@ -12,7 +12,6 @@ import Property from '../../../../axon/js/Property.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
-import pendulumLab from '../../pendulumLab.js';
 import Body from './Body.js';
 import Pendulum from './Pendulum.js';
 import Ruler from './Ruler.js';
@@ -218,7 +217,5 @@ class PendulumLabModel {
     }
   }
 }
-
-pendulumLab.register( 'PendulumLabModel', PendulumLabModel );
 
 export default PendulumLabModel;
