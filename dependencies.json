@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "991594d34703622a12e308a17610feef5a0b60a9",
+    "sha": "02cf4d3b331915c285414c905489af1a3879ff47",
     "branch": "HEAD"
   },
   "chipper": {
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "093782f316544e5a16dac9483c0c87349409c02a",
+    "sha": "4b55cd09c009dafe13b8104b3d6b5b9b562813eb",
     "branch": "1.0"
   },
   "phet-core": {
