@@ -106,4 +106,6 @@ type StringsType = {
 
 const PendulumLabStrings = getStringModule( 'PENDULUM_LAB' ) as StringsType;
 
+pendulumLab.register( 'PendulumLabStrings', PendulumLabStrings );
+
 export default PendulumLabStrings;
