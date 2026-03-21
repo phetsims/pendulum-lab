@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "995a3c71f5afb6f8989ae4bf4398d2fa8eaf3582",
+    "sha": "85009ea1fef8581a5f98eaeccd74d6efbd6d1a58",
     "branch": "HEAD"
   },
   "kite": {
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "pendulum-lab": {
-    "sha": "7f71a7ab9e3449c497826817730341995267fbba",
+    "sha": "51be54722313923803d9eff446aa70d8a2df56da",
     "branch": "1.0"
   },
   "phet-core": {
